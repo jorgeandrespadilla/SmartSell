@@ -10,7 +10,6 @@ namespace ProyectoFinal.Web.Models
     {
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<RatingUsuario> RatingUsuario { get; set; }
-        public DbSet<Producto> Producto { get; set; }
         public DbSet<Subasta> Subasta { get; set; }
         public DbSet<Oferta> Oferta { get; set; }
     }

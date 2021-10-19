@@ -133,7 +133,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Oferta.cs" />
-    <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\RatingUsuario.cs" />
     <Compile Include="Models\SmartSell.cs" />
     <Compile Include="Models\Subasta.cs" />
