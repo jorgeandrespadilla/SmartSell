@@ -1,0 +1,66 @@
+﻿@model ProyectoFinal.Web.Models.Subasta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Subasta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Nombres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Nombres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreProducto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreProducto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescripcionProducto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescripcionProducto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FotoUrlProducto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FotoUrlProducto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecioInicial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecioInicial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaLimite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaLimite)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SubastaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

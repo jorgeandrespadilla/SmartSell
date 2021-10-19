@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ProyectoFinal.Web.Models.Oferta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Subasta.NombreProducto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.Nombres)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Monto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subasta.NombreProducto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.Nombres)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Monto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaCreacion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OfertaID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OfertaID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OfertaID })
+        </td>
+    </tr>
+}
+
+</table>

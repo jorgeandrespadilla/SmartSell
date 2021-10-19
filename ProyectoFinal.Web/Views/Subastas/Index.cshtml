@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ProyectoFinal.Web.Models.Subasta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.Nombres)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreProducto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DescripcionProducto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FotoUrlProducto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrecioInicial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaLimite)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.Nombres)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreProducto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescripcionProducto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FotoUrlProducto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrecioInicial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaLimite)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SubastaID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SubastaID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SubastaID })
+        </td>
+    </tr>
+}
+
+</table>
