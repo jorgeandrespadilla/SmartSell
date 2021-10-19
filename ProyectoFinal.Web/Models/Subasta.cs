@@ -8,7 +8,7 @@ namespace ProyectoFinal.Web.Models
     public class Subasta
     {
         public int SubastaID { get; set; }
-        public int UsuarioID { get; set; }
+        public int? UsuarioID { get; set; }
         public string NombreProducto { get; set; }
         public string DescripcionProducto { get; set; }
         public string FotoUrlProducto { get; set; }

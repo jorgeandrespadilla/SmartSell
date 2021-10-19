@@ -10,9 +10,9 @@ namespace ProyectoFinal.Web.Models
     {
         public int RatingUsuarioID { get; set; }
         [ForeignKey("UsuarioCalificado")]
-        public int UsuarioCalificadoID { get; set; }
+        public int? UsuarioCalificadoID { get; set; }
         [ForeignKey("UsuarioCalificador")]
-        public int UsuarioCalificadorID { get; set; }
+        public int? UsuarioCalificadorID { get; set; }
         public int Rating { get; set; }
         public virtual Usuario UsuarioCalificado { get; set; }
         public virtual Usuario UsuarioCalificador { get; set; }
