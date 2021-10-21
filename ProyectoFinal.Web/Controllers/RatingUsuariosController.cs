@@ -10,6 +10,7 @@ using ProyectoFinal.Web.Models;
 
 namespace ProyectoFinal.Web.Controllers
 {
+    //hola2
     public class RatingUsuariosController : Controller
     {
         private SmartSell db = new SmartSell();
