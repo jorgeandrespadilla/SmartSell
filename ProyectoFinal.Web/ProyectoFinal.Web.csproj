@@ -171,6 +171,7 @@
     <Content Include="Content\Images\favicons\favicon-16x16.png" />
     <Content Include="Content\Images\favicons\favicon-32x32.png" />
     <Content Include="Content\Images\favicons\favicon.ico" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\material-icons.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
