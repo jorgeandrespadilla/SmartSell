@@ -11,6 +11,7 @@ namespace ProyectoFinal.Web.Controllers
 {
     public class AccountController : Controller
     {
+        //hola mundo
         private SmartSell db = new SmartSell();
 
         public ActionResult Index()
