@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
@@ -22,6 +22,14 @@
                     <li class="nav-item">@Html.ActionLink("Contacto", "Contact", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Subastas", "Index", "Subastas", null, new { @class = "nav-link" })</li>
                 </ul>
+                @if (Session["Username"] != null)
+                {
+                    <a class="d-flex align-items-center text-decoration-none text-light mt-4 mb-3 my-lg-0 me-lg-4" href="@Url.Action("Index", "Home")">
+                        <span class="material-icons text-reset fs-2 me-2">account_circle</span>
+                        <span>@Session["Username"]</span>
+                    </a>
+                }
+                @Html.ActionLink("Cerrar Sesión", "Logout", "Account", null, new { @class = "btn btn-primary" })
             </div>
         </div>
     </nav>
