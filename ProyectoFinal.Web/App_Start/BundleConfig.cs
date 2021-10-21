@@ -20,11 +20,18 @@ namespace ProyectoFinal.Web
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.bundle.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/material-icons.css",
+                      "~/Content/site.css",
+                      "~/Content/custom.css"));
+            
+            bundles.Add(new StyleBundle("~/Content/partial-css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/material-icons.css",
+                      "~/Content/custom.css"));
         }
     }
 }
