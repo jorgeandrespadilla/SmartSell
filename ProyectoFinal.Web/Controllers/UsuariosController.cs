@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoFinal.Web.Infrastructure.Helpers;
 using ProyectoFinal.Web.Models;
+using ProyectoFinal.Web.ViewModels;
 
 namespace ProyectoFinal.Web.Controllers
 {
@@ -46,16 +48,28 @@ namespace ProyectoFinal.Web.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UsuarioID,Nombres,Apellidos,Correo,Clave")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "Nombres,Apellidos,Correo,Clave")] UserViewModel usuario)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Usuario.Add(usuario);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(usuario);
             }
-
-            return View(usuario);
+            Usuario userQuery = db.Usuario.Where(u => u.Correo == usuario.Correo).FirstOrDefault();
+            if (userQuery != null)
+            {
+                ModelState.AddModelError("generalError", "Ya existe un usuario con este correo.");
+                return View(usuario);
+            }
+            string passwordHash = Hasher.toSHA256(usuario.Clave);
+            db.Usuario.Add(new Usuario
+            {
+                Nombres = usuario.Nombres,
+                Apellidos = usuario.Apellidos,
+                Correo = usuario.Correo,
+                Clave = passwordHash
+            });
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Usuarios/Edit/5
