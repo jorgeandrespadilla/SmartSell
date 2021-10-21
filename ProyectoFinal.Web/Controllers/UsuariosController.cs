@@ -15,7 +15,8 @@ namespace ProyectoFinal.Web.Controllers
     public class UsuariosController : Controller
     {
         private SmartSell db = new SmartSell();
-
+        //Hello
+        
         // GET: Usuarios
         public ActionResult Index()
         {
