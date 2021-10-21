@@ -12,7 +12,6 @@ namespace ProyectoFinal.Web.Controllers
 {
     public class SubastasController : Controller
     {
-        
         private SmartSell db = new SmartSell();
 
         // GET: Subastas
