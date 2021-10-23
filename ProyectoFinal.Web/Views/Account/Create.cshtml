@@ -8,7 +8,9 @@
     <div class="col-12 col-md-8 col-lg-5 d-grid gap-2 p-4 my-4 mx-auto card">
 
         <div class="d-flex align-items-center flex-column">
-            <img width="72" height="72" src="~/Content/Images/logo.png" />
+            <a href="@Url.Action("Index", "Home")">
+                <img width="72" height="72" src="~/Content/Images/logo.png" />
+            </a>
             <h2 class="py-3">Registro de Usuario</h2>
         </div>
         @using (Html.BeginForm())
@@ -43,8 +45,11 @@
             </div>
             @Html.ValidationMessage("generalError", new { @class = "text-danger" })
         }
+        <div class="d-flex align-items-center flex-column pt-3">
+            @Html.ActionLink("Iniciar sesión", "Login", "Account", null)
+        </div>
     </div>
-    </div>
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
