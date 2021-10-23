@@ -56,7 +56,7 @@ namespace ProyectoFinal.Web.Controllers
         {
             if (HttpContext.Session["UserID"] != null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Subastas");
             }
             return View();
         }

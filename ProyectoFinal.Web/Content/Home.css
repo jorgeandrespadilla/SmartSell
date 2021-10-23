@@ -24,9 +24,9 @@
     transition: all 300ms;
 }
 
-    .start-link:hover .shopping-icon {
-        animation: swing 0.8s cubic-bezier(.36, .07, .19, .97) both;
-    }
+.start-link:hover .shopping-icon {
+    animation: swing 0.8s cubic-bezier(.36, .07, .19, .97) both;
+}
 
 .main-img {
     width: 100%;
