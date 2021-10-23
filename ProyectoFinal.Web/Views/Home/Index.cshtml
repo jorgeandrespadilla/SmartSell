@@ -1,31 +1,46 @@
 ﻿@{
-    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>SMART SELL</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<nav class="navbar navbar-expand-lg navbar-dark custom-border">
+    <div class="container-fluid py-2 px-3 px-md-5">
+        <span class="d-flex align-items-center">
+            <img style="width: 36px;" src="~/Content/Images/logo.png" />
+            <a class="navbar-brand text-light ms-3 fw-bold" href=", "Usuarios"">SmartSell</a>
+        </span>
+        <a class="text-decoration-none text-light py-2 px-3 signup-link" href="@Url.Action("Login", "Account")">Iniciar sesión</a>
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href=""></a></li>
+            </ul>
+        </div> -->
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+</nav>
+<div class="p-5 min-h-100">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-0"></div> -->
+            <div class="col-md-7 d-flex flex-column justify-content-center pe-md-5 pb-4 pb-md-0">
+                <h1 class="main-title text-light text-center text-md-start pt-md-3">Compra y vende tus productos en línea</h1>
+                <p class="light-muted-text main-description text-center text-md-start mt-3">Con SmartSell, encuentra las mejores ofertas de productos gracias a nuestro innovador sistema de subastas.</p>
+                <div class="row">
+                    <div class="d-none d-sm-block col-sm-3 d-md-none"></div>
+                    <div class="col-12 col-sm-6 mt-3 ms-md-2 bg-light start-link">
+                        <a class="text-decoration-none text-dark d-flex justify-content-center align-items-center py-2 px-3"
+                           href="@Url.Action("Create", "Account")">
+                            <span class="material-icons shopping-icon">shopping_bag</span>
+                            <span class="ps-2 fs-5 fw-bold">Empezar</span>
+                        </a>
+                    </div>
+                    <div class="d-none d-sm-block col-sm-3 col-md-6"></div>
+                </div>
+            </div>
+            <div class="col-md-5 mt-4 mt-md-0 d-flex flex-column justify-content-center">
+                <img class="main-img" src="~/Content/Images/business.svg" />
+            </div>
+        </div>
     </div>
 </div>

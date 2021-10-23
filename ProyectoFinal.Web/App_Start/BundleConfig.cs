@@ -32,6 +32,11 @@ namespace ProyectoFinal.Web
                       "~/Content/bootstrap.css",
                       "~/Content/material-icons.css",
                       "~/Content/custom.css"));
+
+            bundles.Add(new StyleBundle("~/Content/home-css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/material-icons.css",
+                      "~/Content/home.css"));
         }
     }
 }
