@@ -1,10 +1,75 @@
 ﻿@model IEnumerable<ProyectoFinal.Web.Models.Subasta>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Subastas";
 }
 
+<style>
+    /* https://stackoverflow.com/questions/47479477/responsive-card-image-with-fixed-height-in-bootstrap-4 */
+    .wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .wrapper:after {
+        content: '';
+        display: block;
+        padding-top: 100%;
+    }
+
+    .wrapper img {
+        width: auto;
+        height: 100%;
+        max-width: none;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+    }
+
+    .custom-animation {
+        transition: transform 200ms;
+    }
+
+    .custom-animation:hover {
+        transform: scale(1.02);
+    }
+</style>
+
+
 <h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="container">
+    <div class="row g-4">
+        @for (var i = 1; i < 21; i++)
+        {
+            <div class="col-12 col-md-4">
+                <div class="card custom-animation">
+                    <a class="text-decoration-none text-reset" href="#">
+                        <div class="wrapper">
+                            <img class="card-img-top img-fluid" src="https://picsum.photos/seed/picsum/300/200" alt="@i">
+                        </div>
+                        <div class="card-body p-3 pe-none">
+                            <h5 class="card-title pe-none">TEST @i</h5>
+                            @*<p class="card-text pe-none">123</p>*@
+                            <span class="badge rounded-pill bg-primary">$123,50</span>
+                            <div class="text-muted d-flex justify-content-end">
+                                2 days ago
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -32,32 +97,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.Nombres)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreProducto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DescripcionProducto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FotoUrlProducto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PrecioInicial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaLimite)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SubastaID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SubastaID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SubastaID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Nombres)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreProducto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcionProducto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FotoUrlProducto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioInicial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaLimite)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SubastaID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SubastaID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SubastaID })
+            </td>
+        </tr>
+    }
 
 </table>
