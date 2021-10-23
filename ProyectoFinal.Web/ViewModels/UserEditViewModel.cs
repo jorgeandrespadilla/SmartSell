@@ -2,7 +2,7 @@
 
 namespace ProyectoFinal.Web.ViewModels
 {
-    public class UserViewModel
+    public class UserEditViewModel
     {
         [Required]
         [Display(Name = "nombres")]
@@ -14,8 +14,8 @@ namespace ProyectoFinal.Web.ViewModels
         [Required]
         [Display(Name = "correo")]
         public string Correo { get; set; }
+
         [MinLength(8, ErrorMessage = "La {0} debe tener una longitud mínima de 8 caracteres.")]
-        [Required]
         [Display(Name = "contraseña")]
         public string Clave { get; set; }
     }

@@ -6,12 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoFinal.Web.Infrastructure;
 using ProyectoFinal.Web.Infrastructure.Helpers;
 using ProyectoFinal.Web.Models;
 using ProyectoFinal.Web.ViewModels;
 
 namespace ProyectoFinal.Web.Controllers
 {
+    [AuthenticationFilter]
     public class UsuariosController : Controller
     {
         private SmartSell db = new SmartSell();
@@ -43,12 +45,26 @@ namespace ProyectoFinal.Web.Controllers
             return View();
         }
 
+        public ActionResult Perfil()
+        {
+            int id = Convert.ToInt32(HttpContext.Session["UserID"]);
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Usuario usuario = db.Usuario.Find(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            return View(usuario);
+        }
         // POST: Usuarios/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nombres,Apellidos,Correo,Clave")] UserViewModel usuario)
+        public ActionResult Create([Bind(Include = "Nombres,Apellidos,Correo,Clave")] UserCreateViewModel usuario)
         {
             if (!ModelState.IsValid)
             {
@@ -72,10 +88,10 @@ namespace ProyectoFinal.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Usuarios/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit()
         {
-            if (id == null)
+            int id = Convert.ToInt32(HttpContext.Session["UserID"]);
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -84,29 +100,61 @@ namespace ProyectoFinal.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(new UserEditViewModel
+            {
+                Nombres = usuario.Nombres,
+                Apellidos = usuario.Apellidos,
+                Correo = usuario.Correo,
+                Clave = null
+            });
         }
 
-        // POST: Usuarios/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UsuarioID,Nombres,Apellidos,Correo,Clave")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "Nombres,Apellidos,Correo,Clave")] UserEditViewModel usuario)
         {
-            if (ModelState.IsValid)
+
+            if (!ModelState.IsValid)
             {
-                db.Entry(usuario).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("generalError", "La contraseña debe ser de más de 8 caracteres.");
+                return View(usuario);
             }
-            return View(usuario);
+            Usuario userQuery = db.Usuario.Where(u => u.Correo == usuario.Correo).FirstOrDefault();
+            if (userQuery != null && userQuery.UsuarioID != Convert.ToInt32(HttpContext.Session["UserID"]))
+            {
+                ModelState.AddModelError("generalError", "Ya existe un usuario con este correo.");
+                return View(usuario);
+            }
+            string passwordHash;
+            userQuery = db.Usuario.Find(Convert.ToInt32(HttpContext.Session["UserID"]));
+            if (!String.IsNullOrEmpty(usuario.Clave))
+            {
+                passwordHash = Hasher.toSHA256(usuario.Clave);
+            }
+            else
+            {
+
+                passwordHash = userQuery.Clave;
+            }
+
+
+            userQuery.Nombres = usuario.Nombres;
+            userQuery.Apellidos = usuario.Apellidos;
+            userQuery.Correo = usuario.Correo;
+            userQuery.Clave = passwordHash;
+
+
+            db.Entry(userQuery).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Perfil", "Usuarios");
+
         }
 
-        // GET: Usuarios/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult DeleteConfirmed()
         {
-            if (id == null)
+            int id = Convert.ToInt32(HttpContext.Session["UserID"]);
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -115,18 +163,9 @@ namespace ProyectoFinal.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(usuario);
-        }
-
-        // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Usuario usuario = db.Usuario.Find(id);
             db.Usuario.Remove(usuario);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Logout", "Account");
         }
 
         protected override void Dispose(bool disposing)
