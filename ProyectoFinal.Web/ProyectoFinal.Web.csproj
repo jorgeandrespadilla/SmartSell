@@ -220,7 +220,7 @@
     <Content Include="Views\Ofertas\Details.cshtml" />
     <Content Include="Views\Ofertas\Edit.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
-    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Account\Create.cshtml" />
     <Content Include="Views\Usuarios\Delete.cshtml" />
     <Content Include="Views\Usuarios\Details.cshtml" />
     <Content Include="Views\Usuarios\Edit.cshtml" />

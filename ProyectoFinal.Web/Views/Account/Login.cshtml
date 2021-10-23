@@ -9,8 +9,8 @@
     <div class="col-12 col-md-8 col-lg-5 d-grid gap-2 p-4 my-4 mx-auto card">
 
         <div class="d-flex align-items-center flex-column">
-        <img width="72" height="72" src="~/Content/Images/logo.png" />
-        <h2 class="py-3">Inicio de Sesión</h2>
+            <img width="72" height="72" src="~/Content/Images/logo.png" />
+            <h2 class="py-3">Inicio de Sesión</h2>
         </div>
         @using (Html.BeginForm())
         {
@@ -30,5 +30,12 @@
             </div>
             @Html.ValidationMessage("loginError", new { @class = "text-danger" })
         }
+        <div class="d-flex align-items-center flex-column pt-3">
+            @Html.ActionLink("Registrarse", "Create", "Account", null)
+        </div>
     </div>
+
 </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

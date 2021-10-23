@@ -18,6 +18,40 @@ namespace ProyectoFinal.Web.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Nombres,Apellidos,Correo,Clave")] UserCreateViewModel usuario)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(usuario);
+            }
+            Usuario userQuery = db.Usuario.Where(u => u.Correo == usuario.Correo).FirstOrDefault();
+            if (userQuery != null)
+            {
+                ModelState.AddModelError("generalError", "Ya existe un usuario con este correo.");
+                return View(usuario);
+            }
+            string passwordHash = Hasher.toSHA256(usuario.Clave);
+            db.Usuario.Add(new Usuario
+            {
+                Nombres = usuario.Nombres,
+                Apellidos = usuario.Apellidos,
+                Correo = usuario.Correo,
+                Clave = passwordHash
+            });
+            db.SaveChanges();
+            Usuario bUsuario = db.Usuario.Where(u => u.Correo == usuario.Correo && u.Clave == passwordHash).FirstOrDefault();
+            HttpContext.Session["UserID"] = bUsuario.UsuarioID;
+            HttpContext.Session["Username"] = $"{usuario.Nombres} {usuario.Apellidos}";
+            return RedirectToAction("Index","Subastas");
+        }
+
         public ActionResult Login()
         {
             if (HttpContext.Session["UserID"] != null)

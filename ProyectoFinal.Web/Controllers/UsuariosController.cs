@@ -39,11 +39,7 @@ namespace ProyectoFinal.Web.Controllers
             return View(usuario);
         }
 
-        // GET: Usuarios/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+       
 
         public ActionResult Perfil()
         {
@@ -61,32 +57,7 @@ namespace ProyectoFinal.Web.Controllers
         }
         // POST: Usuarios/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nombres,Apellidos,Correo,Clave")] UserCreateViewModel usuario)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(usuario);
-            }
-            Usuario userQuery = db.Usuario.Where(u => u.Correo == usuario.Correo).FirstOrDefault();
-            if (userQuery != null)
-            {
-                ModelState.AddModelError("generalError", "Ya existe un usuario con este correo.");
-                return View(usuario);
-            }
-            string passwordHash = Hasher.toSHA256(usuario.Clave);
-            db.Usuario.Add(new Usuario
-            {
-                Nombres = usuario.Nombres,
-                Apellidos = usuario.Apellidos,
-                Correo = usuario.Correo,
-                Clave = passwordHash
-            });
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598
 
         public ActionResult Edit()
         {
