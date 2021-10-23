@@ -28,7 +28,7 @@
                 </ul>
                 @if (Session["Username"] != null)
                 {
-                    <a class="d-flex align-items-center text-decoration-none text-light mt-4 mb-3 my-lg-0 me-lg-4" href="@Url.Action("Perfil", "Usuarios")">
+                    <a class="d-flex align-items-center text-decoration-none text-light mt-4 mb-3 my-lg-0 me-lg-4" href="@Url.Action("Perfil", "Usuario")">
                             <span class="material-icons text-reset fs-2 me-2">account_circle</span>
                             <span>@Session["Username"]</span>
                     </a>

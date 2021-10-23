@@ -14,32 +14,15 @@ using ProyectoFinal.Web.ViewModels;
 namespace ProyectoFinal.Web.Controllers
 {
     [AuthenticationFilter]
-    public class UsuariosController : Controller
+    public class UsuarioController : Controller
     {
         private SmartSell db = new SmartSell();
 
         // GET: Usuarios
         public ActionResult Index()
         {
-            return View(db.Usuario.ToList());
+            return RedirectToAction("Perfil", "Usuario");
         }
-
-        // GET: Usuarios/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
-        }
-
-       
 
         public ActionResult Perfil()
         {
@@ -55,11 +38,8 @@ namespace ProyectoFinal.Web.Controllers
             }
             return View(usuario);
         }
-        // POST: Usuarios/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598
 
-        public ActionResult Edit()
+        public ActionResult Editar()
         {
             int id = Convert.ToInt32(HttpContext.Session["UserID"]);
             if (id == 0)
@@ -83,7 +63,7 @@ namespace ProyectoFinal.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Nombres,Apellidos,Correo,Clave")] UserEditViewModel usuario)
+        public ActionResult Editar([Bind(Include = "Nombres,Apellidos,Correo,Clave")] UserEditViewModel usuario)
         {
 
             if (!ModelState.IsValid)
@@ -105,21 +85,17 @@ namespace ProyectoFinal.Web.Controllers
             }
             else
             {
-
                 passwordHash = userQuery.Clave;
             }
-
 
             userQuery.Nombres = usuario.Nombres;
             userQuery.Apellidos = usuario.Apellidos;
             userQuery.Correo = usuario.Correo;
             userQuery.Clave = passwordHash;
 
-
             db.Entry(userQuery).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Perfil", "Usuarios");
-
+            return RedirectToAction("Perfil", "Usuario");
         }
 
         public ActionResult DeleteConfirmed()
@@ -139,13 +115,13 @@ namespace ProyectoFinal.Web.Controllers
             return RedirectToAction("Logout", "Account");
         }
 
-        protected override void Dispose(bool disposing)
+        /* protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        } */
     }
 }

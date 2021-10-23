@@ -131,7 +131,7 @@
     <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Controllers\RatingUsuariosController.cs" />
     <Compile Include="Controllers\SubastasController.cs" />
-    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -221,10 +221,7 @@
     <Content Include="Views\Ofertas\Edit.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
-    <Content Include="Views\Usuarios\Delete.cshtml" />
-    <Content Include="Views\Usuarios\Details.cshtml" />
-    <Content Include="Views\Usuarios\Edit.cshtml" />
-    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Usuario\Editar.cshtml" />
     <Content Include="Views\RatingUsuarios\Create.cshtml" />
     <Content Include="Views\RatingUsuarios\Delete.cshtml" />
     <Content Include="Views\RatingUsuarios\Details.cshtml" />
@@ -232,7 +229,7 @@
     <Content Include="Views\RatingUsuarios\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_PartialLayout.cshtml" />
-    <Content Include="Views\Usuarios\Perfil.cshtml" />
+    <Content Include="Views\Usuario\Perfil.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>

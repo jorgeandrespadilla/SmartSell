@@ -48,7 +48,7 @@
                     <button type="button" class="btn btn-outline-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
                         Eliminar
                     </button>
-                    @Html.ActionLink("Editar", "Edit", "Usuarios", null, new { @class = "btn btn-outline-primary" })
+                    @Html.ActionLink("Editar", "Editar", "Usuario", null, new { @class = "btn btn-outline-primary" })
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                @Html.ActionLink("Confirmar", "DeleteConfirmed", "Usuarios", null, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Confirmar", "DeleteConfirmed", "Usuario", null, new { @class = "btn btn-primary" })
             </div>
         </div>
     </div>
