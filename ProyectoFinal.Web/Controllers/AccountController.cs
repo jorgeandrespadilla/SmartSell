@@ -84,7 +84,7 @@ namespace ProyectoFinal.Web.Controllers
         {
             HttpContext.Session["UserID"] = null;
             HttpContext.Session["Username"] = null;
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
 
         
