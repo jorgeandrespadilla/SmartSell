@@ -29,12 +29,12 @@
                 @if (Session["Username"] != null)
                 {
                     <a class="d-flex align-items-center text-decoration-none text-light mt-4 mb-3 my-lg-0 me-lg-4" href="@Url.Action("Perfil", "Usuario")">
-                            <span class="material-icons text-reset fs-2 me-2">account_circle</span>
-                            <span>@Session["Username"]</span>
+                        <span class="material-icons text-reset fs-2 me-2">account_circle</span>
+                        <span>@Session["Username"]</span>
                     </a>
                 }
-                        @Html.ActionLink("Cerrar Sesión", "Logout", "Account", null, new { @class = "btn btn-primary" })
-                </div>
+                @Html.ActionLink("Cerrar Sesión", "Logout", "Account", null, new { @class = "btn btn-primary" })
+            </div>
         </div>
     </nav>
     <div class="container body-content mt-5">
@@ -52,7 +52,9 @@
         $().ready(function () {
             let fullpath = document.location.pathname;
             let navElement = $(`a.nav-link[href='${fullpath}']`);
-            navElement[0].classList.add("active");
+            if (navElement.length != 0) {
+                navElement[0].classList.add("active");
+            }
         });
     </script>
 </body>
