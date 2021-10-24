@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ProyectoFinal.Web.Models.Subasta>
+﻿@model PagedList.IPagedList<ProyectoFinal.Web.ViewModels.SubastaItemViewModel>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Subastas";
@@ -34,96 +35,139 @@
     .custom-animation:hover {
         transform: scale(1.02);
     }
+
+    .dropdown-toggle::after {
+        display: none;
+    }
 </style>
 
 
-<h2>Index</h2>
+<h2>Subastas</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <div class="container">
-    <div class="row g-4">
-        @for (var i = 1; i < 21; i++)
+    <div class="mt-4 mb-4">
+        @using (Html.BeginForm())
         {
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="card custom-animation">
-                    <a class="text-decoration-none text-reset" href="#">
-                        <div class="wrapper">
-                            <img class="card-img-top img-fluid" src="https://picsum.photos/seed/picsum/300/200" alt="@i">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="d-flex">
+                        <!-- Ordenar -->
+                        <div class="btn-group">
+                            <button type="button" class="btn dropdown-toggle d-flex justify-content-center align-items-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="material-icons fs-4 text-muted">filter_alt</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "price_asc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "price_asc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Precio ascendente</a></li>
+                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "price_desc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "price_desc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Precio descendente</a></li>
+                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "name_asc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "name_asc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Nombre ascendente</a></li>
+                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "name_desc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "name_desc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Nombre descendente</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Index", new { sortOrder = "", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">
+                                        <span class="material-icons fs-5">filter_alt_off</span>
+                                        <span class="ms-2">Quitar filtros</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="card-body p-3 pe-none">
-                            <h5 class="card-title pe-none">TEST @i</h5>
-                            @*<p class="card-text pe-none">123</p>*@
-                            <span class="badge rounded-pill bg-primary">$123,50</span>
-                            <div class="text-muted d-flex justify-content-end">
-                                2 days ago
-                            </div>
-                        </div>
-                    </a>
+                        <!-- Buscar -->
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control ms-2" })
+                        <button class="btn btn-primary d-flex align-items-center ms-3" type="submit">
+                            <span class="material-icons fs-4">search</span>
+                            <span class="ms-2">Buscar</span>
+                        </button>
+                    </div>
+                    <!-- Ocultar -->
+                    <div class="form-check mt-3">
+                        @Html.CheckBox("HideEnded", (String.Compare(ViewBag.HideEnded, "false") == 0 ? false : true), new { @class = "form-check-input", @id = "hideEnded" })
+                        <label class="form-check-label" for="hideEnded">Ocultar subastas finalizadas</label>
+                    </div>
                 </div>
+                <!-- Mostrar cantidad de resultados -->
+                @if (ViewBag.ResultsFound)
+                {
+                    <div class="col-md-6 d-flex justify-content-start justify-content-md-end align-items-center pt-2 pt-md-0 text-muted">
+                        @Model.TotalItemCount resultados encontrados
+                    </div>
+                }
             </div>
         }
     </div>
-</div>
-
-
-
-
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuario.Nombres)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NombreProducto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DescripcionProducto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FotoUrlProducto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PrecioInicial)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaLimite)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    <!-- Desplegar resultados -->
+    @if (ViewBag.ResultsFound)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.Nombres)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescripcionProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FotoUrlProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecioInicial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaLimite)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.SubastaID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.SubastaID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.SubastaID })
-            </td>
-        </tr>
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="card custom-animation">
+                        <a class="text-decoration-none text-reset" href="@Url.Action("Details", "Subastas", new { id = @item.Subasta.SubastaID })">
+                            <div class="wrapper">
+                                <img class="card-img-top img-fluid" src="https://picsum.photos/seed/picsum/300/200" alt="@item.Subasta.NombreProducto">
+                            </div>
+                            <div class="card-body p-3 pe-none">
+                                <h5 class="card-title pe-none">
+                                    @Html.DisplayFor(modelItem => item.Subasta.NombreProducto)
+                                </h5>
+                                @*<p class="card-text pe-none">123</p>*@
+                                <span class="badge rounded-pill bg-primary">
+                                    @string.Format("{0:C}", item.MontoActual)
+                                </span>
+                                @if (item.Vigente)
+                                {
+                                    <div class="text-muted d-flex justify-content-end mt-3">
+                                        @item.Subasta.FechaLimite.ToString("dd MMM yyyy, HH:mm")
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-muted d-flex justify-content-end mt-3">
+                                        Finalizado
+                                    </div>
+                                }
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- Paginación de resultados -->
+        <div class="mt-4 mb-4">
+            <nav aria-label="Page navigation">
+                @*@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded }),
+                new PagedListRenderOptions
+                {
+                    MaximumPageNumbersToDisplay = 8,
+                    LinkToPreviousPageFormat = "Anterior",
+                    LinkToNextPageFormat = "Siguiente",
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                    DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                    ContainerDivClasses = new[] { "justify-content-center", "d-flex", "pagination-container" }
+                })
+                @*<ul class="pagination justify-content-center">
+                        <li class="page-item @(ViewBag.EnablePreviousPage ? "" : "disabled")">
+                            <a class="page-link">Anterior</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">@ViewBag.TotalSubastas</a></li>
+                        <li class="page-item"><a class="page-link" href="#">@ViewBag.PaginaActual</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link @(ViewBag.EnablePreviousPage ? "" : "disabled")" href="#">Siguiente</a>
+                        </li>
+                    </ul>
+                    </ul>*@
+            </nav>
+        </div>
     }
-
-</table>
+    else
+    {
+        <div class="d-flex align-items-center py-4">
+            <p class="p-0">No se encontraron resultados.</p>
+        </div>
+    }
+</div>

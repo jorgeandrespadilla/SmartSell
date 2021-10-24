@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoFinal.Web.Models;
+using ProyectoFinal.Web.ViewModels;
+using PagedList;
 
 namespace ProyectoFinal.Web.Controllers
 {
@@ -15,10 +17,109 @@ namespace ProyectoFinal.Web.Controllers
         private SmartSell db = new SmartSell();
 
         // GET: Subastas
-        public ActionResult Index()
+        // https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, string hideEnded, int? page)
         {
-            var subasta = db.Subasta.Include(s => s.Usuario);
-            return View(subasta.ToList());
+            /* Manejar configuración de filtrado y de ocultamiento */
+            sortOrder = String.IsNullOrEmpty(sortOrder) ? "" : sortOrder;
+            ViewBag.CurrentSort = sortOrder;
+            hideEnded = String.IsNullOrEmpty(hideEnded) ? "true" : hideEnded;
+            ViewBag.HideEnded = hideEnded;
+
+            /* Manejar configuración de búsqueda y paginación */
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            /* Manejar cadena de búsqueda */
+            /* Consultar subastas junto con su mayor oferta */
+            var subastasQuery = db.Subasta.GroupJoin(db.Oferta, s => s.SubastaID, o => o.SubastaID, (s, o) => new
+                {
+                    Subasta = s,
+                    OfertaActual = o.OrderByDescending(x => x.Monto).FirstOrDefault()
+                }
+            ).ToList();
+            /* var subastasActivas = db.Oferta.GroupBy(o => o.SubastaID).Select(g => new
+            {
+                SubastaID = g.Key,
+                OfertaActual = g.OrderByDescending(x => x.Monto).Select(x => x).FirstOrDefault()
+            }).ToList(); */
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                subastasQuery = subastasQuery.Where(s => s.Subasta.NombreProducto.Contains(searchString)).ToList();
+            }
+
+            /* Manejar existencia o no de resultados */
+            if (subastasQuery.Count() == 0)
+            {
+                ViewBag.ResultsFound = false;
+                return View();
+            }
+            ViewBag.ResultsFound = true;
+
+            /* Generar modelos de subastas */
+            var subastasModel = new List<SubastaItemViewModel>();
+            foreach (var subasta in subastasQuery)
+            {
+                subastasModel.Add(new SubastaItemViewModel
+                {
+                    Subasta = subasta.Subasta,
+                    MontoActual = subasta.OfertaActual == null ? subasta.Subasta.PrecioInicial : subasta.OfertaActual.Monto, // Si existen ofertas, obtiene el monto actual de la oferta más alta. Caso contrario, obtiene el precio inicial.
+                    Vigente = DateTime.Compare(DateTime.Now, subasta.Subasta.FechaLimite) <= 0 // Si la fecha y hora actuales son anteriores a la fecha límite, la subasta se encuentra vigente.
+                });
+
+            }
+
+            /* Manejar ocultamiento de subastas pasadas/finalizadas */
+            if (String.Compare(hideEnded, "true") == 0)
+            {
+                subastasModel = subastasModel.Where(s => s.Vigente).ToList();
+            }
+
+            /* Manejar filtros */
+            switch (sortOrder)
+            {
+                case "price_asc":
+                    subastasModel = subastasModel.OrderBy(s => s.MontoActual).ToList();
+                    break;
+                case "price_desc":
+                    subastasModel = subastasModel.OrderByDescending(s => s.MontoActual).ToList();
+                    break;
+                case "name_asc":
+                    subastasModel = subastasModel.OrderBy(s => s.Subasta.NombreProducto).ToList();
+                    break;
+                case "name_desc":
+                    subastasModel = subastasModel.OrderByDescending(s => s.Subasta.NombreProducto).ToList();
+                    break;
+                default:
+                    subastasModel = subastasModel.OrderBy(s => s.Subasta.FechaLimite).ToList();
+                    break;
+            }
+
+            /* Configurar paginación */
+            /*
+            ViewBag.PaginaActual = page;
+            ViewBag.EnableNextPage = (page < paginasTotales);
+            ViewBag.EnablePreviousPage = (page > 1);
+            ViewBag.PaginaActual = page;
+            ViewBag.PaginaMimima = paginasTotales - 4 >= 1 ? paginasTotales - 4 : 1;
+            ViewBag.PaginaMaxima = paginasTotales + 3 >= 1 ? paginasTotales - 4 : 1; 
+            */
+            int pageSize = 6;
+            int paginasTotales = Convert.ToInt32(subastasModel.Count() / pageSize) + 1;
+            if (page != null && (page < 1 || page > paginasTotales))
+            {
+                page = 1;
+            }
+            int pageNumber = (page ?? 1);
+
+            return View(subastasModel.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Subastas/Details/5
