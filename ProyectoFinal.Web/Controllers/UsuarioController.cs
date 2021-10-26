@@ -95,6 +95,7 @@ namespace ProyectoFinal.Web.Controllers
 
             db.Entry(userQuery).State = EntityState.Modified;
             db.SaveChanges();
+            HttpContext.Session["Username"] =$"{usuario.Nombres} {usuario.Apellidos}";
             return RedirectToAction("Perfil", "Usuario");
         }
 
