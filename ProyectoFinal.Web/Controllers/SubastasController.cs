@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -40,10 +40,10 @@ namespace ProyectoFinal.Web.Controllers
             /* Manejar cadena de búsqueda */
             /* Consultar subastas junto con su mayor oferta */
             var subastasQuery = db.Subasta.GroupJoin(db.Oferta, s => s.SubastaID, o => o.SubastaID, (s, o) => new
-                {
-                    Subasta = s,
-                    OfertaActual = o.OrderByDescending(x => x.Monto).FirstOrDefault()
-                }
+            {
+                Subasta = s,
+                OfertaActual = o.OrderByDescending(x => x.Monto).FirstOrDefault()
+            }
             ).ToList();
             /* var subastasActivas = db.Oferta.GroupBy(o => o.SubastaID).Select(g => new
             {
@@ -122,7 +122,6 @@ namespace ProyectoFinal.Web.Controllers
             return View(subastasModel.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: Subastas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -134,7 +133,87 @@ namespace ProyectoFinal.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(subasta);
+            int userID = Convert.ToInt32(HttpContext.Session["UserID"]);
+            if (userID == subasta.UsuarioID)
+            {
+                return RedirectToAction("DetailsVendedor", "Subastas", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("DetailsComprador", "Subastas", new { id = id });
+            }
+        }
+
+        // GET: Subastas/Details/5
+        public ActionResult DetailsVendedor(int? id)
+        {
+            float montoActual;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Subasta subasta = db.Subasta.Find(id);
+            if (subasta == null)
+            {
+                return HttpNotFound();
+            }
+            int userID = Convert.ToInt32(HttpContext.Session["UserID"]);
+            if (subasta.UsuarioID != userID)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == id).OrderByDescending(o => o.Monto).FirstOrDefault();
+            if (ofertaActual == null)
+            {
+                montoActual = subasta.PrecioInicial;
+            }
+            else
+            {
+                montoActual = ofertaActual.Monto;
+            }
+            return View(new SubastaItemViewModel
+            {
+                Subasta = subasta,
+                Vigente = DateTime.Compare(DateTime.Now, subasta.FechaLimite) <= 0,
+                MontoActual = montoActual
+
+            });
+        }
+
+        public ActionResult DetailsComprador(int? id)
+        {
+            float montoActual;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Subasta subasta = db.Subasta.Find(id);
+            if (subasta == null)
+            {
+                return HttpNotFound();
+            }
+            int userID = Convert.ToInt32(HttpContext.Session["UserID"]);
+            if (subasta.UsuarioID == userID)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == id).OrderByDescending(o => o.Monto).FirstOrDefault();
+            if (ofertaActual == null)
+            {
+                montoActual = subasta.PrecioInicial;
+            }
+            else
+            {
+                montoActual = ofertaActual.Monto;
+            }
+            return View(new SubastaItemViewModel
+            {
+                Subasta = subasta,
+                Vigente = DateTime.Compare(DateTime.Now, subasta.FechaLimite) <= 0,
+                MontoActual = montoActual
+
+            });
         }
 
         // GET: Subastas/Create
@@ -163,18 +242,15 @@ namespace ProyectoFinal.Web.Controllers
         }
 
         // GET: Subastas/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? ID)
         {
-            if (id == null)
+            Subasta subasta = db.Subasta.Find(ID);
+            int userID = Convert.ToInt32(HttpContext.Session["UserID"]);
+            if (subasta.UsuarioID != userID)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subasta subasta = db.Subasta.Find(id);
-            if (subasta == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.UsuarioID = new SelectList(db.Usuario, "UsuarioID", "Nombres", subasta.UsuarioID);
+
             return View(subasta);
         }
 
@@ -187,11 +263,20 @@ namespace ProyectoFinal.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(subasta).State = EntityState.Modified;
+                Subasta subastaQuery = db.Subasta.Find(subasta.SubastaID);
+
+                subastaQuery.UsuarioID = subastaQuery.UsuarioID;
+                subastaQuery.NombreProducto = subasta.NombreProducto;
+                subastaQuery.DescripcionProducto = subasta.DescripcionProducto;
+                subastaQuery.FotoUrlProducto = subasta.FotoUrlProducto;
+                subastaQuery.PrecioInicial = subastaQuery.PrecioInicial;
+                subastaQuery.FechaLimite = subastaQuery.FechaLimite;
+
+                db.Entry(subastaQuery).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
             }
-            ViewBag.UsuarioID = new SelectList(db.Usuario, "UsuarioID", "Nombres", subasta.UsuarioID);
             return View(subasta);
         }
 

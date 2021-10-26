@@ -1,0 +1,67 @@
+﻿@model ProyectoFinal.Web.ViewModels.SubastaItemViewModel
+
+
+@{ ViewBag.Title = "Información de subasta"; }
+<style>
+    body {
+        background-color: #f9f9fa;
+    }
+
+    .hw-250p {
+        height: 250px;
+        width: 250px;
+    }
+</style>
+
+<h2>Información de subasta</h2>
+
+<div class="py-3 container">
+    <div class="d-flex justify-content-center">
+        <div class="col-12 col-sm-4 bg-c-lite-green pt-3 pb-3 me-3 hw-250p ">
+            <div class="p-1 text-center text-white">
+                <span class="material-icons text-reset p-4 icon-big">account_circle</span>
+            </div>
+        </div>
+        <div class="col-12 col-sm-8">
+            <div class="p-3">
+                <h5 class="mb-4 pb-1 border-bottom fw-bold">Información</h5>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="mb-2 fw-bolder">Nombre del producto</p>
+                        <h6 class="text-muted">@Html.DisplayFor(model => model.Subasta.NombreProducto)</h6>
+                    </div>
+                </div>
+                <div class="row mt-3 ">
+                    <div class="col-sm-6">
+                        <p class="mb-2 fw-bolder">Vendedor</p>
+                        <h6 class="text-muted">@Html.DisplayFor(model => model.Subasta.Usuario.Nombres) @Html.DisplayFor(model => model.Subasta.Usuario.Apellidos)</h6>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-6">
+                        <p class="mb-2 fw-bolder">Precio actual</p>
+
+                        <h6 class="text-muted">@string.Format("{0:C}", Model.MontoActual)</h6>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-6">
+                        <p class="mb-2 fw-bolder">Descripción</p>
+                        <p class="text-muted">@Html.DisplayFor(model => model.Subasta.DescripcionProducto)</p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-6">
+                        <p class="mb-2 fw-bolder">Disponibilidad</p>
+                        <p class="text-muted">@Html.DisplayFor(model => model.Vigente)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3 d-flex justify-content-end">
+        @Html.ActionLink("Editar", "Edit", "Subastas", new { ID = Model.Subasta.SubastaID }, new { @class = "btn btn-outline-primary" })
+    </div>
+</div>
+
+

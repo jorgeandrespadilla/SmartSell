@@ -151,6 +151,7 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\OfertasCreateViewModel.cs" />
     <Compile Include="ViewModels\SubastaItemViewModel.cs" />
     <Compile Include="ViewModels\UserEditViewModel.cs" />
     <Compile Include="ViewModels\UserCreateViewModel.cs" />
@@ -220,7 +221,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Subastas\Create.cshtml" />
     <Content Include="Views\Subastas\Delete.cshtml" />
-    <Content Include="Views\Subastas\Details.cshtml" />
     <Content Include="Views\Subastas\Edit.cshtml" />
     <Content Include="Views\Subastas\Index.cshtml" />
     <Content Include="Views\Ofertas\Create.cshtml" />
@@ -239,6 +239,8 @@
     <Content Include="Views\Shared\_PartialLayout.cshtml" />
     <Content Include="Views\Usuario\Perfil.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
+    <Content Include="Views\Subastas\DetailsComprador.cshtml" />
+    <Content Include="Views\Subastas\DetailsVendedor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoFinal.Web.Models;
+using ProyectoFinal.Web.ViewModels;
 
 namespace ProyectoFinal.Web.Controllers
 {
@@ -37,11 +38,17 @@ namespace ProyectoFinal.Web.Controllers
         }
 
         // GET: Ofertas/Create
-        public ActionResult Create()
+        public ActionResult Create(int subastaID)
         {
-            ViewBag.SubastaID = new SelectList(db.Subasta, "SubastaID", "NombreProducto");
-            ViewBag.UsuarioID = new SelectList(db.Usuario, "UsuarioID", "Nombres");
-            return View();
+            Subasta subasta = db.Subasta.Find(subastaID);
+            if (DateTime.Compare(DateTime.Now, subasta.FechaLimite) >= 0)
+            {
+                return RedirectToAction("Index", "Subastas");
+            }
+            return View(new OfertaCreateViewModel
+            {
+                SubastaID = subastaID
+            });
         }
 
         // POST: Ofertas/Create
@@ -49,20 +56,39 @@ namespace ProyectoFinal.Web.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OfertaID,UsuarioID,SubastaID,Monto,FechaCreacion")] Oferta oferta)
+        public ActionResult Create(OfertaCreateViewModel oferta)
         {
-            if (ModelState.IsValid)
+
+            if (!ModelState.IsValid)
             {
-                db.Oferta.Add(oferta);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(oferta);
             }
+            Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == oferta.SubastaID).OrderByDescending(o => o.Monto).FirstOrDefault();
+            if (ofertaActual == null)
+            {
+                Subasta subasta = db.Subasta.Find(oferta.SubastaID);
+                if (oferta.Monto < subasta.PrecioInicial)
+                {
+                    ModelState.AddModelError("generalError", "El monto es inferior al precio inicial");
+                    return View(oferta);
+                }
+            }
+            else if (oferta.Monto <= ofertaActual.Monto)
+            {
+                ModelState.AddModelError("generalError", "El monto es inferior o igual al monto actual");
+                return View(oferta);
+            }
+            db.Oferta.Add(new Oferta
+            {
+                UsuarioID = Convert.ToInt32(HttpContext.Session["UserID"]),
+                SubastaID = oferta.SubastaID,
+                Monto = oferta.Monto,
+                FechaCreacion = DateTime.Now
 
-            ViewBag.SubastaID = new SelectList(db.Subasta, "SubastaID", "NombreProducto", oferta.SubastaID);
-            ViewBag.UsuarioID = new SelectList(db.Usuario, "UsuarioID", "Nombres", oferta.UsuarioID);
-            return View(oferta);
+            });
+            db.SaveChanges();
+            return RedirectToAction("Index", "Subastas");
         }
-
         // GET: Ofertas/Edit/5
         public ActionResult Edit(int? id)
         {
