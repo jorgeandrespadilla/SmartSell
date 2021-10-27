@@ -153,6 +153,8 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\OfertasCreateViewModel.cs" />
     <Compile Include="ViewModels\PerfilViewModel.cs" />
+    <Compile Include="ViewModels\SubastaCreateViewModel.cs" />
+    <Compile Include="ViewModels\SubastaDetailsViewModel.cs" />
     <Compile Include="ViewModels\SubastaItemViewModel.cs" />
     <Compile Include="ViewModels\UserEditViewModel.cs" />
     <Compile Include="ViewModels\UserCreateViewModel.cs" />

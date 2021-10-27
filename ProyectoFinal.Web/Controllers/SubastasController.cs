@@ -73,7 +73,6 @@ namespace ProyectoFinal.Web.Controllers
                     MontoActual = subasta.OfertaActual == null ? subasta.Subasta.PrecioInicial : subasta.OfertaActual.Monto, // Si existen ofertas, obtiene el monto actual de la oferta más alta. Caso contrario, obtiene el precio inicial.
                     Vigente = DateTime.Compare(DateTime.Now, subasta.Subasta.FechaLimite) <= 0 // Si la fecha y hora actuales son anteriores a la fecha límite, la subasta se encuentra vigente.
                 });
-
             }
 
             /* Manejar ocultamiento de subastas pasadas/finalizadas */
@@ -171,12 +170,13 @@ namespace ProyectoFinal.Web.Controllers
             {
                 montoActual = ofertaActual.Monto;
             }
-            return View(new SubastaItemViewModel
+            ICollection<Oferta> ofertas = db.Oferta.Where(u => u.SubastaID == id).OrderByDescending(o => o.Monto).ToList();
+            return View(new SubastaDetailsViewModel
             {
+                OfertasSubasta=ofertas,
                 Subasta = subasta,
                 Vigente = DateTime.Compare(DateTime.Now, subasta.FechaLimite) <= 0,
                 MontoActual = montoActual
-
             });
         }
 
@@ -206,19 +206,20 @@ namespace ProyectoFinal.Web.Controllers
             {
                 montoActual = ofertaActual.Monto;
             }
-            return View(new SubastaItemViewModel
+            ICollection<Oferta> ofertas = db.Oferta.Where(u => u.SubastaID == id).OrderByDescending(o => o.Monto).ToList();
+            
+            return View(new SubastaDetailsViewModel
             {
+                OfertasSubasta = ofertas,
                 Subasta = subasta,
                 Vigente = DateTime.Compare(DateTime.Now, subasta.FechaLimite) <= 0,
                 MontoActual = montoActual
-
             });
         }
 
         // GET: Subastas/Create
         public ActionResult Create()
-        {
-            ViewBag.UsuarioID = new SelectList(db.Usuario, "UsuarioID", "Nombres");
+        { 
             return View();
         }
 
@@ -227,17 +228,23 @@ namespace ProyectoFinal.Web.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SubastaID,UsuarioID,NombreProducto,DescripcionProducto,FotoUrlProducto,PrecioInicial,FechaLimite")] Subasta subasta)
+        public ActionResult Create(SubastaCreateViewModel subasta)
         {
             if (ModelState.IsValid)
             {
-                db.Subasta.Add(subasta);
+                db.Subasta.Add(new Subasta
+                {
+                    UsuarioID = Convert.ToInt32(HttpContext.Session["UserID"]),
+                    NombreProducto = subasta.NombreProducto,
+                    DescripcionProducto=subasta.DescripcionProducto,
+                    FotoUrlProducto=subasta.FotoURL,
+                    PrecioInicial=subasta.PrecioInicial,
+                    FechaLimite=DateTime.Now
+                });
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.UsuarioID = new SelectList(db.Usuario, "UsuarioID", "Nombres", subasta.UsuarioID);
-            return View(subasta);
+            return View();
         }
 
         // GET: Subastas/Edit/5
@@ -249,7 +256,6 @@ namespace ProyectoFinal.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             return View(subasta);
         }
 
@@ -270,11 +276,9 @@ namespace ProyectoFinal.Web.Controllers
                 subastaQuery.FotoUrlProducto = subasta.FotoUrlProducto;
                 subastaQuery.PrecioInicial = subastaQuery.PrecioInicial;
                 subastaQuery.FechaLimite = subastaQuery.FechaLimite;
-
                 db.Entry(subastaQuery).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-
             }
             return View(subasta);
         }
