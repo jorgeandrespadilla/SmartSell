@@ -79,6 +79,16 @@ namespace ProyectoFinal.Web.Controllers
             ViewBag.UsuarioCalificadorID = new SelectList(db.Usuario, "UsuarioID", "Nombres", ratingUsuario.UsuarioCalificadorID);
             return View(ratingUsuario);
         }
+       // public ActionResult Rate()
+        //{
+            //toma un valor 
+          //  int suma=0;
+            /*double prom;
+            int total;
+            //foreach (//valor in elvalor){
+                // suma +=valor
+            //(double)prom = suma / total;
+        }*/
 
         // POST: RatingUsuarios/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 

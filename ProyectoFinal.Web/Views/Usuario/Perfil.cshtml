@@ -1,4 +1,4 @@
-﻿@model ProyectoFinal.Web.Models.Usuario
+﻿@model ProyectoFinal.Web.ViewModels.PerfilViewModel
 
 @{ ViewBag.Title = "Perfil"; }
 <style>
@@ -11,11 +11,14 @@
 
 <div class="py-3 container">
     <div class="d-flex justify-content-center">
-        <div class="col-12 col-sm-4 bg-c-lite-green pt-3 pb-3 me-3">
-            <div class="p-1 text-center text-white">
-                <span class="material-icons text-reset p-4 icon-big">account_circle</span>
-                <p class="fs-5 fw-bold">@Session["Username"]</p>
+        <div class="col-12 col-sm-4 me-3">
+            <div class="bg-c-lite-green pt-3 pb-3 ">
+                <div class="p-1 text-center text-white">
+                    <span class="material-icons text-reset p-4 icon-big">account_circle</span>
+                    <p class="fs-5 fw-bold">@Session["Username"]</p>
+                </div>
             </div>
+            
         </div>
         <div class="col-12 col-sm-8">
             <div class="p-3">
@@ -23,19 +26,24 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="mb-2 fw-bolder">Nombres</p>
-                        <h6 class="text-muted">@Html.DisplayFor(model => model.Nombres)</h6>
+                        <h6 class="text-muted">@Html.DisplayFor(model => model.Usuario.Nombres)</h6>
                     </div>
                     <div class="col-sm-6">
                         <p class="mb-2 fw-bolder">Apellidos</p>
-                        <h6 class="text-muted">@Html.DisplayFor(model => model.Apellidos)</h6>
+                        <h6 class="text-muted">@Html.DisplayFor(model => model.Usuario.Apellidos)</h6>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-sm-6">
                         <p class="mb-2 fw-bolder">Correo</p>
-                        <h6 class="text-muted">@Html.DisplayFor(model => model.Correo)</h6>
+                        <h6 class="text-muted">@Html.DisplayFor(model => model.Usuario.Correo)</h6>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="mb-2 fw-bolder">Calificación</p>
+                        <h6 class="text-muted">@String.Format("{0:f}/{1:f}", Model.Rating, 5)</h6>
                     </div>
                 </div>
+               
             </div>
         </div>
     </div>

@@ -36,7 +36,10 @@ namespace ProyectoFinal.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(new PerfilViewModel
+            {
+                Usuario = usuario, Rating = 1
+            }) ;
         }
 
         public ActionResult Editar()
