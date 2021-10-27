@@ -141,6 +141,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Helpers\Uploader.cs" />
     <Compile Include="Infrastructure\AuthenticationFilter.cs" />
     <Compile Include="Infrastructure\Helpers\Hasher.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -186,6 +187,7 @@
     <Content Include="Content\Images\favicons\favicon-32x32.png" />
     <Content Include="Content\Images\favicons\favicon.ico" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\missing-img.jpg" />
     <Content Include="Content\material-icons.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
@@ -200,6 +202,7 @@
     <Content Include="Content\Fonts\MaterialIcons-Regular.woff2" />
     <Content Include="Content\Images\favicons\site.webmanifest" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\img-box.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />

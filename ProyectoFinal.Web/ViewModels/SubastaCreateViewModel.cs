@@ -13,7 +13,7 @@ namespace ProyectoFinal.Web.ViewModels
         [Required]
         public String DescripcionProducto { get; set; }
         [Required]
-        public String FotoURL { get; set; }
+        public HttpPostedFileBase Imagen { get; set; }
         [Required]
         [Range(0, float.MaxValue, ErrorMessage ="Ingrese un valor positivo")]
         public float PrecioInicial { get; set; }

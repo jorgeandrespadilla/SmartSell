@@ -84,7 +84,7 @@ namespace ProyectoFinal.Web.Controllers
             userQuery = db.Usuario.Find(Convert.ToInt32(HttpContext.Session["UserID"]));
             if (!String.IsNullOrEmpty(usuario.Clave))
             {
-                passwordHash = Hasher.toSHA256(usuario.Clave);
+                passwordHash = Hasher.ToSHA256(usuario.Clave);
             }
             else
             {

@@ -3,61 +3,103 @@
 @{
     ViewBag.Title = "Crear Subasta";
 }
+<style>
+    .custom-file-input {
+        display: none;
+    }
+
+    .wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .wrapper:after {
+        content: '';
+        display: block;
+        padding-top: 100%;
+    }
+
+    .wrapper img {
+        width: 100%;
+        height: auto;
+        max-width: none;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+    }
+</style>
 
 <h2>Crear Subasta</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create",
+      "Subastas",
+      FormMethod.Post,
+      new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.NombreProducto,"Nombre del producto" , htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NombreProducto, new { htmlAttributes = new { @class = "form-control" } })
+
+    <hr />
+    <div class="d-flex justify-content-center mt-4">
+        <div class="col-12 col-sm-4 wrapper d-flex justify-content-center">
+            <img id="image-preview" class="card-img-top img-fluid" src="~/Content/Images/missing-img.jpg" onclick="img_box(this)">
+        </div>
+        <div class="col-12 col-sm-8 ms-4 form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NombreProducto, "Nombre del producto", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.NombreProducto, new { htmlAttributes = new { @class = "form-control mt-2" } })
                 @Html.ValidationMessageFor(model => model.NombreProducto, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DescripcionProducto,"Descripción del producto" ,htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DescripcionProducto, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="form-group">
+                @Html.LabelFor(model => model.DescripcionProducto, "Descripción del producto", htmlAttributes: new { @class = "control-label mt-3" })
+                @Html.EditorFor(model => model.DescripcionProducto, new { htmlAttributes = new { @class = "form-control mt-2" } })
                 @Html.ValidationMessageFor(model => model.DescripcionProducto, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FotoURL,"Foto" ,htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FotoURL, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FotoURL, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PrecioInicial,"Precio Inicial",htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PrecioInicial, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Imagen, "Imagen", htmlAttributes: new { @class = "control-label  mt-2" })
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.Imagen, "Cargar Archivo", htmlAttributes: new { @class = "btn btn-primary mt-2" })
+                    @Html.TextBoxFor(m => m.Imagen, new { @class = "custom-file-input", type = "file", accept = "image/*", onchange = "showPreview(event);" })
+                    @Html.ValidationMessageFor(model => model.Imagen, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PrecioInicial, "Precio Inicial", htmlAttributes: new { @class = "control-label mt-3" })
+                @Html.EditorFor(model => model.PrecioInicial, new { htmlAttributes = new { @class = "form-control mt-2" } })
                 @Html.ValidationMessageFor(model => model.PrecioInicial, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10 mt-2 mb-2">
-                <input type="submit" value="Create" class="btn btn-outline-primary" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10 mt-4 mb-2">
+                    <input type="submit" value="Crear" class="btn btn-lg btn-outline-primary px-4" />
+                </div>
             </div>
+            @Html.ValidationMessage("generalError", new { @class = "text-danger" })
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Volver a la lista", "Index")
+    @Html.ActionLink("Volver", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+    function showPreview(event) {
+        if (event.target.files.length > 0) {
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById("image-preview");
+            preview.src = src;
+            preview.style.display = "block";
+        }
+    }
+</script>

@@ -37,7 +37,7 @@ namespace ProyectoFinal.Web.Controllers
                 ModelState.AddModelError("generalError", "Ya existe un usuario con este correo.");
                 return View(usuario);
             }
-            string passwordHash = Hasher.toSHA256(usuario.Clave);
+            string passwordHash = Hasher.ToSHA256(usuario.Clave);
             db.Usuario.Add(new Usuario
             {
                 Nombres = usuario.Nombres,
@@ -65,7 +65,7 @@ namespace ProyectoFinal.Web.Controllers
             {
                 return View();
             }
-            string passwordHash = Hasher.toSHA256(model.Password);
+            string passwordHash = Hasher.ToSHA256(model.Password);
             Usuario usuario = db.Usuario.Where(u => u.Correo == model.Email && u.Clave == passwordHash).FirstOrDefault();
             if (usuario == null)
             {

@@ -22,6 +22,9 @@ namespace ProyectoFinal.Web
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.bundle.js"));
 
+            bundles.Add(new Bundle("~/bundles/img-box").Include(
+                      "~/Scripts/img-box.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/material-icons.css",

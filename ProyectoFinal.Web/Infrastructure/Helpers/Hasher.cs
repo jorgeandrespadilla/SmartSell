@@ -9,7 +9,7 @@ namespace ProyectoFinal.Web.Infrastructure.Helpers
 {
     public static class Hasher
     {
-        public static string toSHA256(string data)
+        public static string ToSHA256(string data)
         {
             // Create a SHA256   
             using (SHA256 sha256Hash = SHA256.Create())

@@ -4,11 +4,11 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ProyectoFinal.Web.Models;
 using ProyectoFinal.Web.ViewModels;
 using PagedList;
+using ProyectoFinal.Web.Helpers;
 
 namespace ProyectoFinal.Web.Controllers
 {
@@ -232,17 +232,25 @@ namespace ProyectoFinal.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Subasta.Add(new Subasta
+                if (subasta.Imagen.ContentLength > 1000000)
                 {
-                    UsuarioID = Convert.ToInt32(HttpContext.Session["UserID"]),
-                    NombreProducto = subasta.NombreProducto,
-                    DescripcionProducto=subasta.DescripcionProducto,
-                    FotoUrlProducto=subasta.FotoURL,
-                    PrecioInicial=subasta.PrecioInicial,
-                    FechaLimite=DateTime.Now
-                });
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    ModelState.AddModelError("generalError", "El tamaño de la imagen supera el límite permitido (1 MB).");
+                }
+                else
+                {
+                    string imageUrl = Uploader.GetImageUrl(subasta.Imagen);
+                    db.Subasta.Add(new Subasta
+                    {
+                        UsuarioID = Convert.ToInt32(HttpContext.Session["UserID"]),
+                        NombreProducto = subasta.NombreProducto,
+                        DescripcionProducto = subasta.DescripcionProducto,
+                        FotoUrlProducto = imageUrl,
+                        PrecioInicial = subasta.PrecioInicial,
+                        FechaLimite = DateTime.Now
+                    });
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             return View();
         }

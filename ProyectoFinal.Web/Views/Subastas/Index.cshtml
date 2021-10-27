@@ -106,7 +106,7 @@
                     <div class="card custom-animation">
                         <a class="text-decoration-none text-reset" href="@Url.Action("Details", "Subastas", new { id = @item.Subasta.SubastaID })">
                             <div class="wrapper">
-                                <img class="card-img-top img-fluid" src="https://picsum.photos/seed/picsum/300/200" alt="@item.Subasta.NombreProducto">
+                                <img class="card-img-top img-fluid" src="@item.Subasta.FotoUrlProducto" alt="@item.Subasta.NombreProducto">
                             </div>
                             <div class="card-body p-3 pe-none">
                                 <h5 class="card-title pe-none">
