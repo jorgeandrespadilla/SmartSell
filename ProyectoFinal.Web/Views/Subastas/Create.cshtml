@@ -3,32 +3,6 @@
 @{
     ViewBag.Title = "Crear Subasta";
 }
-<style>
-    .custom-file-input {
-        display: none;
-    }
-
-    .wrapper {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .wrapper:after {
-        content: '';
-        display: block;
-        padding-top: 100%;
-    }
-
-    .wrapper img {
-        width: 100%;
-        height: auto;
-        max-width: none;
-        position: absolute;
-        left: 50%;
-        top: 0;
-        transform: translateX(-50%);
-    }
-</style>
 
 <h2>Crear Subasta</h2>
 
@@ -42,10 +16,12 @@
 
     <hr />
     <div class="d-flex justify-content-center mt-4">
-        <div class="col-12 col-sm-4 wrapper d-flex justify-content-center">
-            <img id="image-preview" class="card-img-top img-fluid" src="~/Content/Images/missing-img.jpg" onclick="img_box(this)">
+        <div class="col-sm-6">
+            <div class="preview-wrapper" title="Ampliar imagen">
+                <img id="image-preview" class="card-img-top img-fluid" src="~/Content/Images/missing-img.jpg" onclick="img_box(this)">
+            </div>
         </div>
-        <div class="col-12 col-sm-8 ms-4 form-horizontal">
+        <div class="col-sm-6 ms-4 form-horizontal">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.NombreProducto, "Nombre del producto", htmlAttributes: new { @class = "control-label" })

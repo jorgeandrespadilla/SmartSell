@@ -23,6 +23,7 @@ window.onload = function() {
     idpopup_img_box.style.textAlign = 'center'
     idpopup_img_box.style.zIndex = z_index_dv_img_box
     idpopup_img_box.style.backgroundColor = bg_color_img_box
+    idpopup_img_box.style.overflow = 'auto'
 }
 
 function img_box(self) {
