@@ -85,6 +85,10 @@
                         @Html.CheckBox("HideEnded", (String.Compare(ViewBag.HideEnded, "false") == 0 ? false : true), new { @class = "form-check-input", @id = "hideEnded" })
                         <label class="form-check-label" for="hideEnded">Ocultar subastas finalizadas</label>
                     </div>
+                    <div class="form-check mt-3">
+                        @Html.CheckBox("MiSubastas", (String.Compare(ViewBag.MiSubastas, "false") == 0 ? true : false), new { @class = "form-check-input", @id = "miSubastas" })
+                        <label class="form-check-label" for="miSubastas">Mis subastas</label>
+                    </div>
                 </div>
                 <!-- Mostrar cantidad de resultados -->
                 @if (ViewBag.ResultsFound)
@@ -95,6 +99,7 @@
                 }
             </div>
         }
+        
     </div>
     <!-- Desplegar resultados -->
     @if (ViewBag.ResultsFound)

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 //a
 namespace ProyectoFinal.Web.Controllers
 {
+
     public class AccountController : Controller
     {
         private SmartSell db = new SmartSell();

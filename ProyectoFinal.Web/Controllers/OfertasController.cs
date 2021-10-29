@@ -6,11 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoFinal.Web.Infrastructure;
 using ProyectoFinal.Web.Models;
 using ProyectoFinal.Web.ViewModels;
 
 namespace ProyectoFinal.Web.Controllers
 {
+    [AuthenticationFilter]
     public class OfertasController : Controller
     {
         private SmartSell db = new SmartSell();

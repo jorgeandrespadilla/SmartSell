@@ -9,23 +9,26 @@ using ProyectoFinal.Web.Models;
 using ProyectoFinal.Web.ViewModels;
 using PagedList;
 using ProyectoFinal.Web.Helpers;
+using ProyectoFinal.Web.Infrastructure;
 
 namespace ProyectoFinal.Web.Controllers
 {
+    [AuthenticationFilter]
     public class SubastasController : Controller
     {
         private SmartSell db = new SmartSell();
 
         // GET: Subastas
         // https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, string hideEnded, int? page)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, string hideEnded, string miSubastas, int? page)
         {
             /* Manejar configuración de filtrado y de ocultamiento */
             sortOrder = String.IsNullOrEmpty(sortOrder) ? "" : sortOrder;
             ViewBag.CurrentSort = sortOrder;
             hideEnded = String.IsNullOrEmpty(hideEnded) ? "true" : hideEnded;
             ViewBag.HideEnded = hideEnded;
-
+            miSubastas = string.IsNullOrEmpty(miSubastas) ? "" : miSubastas;
+            ViewBag.Misubastas = miSubastas;
             /* Manejar configuración de búsqueda y paginación */
             if (searchString != null)
             {
@@ -79,6 +82,11 @@ namespace ProyectoFinal.Web.Controllers
             if (String.Compare(hideEnded, "true") == 0)
             {
                 subastasModel = subastasModel.Where(s => s.Vigente).ToList();
+            }
+
+            if (String.Compare(miSubastas, "true") == 0)
+            {
+                subastasModel = subastasModel.Where(s => s.Subasta.UsuarioID == Convert.ToInt32(HttpContext.Session["UserID"])).ToList();
             }
 
             /* Manejar filtros */
@@ -235,6 +243,9 @@ namespace ProyectoFinal.Web.Controllers
                 if (subasta.Imagen.ContentLength > 1000000)
                 {
                     ModelState.AddModelError("generalError", "El tamaño de la imagen supera el límite permitido (1 MB).");
+                }else if (DateTime.Compare(subasta.fechaLimite,DateTime.Now)<=0)
+                {
+                    ModelState.AddModelError("generalError", "La fecha seleccionada ya ha pasado");
                 }
                 else
                 {
@@ -246,7 +257,7 @@ namespace ProyectoFinal.Web.Controllers
                         DescripcionProducto = subasta.DescripcionProducto,
                         FotoUrlProducto = imageUrl,
                         PrecioInicial = subasta.PrecioInicial,
-                        FechaLimite = DateTime.Now
+                        FechaLimite = subasta.fechaLimite
                     });
                     db.SaveChanges();
                     return RedirectToAction("Index");
