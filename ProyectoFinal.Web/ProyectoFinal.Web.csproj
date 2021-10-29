@@ -245,8 +245,7 @@
     <Content Include="Views\Shared\_PartialLayout.cshtml" />
     <Content Include="Views\Usuario\Perfil.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
-    <Content Include="Views\Subastas\DetailsComprador.cshtml" />
-    <Content Include="Views\Subastas\DetailsVendedor.cshtml" />
+    <Content Include="Views\Subastas\Details.cshtml" />
     <Content Include="Views\Usuario\PerfilVendedor.cshtml" />
   </ItemGroup>
   <ItemGroup>

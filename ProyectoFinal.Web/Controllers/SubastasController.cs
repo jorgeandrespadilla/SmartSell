@@ -132,82 +132,29 @@ namespace ProyectoFinal.Web.Controllers
             {
                 return HttpNotFound();
             }
+
+            Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == id).OrderByDescending(o => o.Monto).FirstOrDefault();
+            float montoActual;
+            if (ofertaActual == null)
+            {
+                montoActual = subasta.PrecioInicial;
+            }
+            else
+            {
+                montoActual = ofertaActual.Monto;
+            }
+            ICollection<Oferta> ofertas = db.Oferta.Where(u => u.SubastaID == id).OrderByDescending(o => o.Monto).ToList();
+
             int userID = Convert.ToInt32(HttpContext.Session["UserID"]);
             if (userID == subasta.UsuarioID)
             {
-                return RedirectToAction("DetailsVendedor", "Subastas", new { id = id });
+                ViewBag.ViewMode = "VENDEDOR";
             }
             else
             {
-                return RedirectToAction("DetailsComprador", "Subastas", new { id = id });
+                ViewBag.ViewMode = "COMPRADOR";
             }
-        }
 
-        // GET: Subastas/Details/5
-        public ActionResult DetailsVendedor(int? id)
-        {
-            float montoActual;
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Subasta subasta = db.Subasta.Find(id);
-            if (subasta == null)
-            {
-                return HttpNotFound();
-            }
-            int userID = Convert.ToInt32(HttpContext.Session["UserID"]);
-            if (subasta.UsuarioID != userID)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == id).OrderByDescending(o => o.Monto).FirstOrDefault();
-            if (ofertaActual == null)
-            {
-                montoActual = subasta.PrecioInicial;
-            }
-            else
-            {
-                montoActual = ofertaActual.Monto;
-            }
-            ICollection<Oferta> ofertas = db.Oferta.Where(u => u.SubastaID == id).OrderByDescending(o => o.Monto).ToList();
-            return View(new SubastaDetailsViewModel
-            {
-                OfertasSubasta=ofertas,
-                Subasta = subasta,
-                Vigente = DateTime.Compare(DateTime.Now, subasta.FechaLimite) <= 0,
-                MontoActual = montoActual
-            });
-        }
-
-        public ActionResult DetailsComprador(int? id)
-        {
-            float montoActual;
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Subasta subasta = db.Subasta.Find(id);
-            if (subasta == null)
-            {
-                return HttpNotFound();
-            }
-            int userID = Convert.ToInt32(HttpContext.Session["UserID"]);
-            if (subasta.UsuarioID == userID)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == id).OrderByDescending(o => o.Monto).FirstOrDefault();
-            if (ofertaActual == null)
-            {
-                montoActual = subasta.PrecioInicial;
-            }
-            else
-            {
-                montoActual = ofertaActual.Monto;
-            }
-            ICollection<Oferta> ofertas = db.Oferta.Where(u => u.SubastaID == id).OrderByDescending(o => o.Monto).ToList();
-            
             return View(new SubastaDetailsViewModel
             {
                 OfertasSubasta = ofertas,
