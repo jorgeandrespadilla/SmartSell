@@ -23,10 +23,12 @@ window.onload = function() {
     idpopup_img_box.style.textAlign = 'center'
     idpopup_img_box.style.zIndex = z_index_dv_img_box
     idpopup_img_box.style.backgroundColor = bg_color_img_box
+    idpopup_img_box.style.overflow = 'auto'
 }
 
 function img_box(self) {
     var namepic_img_box = typeof self === 'string' ? self : self.src
+    console.log(namepic_img_box)
     vopa_img_box = 0
     var hwin_img_box = window.innerHeight
     var wwin_img_box = window.innerWidth
@@ -36,7 +38,7 @@ function img_box(self) {
     img_img_box.onload = function() {
         himg_img_box = img_img_box.height
         wimg_img_box = img_img_box.width
-        idpopup_img_box.innerHTML = '<img src=' + namepic_img_box + '>'
+        idpopup_img_box.innerHTML = `<img src="${namepic_img_box}">`
 
         if (wimg_img_box > wwin_img_box) {
             idpopup_img_box.getElementsByTagName('img')[0].style.width = '90%'

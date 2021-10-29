@@ -14,7 +14,11 @@
     background: linear-gradient(to right, #ee5a6f, #f29263);
 }
 
-/* Pagination Links */
+.custom-file-input {
+    display: none;
+}
+
+/* Custom pagination links styles (based on Bootstrap) */
 nav .pagination-container ul.pagination li:first-child > a {
     border-top-left-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;
@@ -56,4 +60,46 @@ nav .pagination-container ul.pagination li.active > a {
     color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
+}
+
+
+/* Custom Wrapper for images (1:1 aspect) */
+/* https://stackoverflow.com/questions/47479477/responsive-card-image-with-fixed-height-in-bootstrap-4 */
+.wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.wrapper:after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+}
+
+.wrapper img {
+    width: auto;
+    height: 100%;
+    max-width: none;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+}
+
+/* Custom Wrapper for Image preview */
+.preview-wrapper {
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+
+.preview-wrapper img {
+    width: auto;
+    max-width: none;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
 }
