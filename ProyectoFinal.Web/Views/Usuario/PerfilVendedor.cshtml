@@ -68,6 +68,7 @@
             </div>
             <div class="center">
                 <div class="stars">
+                    @*<a class="dropdown-item @(String.Compare(ViewBag.Stars, "StarView") == 0 ? "active" : "")" href="@Url.Action("Edit", new { sortOrder = "Star", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Precio ascendente</a>*@
                     <input type="radio" id="five" name="ra  te" value="5">
                     <label for="five"></label>
                     <input type="radio" id="four" name="rate" value="4">

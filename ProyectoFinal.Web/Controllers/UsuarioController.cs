@@ -41,6 +41,25 @@ namespace ProyectoFinal.Web.Controllers
                 Usuario = usuario, Rating = 1
             }) ;
         }
+        public ActionResult PerfilVendedor(int id)
+        {
+            
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Usuario usuario = db.Usuario.Find(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            var rating = db.RatingUsuario.Where(u => u.UsuarioCalificadoID == id ).Average(ru => ru.Rating);
+            return View(new PerfilViewModel
+            {
+                Usuario = usuario,
+                Rating = (float)rating
+            }) ;
+        }
 
         public ActionResult Editar()
         {

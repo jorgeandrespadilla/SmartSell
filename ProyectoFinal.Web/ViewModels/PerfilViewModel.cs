@@ -12,7 +12,7 @@ namespace ProyectoFinal.Web.ViewModels
 
         public Usuario Usuario { get; set; }
         
-        public int Rating { get; set; }
+        public float Rating { get; set; }
 
 
     }
