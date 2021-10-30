@@ -37,7 +37,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Imagen, "Imagen", htmlAttributes: new { @class = "control-label  mt-2" })
+                @Html.LabelFor(model => model.Imagen, "Imagen", htmlAttributes: new { @class = "control-label  mt-3" })
                 <div class="col-md-10">
                     @Html.LabelFor(model => model.Imagen, "Cargar Archivo", htmlAttributes: new { @class = "btn btn-primary mt-2" })
                     @Html.TextBoxFor(m => m.Imagen, new { @class = "custom-file-input", type = "file", accept = "image/*", onchange = "showPreview(event);" })
@@ -51,14 +51,15 @@
                 @Html.ValidationMessageFor(model => model.PrecioInicial, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.fechaLimite, "Fecha limite", htmlAttributes: new { @class = "control-label mt-3" })
-                @Html.EditorFor(model => model.fechaLimite, new { htmlAttributes = new { @class = "form-control mt-2" } })
-                @Html.ValidationMessageFor(model => model.fechaLimite, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.FechaLimite, "Fecha limite", htmlAttributes: new { @class = "control-label mt-3" })
+                @Html.EditorFor(model => model.FechaLimite, new { htmlAttributes = new { @class = "form-control mt-2" } })
+                @Html.ValidationMessageFor(model => model.FechaLimite, "", new { @class = "text-danger" })
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-5">
                 <div class="col-md-offset-2 col-md-10 mt-4 mb-2">
-                    <input type="submit" value="Crear" class="btn btn-lg btn-outline-primary px-4" />
+                    <a href="@Url.Action("Index")" class="btn btn-lg btn-outline-primary px-4">Cancelar</a>
+                    <input type="submit" value="Crear" class="btn btn-lg btn-primary px-4 ms-3" />
                 </div>
             </div>
             @Html.ValidationMessage("generalError", new { @class = "text-danger" })
@@ -66,9 +67,6 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Volver", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -1,4 +1,4 @@
-﻿@model ProyectoFinal.Web.Models.Subasta
+﻿@model ProyectoFinal.Web.ViewModels.SubastaEditViewModel
 
 @{
     ViewBag.Title = "Editar Subasta";
@@ -6,54 +6,68 @@
 
 <h2>Editar Subasta</h2>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit",
+      "Subastas",
+      FormMethod.Post,
+      new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <hr />
+    <div class="d-flex justify-content-center mt-4">
+        <div class="col-sm-6 me-sm-4">
+            <div class="preview-wrapper" title="Ampliar imagen">
+                <img id="image-preview" class="card-img-top img-fluid" src="@Model.FotoUrlProducto" onclick="img_box(this)">
+            </div>
+        </div>
         @Html.HiddenFor(model => model.SubastaID)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NombreProducto, "Nombre de producto", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NombreProducto, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.FotoUrlProducto)
+        <div class="col-sm-6 ms-4 form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NombreProducto, "Nombre del producto", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.NombreProducto, new { htmlAttributes = new { @class = "form-control mt-2" } })
                 @Html.ValidationMessageFor(model => model.NombreProducto, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DescripcionProducto, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DescripcionProducto, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="form-group">
+                @Html.LabelFor(model => model.DescripcionProducto, "Descripción del producto", htmlAttributes: new { @class = "control-label mt-3" })
+                @Html.EditorFor(model => model.DescripcionProducto, new { htmlAttributes = new { @class = "form-control mt-2" } })
                 @Html.ValidationMessageFor(model => model.DescripcionProducto, "", new { @class = "text-danger" })
+
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FotoUrlProducto, "Foto", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FotoUrlProducto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FotoUrlProducto, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Imagen, "Imagen", htmlAttributes: new { @class = "control-label  mt-3" })
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.Imagen, "Cargar Archivo", htmlAttributes: new { @class = "btn btn-primary mt-2" })
+                    @Html.TextBoxFor(m => m.Imagen, new { @class = "custom-file-input", type = "file", accept = "image/*", onchange = "showPreview(event);" })
+                    @Html.ValidationMessageFor(model => model.Imagen, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-primary mt-2 mb-2" />
+            <div class="form-group mt-5">
+                <div class="col-md-offset-2 col-md-10 mt-4 mb-2">
+                    <a href="@Url.Action("Details", "Subastas", new { id = Model.SubastaID })" class="btn btn-lg btn-outline-primary px-4">Cancelar</a>
+                    <input type="submit" value="Crear" class="btn btn-lg btn-primary px-4 ms-3" />
+                </div>
             </div>
+            @Html.ValidationMessage("generalError", new { @class = "text-danger" })
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+    function showPreview(event) {
+        if (event.target.files.length > 0) {
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById("image-preview");
+            preview.src = src;
+            preview.style.display = "block";
+        }
+    }
+</script>
