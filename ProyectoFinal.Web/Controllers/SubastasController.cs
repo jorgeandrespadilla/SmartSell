@@ -150,6 +150,10 @@ namespace ProyectoFinal.Web.Controllers
             else
             {
                 montoActual = ofertaActual.Monto;
+                if (ofertaActual.UsuarioID == Convert.ToInt32(HttpContext.Session["UserID"]))
+                {
+                    ViewBag.ofertaActual = "ACTUAL";
+                }
             }
             ICollection<Oferta> ofertas = db.Oferta.Where(u => u.SubastaID == id).OrderByDescending(o => o.Monto).ToList();
 
@@ -162,7 +166,6 @@ namespace ProyectoFinal.Web.Controllers
             {
                 ViewBag.ViewMode = "COMPRADOR";
             }
-
             return View(new SubastaDetailsViewModel
             {
                 OfertasSubasta = ofertas,
@@ -306,6 +309,23 @@ namespace ProyectoFinal.Web.Controllers
             db.Subasta.Remove(subasta);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteConfirmed(int? id)
+        {
+
+            Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == id).OrderByDescending(o => o.Monto).FirstOrDefault();
+            if (ofertaActual.OfertaID == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (ofertaActual == null)
+            {
+                return HttpNotFound();
+            }
+            db.Oferta.Remove(ofertaActual);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Subastas");
         }
 
         protected override void Dispose(bool disposing)
