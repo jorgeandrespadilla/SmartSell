@@ -8,7 +8,6 @@
 </style>
 
 <h2>Perfil de usuario </h2>
-
 <div class="py-3 container">
     <div class="d-flex justify-content-center">
         <div class="col-12 col-sm-4 me-3">
@@ -18,7 +17,7 @@
                     <p class="fs-5 fw-bold">@Session["Username"]</p>
                 </div>
             </div>
-            
+
         </div>
         <div class="col-12 col-sm-8">
             <div class="p-3">
@@ -43,7 +42,7 @@
                         <h6 class="text-muted">@String.Format("{0:f}/{1:f}", Model.Rating, 5)</h6>
                     </div>
                 </div>
-               
+
             </div>
         </div>
     </div>
@@ -53,6 +52,52 @@
         </button>
         @Html.ActionLink("Editar", "Editar", "Usuario", null, new { @class = "btn btn-outline-primary" })
     </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link @(String.Compare(ViewBag.CurrentInfo, "PARTICIPACION") == 0 ? "active" : "")" href="@Url.Action("Perfil","Usuario", new { showInfo = "PARTICIPACION" })">Subastas que participó</a></li>
+        <li class="nav-item"><a class="nav-link @(String.Compare(ViewBag.CurrentInfo, "GANADAS") == 0 ? "active" : "")" href="@Url.Action("Perfil","Usuario", new { showInfo = "GANADAS" })">Subastas ganadas</a></li>
+    </ul>
+    <table class="table table-striped mt-2">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th class="col-5">
+                    Subasta
+                </th>
+                <th class="col-5">
+                    Monto más alto ofertado
+                </th>
+                <th class="col-4">
+                    Fecha de envió
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model.misSubastas.Count == 0)
+            {
+                <tr><td colspan="3">No se encontraron resultados</td></tr>
+            }
+            else
+            {
+                foreach (var info in @Model.misSubastas)
+                {
+                    <tr>
+                        <td>
+                            <a class="" href="@Url.Action("Details", "Subastas", new { id = info.Subasta.SubastaID })">
+                                @Html.DisplayFor(modelItem => info.Subasta.NombreProducto)
+                            </a>
+                            
+                        </td>
+                        <td>
+                            @string.Format("{0:C}", info.Monto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => info.FechaCreacion)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 </div>
 
 

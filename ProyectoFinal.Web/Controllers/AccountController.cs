@@ -47,6 +47,9 @@ namespace ProyectoFinal.Web.Controllers
                 Clave = passwordHash
             });
             db.SaveChanges();
+            userQuery = db.Usuario.Where(u => u.Correo == usuario.Correo).FirstOrDefault();
+            HttpContext.Session["UserID"] = userQuery.UsuarioID;
+            HttpContext.Session["Username"] = $"{userQuery.Nombres} {usuario.Apellidos}";
             return RedirectToAction("Index","Account");
         }
 

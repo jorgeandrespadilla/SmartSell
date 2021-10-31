@@ -11,8 +11,10 @@ namespace ProyectoFinal.Web.ViewModels
     {
 
         public Usuario Usuario { get; set; }
-        
+
         public int Rating { get; set; }
+
+        public ICollection<Oferta> misSubastas { get; set; }
 
 
     }
