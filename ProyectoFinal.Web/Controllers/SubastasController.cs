@@ -315,13 +315,13 @@ namespace ProyectoFinal.Web.Controllers
         {
 
             Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == id).OrderByDescending(o => o.Monto).FirstOrDefault();
-            if (ofertaActual.OfertaID == 0)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             if (ofertaActual == null)
             {
                 return HttpNotFound();
+            }
+            if (ofertaActual.OfertaID == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             db.Oferta.Remove(ofertaActual);
             db.SaveChanges();
