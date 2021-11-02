@@ -3,3 +3,14 @@
 Al clonar por primera vez el repositorio, es necesario compilar la solución para que se instalen de manera automática las dependencias NuGet.
   
 Finalmente, debemos ejecutar el comando `Update-Database` en la consola de administrador de paquetes de NuGet para poder generar la base de datos correspondiente (en caso de no estar creada localmente).
+
+## ¿Cómo arreglar errores?
+
+Para arreglar errores, se deben seguir los siguientes pasos:
+
+1. Guardar archivos
+2. Aplicar cambios en el código (hot reload)
+3. Recargar página
+4. Borrar cache (<kbd>CTRL</kbd> + <kbd>F5</kbd>)
+5. Compilar solución
+6. Actualizar base de datos (`Update-Database`)

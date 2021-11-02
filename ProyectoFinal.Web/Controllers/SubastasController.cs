@@ -73,7 +73,7 @@ namespace ProyectoFinal.Web.Controllers
                 subastasModel.Add(new SubastaItemViewModel
                 {
                     Subasta = subasta.Subasta,
-                    MontoActual = subasta.OfertaActual == null ? subasta.Subasta.PrecioInicial : subasta.OfertaActual.Monto, // Si existen ofertas, obtiene el monto actual de la oferta más alta. Caso contrario, obtiene el precio inicial.
+                    MontoActual = subasta.OfertaActual == null ? subasta.Subasta.PrecioInicial : (float)subasta.OfertaActual.Monto, // Si existen ofertas, obtiene el monto actual de la oferta más alta. Caso contrario, obtiene el precio inicial.
                     Vigente = DateTime.Compare(DateTime.Now, subasta.Subasta.FechaLimite) <= 0 // Si la fecha y hora actuales son anteriores a la fecha límite, la subasta se encuentra vigente.
                 });
             }
@@ -150,6 +150,10 @@ namespace ProyectoFinal.Web.Controllers
             else
             {
                 montoActual = ofertaActual.Monto;
+                if (ofertaActual.UsuarioID == Convert.ToInt32(HttpContext.Session["UserID"]))
+                {
+                    ViewBag.ofertaActual = "ACTUAL";
+                }
             }
             ICollection<Oferta> ofertas = db.Oferta.Where(u => u.SubastaID == id).OrderByDescending(o => o.Monto).ToList();
 
@@ -162,7 +166,6 @@ namespace ProyectoFinal.Web.Controllers
             {
                 ViewBag.ViewMode = "COMPRADOR";
             }
-
             return View(new SubastaDetailsViewModel
             {
                 OfertasSubasta = ofertas,
@@ -190,9 +193,14 @@ namespace ProyectoFinal.Web.Controllers
                 if (subasta.Imagen.ContentLength > 1000000)
                 {
                     ModelState.AddModelError("generalError", "El tamaño de la imagen supera el límite permitido (1 MB).");
-                }else if (DateTime.Compare(subasta.fechaLimite,DateTime.Now)<=0)
+                }
+                else if (subasta.PrecioInicial <= 0)
                 {
-                    ModelState.AddModelError("generalError", "La fecha seleccionada ya ha pasado");
+                    ModelState.AddModelError("generalError", "El precio inicial debe ser positivo.");
+                }
+                else if (DateTime.Compare(subasta.FechaLimite,DateTime.Now) <= 0)
+                {
+                    ModelState.AddModelError("generalError", "La fecha seleccionada ya ha pasado.");
                 }
                 else
                 {
@@ -204,7 +212,7 @@ namespace ProyectoFinal.Web.Controllers
                         DescripcionProducto = subasta.DescripcionProducto,
                         FotoUrlProducto = imageUrl,
                         PrecioInicial = subasta.PrecioInicial,
-                        FechaLimite = subasta.fechaLimite
+                        FechaLimite = subasta.FechaLimite
                     });
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -214,15 +222,25 @@ namespace ProyectoFinal.Web.Controllers
         }
 
         // GET: Subastas/Edit/5
-        public ActionResult Edit(int? ID)
+        public ActionResult Edit(int? id)
         {
-            Subasta subasta = db.Subasta.Find(ID);
+            Subasta subasta = db.Subasta.Find(id);
+            if (subasta == null)
+            {
+                return HttpNotFound();
+            }
             int userID = Convert.ToInt32(HttpContext.Session["UserID"]);
             if (subasta.UsuarioID != userID)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(subasta);
+            return View(new SubastaEditViewModel
+            {
+                SubastaID = subasta.SubastaID,
+                NombreProducto = subasta.NombreProducto,
+                DescripcionProducto = subasta.DescripcionProducto,
+                FotoUrlProducto = subasta.FotoUrlProducto
+            });
         }
 
         // POST: Subastas/Edit/5
@@ -230,21 +248,34 @@ namespace ProyectoFinal.Web.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SubastaID,UsuarioID,NombreProducto,DescripcionProducto,FotoUrlProducto,PrecioInicial,FechaLimite")] Subasta subasta)
+        public ActionResult Edit(SubastaEditViewModel subasta)
         {
             if (ModelState.IsValid)
             {
-                Subasta subastaQuery = db.Subasta.Find(subasta.SubastaID);
-
-                subastaQuery.UsuarioID = subastaQuery.UsuarioID;
-                subastaQuery.NombreProducto = subasta.NombreProducto;
-                subastaQuery.DescripcionProducto = subasta.DescripcionProducto;
-                subastaQuery.FotoUrlProducto = subasta.FotoUrlProducto;
-                subastaQuery.PrecioInicial = subastaQuery.PrecioInicial;
-                subastaQuery.FechaLimite = subastaQuery.FechaLimite;
-                db.Entry(subastaQuery).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (subasta.Imagen != null && subasta.Imagen.ContentLength > 1000000)
+                {
+                    ModelState.AddModelError("generalError", "El tamaño de la imagen supera el límite permitido (1 MB).");
+                }
+                else
+                {
+                    string imageUrl;
+                    if (subasta.Imagen != null)
+                    {
+                        imageUrl = Uploader.GetImageUrl(subasta.Imagen);
+                    }
+                    else {
+                        imageUrl = subasta.FotoUrlProducto;
+                    }
+                    Subasta subastaQuery = db.Subasta.Find(subasta.SubastaID);
+                    
+                    subastaQuery.NombreProducto = subasta.NombreProducto;
+                    subastaQuery.DescripcionProducto = subasta.DescripcionProducto;
+                    subastaQuery.FotoUrlProducto = imageUrl;
+                    
+                    db.Entry(subastaQuery).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Details", "Subastas", new { id = subasta.SubastaID });
+                }
             }
             return View(subasta);
         }
@@ -261,6 +292,11 @@ namespace ProyectoFinal.Web.Controllers
             {
                 return HttpNotFound();
             }
+            int userID = Convert.ToInt32(HttpContext.Session["UserID"]);
+            if (userID != subasta.UsuarioID)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return View(subasta);
         }
 
@@ -273,6 +309,23 @@ namespace ProyectoFinal.Web.Controllers
             db.Subasta.Remove(subasta);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteConfirmed(int? id)
+        {
+
+            Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == id).OrderByDescending(o => o.Monto).FirstOrDefault();
+            if (ofertaActual == null)
+            {
+                return HttpNotFound();
+            }
+            if (ofertaActual.OfertaID == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            db.Oferta.Remove(ofertaActual);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Subastas");
         }
 
         protected override void Dispose(bool disposing)

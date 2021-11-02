@@ -24,9 +24,47 @@ namespace ProyectoFinal.Web.Controllers
             return RedirectToAction("Perfil", "Usuario");
         }
 
-        public ActionResult Perfil()
+        public ActionResult Perfil(string showInfo)
         {
+            showInfo = String.IsNullOrEmpty(showInfo) ? "" : showInfo;
+            ViewBag.CurrentInfo = showInfo;
             int id = Convert.ToInt32(HttpContext.Session["UserID"]);
+            ICollection<Oferta> ofertas=new List<Oferta>();
+            if (showInfo=="")
+            {
+                ViewBag.CurrentInfo = "PARTICIPACION";
+            }
+            var subastasQuery = db.Subasta.GroupJoin(db.Oferta, s => s.SubastaID, o => o.SubastaID, (s, o) => new
+            {
+                Subasta = s,
+                Ofertas= o.OrderByDescending(x => x.Monto).ToList()
+            }
+            ).ToList();            
+            if (ViewBag.CurrentInfo == "PARTICIPACION")
+            {
+                subastasQuery = subastasQuery.Where(o => DateTime.Compare(o.Subasta.FechaLimite, DateTime.Now) > 0).ToList();
+                foreach (var subasta in subastasQuery)
+                {
+                    if (subasta.Ofertas.Count!=0)
+                    {
+                        var subastaUsuario = subasta.Ofertas.Where(o => o.UsuarioID==id).ToList();
+                        if (subastaUsuario.Count()!=0)
+                        {
+                            ofertas.Add(subasta.Ofertas.Where(o => o.UsuarioID == id).FirstOrDefault());
+                        }
+                    }
+                }
+            } else if (ViewBag.CurrentInfo == "GANADAS")
+            {
+                subastasQuery = subastasQuery.Where(o => DateTime.Compare(o.Subasta.FechaLimite, DateTime.Now) <= 0).ToList();
+                foreach (var subasta in subastasQuery)
+                {
+                    if (subasta.Ofertas.ElementAtOrDefault(0).UsuarioID==id)
+                    {
+                        ofertas.Add(subasta.Ofertas.ElementAtOrDefault(0));
+                    }
+                }
+            }
             if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,7 +76,7 @@ namespace ProyectoFinal.Web.Controllers
             }
             return View(new PerfilViewModel
             {
-                Usuario = usuario, Rating = 1
+                Usuario = usuario, Rating = 1, misSubastas = ofertas
             }) ;
         }
         public ActionResult PerfilVendedor(int id)

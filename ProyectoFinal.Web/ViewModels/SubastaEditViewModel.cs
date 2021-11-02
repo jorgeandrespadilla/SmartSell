@@ -6,19 +6,14 @@ using System.Web;
 
 namespace ProyectoFinal.Web.ViewModels
 {
-    public class SubastaCreateViewModel
+    public class SubastaEditViewModel
     {
+        public int SubastaID { get; set; }
         [Required(ErrorMessage ="El nombre del producto es necesario")]
         public String NombreProducto { get; set; }
         [Required(ErrorMessage = "La descripción del producto es necesaria")]
         public String DescripcionProducto { get; set; }
-        [Required(ErrorMessage = "La imagen del producto es necesaria")]
+        public String FotoUrlProducto { get; set; }
         public HttpPostedFileBase Imagen { get; set; }
-        [Required(ErrorMessage = "El precio inicial es obligatorio")]
-        public float PrecioInicial { get; set; }
-
-        [Required(ErrorMessage = "La fecha límite del producto es necesaria")]
-        [DataType(DataType.Date)]
-        public DateTime FechaLimite { get; set; }
     }
 }
