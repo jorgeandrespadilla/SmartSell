@@ -52,6 +52,12 @@
                         <p class="text-muted">@(Model.Vigente?"Sí":"No")</p>
                     </div>
                 </div>
+                <div class="row mt-3">
+                    <div class="col-sm-6">
+                        <p class="mb-2 fw-bolder">Fecha de finalización</p>
+                        <p class="text-muted">@Model.Subasta.FechaLimite.ToString("dd MMM yyyy, HH:mm")</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -60,18 +66,26 @@
         {
             if (String.Compare(ViewBag.ViewMode, "VENDEDOR") == 0)
             {
-                @Html.ActionLink("Editar", "Edit", "Subastas", new { ID = Model.Subasta.SubastaID }, new { @class = "btn btn-outline-primary" })
+                @Html.ActionLink("Editar", "Edit", "Subastas", new { ID = Model.Subasta.SubastaID }, new { @class = "btn btn-outline-primary me-2" })
+                if (DateTime.Compare(Model.Subasta.FechaLimite.AddDays(-1), DateTime.Now) >= 0)
+                {
+                    ViewBag.borrarBtn = "SUBASTA";
+                    <button type="button" class="btn btn-outline-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        Eliminar Subasta
+                    </button>
+                }
             }
-            if (String.Compare(ViewBag.ViewMode, "COMPRADOR") == 0)
-            {
-                @Html.ActionLink("Ofertar", "Create", "Ofertas", new { subastaID = Model.Subasta.SubastaID }, new { @class = "btn btn-outline-primary me-2" })
-            }
-            if (String.Compare(ViewBag.ofertaActual, "ACTUAL") == 0)
-            {
-                <button type="button" class="btn btn-outline-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                    Eliminar oferta
-                </button>
-            }
+        }
+        @if (String.Compare(ViewBag.ViewMode, "COMPRADOR") == 0)
+        {
+            @Html.ActionLink("Ofertar", "Create", "Ofertas", new { subastaID = Model.Subasta.SubastaID }, new { @class = "btn btn-outline-primary me-2" })
+        }
+        @if (String.Compare(ViewBag.ofertaActual, "ACTUAL") == 0)
+        {
+            ViewBag.borrarBtn = "OFERTA";
+            <button type="button" class="btn btn-outline-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                Eliminar oferta
+            </button>
         }
     </div>
     <h2 class="mt-4 mb-3">Ofertas</h2>
@@ -128,12 +142,21 @@
                 <h5 class="modal-title" id="deleteModalLabel">Confirmación</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                ¿Está seguro que desea eliminar su oferta?
-            </div>
+            @if (ViewBag.borrarBtn == "OFERTA")
+            {
+                <div class="modal-body">
+                    ¿Está seguro que desea eliminar su oferta?
+                </div>
+            }
+            else if (ViewBag.borrarBtn == "SUBASTA")
+            {
+                <div class="modal-body">
+                    ¿Está seguro que desea eliminar su subasta?
+                </div>
+            }
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                @Html.ActionLink("Confirmar", "DeleteConfirmed", "Subastas",new { id = Model.Subasta.SubastaID}, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Confirmar", "DeleteConfirmed", "Subastas", new { id = Model.Subasta.SubastaID, infoBtn = ViewBag.borrarBtn }, new { @class = "btn btn-primary" })
             </div>
         </div>
     </div>
