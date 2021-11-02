@@ -311,20 +311,33 @@ namespace ProyectoFinal.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult DeleteConfirmed(int? id)
+        public ActionResult DeleteConfirmed(int? id, string infoBtn)
         {
+            infoBtn = String.IsNullOrEmpty(infoBtn) ? "" : infoBtn;
+            ViewBag.borrarBtn = infoBtn;
+            if (ViewBag.borrarBtn == "OFERTA")
+            {
+                Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == id).OrderByDescending(o => o.Monto).FirstOrDefault();
+                if (ofertaActual == null)
+                {
+                    return HttpNotFound();
+                }
+                if (ofertaActual.OfertaID == 0)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                
+                db.Oferta.Remove(ofertaActual);
+                db.SaveChanges();
+            }else if (ViewBag.borrarBtn == "SUBASTA")
+            {
+                var ofertas = db.Oferta.Where(o => o.SubastaID == id).ToList();
+                var subasta = db.Subasta.Find(id);
+                db.Oferta.RemoveRange(ofertas);
+                db.Subasta.Remove(subasta);
+                db.SaveChanges();
+            }
 
-            Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == id).OrderByDescending(o => o.Monto).FirstOrDefault();
-            if (ofertaActual == null)
-            {
-                return HttpNotFound();
-            }
-            if (ofertaActual.OfertaID == 0)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            db.Oferta.Remove(ofertaActual);
-            db.SaveChanges();
             return RedirectToAction("Index", "Subastas");
         }
 
