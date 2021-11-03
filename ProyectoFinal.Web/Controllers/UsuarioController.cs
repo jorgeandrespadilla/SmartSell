@@ -71,7 +71,7 @@ namespace ProyectoFinal.Web.Controllers
                 return RedirectToAction("Index", "Usuario");
             }
             Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
+            if (usuario == null || !usuario.Activo)
             {
                 return HttpNotFound();
             }
@@ -158,7 +158,7 @@ namespace ProyectoFinal.Web.Controllers
                 ModelState.AddModelError("generalError", "La contraseña debe ser de más de 8 caracteres.");
                 return View(usuario);
             }
-            Usuario userQuery = db.Usuario.Where(u => u.Correo == usuario.Correo).FirstOrDefault();
+            Usuario userQuery = db.Usuario.Where(u => u.Correo == usuario.Correo.ToLower()).FirstOrDefault();
             if (userQuery != null && userQuery.UsuarioID != Convert.ToInt32(HttpContext.Session["UserID"]))
             {
                 ModelState.AddModelError("generalError", "Ya existe un usuario con este correo.");
@@ -177,7 +177,7 @@ namespace ProyectoFinal.Web.Controllers
 
             userQuery.Nombres = usuario.Nombres;
             userQuery.Apellidos = usuario.Apellidos;
-            userQuery.Correo = usuario.Correo;
+            userQuery.Correo = usuario.Correo.ToLower();
             userQuery.Clave = passwordHash;
 
             db.Entry(userQuery).State = EntityState.Modified;
@@ -198,7 +198,8 @@ namespace ProyectoFinal.Web.Controllers
             {
                 return HttpNotFound();
             }
-            db.Usuario.Remove(usuario);
+            usuario.Activo = false;
+            db.Entry(usuario).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Logout", "Account");
         }

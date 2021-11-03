@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,8 @@ namespace ProyectoFinal.Web.Models
         public string Apellidos { get; set; }
         public string Correo { get; set; }
         public string Clave { get; set; }
+        public bool Activo { get; set; }
+
         public virtual ICollection<Subasta> Subastas { get; set; }
         public virtual ICollection<Oferta> Ofertas { get; set; }
         [InverseProperty("UsuarioCalificado")]

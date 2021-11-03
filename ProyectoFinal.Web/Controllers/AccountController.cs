@@ -32,7 +32,7 @@ namespace ProyectoFinal.Web.Controllers
             {
                 return View(usuario);
             }
-            Usuario userQuery = db.Usuario.Where(u => u.Correo == usuario.Correo).FirstOrDefault();
+            Usuario userQuery = db.Usuario.Where(u => u.Correo == usuario.Correo.ToLower()).FirstOrDefault();
             if (userQuery != null)
             {
                 ModelState.AddModelError("generalError", "Ya existe un usuario con este correo.");
@@ -43,8 +43,9 @@ namespace ProyectoFinal.Web.Controllers
             {
                 Nombres = usuario.Nombres,
                 Apellidos = usuario.Apellidos,
-                Correo = usuario.Correo,
-                Clave = passwordHash
+                Correo = usuario.Correo.ToLower(),
+                Clave = passwordHash,
+                Activo = true
             });
             db.SaveChanges();
             return RedirectToAction("Index","Account");
@@ -67,10 +68,15 @@ namespace ProyectoFinal.Web.Controllers
                 return View();
             }
             string passwordHash = Hasher.ToSHA256(model.Password);
-            Usuario usuario = db.Usuario.Where(u => u.Correo == model.Email && u.Clave == passwordHash).FirstOrDefault();
+            Usuario usuario = db.Usuario.Where(u => u.Correo == model.Email.ToLower() && u.Clave == passwordHash).FirstOrDefault();
             if (usuario == null)
             {
                 ModelState.AddModelError("loginError", "Las credenciales ingresadas no son válidas.");
+                return View();
+            }
+            if (!usuario.Activo)
+            {
+                ModelState.AddModelError("loginError", "La cuenta ya no se encuentra disponible.");
                 return View();
             }
             HttpContext.Session["UserID"] = usuario.UsuarioID;

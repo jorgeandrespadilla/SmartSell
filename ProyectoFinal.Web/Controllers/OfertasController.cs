@@ -20,29 +20,17 @@ namespace ProyectoFinal.Web.Controllers
         // GET: Ofertas
         public ActionResult Index()
         {
-            var oferta = db.Oferta.Include(o => o.Subasta).Include(o => o.Usuario);
-            return View(oferta.ToList());
-        }
-
-        // GET: Ofertas/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Oferta oferta = db.Oferta.Find(id);
-            if (oferta == null)
-            {
-                return HttpNotFound();
-            }
-            return View(oferta);
+            return RedirectToAction("Index", "Subastas");
         }
 
         // GET: Ofertas/Create
         public ActionResult Create(int subastaID)
         {
             Subasta subasta = db.Subasta.Find(subastaID);
+            if (!subasta.Usuario.Activo)
+            {
+                return HttpNotFound();
+            }
             if (DateTime.Compare(DateTime.Now, subasta.FechaLimite) >= 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

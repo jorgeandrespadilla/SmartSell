@@ -42,7 +42,7 @@ namespace ProyectoFinal.Web.Controllers
 
             /* Manejar cadena de búsqueda */
             /* Consultar subastas junto con su mayor oferta */
-            var subastasQuery = db.Subasta.GroupJoin(db.Oferta, s => s.SubastaID, o => o.SubastaID, (s, o) => new
+            var subastasQuery = db.Subasta.Where(s => s.Usuario.Activo).GroupJoin(db.Oferta, s => s.SubastaID, o => o.SubastaID, (s, o) => new
             {
                 Subasta = s,
                 OfertaActual = o.OrderByDescending(x => x.Monto).FirstOrDefault()
@@ -136,7 +136,7 @@ namespace ProyectoFinal.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Subasta subasta = db.Subasta.Find(id);
-            if (subasta == null)
+            if (subasta == null || !subasta.Usuario.Activo)
             {
                 return HttpNotFound();
             }
@@ -300,16 +300,6 @@ namespace ProyectoFinal.Web.Controllers
             return View(subasta);
         }
 
-        // POST: Subastas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Subasta subasta = db.Subasta.Find(id);
-            db.Subasta.Remove(subasta);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         public ActionResult DeleteConfirmed(int? id, string infoBtn)
         {
