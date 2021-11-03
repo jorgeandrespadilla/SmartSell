@@ -26,9 +26,14 @@ namespace ProyectoFinal.Web.Controllers
 
         public ActionResult Perfil(string showInfo)
         {
+            int id = Convert.ToInt32(HttpContext.Session["UserID"]);
+            Usuario usuario = db.Usuario.Find(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
             showInfo = String.IsNullOrEmpty(showInfo) ? "PARTICIPACION" : showInfo;
             ViewBag.CurrentInfo = showInfo;
-            int id = Convert.ToInt32(HttpContext.Session["UserID"]);
             ICollection<Oferta> ofertas=new List<Oferta>();
             var ofertasQuery = db.Oferta.Where( o=> o.UsuarioID == id ).GroupBy(o => o.SubastaID).Select(g => new
             {                
@@ -46,27 +51,38 @@ namespace ProyectoFinal.Web.Controllers
             {
                 ofertas.Add(oferta.OfertaActual);
             }
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
+            
+            var ratings = db.RatingUsuario.Where(u => u.UsuarioCalificadoID == id).ToList();
+            double avgRating = 0;
+            if (ratings.Count != 0)
             {
-                return HttpNotFound();
+                avgRating = ratings.Average(ru => ru.Rating);
             }
             return View(new PerfilViewModel
             {
-                Usuario = usuario, Rating = 1, Ofertas = ofertas
+                Usuario = usuario, AvgRating = (float)avgRating, Ofertas = ofertas
             }) ;
         }
         public ActionResult PerfilVendedor(int id)
         {
             int idUsuarioLogeado = Convert.ToInt32(HttpContext.Session["UserID"]);
+            if (id == idUsuarioLogeado)
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
             Usuario usuario = db.Usuario.Find(id);
             if (usuario == null)
-            {               
+            {
                 return HttpNotFound();
             }
             var currentRating = db.RatingUsuario.Where(ru => ru.UsuarioCalificadorID == idUsuarioLogeado && ru.UsuarioCalificadoID == id).FirstOrDefault();
             var rating = Convert.ToString(currentRating != null ? currentRating.Rating : 0);
-            var avgRating = db.RatingUsuario.Where(u => u.UsuarioCalificadoID == id ).Average(ru => ru.Rating);
+            var ratings = db.RatingUsuario.Where(u => u.UsuarioCalificadoID == id).ToList();
+            double avgRating = 0;
+            if (ratings.Count != 0)
+            {
+                 avgRating = ratings.Average(ru => ru.Rating);
+            }
             return View(new PerfilVendedorViewModel
             {
                 UsuarioCalificadoId = usuario.UsuarioID,

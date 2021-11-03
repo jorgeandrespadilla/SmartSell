@@ -63,7 +63,7 @@
             <div class="bg-c-lite-green pt-3 pb-3 ">
                 <div class="p-1 text-center text-white">
                     <span class="material-icons text-reset p-4 icon-big">account_circle</span>
-                    <p class="fs-5 fw-bold">@Session["Username"]</p>
+                    <p class="fs-5 fw-bold">@String.Format("{0} {1}", @Model.Usuario.Nombres, @Model.Usuario.Apellidos)</p>
                 </div>
             </div>
             @using (Html.BeginForm())
@@ -110,7 +110,7 @@
                     </div>
                     <div class="col-sm-6">
                         <p class="mb-2 fw-bolder">Calificación</p>
-                        <h6 class="text-muted">@Html.DisplayFor(model => model.AvgRating)</h6>
+                        <h6 class="text-muted">@(Model.AvgRating == 0 ? "N/A" : String.Format("{0:f}/{1:f}", Model.AvgRating, 5))</h6>
                     </div>
                 </div>
             </div>
