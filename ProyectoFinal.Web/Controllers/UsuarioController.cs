@@ -58,22 +58,56 @@ namespace ProyectoFinal.Web.Controllers
         }
         public ActionResult PerfilVendedor(int id)
         {
-            
-            if (id == 0)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            int idUsuarioLogeado = Convert.ToInt32(HttpContext.Session["UserID"]);
             Usuario usuario = db.Usuario.Find(id);
             if (usuario == null)
-            {
+            {               
                 return HttpNotFound();
             }
-            var rating = db.RatingUsuario.Where(u => u.UsuarioCalificadoID == id ).Average(ru => ru.Rating);
-            return View(new PerfilViewModel
+            var currentRating = db.RatingUsuario.Where(ru => ru.UsuarioCalificadorID == idUsuarioLogeado && ru.UsuarioCalificadoID == id).FirstOrDefault();
+            var rating = Convert.ToString(currentRating != null ? currentRating.Rating : 0);
+            var avgRating = db.RatingUsuario.Where(u => u.UsuarioCalificadoID == id ).Average(ru => ru.Rating);
+            return View(new PerfilVendedorViewModel
             {
+                UsuarioCalificadoId = usuario.UsuarioID,
                 Usuario = usuario,
-                Rating = (float)rating
+                AvgRating = (float)avgRating,                
+                Rating =  rating
             }) ;
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PerfilVendedor(PerfilVendedorViewModel model)
+        {
+            int rating = Convert.ToInt32(model.Rating);
+            var usuarioCalificado = db.Usuario.Find(model.UsuarioCalificadoId);
+            model.Usuario = usuarioCalificado;
+            if (rating != 0)
+            {
+                int idUsuarioCalificador = Convert.ToInt32(HttpContext.Session["UserID"]);
+                var currentRating = db.RatingUsuario.Where(ru => ru.UsuarioCalificadorID == idUsuarioCalificador && ru.UsuarioCalificadoID == model.UsuarioCalificadoId).FirstOrDefault();
+                if (currentRating == null)
+                {
+                    db.RatingUsuario.Add(new RatingUsuario
+                    {
+                        UsuarioCalificadorID = idUsuarioCalificador,
+                        UsuarioCalificadoID = model.UsuarioCalificadoId,
+                        Rating = rating
+                    });
+                    db.SaveChanges();
+                }
+                else
+                {
+                    currentRating.Rating = rating;
+                    db.Entry(currentRating).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                var avgRating = db.RatingUsuario.Where(u => u.UsuarioCalificadoID == model.UsuarioCalificadoId).Average(ru => ru.Rating);
+                model.AvgRating = (float)avgRating;
+            }
+            return View(model);
         }
 
         public ActionResult Editar()

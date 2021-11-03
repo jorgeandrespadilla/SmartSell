@@ -1,7 +1,7 @@
-﻿@model ProyectoFinal.Web.Models.Usuario
+﻿@model ProyectoFinal.Web.ViewModels.PerfilVendedorViewModel
 
 
-@{ ViewBag.Title = "Perfil"; }
+@{ ViewBag.Title = "Perfil del Vendedor"; }
 <style>
     body {
         background-color: #f9f9fa;
@@ -66,21 +66,29 @@
                     <p class="fs-5 fw-bold">@Session["Username"]</p>
                 </div>
             </div>
-            <div class="center">
-                <div class="stars">
-                    @*<a class="dropdown-item @(String.Compare(ViewBag.Stars, "StarView") == 0 ? "active" : "")" href="@Url.Action("Edit", new { sortOrder = "Star", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Precio ascendente</a>*@
-                    <input type="radio" id="five" name="ra  te" value="5">
-                    <label for="five"></label>
-                    <input type="radio" id="four" name="rate" value="4">
-                    <label for="four"></label>
-                    <input type="radio" id="three" name="rate" value="3">
-                    <label for="three"></label>
-                    <input type="radio" id="two" name="rate" value="2">
-                    <label for="two"></label>
-                    <input type="radio" id="one" name="rate" value="1">
-                    <label for="one"></label>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.UsuarioCalificadoId)
+                @Html.HiddenFor(model => model.AvgRating)
+                <div class="d-flex flex-column justify-content-center align-center">
+                    <div class="center">
+                        <div class="stars">
+                            @Html.RadioButtonFor(m => m.Rating, "5", new { @id = "five", @name = "rate" })
+                            <label for="five"></label>
+                            @Html.RadioButtonFor(m => m.Rating, "4", new { @id = "four", @name = "rate" })
+                            <label for="four"></label>
+                            @Html.RadioButtonFor(m => m.Rating, "3", new { @id = "three", @name = "rate" })
+                            <label for="three"></label>
+                            @Html.RadioButtonFor(m => m.Rating, "2", new { @id = "two", @name = "rate" })
+                            <label for="two"></label>
+                            @Html.RadioButtonFor(m => m.Rating, "1", new { @id = "one", @name = "rate" })
+                            <label for="one"></label>
+                        </div>
+                    </div>
+                    <input class="btn btn-outline-primary mt-3" type="submit" value="Enviar">
                 </div>
-            </div>
+            }
         </div>
         <div class="col-12 col-sm-8">
             <div class="p-3">
@@ -88,17 +96,21 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="mb-2 fw-bolder">Nombres</p>
-                        <h6 class="text-muted">@Html.DisplayFor(model => model.Nombres)</h6>
+                        <h6 class="text-muted">@Html.DisplayFor(model => model.Usuario.Nombres)</h6>
                     </div>
                     <div class="col-sm-6">
                         <p class="mb-2 fw-bolder">Apellidos</p>
-                        <h6 class="text-muted">@Html.DisplayFor(model => model.Apellidos)</h6>
+                        <h6 class="text-muted">@Html.DisplayFor(model => model.Usuario.Apellidos)</h6>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-sm-6">
                         <p class="mb-2 fw-bolder">Correo</p>
-                        <h6 class="text-muted">@Html.DisplayFor(model => model.Correo)</h6>
+                        <h6 class="text-muted">@Html.DisplayFor(model => model.Usuario.Correo)</h6>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="mb-2 fw-bolder">Calificación</p>
+                        <h6 class="text-muted">@Html.DisplayFor(model => model.AvgRating)</h6>
                     </div>
                 </div>
             </div>
