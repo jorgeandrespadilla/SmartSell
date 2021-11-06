@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ProyectoFinal.Web.Models.Oferta>
+
+@{
+    ViewBag.Title = "Ofetas";
+}
+
+<h2>Ofertas</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Nombre del producto
+        </th>
+        <th>
+            Nombre de usuario
+        </th>
+        <th>
+            Monto ofertado
+        </th>
+        <th>
+            Fecha de creación
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subasta.NombreProducto)
+        </td>
+        <td>
+            @String.Format("{0} {1}", item.Usuario.Nombres, item.Subasta.Usuario.Apellidos)
+        </td>
+        <td>
+            @string.Format("{0:C}", item.Monto)
+        </td>
+        <td>
+            @item.FechaCreacion.ToString("dd MMM yyyy, HH:mm")
+        </td>
+        <td>
+            @Html.ActionLink("Ver subasta", "Details", "Subastas", new { id=item.SubastaID }, new { @class="text-decoration-none"})
+        </td>
+    </tr>
+}
+
+</table>

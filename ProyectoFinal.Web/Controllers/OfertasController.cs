@@ -20,7 +20,7 @@ namespace ProyectoFinal.Web.Controllers
         // GET: Ofertas
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Subastas");
+            return View(db.Oferta.ToList());
         }
 
         // GET: Ofertas/Create

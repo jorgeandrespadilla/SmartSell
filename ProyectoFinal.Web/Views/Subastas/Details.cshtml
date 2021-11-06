@@ -76,17 +76,17 @@
                     </button>
                 }
             }
-        }
-        @if (String.Compare(ViewBag.ViewMode, "COMPRADOR") == 0)
-        {
-            @Html.ActionLink("Ofertar", "Create", "Ofertas", new { subastaID = Model.Subasta.SubastaID }, new { @class = "btn btn-outline-primary me-2" })
-        }
-        @if (String.Compare(ViewBag.ofertaActual, "ACTUAL") == 0)
-        {
-            ViewBag.borrarBtn = "OFERTA";
-            <button type="button" class="btn btn-outline-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                Eliminar oferta
-            </button>
+            if (String.Compare(ViewBag.ViewMode, "COMPRADOR") == 0)
+            {
+                @Html.ActionLink("Ofertar", "Create", "Ofertas", new { subastaID = Model.Subasta.SubastaID }, new { @class = "btn btn-outline-primary me-2" })
+            }
+            if (String.Compare(ViewBag.ofertaActual, "ACTUAL") == 0)
+            {
+                ViewBag.borrarBtn = "OFERTA";
+                <button type="button" class="btn btn-outline-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    Eliminar oferta
+                </button>
+            }
         }
     </div>
     <h2 class="mt-4 mb-3">Ofertas</h2>
