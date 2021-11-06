@@ -319,7 +319,9 @@ namespace ProyectoFinal.Web.Controllers
                 
                 db.Oferta.Remove(ofertaActual);
                 db.SaveChanges();
-            }else if (ViewBag.borrarBtn == "SUBASTA")
+                return RedirectToAction("Details", "Subastas", new { id = ofertaActual.SubastaID});
+            }
+            else if (ViewBag.borrarBtn == "SUBASTA")
             {
                 var ofertas = db.Oferta.Where(o => o.SubastaID == id).ToList();
                 var subasta = db.Subasta.Find(id);
@@ -327,7 +329,6 @@ namespace ProyectoFinal.Web.Controllers
                 db.Subasta.Remove(subasta);
                 db.SaveChanges();
             }
-
             return RedirectToAction("Index", "Subastas");
         }
 

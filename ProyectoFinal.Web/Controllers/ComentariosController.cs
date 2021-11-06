@@ -58,6 +58,7 @@ namespace ProyectoFinal.Web.Controllers
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ComentarioCreateViewModel comentario)
         {
             if (!ModelState.IsValid)
@@ -94,6 +95,7 @@ namespace ProyectoFinal.Web.Controllers
             }
             return View(new ComentarioEditViewModel
             {
+                SubastaId = comentario.SubastaID,
                 ComentarioId = comentario.ComentarioID,
                 DescripcionComentario = comentario.Descripcion
             });
@@ -110,6 +112,7 @@ namespace ProyectoFinal.Web.Controllers
             {
                 var comentario = db.Comentario.Find(model.ComentarioId);
                 comentario.Descripcion = model.DescripcionComentario;
+                comentario.FechaCreacion = DateTime.Now;
                 db.Entry(comentario).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details", "Subastas", new { id = model.SubastaId });

@@ -8,6 +8,7 @@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.SubastaId)
     @Html.HiddenFor(model => model.ComentarioId)
     <div class="form-horizontal">
@@ -20,9 +21,9 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-md-10 mt-3">
                 @Html.ActionLink("Volver", "Index", "Subastas", new { id = @Model.SubastaId }, new { @class = "btn btn-secondary" })
-                <input type="submit" value="Guardar" class="btn btn-outline-primary mt-3 mb-2 ms-3" />
+                <input type="submit" value="Guardar" class="btn btn-primary ms-2" />
             </div>
         </div>
     </div>
