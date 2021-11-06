@@ -9,11 +9,8 @@ namespace ProyectoFinal.Web.ViewModels
 {
     public class ComentarioCreateViewModel
     {
-        public Subasta Subasta { get; set; }
+        public int SubastaId { get; set; }
         [Required]
-        public string Comentario { get; set; }
-        
-
-
+        public string DescripcionComentario { get; set; }
     }
 }

@@ -6,18 +6,16 @@
 
 <h2>Agregar comentario</h2>
 
-
 @using (Html.BeginForm()) 
 {
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.Subasta)
+    @Html.HiddenFor(model => model.SubastaId)
     <div class="form-horizontal">
         <hr />
         <div class="form-group">
-            @Html.LabelFor(model => model.Comentario,"Comentario", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DescripcionComentario,"Comentario", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Comentario, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Comentario, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(model => model.DescripcionComentario, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DescripcionComentario, null, new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">

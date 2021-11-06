@@ -41,12 +41,15 @@ namespace ProyectoFinal.Web.Controllers
         // GET: Comentarios/Create
         public ActionResult Create(int? subastaID)
         {
+            if (subastaID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Subasta subasta = db.Subasta.Find(subastaID);
             return View(new ComentarioCreateViewModel
             {
-                Comentario = "",
-                Subasta = subasta,
-                
+                DescripcionComentario = "",
+                SubastaId = subastaID.Value
             }) ;
         }
 
@@ -55,20 +58,19 @@ namespace ProyectoFinal.Web.Controllers
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(ComentarioCreateViewModel comentario)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(comentario);
             }
             db.Comentario.Add(new Comentario
             {
                 UsuarioID = Convert.ToInt32(HttpContext.Session["UserID"]),
-                SubastaID = comentario.Subasta.SubastaID,
-                Descripcion = comentario.Comentario,
+                SubastaID = comentario.SubastaId,
+                Descripcion = comentario.DescripcionComentario,
                 FechaCreacion = DateTime.Now
-            }) ;
+            });
             db.SaveChanges();
             return RedirectToAction("Index", "Subastas");
             
