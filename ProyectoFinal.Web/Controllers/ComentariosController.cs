@@ -136,14 +136,21 @@ namespace ProyectoFinal.Web.Controllers
         }
 
         // POST: Comentarios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Comentario comentario = db.Comentario.Find(id);
+            if (comentario == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            int userId = Convert.ToInt32(HttpContext.Session["UserID"]);
+            if (comentario.UsuarioID != userId)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             db.Comentario.Remove(comentario);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details","Subastas",new { id = comentario.SubastaID});
         }
 
         protected override void Dispose(bool disposing)

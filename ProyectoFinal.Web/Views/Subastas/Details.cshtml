@@ -1,7 +1,6 @@
 ﻿@model ProyectoFinal.Web.ViewModels.SubastaDetailsViewModel
-
-
 @{ ViewBag.Title = "Información de subasta"; }
+  
 <style>
     body {
         background-color: #f9f9fa;
@@ -160,7 +159,8 @@
                 {
                     <div class="d-flex justify-content-end align-items-center">
                         @Html.ActionLink("Editar", "Edit", "Comentarios", new { id = comentario.ComentarioID }, new { @class = "link-primary me-2" })
-                        @Html.ActionLink("Eliminar", "Delete", "Comentarios", new { id = comentario.ComentarioID }, new { @class = "link-danger me-2" })
+                        @Html.ActionLink("Eliminar", "DeleteConfirmed", "Comentarios", new { id = comentario.ComentarioID }, new { @class = "link-danger me-2"})
+                        
                     </div>
                 }
             </div>
@@ -200,3 +200,4 @@
         </div>
     </div>
 </div>
+
