@@ -152,6 +152,7 @@
     <Compile Include="Models\Subasta.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ComentarioCreateViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\OfertasCreateViewModel.cs" />
     <Compile Include="ViewModels\PerfilVendedorViewModel.cs" />

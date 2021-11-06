@@ -6,10 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoFinal.Web.Infrastructure;
 using ProyectoFinal.Web.Models;
+using ProyectoFinal.Web.ViewModels;
 
 namespace ProyectoFinal.Web.Controllers
 {
+    [AuthenticationFilter]
     public class ComentariosController : Controller
     {
         private SmartSell db = new SmartSell();
@@ -36,30 +39,39 @@ namespace ProyectoFinal.Web.Controllers
         }
 
         // GET: Comentarios/Create
-        public ActionResult Create()
+        public ActionResult Create(int? subastaID)
         {
-            ViewBag.SubastaID = new SelectList(db.Subasta, "SubastaID", "NombreProducto");
-            ViewBag.UsuarioID = new SelectList(db.Usuario, "UsuarioID", "Nombres");
-            return View();
+            Subasta subasta = db.Subasta.Find(subastaID);
+            return View(new ComentarioCreateViewModel
+            {
+                Comentario = "",
+                Subasta = subasta,
+                
+            }) ;
         }
+
 
         // POST: Comentarios/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ComentarioID,UsuarioID,SubastaID,Descripcion,FechaCreacion")] Comentario comentario)
+        public ActionResult Create(ComentarioCreateViewModel comentario)
         {
             if (ModelState.IsValid)
             {
-                db.Comentario.Add(comentario);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(comentario);
             }
-
-            ViewBag.SubastaID = new SelectList(db.Subasta, "SubastaID", "NombreProducto", comentario.SubastaID);
-            ViewBag.UsuarioID = new SelectList(db.Usuario, "UsuarioID", "Nombres", comentario.UsuarioID);
-            return View(comentario);
+            db.Comentario.Add(new Comentario
+            {
+                UsuarioID = Convert.ToInt32(HttpContext.Session["UserID"]),
+                SubastaID = comentario.Subasta.SubastaID,
+                Descripcion = comentario.Comentario,
+                FechaCreacion = DateTime.Now
+            }) ;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Subastas");
+            
         }
 
         // GET: Comentarios/Edit/5
