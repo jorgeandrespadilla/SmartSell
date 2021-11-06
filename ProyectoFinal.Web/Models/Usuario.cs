@@ -22,5 +22,7 @@ namespace ProyectoFinal.Web.Models
         public virtual ICollection<RatingUsuario> RatingsUsuarioCalificado { get; set; }
         [InverseProperty("UsuarioCalificador")]
         public virtual ICollection<RatingUsuario> RatingsUsuarioCalificador { get; set; }
+        public virtual ICollection<Comentario> Comentarios { get; set; }
+
     }
 }

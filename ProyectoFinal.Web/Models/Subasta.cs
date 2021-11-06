@@ -16,5 +16,6 @@ namespace ProyectoFinal.Web.Models
         public DateTime FechaLimite { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual ICollection<Oferta> Ofertas { get; set; }
+        public virtual ICollection<Comentario> Comentarios { get; set; }
     }
 }
