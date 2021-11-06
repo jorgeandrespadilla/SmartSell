@@ -132,6 +132,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ComentariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Infrastructure\AuthenticationFilter.cs" />
     <Compile Include="Infrastructure\Helpers\Hasher.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Comentario.cs" />
     <Compile Include="Models\Oferta.cs" />
     <Compile Include="Models\RatingUsuario.cs" />
     <Compile Include="Models\SmartSell.cs" />
@@ -240,6 +242,11 @@
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
     <Content Include="Views\Subastas\Details.cshtml" />
     <Content Include="Views\Usuario\PerfilVendedor.cshtml" />
+    <Content Include="Views\Comentarios\Create.cshtml" />
+    <Content Include="Views\Comentarios\Delete.cshtml" />
+    <Content Include="Views\Comentarios\Details.cshtml" />
+    <Content Include="Views\Comentarios\Edit.cshtml" />
+    <Content Include="Views\Comentarios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
