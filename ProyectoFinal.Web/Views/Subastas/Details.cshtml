@@ -156,6 +156,13 @@
                     </span>
                 </div>
                 <p class="m-0">@comentario.Descripcion</p>
+                @if(@comentario.UsuarioID == @Convert.ToInt32(@Session["UserID"]))
+                {
+                    <div class="d-flex justify-content-end align-items-center">
+                        @Html.ActionLink("Editar", "Edit", "Comentarios", new { id = comentario.ComentarioID }, new { @class = "link-primary me-2" })
+                        @Html.ActionLink("Eliminar", "Delete", "Comentarios", new { id = comentario.ComentarioID }, new { @class = "link-danger me-2" })
+                    </div>
+                }
             </div>
         }
     }

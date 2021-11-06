@@ -72,8 +72,7 @@ namespace ProyectoFinal.Web.Controllers
                 FechaCreacion = DateTime.Now
             });
             db.SaveChanges();
-            return RedirectToAction("Index", "Subastas");
-            
+            return RedirectToAction("Details", "Subastas", new { id = comentario.SubastaId});
         }
 
         // GET: Comentarios/Edit/5
@@ -88,9 +87,16 @@ namespace ProyectoFinal.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SubastaID = new SelectList(db.Subasta, "SubastaID", "NombreProducto", comentario.SubastaID);
-            ViewBag.UsuarioID = new SelectList(db.Usuario, "UsuarioID", "Nombres", comentario.UsuarioID);
-            return View(comentario);
+            int userId = Convert.ToInt32(HttpContext.Session["UserID"]);
+            if (comentario.UsuarioID != userId)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return View(new ComentarioEditViewModel
+            {
+                ComentarioId = comentario.ComentarioID,
+                DescripcionComentario = comentario.Descripcion
+            });
         }
 
         // POST: Comentarios/Edit/5
@@ -98,17 +104,17 @@ namespace ProyectoFinal.Web.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ComentarioID,UsuarioID,SubastaID,Descripcion,FechaCreacion")] Comentario comentario)
+        public ActionResult Edit(ComentarioEditViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var comentario = db.Comentario.Find(model.ComentarioId);
+                comentario.Descripcion = model.DescripcionComentario;
                 db.Entry(comentario).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Subastas", new { id = model.SubastaId });
             }
-            ViewBag.SubastaID = new SelectList(db.Subasta, "SubastaID", "NombreProducto", comentario.SubastaID);
-            ViewBag.UsuarioID = new SelectList(db.Usuario, "UsuarioID", "Nombres", comentario.UsuarioID);
-            return View(comentario);
+            return View(model);
         }
 
         // GET: Comentarios/Delete/5
