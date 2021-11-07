@@ -1,6 +1,6 @@
 # Proyecto Final Programación IV - SmartSell
 
-![logo](https://user-images.githubusercontent.com/58148764/140631488-bb196bdf-b232-46fa-988f-5e184adcd6e9.png)
+![image](https://user-images.githubusercontent.com/58148764/140632035-c247d70a-5a3a-456a-8a46-a17b6d91b466.png)
 
 **Integrantes:**
 - Nestor Lozada
