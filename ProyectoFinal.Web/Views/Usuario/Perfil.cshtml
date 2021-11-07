@@ -53,7 +53,7 @@
         @Html.ActionLink("Editar", "Editar", "Usuario", null, new { @class = "btn btn-outline-primary" })
     </div>
     <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link @(String.Compare(ViewBag.CurrentInfo, "PARTICIPACION") == 0 ? "active" : "")" href="@Url.Action("Perfil","Usuario", new { showInfo = "PARTICIPACION" })">Histórico de ofertas altas</a></li>
+        <li class="nav-item"><a class="nav-link @(String.Compare(ViewBag.CurrentInfo, "PARTICIPACION") == 0 ? "active" : "")" href="@Url.Action("Perfil","Usuario", new { showInfo = "PARTICIPACION" })">Ofertas más altas</a></li>
         <li class="nav-item"><a class="nav-link @(String.Compare(ViewBag.CurrentInfo, "GANADAS") == 0 ? "active" : "")" href="@Url.Action("Perfil","Usuario", new { showInfo = "GANADAS" })">Subastas ganadas</a></li>
     </ul>
     <table class="table table-striped mt-2">
@@ -63,7 +63,7 @@
                     Subasta
                 </th>
                 <th class="col-3">
-                    Monto actual
+                    Monto ofertado
                 </th>
                 <th class="col-4">
                     Fecha de envío

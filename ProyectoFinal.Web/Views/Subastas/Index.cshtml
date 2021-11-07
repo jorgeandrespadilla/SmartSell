@@ -75,7 +75,7 @@
                     @if (@String.Compare(ViewBag.ShowAll, "true") == 0)
                     {
                         <div class="form-check mt-3">
-                            @Html.CheckBox("HideMySubastas", (String.Compare(ViewBag.hideMySubastas, "true") == 0 ? true : false), new { @class = "form-check-input", @id = "hideMySubastas" })
+                            @Html.CheckBox("HideMySubastas", (String.Compare(ViewBag.HideMySubastas, "true") == 0 ? true : false), new { @class = "form-check-input", @id = "hideMySubastas" })
                             <label class="form-check-label" for="hideMySubastas">Ocultar mis subastas</label>
                         </div>
                     }

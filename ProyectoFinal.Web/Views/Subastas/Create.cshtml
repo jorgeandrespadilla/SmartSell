@@ -40,7 +40,7 @@
                 @Html.LabelFor(model => model.Imagen, "Imagen", htmlAttributes: new { @class = "control-label  mt-3" })
                 <div class="col-md-10">
                     @Html.LabelFor(model => model.Imagen, "Cargar Archivo", htmlAttributes: new { @class = "btn btn-primary mt-2" })
-                    @Html.TextBoxFor(m => m.Imagen, new { @class = "custom-file-input", type = "file", accept = "image/*", onchange = "showPreview(event);" })
+                    @Html.TextBoxFor(m => m.Imagen, new {@class = "custom-file-input", type = "file", accept = "image/*", onchange="showPreview(event);" })
                     @Html.ValidationMessageFor(model => model.Imagen, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -73,12 +73,18 @@
 }
 
 <script>
+    var originalFileSrc = "/Content/Images/missing-img.jpg";
+
     function showPreview(event) {
         if (event.target.files.length > 0) {
             var src = URL.createObjectURL(event.target.files[0]);
             var preview = document.getElementById("image-preview");
             preview.src = src;
             preview.style.display = "block";
+        }
+        else {
+            var preview = document.getElementById("image-preview");
+            preview.src = originalFileSrc;
         }
     }
 </script>

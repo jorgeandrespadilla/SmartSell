@@ -25,8 +25,8 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10 mt-3">
-            @Html.ActionLink("Volver", "Index", "Subastas", new { id = @Model.SubastaID }, new { @class = "btn btn-secondary" })
-            <input type="submit" value="Create" class="btn btn-primary ms-2" />
+            @Html.ActionLink("Volver", "Details", "Subastas", new { id = @Model.SubastaID }, new { @class = "btn btn-secondary" })
+            <input type="submit" value="Enviar" class="btn btn-primary ms-2" />
         </div>
     </div>
     @Html.ValidationMessage("generalError", new { @class = "text-danger" })
@@ -34,9 +34,7 @@
 </div>
 }
 
-<div>
-    @Html.ActionLink("Volver a la lista", "Index","Subastas")
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

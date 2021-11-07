@@ -1,46 +1,87 @@
-﻿@model IEnumerable<ProyectoFinal.Web.Models.Oferta>
+﻿@model PagedList.IPagedList<ProyectoFinal.Web.Models.Oferta>
+@using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Ofetas";
+    ViewBag.Title = "Mis ofetas";
 }
 
-<h2>Ofertas</h2>
+<h2>Mis ofertas</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            Nombre del producto
-        </th>
-        <th>
-            Nombre de usuario
-        </th>
-        <th>
-            Monto ofertado
-        </th>
-        <th>
-            Fecha de creación
-        </th>
-        <th></th>
-    </tr>
+<div class="container">
+    <div class="mt-4 mb-4">
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="d-flex">
+                        <!-- Buscar -->
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control ms-2" })
+                        <button class="btn btn-primary d-flex align-items-center ms-3" type="submit">
+                            <span class="material-icons fs-4">search</span>
+                            <span class="ms-2">Buscar</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subasta.NombreProducto)
-        </td>
-        <td>
-            @String.Format("{0} {1}", item.Usuario.Nombres, item.Subasta.Usuario.Apellidos)
-        </td>
-        <td>
-            @string.Format("{0:C}", item.Monto)
-        </td>
-        <td>
-            @item.FechaCreacion.ToString("dd MMM yyyy, HH:mm")
-        </td>
-        <td>
-            @Html.ActionLink("Ver subasta", "Details", "Subastas", new { id=item.SubastaID }, new { @class="text-decoration-none"})
-        </td>
-    </tr>
-}
-
+<table class="table table-striped mt-4">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>
+                Nombre del producto
+            </th>
+            <th>
+                Monto ofertado
+            </th>
+            <th>
+                Fecha de creación
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count == 0)
+        {
+            <tr><td colspan="3">No se encontraron resultados</td></tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Subasta.NombreProducto
+                    </td>
+                    <td>
+                        @string.Format("{0:C}", item.Monto)
+                    </td>
+                    <td>
+                        @item.FechaCreacion.ToString("dd MMM yyyy, HH:mm")
+                    </td>
+                    <td>
+                        @Html.ActionLink("Ver subasta", "Details", "Subastas", new { id = item.SubastaID }, new { @class = "text-decoration-none" })
+                    </td>
+                </tr>
+            }
+        }
 </table>
+
+<div class="mt-4 mb-4">
+    <nav aria-label="Page navigation">
+        @*@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded, hideMySubastas = ViewBag.HideMySubastas, showAll = ViewBag.ShowAll }),
+        new PagedListRenderOptions
+        {
+            MaximumPageNumbersToDisplay = 8,
+            LinkToPreviousPageFormat = "Anterior",
+            LinkToNextPageFormat = "Siguiente",
+            DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+            DisplayLinkToLastPage = PagedListDisplayMode.Never,
+            ContainerDivClasses = new[] { "justify-content-center", "d-flex", "pagination-container" }
+        })
+    </nav>
+</div>

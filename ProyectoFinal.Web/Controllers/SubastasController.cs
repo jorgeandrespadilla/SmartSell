@@ -29,7 +29,7 @@ namespace ProyectoFinal.Web.Controllers
             ViewBag.CurrentSort = sortOrder;
             hideEnded = String.IsNullOrEmpty(hideEnded) ? "true" : hideEnded;
             ViewBag.HideEnded = hideEnded;
-            hideMySubastas = string.IsNullOrEmpty(hideMySubastas) && String.Compare(showAll, "true") == 0 ? "true" : "false";
+                hideMySubastas = string.IsNullOrEmpty(hideMySubastas) && String.Compare(showAll, "true") == 0 ? "true" : hideMySubastas;
             ViewBag.HideMySubastas = hideMySubastas;
             /* Manejar configuración de búsqueda y paginación */
             if (searchString != null)
@@ -126,7 +126,7 @@ namespace ProyectoFinal.Web.Controllers
             ViewBag.PaginaMimima = paginasTotales - 4 >= 1 ? paginasTotales - 4 : 1;
             ViewBag.PaginaMaxima = paginasTotales + 3 >= 1 ? paginasTotales - 4 : 1; 
             */
-            int pageSize = 6;
+            int pageSize = 6; // Numero de elementos por página
             int paginasTotales = Convert.ToInt32(subastasModel.Count() / pageSize) + 1;
             if (page != null && (page < 1 || page > paginasTotales))
             {

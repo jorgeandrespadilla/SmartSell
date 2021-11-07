@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using ProyectoFinal.Web.Infrastructure;
 using ProyectoFinal.Web.Models;
 using ProyectoFinal.Web.ViewModels;
@@ -18,9 +19,35 @@ namespace ProyectoFinal.Web.Controllers
         private SmartSell db = new SmartSell();
 
         // GET: Ofertas
-        public ActionResult Index()
+        public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            return View(db.Oferta.ToList());
+            /* Manejar configuración de búsqueda y paginación */
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+            int usuarioId = Convert.ToInt32(HttpContext.Session["UserID"]);
+            var ofertasQuery = db.Oferta.Where(o => o.UsuarioID == usuarioId).ToList();
+            /* Manejar cadena de búsqueda */
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ofertasQuery = ofertasQuery.Where(s => s.Subasta.NombreProducto.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+
+            int pageSize = 10;
+            int paginasTotales = Convert.ToInt32(ofertasQuery.Count() / pageSize) + 1;
+            if (page != null && (page < 1 || page > paginasTotales))
+            {
+                page = 1;
+            }
+            int pageNumber = (page ?? 1);
+
+            return View(ofertasQuery.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Ofertas/Create
@@ -83,7 +110,7 @@ namespace ProyectoFinal.Web.Controllers
 
                 });
                 db.SaveChanges();
-                return RedirectToAction("Index", "Subastas");
+                return RedirectToAction("Details", "Subastas", new { id = oferta.SubastaID });
             }
             return View();
         }
