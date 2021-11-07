@@ -16,7 +16,7 @@ Finalmente, debemos ejecutar el comando `Update-Database` en la consola de admin
 Para restaurar la base de datos, se deben seguir los siguientes pasos:
 
 1. Ejecutar el comando `Update-Database`
-2. Restaurar los datos de prueba de la base de datos: Con SSMS, ejecutar el script SQL, el cual solo contiene los datos de prueba de la base de datos
+2. Restaurar los datos de prueba de la base de datos: Con Microsoft SQL Management Studio (SSMS), ejecutar el script SQL `DataBackup.sql` ubicado en la raíz del proyecto, el cual solo contiene los datos de prueba de la base de datos
 
 **Observación:** Los datos de prueba de la base de datos se respaldan por medio del SSMS.
 
