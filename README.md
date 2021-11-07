@@ -4,6 +4,15 @@ Al clonar por primera vez el repositorio, es necesario compilar la solución par
   
 Finalmente, debemos ejecutar el comando `Update-Database` en la consola de administrador de paquetes de NuGet para poder generar la base de datos correspondiente (en caso de no estar creada localmente).
 
+## ¿Cómo restaurar la base de datos?
+
+Para restaurar la base de datos, se deben seguir los siguientes pasos:
+
+1. Ejecutar el comando `Update-Database`
+2. Restaurar los datos de prueba de la base de datos: Con SSMS, ejecutar el script SQL, el cual solo contiene los datos de prueba de la base de datos
+
+**Observación:** Los datos de prueba de la base de datos se respaldan por medio del SSMS.
+
 ## ¿Cómo arreglar errores?
 
 Para arreglar errores, se deben seguir los siguientes pasos:
