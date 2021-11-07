@@ -22,13 +22,13 @@
             <div class="p-3">
                 <h5 class="mb-4 pb-1 border-bottom fw-bold">Información</h5>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <p class="mb-2 fw-bolder">Nombre del producto</p>
                         <h6 class="text-muted">@Html.DisplayFor(model => model.Subasta.NombreProducto)</h6>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <p class="mb-2 fw-bolder">Vendedor</p>
                         <a style="font-weight: 700;" class="text-decoration-none" href="@Url.Action("PerfilVendedor", "Usuario", new { id = @Model.Subasta.Usuario.UsuarioID})">
                             @String.Format("{0} {1}", @Model.Subasta.Usuario.Nombres, @Model.Subasta.Usuario.Apellidos)
@@ -36,25 +36,25 @@
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <p class="mb-2 fw-bolder">Precio actual</p>
                         <h6 class="text-muted">@string.Format("{0:C}", Model.MontoActual)</h6>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <p class="mb-2 fw-bolder">Descripción</p>
                         <p class="text-muted">@Html.DisplayFor(model => model.Subasta.DescripcionProducto)</p>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <p class="mb-2 fw-bolder">Vigente</p>
                         <p class="text-muted">@(Model.Vigente?"Sí":"No")</p>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <p class="mb-2 fw-bolder">Fecha de finalización</p>
                         <p class="text-muted">@Model.Subasta.FechaLimite.ToString("dd MMM yyyy, HH:mm tt")</p>
                     </div>
