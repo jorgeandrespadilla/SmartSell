@@ -1,5 +1,12 @@
 # Proyecto Final Programación IV - SmartSell
 
+![logo](https://user-images.githubusercontent.com/58148764/140631488-bb196bdf-b232-46fa-988f-5e184adcd6e9.png)
+
+**Integrantes:**
+- Nestor Lozada
+- Jorge Padilla
+- Alain Ruales
+
 Al clonar por primera vez el repositorio, es necesario compilar la solución para que se instalen de manera automática las dependencias NuGet.
   
 Finalmente, debemos ejecutar el comando `Update-Database` en la consola de administrador de paquetes de NuGet para poder generar la base de datos correspondiente (en caso de no estar creada localmente).
