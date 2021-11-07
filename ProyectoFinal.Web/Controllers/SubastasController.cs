@@ -20,15 +20,17 @@ namespace ProyectoFinal.Web.Controllers
 
         // GET: Subastas
         // https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, string hideEnded, string miSubastas, int? page)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, string hideEnded, string hideMySubastas, string showAll, int? page)
         {
             /* Manejar configuración de filtrado y de ocultamiento */
+            showAll = String.IsNullOrEmpty(showAll) ? "true" : showAll;
+            ViewBag.ShowAll = showAll;
             sortOrder = String.IsNullOrEmpty(sortOrder) ? "" : sortOrder;
             ViewBag.CurrentSort = sortOrder;
             hideEnded = String.IsNullOrEmpty(hideEnded) ? "true" : hideEnded;
             ViewBag.HideEnded = hideEnded;
-            miSubastas = string.IsNullOrEmpty(miSubastas) ? "" : miSubastas;
-            ViewBag.Misubastas = miSubastas;
+            hideMySubastas = string.IsNullOrEmpty(hideMySubastas) && String.Compare(showAll, "true") == 0 ? "true" : "false";
+            ViewBag.HideMySubastas = hideMySubastas;
             /* Manejar configuración de búsqueda y paginación */
             if (searchString != null)
             {
@@ -40,7 +42,6 @@ namespace ProyectoFinal.Web.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
-            /* Manejar cadena de búsqueda */
             /* Consultar subastas junto con su mayor oferta */
             var subastasQuery = db.Subasta.Where(s => s.Usuario.Activo).GroupJoin(db.Oferta, s => s.SubastaID, o => o.SubastaID, (s, o) => new
             {
@@ -53,6 +54,14 @@ namespace ProyectoFinal.Web.Controllers
                 SubastaID = g.Key,
                 OfertaActual = g.OrderByDescending(x => x.Monto).Select(x => x).FirstOrDefault()
             }).ToList(); */
+
+            /* Manejar despliegue para mis ofertas/todas las ofertas */
+            if (String.Compare(showAll, "false") == 0)
+            {
+                subastasQuery = subastasQuery.Where(s => s.Subasta.UsuarioID == Convert.ToInt32(HttpContext.Session["UserID"])).ToList();
+            }
+
+            /* Manejar cadena de búsqueda */
             if (!String.IsNullOrEmpty(searchString))
             {
                 subastasQuery = subastasQuery.Where(s => s.Subasta.NombreProducto.ToLower().Contains(searchString.ToLower())).ToList();
@@ -83,10 +92,9 @@ namespace ProyectoFinal.Web.Controllers
             {
                 subastasModel = subastasModel.Where(s => s.Vigente).ToList();
             }
-
-            if (String.Compare(miSubastas, "true") == 0)
+            if (String.Compare(hideMySubastas, "true") == 0 && String.Compare(showAll, "true") == 0)
             {
-                subastasModel = subastasModel.Where(s => s.Subasta.UsuarioID == Convert.ToInt32(HttpContext.Session["UserID"])).ToList();
+                subastasModel = subastasModel.Where(s => s.Subasta.UsuarioID != Convert.ToInt32(HttpContext.Session["UserID"])).ToList();
             }
 
             /* Manejar filtros */

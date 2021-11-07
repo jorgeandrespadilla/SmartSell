@@ -19,8 +19,17 @@
     }
 </style>
 
-
-<h2>Subastas</h2>
+<div class="d-flex justify-content-between align-items-center">
+    <h2>@(String.Compare(ViewBag.ShowAll, "true") == 0 ? "Subastas" : "Mis Subastas")</h2>
+    @if (@String.Compare(ViewBag.ShowAll, "true") == 0)
+    {
+        <a class="btn btn-primary" href="@Url.Action("Index", new { hideMySubastas = "false", showAll = "false", sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Ver mis subastas</a>
+        }
+    else
+    {
+        <a class="btn btn-primary" href="@Url.Action("Index", new { hideMySubastas = "true", showAll = "true", sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Ver todas</a>
+    }
+</div>
 
 <p>
     @Html.ActionLink("Crear Subasta", "Create")
@@ -38,13 +47,13 @@
                                 <span class="material-icons fs-4 text-muted">filter_alt</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "price_asc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "price_asc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Precio ascendente</a></li>
-                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "price_desc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "price_desc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Precio descendente</a></li>
-                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "name_asc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "name_asc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Nombre ascendente</a></li>
-                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "name_desc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "name_desc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">Nombre descendente</a></li>
+                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "price_asc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "price_asc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded, hideMySubastas = ViewBag.HideMySubastas, showAll = ViewBag.ShowAll })">Precio ascendente</a></li>
+                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "price_desc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "price_desc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded, hideMySubastas = ViewBag.HideMySubastas, showAll = ViewBag.ShowAll })">Precio descendente</a></li>
+                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "name_asc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "name_asc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded, hideMySubastas = ViewBag.HideMySubastas, showAll = ViewBag.ShowAll })">Nombre ascendente</a></li>
+                                <li><a class="dropdown-item @(String.Compare(ViewBag.CurrentSort, "name_desc") == 0 ? "active" : "")" href="@Url.Action("Index", new { sortOrder = "name_desc", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded, hideMySubastas = ViewBag.HideMySubastas, showAll = ViewBag.ShowAll })">Nombre descendente</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Index", new { sortOrder = "", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded })">
+                                    <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Index", new { sortOrder = "", currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded, hideMySubastas = ViewBag.HideMySubastas, showAll = ViewBag.ShowAll })">
                                         <span class="material-icons fs-5">filter_alt_off</span>
                                         <span class="ms-2">Quitar filtros</span>
                                     </a>
@@ -63,10 +72,13 @@
                         @Html.CheckBox("HideEnded", (String.Compare(ViewBag.HideEnded, "false") == 0 ? false : true), new { @class = "form-check-input", @id = "hideEnded" })
                         <label class="form-check-label" for="hideEnded">Ocultar subastas finalizadas</label>
                     </div>
-                    <div class="form-check mt-3">
-                        @Html.CheckBox("MiSubastas", (String.Compare(ViewBag.MiSubastas, "false") == 0 ? true : false), new { @class = "form-check-input", @id = "miSubastas" })
-                        <label class="form-check-label" for="miSubastas">Mis subastas</label>
-                    </div>
+                    @if (@String.Compare(ViewBag.ShowAll, "true") == 0)
+                    {
+                        <div class="form-check mt-3">
+                            @Html.CheckBox("HideMySubastas", (String.Compare(ViewBag.hideMySubastas, "true") == 0 ? true : false), new { @class = "form-check-input", @id = "hideMySubastas" })
+                            <label class="form-check-label" for="hideMySubastas">Ocultar mis subastas</label>
+                        </div>
+                    }
                 </div>
                 <!-- Mostrar cantidad de resultados -->
                 @if (ViewBag.ResultsFound)
@@ -77,7 +89,8 @@
                 }
             </div>
         }
-        
+
+
     </div>
     <!-- Desplegar resultados -->
     @if (ViewBag.ResultsFound)
@@ -122,7 +135,7 @@
             <nav aria-label="Page navigation">
                 @*@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
                 @Html.PagedListPager(Model, page => Url.Action("Index",
-                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded }),
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, hideEnded = ViewBag.HideEnded, hideMySubastas = ViewBag.HideMySubastas, showAll = ViewBag.ShowAll }),
                 new PagedListRenderOptions
                 {
                     MaximumPageNumbersToDisplay = 8,
