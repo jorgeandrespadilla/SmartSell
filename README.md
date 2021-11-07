@@ -11,6 +11,8 @@ Al clonar por primera vez el repositorio, es necesario compilar la solución par
   
 Finalmente, debemos ejecutar el comando `Update-Database` en la consola de administrador de paquetes de NuGet para poder generar la base de datos correspondiente (en caso de no estar creada localmente).
 
+**Observación:** En caso de que el proyecto no funcione al compilar y ejecutar, se debe limpiar y recompilar la solución para resolver errores vinculados a la resolución de rutas y paquetes NuGet.
+
 ## ¿Cómo restaurar la base de datos?
 
 Para restaurar la base de datos, se deben seguir los siguientes pasos:
