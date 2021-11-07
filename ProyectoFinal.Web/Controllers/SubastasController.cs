@@ -55,7 +55,7 @@ namespace ProyectoFinal.Web.Controllers
             }).ToList(); */
             if (!String.IsNullOrEmpty(searchString))
             {
-                subastasQuery = subastasQuery.Where(s => s.Subasta.NombreProducto.Contains(searchString)).ToList();
+                subastasQuery = subastasQuery.Where(s => s.Subasta.NombreProducto.ToLower().Contains(searchString.ToLower())).ToList();
             }
 
             /* Manejar existencia o no de resultados */
