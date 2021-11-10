@@ -142,7 +142,7 @@
     }
     else
     {
-        foreach (var comentario in Model.Subasta.Comentarios)
+        foreach (var comentario in Model.Subasta.Comentarios.OrderByDescending(c => c.FechaCreacion))
         {
             <div class="card mt-3 py-3 px-4">
                 <div class="d-flex justify-content-between align-items-center">

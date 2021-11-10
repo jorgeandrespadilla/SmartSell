@@ -32,7 +32,7 @@ namespace ProyectoFinal.Web.Controllers
             }
             ViewBag.CurrentFilter = searchString;
             int usuarioId = Convert.ToInt32(HttpContext.Session["UserID"]);
-            var ofertasQuery = db.Oferta.Where(o => o.UsuarioID == usuarioId).ToList();
+            var ofertasQuery = db.Oferta.Where(o => o.UsuarioID == usuarioId).OrderByDescending(o => o.FechaCreacion).ToList();
             /* Manejar cadena de búsqueda */
             if (!String.IsNullOrEmpty(searchString))
             {

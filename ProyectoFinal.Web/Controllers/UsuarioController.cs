@@ -34,24 +34,34 @@ namespace ProyectoFinal.Web.Controllers
             }
             showInfo = String.IsNullOrEmpty(showInfo) ? "PARTICIPACION" : showInfo;
             ViewBag.CurrentInfo = showInfo;
-            ICollection<Oferta> ofertas=new List<Oferta>();
-            var ofertasQuery = db.Oferta.Where( o=> o.UsuarioID == id ).GroupBy(o => o.SubastaID).Select(g => new
-            {                
+            var ofertasQuery = db.Oferta.Where(o => o.UsuarioID == id).GroupBy(o => o.SubastaID).Select(g => new
+            {
                 OfertaActual = g.OrderByDescending(x => x.Monto).Select(x => x).FirstOrDefault()
             }).ToList();
-
+            ICollection<Oferta> ofertas = new List<Oferta>();
             if (ViewBag.CurrentInfo == "PARTICIPACION")
             {
-                ofertasQuery = ofertasQuery.Where(o => DateTime.Compare(o.OfertaActual.Subasta.FechaLimite, DateTime.Now) > 0).ToList();                
-            } else if (ViewBag.CurrentInfo == "GANADAS")
-            {
-                ofertasQuery = ofertasQuery.Where(o => DateTime.Compare(o.OfertaActual.Subasta.FechaLimite, DateTime.Now) <= 0).ToList();                               
+                ofertasQuery = ofertasQuery.Where(o => DateTime.Compare(o.OfertaActual.Subasta.FechaLimite, DateTime.Now) > 0).ToList();
+                foreach (var oferta in ofertasQuery)
+                {
+                    ofertas.Add(oferta.OfertaActual);
+                }
+                ofertas = ofertas.OrderByDescending(o => o.Monto).ToList();
             }
-            foreach (var oferta in ofertasQuery)
+            else if (ViewBag.CurrentInfo == "GANADAS")
             {
-                ofertas.Add(oferta.OfertaActual);
+                ofertasQuery = ofertasQuery.Where(o => DateTime.Compare(o.OfertaActual.Subasta.FechaLimite, DateTime.Now) <= 0).ToList();
+                foreach (var oferta in ofertasQuery)
+                {
+                    var subasta = oferta.OfertaActual.Subasta;
+                    var highestOferta = subasta.Ofertas.OrderByDescending(o => o.Monto).FirstOrDefault();
+                    if (highestOferta != null && highestOferta.OfertaID == oferta.OfertaActual.OfertaID)
+                    {
+                        ofertas.Add(oferta.OfertaActual);
+                    }
+                }
+                ofertas = ofertas.OrderByDescending(o => o.Subasta.FechaLimite).ToList();
             }
-            
             var ratings = db.RatingUsuario.Where(u => u.UsuarioCalificadoID == id).ToList();
             double avgRating = 0;
             if (ratings.Count != 0)
@@ -63,6 +73,8 @@ namespace ProyectoFinal.Web.Controllers
                 Usuario = usuario, AvgRating = (float)avgRating, Ofertas = ofertas
             }) ;
         }
+
+
         public ActionResult PerfilVendedor(int id)
         {
             int idUsuarioLogeado = Convert.ToInt32(HttpContext.Session["UserID"]);
