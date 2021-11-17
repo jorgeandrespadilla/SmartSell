@@ -22,6 +22,10 @@ Para restaurar la base de datos, se deben seguir los siguientes pasos:
 
 **Observación:** Los datos de prueba de la base de datos se respaldan por medio del SSMS.
 
+## Ejecución de proyectos
+
+Para ejecutar un proyecto en específico dentro de la solución, debemos modificar las configuraciones de la solución. Para ello, nos dirigimos al *Explorador de soluciones*, abrimos sus *Propiedades*, y en el apartado *Propiedades comunes* > *Proyecto de inicio* marcamos la opción *Selección actual*. Con ello, al trabajar con cualquiera de los proyectos existentes, se desplegará automáticamnete la opción para ejecutar la solución seleccionada.
+
 ## ¿Cómo arreglar errores?
 
 Para arreglar errores, se deben seguir los siguientes pasos:
