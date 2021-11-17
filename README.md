@@ -26,6 +26,9 @@ Para restaurar la base de datos, se deben seguir los siguientes pasos:
 
 Para ejecutar un proyecto en específico dentro de la solución, debemos modificar las configuraciones de la solución. Para ello, nos dirigimos al *Explorador de soluciones*, abrimos sus *Propiedades*, y en el apartado *Propiedades comunes* > *Proyecto de inicio* marcamos la opción *Selección actual*. Con ello, al trabajar con cualquiera de los proyectos existentes, se desplegará automáticamnete la opción para ejecutar la solución seleccionada.
 
+en caso de que una de las soluciones presente problemas al compliar o nos arroje mensajes de omisión al compilar la solución, debemos dirigirnos a la opción *Compilar* > *Administrador de configuración*, y marcamos la opción *Compilación* para todos los proyectos, y la opción *Implementar* para los proyectos que tengan esta opción habilitada.
+![image](https://user-images.githubusercontent.com/58148764/142246833-9b991726-3535-4d7a-b989-7b689cdbf60b.png)
+
 ## ¿Cómo arreglar errores?
 
 Para arreglar errores, se deben seguir los siguientes pasos:
