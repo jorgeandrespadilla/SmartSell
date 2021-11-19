@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoFinal.Desktop.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,9 @@ namespace ProyectoFinal.Desktop
         public MainPage()
         {
             this.InitializeComponent();
+            var usuarios = SmartSell.GetUsuarios((App.Current as App).ConnectionString);
+            usuarios.Count();
+            
         }
     }
 }
