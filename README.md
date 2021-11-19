@@ -29,6 +29,18 @@ Para ejecutar un proyecto en específico dentro de la solución, debemos modific
 En caso de que una de las soluciones presente problemas al compliar o nos arroje mensajes de omisión al compilar la solución, debemos dirigirnos a la opción *Compilar* > *Administrador de configuración*, y marcamos la opción *Compilación* para todos los proyectos, y la opción *Implementar* para los proyectos que tengan esta opción habilitada.
 ![image](https://user-images.githubusercontent.com/58148764/142246833-9b991726-3535-4d7a-b989-7b689cdbf60b.png)
 
+## Configuración de proyecto UWP
+
+Para ejecutar el proyecto UWP, es necesario verificar que tenemos habilitado el protocolo *TCP/IP* para SQL Express en nuestro equipo, para permitir la conexión de la aplicación de escritorio con la base de datos. Para ello, nos dirigimos al panel de *Administración de equipos* y habilitamos el protocolo *TCP/IP* para SQL Express, tal y como se muestra en la imagen a continuación.
+
+![image](https://user-images.githubusercontent.com/58148764/142556391-0747bede-8b83-4b48-bf08-e55073df1723.png)
+
+Una vez habilitado el protocolo, debemos reiniciar y verificar que los servicios *SQL Server (SQLEXPRESS)* y *SQL Server Browser* se encuentren activados (Estado: *En ejecución*) y habilitados (Tipo de inicio: *Automático*).
+
+![image](https://user-images.githubusercontent.com/58148764/142557227-82344092-ac6f-44f8-b7bc-e2edeb0fb9d6.png)
+
+![image](https://user-images.githubusercontent.com/58148764/142557377-1dc89393-4562-418a-bc40-c303cf813a3c.png)
+
 ## ¿Cómo arreglar errores?
 
 Para arreglar errores, se deben seguir los siguientes pasos:
