@@ -28,7 +28,14 @@ namespace ProyectoFinal.Desktop
             this.InitializeComponent();
             var usuarios = SmartSell.GetUsuarios((App.Current as App).ConnectionString);
             usuarios.Count();
-            
+            var comentarios = SmartSell.GetComentarios((App.Current as App).ConnectionString);
+            comentarios.Count();
+            var rating = SmartSell.GetRatinUsuario((App.Current as App).ConnectionString);
+            rating.Count();
+            var subasta = SmartSell.GetSubastas((App.Current as App).ConnectionString);
+            subasta.Count();
+            var oferta = SmartSell.GetOfertas((App.Current as App).ConnectionString);
+            oferta.Count();
         }
     }
 }
