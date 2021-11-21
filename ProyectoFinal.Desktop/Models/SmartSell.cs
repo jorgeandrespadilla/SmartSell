@@ -9,9 +9,26 @@ using System.Data.SqlClient;
 
 namespace ProyectoFinal.Desktop.Models
 {
-    public class SmartSell
+    public sealed class SmartSell
     {
-    public static ObservableCollection<Usuario> GetUsuarios(string connectionString)
+
+        private Usuario CurrentUser { get; set; }
+
+
+        private static readonly SmartSell instance = new SmartSell();
+        static SmartSell() {}
+        private SmartSell() {}
+
+        public static SmartSell Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
+
+        public static ObservableCollection<Usuario> GetUsuarios(string connectionString)
         {
             const string GetUsersQuery = "Select * from Usuarios";
             var usuarios = new ObservableCollection<Usuario>();
