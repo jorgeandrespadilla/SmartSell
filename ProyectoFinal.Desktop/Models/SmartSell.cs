@@ -28,7 +28,7 @@ namespace ProyectoFinal.Desktop.Models
         }
 
 
-        public static ObservableCollection<Usuario> GetUsuarios(string connectionString)
+        public ObservableCollection<Usuario> GetUsuarios(string connectionString)
         {
             const string GetUsersQuery = "Select * from Usuarios";
             var usuarios = new ObservableCollection<Usuario>();
@@ -70,7 +70,7 @@ namespace ProyectoFinal.Desktop.Models
             return null;
         }
 
-        public static ObservableCollection<Subasta> GetSubastas(string connectionString)
+        public ObservableCollection<Subasta> GetSubastas(string connectionString)
         {
             const string GetUsersQuery = "Select * from Subastas";
             var subastas = new ObservableCollection<Subasta>();
@@ -113,7 +113,7 @@ namespace ProyectoFinal.Desktop.Models
             return null;
         }
 
-        public static ObservableCollection<Oferta> GetOfertas(string connectionString)
+        public ObservableCollection<Oferta> GetOfertas(string connectionString)
         {
             const string GetUsersQuery = "Select * from Ofertas";
             var ofertas = new ObservableCollection<Oferta>();
@@ -154,7 +154,7 @@ namespace ProyectoFinal.Desktop.Models
             return null;
         }
 
-        public static ObservableCollection<Comentario> GetComentarios(string connectionString)
+        public ObservableCollection<Comentario> GetComentarios(string connectionString)
         {
             const string GetUsersQuery = "Select * from Comentarios";
             var comentarios = new ObservableCollection<Comentario>();
@@ -195,7 +195,7 @@ namespace ProyectoFinal.Desktop.Models
             return null;
         }
 
-        public static ObservableCollection<RatingUsuario> GetRatinUsuario(string connectionString)
+        public ObservableCollection<RatingUsuario> GetRatinUsuario(string connectionString)
         {
             const string GetUsersQuery = "Select * from RatingUsuarios";
             var ratings = new ObservableCollection<RatingUsuario>();
