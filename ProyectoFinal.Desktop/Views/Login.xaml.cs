@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoFinal.Desktop.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,35 @@ namespace ProyectoFinal.Desktop.Views
     /// </summary>
     public sealed partial class Login : Page
     {
+        SmartSell smartSell = SmartSell.Instance;
         public Login()
         {
             this.InitializeComponent();
+            
+        }
+
+        private void enviarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string correo = userTxt.Text;
+            string pwd = pwdText.Password;
+            string passwordHash = smartSell.ToSHA256(pwd.ToString());
+            Usuario usuario = smartSell.GetUsuarios((App.Current as App).ConnectionString).Where(u => u.Correo == correo.ToString().ToLower() && u.Clave == passwordHash).FirstOrDefault();
+            if (usuario == null)
+            {
+                /*ModelState.AddModelError("loginError", "Las credenciales ingresadas no son válidas.");
+                return View();*/
+                return;
+            }
+            if (!usuario.Activo)
+            {
+                /*ModelState.AddModelError("loginError", "La cuenta ya no se encuentra disponible.");
+                return View();*/
+                return;
+            }
+            smartSell.CurrentUser = usuario;
+            this.Frame.Navigate(typeof(MainPage),null);
+            
+
         }
     }
 }
