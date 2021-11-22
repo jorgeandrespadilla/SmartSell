@@ -213,7 +213,7 @@ namespace ProyectoFinal.Desktop.Models
             return null;
         }
 
-        public ObservableCollection<RatingUsuario> GetRatinUsuario(string connectionString)
+        public ObservableCollection<RatingUsuario> GetRatingUsuario(string connectionString)
         {
             const string GetUsersQuery = "Select * from RatingUsuarios";
             var ratings = new ObservableCollection<RatingUsuario>();

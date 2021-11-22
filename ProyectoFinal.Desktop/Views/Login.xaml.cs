@@ -23,7 +23,7 @@ namespace ProyectoFinal.Desktop.Views
     /// </summary>
     public sealed partial class Login : Page
     {
-        SmartSell smartSell = SmartSell.Instance;
+        private SmartSell smartSell = SmartSell.Instance;
         public Login()
         {
             this.InitializeComponent();
@@ -49,7 +49,7 @@ namespace ProyectoFinal.Desktop.Views
                 return;
             }
             smartSell.CurrentUser = usuario;
-            this.Frame.Navigate(typeof(MainPage),null);
+            this.Frame.Navigate(typeof(Perfil),null);
             
 
         }
