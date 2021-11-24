@@ -12,5 +12,7 @@ namespace ProyectoFinal.Desktop.Models
         public int? UsuarioCalificadoID { get; set; }
         public int? UsuarioCalificadorID { get; set; }
         public int Rating { get; set; }
+        public Usuario UsuarioCalificado { get; set; }
+        public Usuario UsuarioCalificador { get; set; }
     }
 }

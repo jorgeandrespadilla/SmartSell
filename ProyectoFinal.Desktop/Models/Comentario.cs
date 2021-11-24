@@ -13,5 +13,7 @@ namespace ProyectoFinal.Desktop.Models
         public int SubastaID { get; set; }
         public string Descripcion { get; set; }
         public DateTime FechaCreacion { get; set; }
+        public Usuario Usuario { get; set; }
+        public Subasta Subasta { get; set; }
     }
 }

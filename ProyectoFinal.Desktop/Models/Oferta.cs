@@ -13,5 +13,8 @@ namespace ProyectoFinal.Desktop.Models
         public int SubastaID { get; set; }
         public float Monto { get; set; }
         public DateTime FechaCreacion { get; set; }
+        public Usuario Usuario { get; set; }
+        public Subasta Subasta { get; set; }
+        public IObservable<Subasta> Subastas { get; set; }
     }
 }

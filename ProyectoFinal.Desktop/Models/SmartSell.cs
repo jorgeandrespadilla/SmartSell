@@ -71,7 +71,7 @@ namespace ProyectoFinal.Desktop.Models
                                         Apellidos = reader.GetString(2),
                                         Correo = reader.GetString(3),
                                         Clave = reader.GetString(4),
-                                        Activo = reader.GetBoolean(5)
+                                        Activo = reader.GetBoolean(5),
                                     };
                                     usuarios.Add(usuario);
                                 }
@@ -114,7 +114,8 @@ namespace ProyectoFinal.Desktop.Models
                                         DescripcionProducto = reader.GetString(3),
                                         FotoUrlProducto = reader.GetString(4),
                                         PrecioInicial = reader.GetFloat(5),
-                                        FechaLimite = reader.GetDateTime(6)
+                                        FechaLimite = reader.GetDateTime(6),
+                                        Usuario = GetUsuarios((App.Current as App).ConnectionString).Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault()
                                     };
                                     subastas.Add(subasta);
                                 }
@@ -155,7 +156,9 @@ namespace ProyectoFinal.Desktop.Models
                                         UsuarioID = reader.GetInt32(1),
                                         SubastaID = reader.GetInt32(2),
                                         Monto = reader.GetFloat(3),
-                                        FechaCreacion = reader.GetDateTime(4)
+                                        FechaCreacion = reader.GetDateTime(4),
+                                        Usuario = GetUsuarios((App.Current as App).ConnectionString).Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault(),
+                                        Subasta = GetSubastas((App.Current as App).ConnectionString).Where(u => u.SubastaID == reader.GetInt32(2)).FirstOrDefault()
                                     };
                                     ofertas.Add(oferta);
                                 }
@@ -196,7 +199,10 @@ namespace ProyectoFinal.Desktop.Models
                                         UsuarioID = reader.GetInt32(1),
                                         SubastaID = reader.GetInt32(2),
                                         Descripcion = reader.GetString(3),
-                                        FechaCreacion = reader.GetDateTime(4)
+                                        FechaCreacion = reader.GetDateTime(4),
+                                        Usuario = GetUsuarios((App.Current as App).ConnectionString).Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault(),
+                                        Subasta = GetSubastas((App.Current as App).ConnectionString).Where(u => u.SubastaID == reader.GetInt32(2)).FirstOrDefault()
+
                                     };
                                     comentarios.Add(comentario);
                                 }
@@ -237,6 +243,8 @@ namespace ProyectoFinal.Desktop.Models
                                         UsuarioCalificadoID = reader.GetInt32(1),
                                         UsuarioCalificadorID = reader.GetInt32(2),
                                         Rating = reader.GetInt32(3),
+                                        UsuarioCalificado = GetUsuarios((App.Current as App).ConnectionString).Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault(),
+                                        UsuarioCalificador = GetUsuarios((App.Current as App).ConnectionString).Where(u => u.UsuarioID == reader.GetInt32(2)).FirstOrDefault()
                                     };
                                     ratings.Add(rating);
                                 }

@@ -15,5 +15,6 @@ namespace ProyectoFinal.Desktop.Models
         public string FotoUrlProducto { get; set; }
         public float PrecioInicial { get; set; }
         public DateTime FechaLimite { get; set; }
+        public Usuario Usuario { get; set; }
     }
 }
