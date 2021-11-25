@@ -41,7 +41,7 @@ namespace ProyectoFinal.Desktop.Views
             correoTxt.Text = smartSell.CurrentUser.Correo;
             var id = smartSell.CurrentUser.UsuarioID;
 
-            var ratings = smartSell.GetRatingUsuario((App.Current as App).ConnectionString).Where(u => u.UsuarioCalificadoID == id).ToList();
+            var ratings = smartSell.GetRatingUsuario().Where(u => u.UsuarioCalificadoID == id).ToList();
             double avgRating = 0;
             if (ratings.Count != 0)
             {
@@ -50,7 +50,7 @@ namespace ProyectoFinal.Desktop.Views
             calificacionTxt.Text = avgRating.ToString();
 
             //Recuperar últimas ofertas
-            var ofertasQuery = smartSell.GetOfertas((App.Current as App).ConnectionString).Where(o => o.UsuarioID == id).GroupBy(o => o.SubastaID).Select(g => new
+            var ofertasQuery = smartSell.GetOfertas().Where(o => o.UsuarioID == id).GroupBy(o => o.SubastaID).Select(g => new
             {
                 OfertaActual = g.OrderByDescending(x => x.Monto).Select(x => x).FirstOrDefault()
             }).ToList();

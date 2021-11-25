@@ -10,9 +10,10 @@ using System.Security.Cryptography;
 
 namespace ProyectoFinal.Desktop.Models
 {
+    //Delete user: DELETE FROM Usuarios WHERE UsuarioID = *
     public sealed class SmartSell
     {
-
+        private string connectionString = (App.Current as App).ConnectionString;
         public Usuario CurrentUser { get; set; }
 
 
@@ -46,7 +47,7 @@ namespace ProyectoFinal.Desktop.Models
             }
         }
 
-        public ObservableCollection<Usuario> GetUsuarios(string connectionString)
+        public ObservableCollection<Usuario> GetUsuarios()
         {
             const string GetUsersQuery = "Select * from Usuarios";
             var usuarios = new ObservableCollection<Usuario>();
@@ -88,7 +89,7 @@ namespace ProyectoFinal.Desktop.Models
             return null;
         }
 
-        public ObservableCollection<Subasta> GetSubastas(string connectionString)
+        public ObservableCollection<Subasta> GetSubastas()
         {
             const string GetUsersQuery = "Select * from Subastas";
             var subastas = new ObservableCollection<Subasta>();
@@ -115,7 +116,7 @@ namespace ProyectoFinal.Desktop.Models
                                         FotoUrlProducto = reader.GetString(4),
                                         PrecioInicial = reader.GetFloat(5),
                                         FechaLimite = reader.GetDateTime(6),
-                                        Usuario = GetUsuarios((App.Current as App).ConnectionString).Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault()
+                                        Usuario = GetUsuarios().Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault()
                                     };
                                     subastas.Add(subasta);
                                 }
@@ -132,7 +133,7 @@ namespace ProyectoFinal.Desktop.Models
             return null;
         }
 
-        public ObservableCollection<Oferta> GetOfertas(string connectionString)
+        public ObservableCollection<Oferta> GetOfertas()
         {
             const string GetUsersQuery = "Select * from Ofertas";
             var ofertas = new ObservableCollection<Oferta>();
@@ -157,8 +158,8 @@ namespace ProyectoFinal.Desktop.Models
                                         SubastaID = reader.GetInt32(2),
                                         Monto = reader.GetFloat(3),
                                         FechaCreacion = reader.GetDateTime(4),
-                                        Usuario = GetUsuarios((App.Current as App).ConnectionString).Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault(),
-                                        Subasta = GetSubastas((App.Current as App).ConnectionString).Where(u => u.SubastaID == reader.GetInt32(2)).FirstOrDefault()
+                                        Usuario = GetUsuarios().Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault(),
+                                        Subasta = GetSubastas().Where(u => u.SubastaID == reader.GetInt32(2)).FirstOrDefault()
                                     };
                                     ofertas.Add(oferta);
                                 }
@@ -175,7 +176,7 @@ namespace ProyectoFinal.Desktop.Models
             return null;
         }
 
-        public ObservableCollection<Comentario> GetComentarios(string connectionString)
+        public ObservableCollection<Comentario> GetComentarios()
         {
             const string GetUsersQuery = "Select * from Comentarios";
             var comentarios = new ObservableCollection<Comentario>();
@@ -200,8 +201,8 @@ namespace ProyectoFinal.Desktop.Models
                                         SubastaID = reader.GetInt32(2),
                                         Descripcion = reader.GetString(3),
                                         FechaCreacion = reader.GetDateTime(4),
-                                        Usuario = GetUsuarios((App.Current as App).ConnectionString).Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault(),
-                                        Subasta = GetSubastas((App.Current as App).ConnectionString).Where(u => u.SubastaID == reader.GetInt32(2)).FirstOrDefault()
+                                        Usuario = GetUsuarios().Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault(),
+                                        Subasta = GetSubastas().Where(u => u.SubastaID == reader.GetInt32(2)).FirstOrDefault()
 
                                     };
                                     comentarios.Add(comentario);
@@ -219,7 +220,7 @@ namespace ProyectoFinal.Desktop.Models
             return null;
         }
 
-        public ObservableCollection<RatingUsuario> GetRatingUsuario(string connectionString)
+        public ObservableCollection<RatingUsuario> GetRatingUsuario()
         {
             const string GetUsersQuery = "Select * from RatingUsuarios";
             var ratings = new ObservableCollection<RatingUsuario>();
@@ -243,8 +244,8 @@ namespace ProyectoFinal.Desktop.Models
                                         UsuarioCalificadoID = reader.GetInt32(1),
                                         UsuarioCalificadorID = reader.GetInt32(2),
                                         Rating = reader.GetInt32(3),
-                                        UsuarioCalificado = GetUsuarios((App.Current as App).ConnectionString).Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault(),
-                                        UsuarioCalificador = GetUsuarios((App.Current as App).ConnectionString).Where(u => u.UsuarioID == reader.GetInt32(2)).FirstOrDefault()
+                                        UsuarioCalificado = GetUsuarios().Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault(),
+                                        UsuarioCalificador = GetUsuarios().Where(u => u.UsuarioID == reader.GetInt32(2)).FirstOrDefault()
                                     };
                                     ratings.Add(rating);
                                 }
@@ -259,6 +260,32 @@ namespace ProyectoFinal.Desktop.Models
                 Debug.WriteLine("Exception: " + eSql.Message);
             }
             return null;
+        }
+
+        public bool AddUserDB(string nombres, string apellidos, string correo, string clave)
+        {
+            
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectionString);
+                string addUser = $"INSERT INTO Usuarios VALUES('{nombres}','{apellidos}','{correo}','{clave}',1)";
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(addUser, conn);
+                int cantidad = cmd.ExecuteNonQuery();
+                if (cantidad == 1)
+                {
+                    return true;
+                }
+                return false;
+                
+
+
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+                return false;
+            }
         }
     }
 }

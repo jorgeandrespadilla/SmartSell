@@ -35,7 +35,7 @@ namespace ProyectoFinal.Desktop.Views
             string correo = userTxt.Text;
             string pwd = pwdText.Password;
             string passwordHash = smartSell.ToSHA256(pwd.ToString());
-            Usuario usuario = smartSell.GetUsuarios((App.Current as App).ConnectionString).Where(u => u.Correo == correo.ToString().ToLower() && u.Clave == passwordHash).FirstOrDefault();
+            Usuario usuario = smartSell.GetUsuarios().Where(u => u.Correo == correo.ToString().ToLower() && u.Clave == passwordHash).FirstOrDefault();
             if (usuario == null)
             {
                 /*ModelState.AddModelError("loginError", "Las credenciales ingresadas no son válidas.");
@@ -52,6 +52,11 @@ namespace ProyectoFinal.Desktop.Views
             this.Frame.Navigate(typeof(Perfil),null);
             
 
+        }
+
+        private void HandleRegistrar(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Register), null);
         }
     }
 }

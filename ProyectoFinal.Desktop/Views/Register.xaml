@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="ProyectoFinal.Desktop.Views.Login"
+    x:Class="ProyectoFinal.Desktop.Views.Register"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ProyectoFinal.Desktop.Views"
@@ -19,34 +19,40 @@
 
 
     </Page.Resources>
-    
+
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
-        
+
         <Grid Padding="40">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderBrush="#dfdfdf" BorderThickness="1" CornerRadius="8" Padding="20,40">
                 <Image Height="60" Width="60" Source="/Assets/Logo/Logo.png"/>
                 <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold" FontSize="32" Foreground="#212529" Margin="0,12"
-                Text="Inicio de Sesión"/>
+                Text="Registro de usuario"/>
+                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8"
+                Text="Nombres"/>
+                <TextBox x:Name="nombresTxt" Text="" IsSpellCheckEnabled="False" ></TextBox>
+                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8"
+                Text="Apellidos"/>
+                <TextBox x:Name="apellidoTxt" Text="" IsSpellCheckEnabled="False" ></TextBox>
                 <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8"
                 Text="Correo Electrónico"/>
-                <TextBox x:Name="userTxt" Text="" IsSpellCheckEnabled="False" ></TextBox>
+                <TextBox x:Name="correoTxt" Text="" IsSpellCheckEnabled="False" ></TextBox>
                 <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8"
                 Text="Contraseña"/>
                 <PasswordBox x:Name="pwdText"/>
 
-                <Button x:Name="enviarBtn" Content="Ingresar" Margin="0,30" Padding="10,10" MinWidth="500" FontSize="18"  Style="{StaticResource AccentButtonStyle}" Click="enviarBtn_Click">
+                <Button x:Name="enviarBtn" Content="Registrar" Margin="0,30" Padding="10,10" MinWidth="500" FontSize="18"  Style="{StaticResource AccentButtonStyle}" Click="RegisterHandle">
                 </Button>
                 <Grid HorizontalAlignment="Center">
-                    <HyperlinkButton x:Name="registroBtn" Content="Registrarse" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="HandleRegistrar" />
+                    <HyperlinkButton x:Name="registroBtn" Content="Iniciar sesión" Click="LoginHandler" />
                 </Grid>
-                
+
             </StackPanel>
 
             <Grid/>
 
         </Grid>
-        
-        
+
+
     </ScrollViewer>
-    
+
 </Page>
