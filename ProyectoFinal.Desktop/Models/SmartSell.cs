@@ -72,7 +72,7 @@ namespace ProyectoFinal.Desktop.Models
                                         Apellidos = reader.GetString(2),
                                         Correo = reader.GetString(3),
                                         Clave = reader.GetString(4),
-                                        Activo = reader.GetBoolean(5),
+                                        Activo = reader.GetBoolean(5)
                                     };
                                     usuarios.Add(usuario);
                                 }
@@ -254,6 +254,49 @@ namespace ProyectoFinal.Desktop.Models
                     }
                 }
                 return ratings;
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+            }
+            return null;
+        }
+
+        public ICollection<Oferta> FindOfertasBySubastaID(int ID)
+        {
+            string GetUsersQuery = $"Select * from Ofertas WHERE SubastaID = {ID}";
+            var ofertas = new ObservableCollection<Oferta>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    if (conn.State == System.Data.ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = GetUsersQuery;
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    var oferta = new Oferta
+                                    {
+                                        OfertaID = reader.GetInt32(0),
+                                        UsuarioID = reader.GetInt32(1),
+                                        SubastaID = reader.GetInt32(2),
+                                        Monto = reader.GetFloat(3),
+                                        FechaCreacion = reader.GetDateTime(4),
+                                        Usuario = GetUsuarios().Where(u => u.UsuarioID == reader.GetInt32(1)).FirstOrDefault(),
+                                        Subasta = GetSubastas().Where(u => u.SubastaID == reader.GetInt32(2)).FirstOrDefault()
+                                    };
+                                    ofertas.Add(oferta);
+                                }
+                            }
+                        }
+                    }
+                }
+                return ofertas;
             }
             catch (Exception eSql)
             {
