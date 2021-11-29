@@ -10,7 +10,7 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="1500" MinHeight="600">
             <TextBlock HorizontalAlignment="Left" Margin="85,92,0,0" Text="Editar usuario" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
-            <NavigationViewItemSeparator HorizontalAlignment="Left" Margin="70,0,0,0" BorderThickness="2" BorderBrush="Gray" Height="25" MinWidth="400" Width="1200"></NavigationViewItemSeparator>
+            <NavigationViewItemSeparator HorizontalAlignment="Stretch" Margin="70,0,0,0" BorderThickness="2" BorderBrush="Gray" Height="25"></NavigationViewItemSeparator>
             <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Nombres" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
             <TextBox x:Name="nombresTxt" HorizontalAlignment="Left" Margin="85,20,0,0" Text="" IsSpellCheckEnabled="False" MinWidth="150" Width="200"/>
             <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Apellidos" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
