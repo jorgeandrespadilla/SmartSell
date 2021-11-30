@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -39,12 +40,18 @@ namespace ProyectoFinal.Desktop.Views
             CargarInformacion();
         }
 
-        public void CargarInformacion()
+        public async void CargarInformacion()
         {
-            /*BitmapImage bitmapImage = new BitmapImage();
-            imagenProducto.Width = bitmapImage.DecodePixelWidth = 80;
-            bitmapImage.UriSource = new Uri(imagenProducto.BaseUri, subasta.FotoUrlProducto);
-            imagenProducto.Source = bitmapImage;*/
+            string imgString = subasta.FotoUrlProducto.Split(", ").Last();
+            var bytes = Convert.FromBase64String(imgString);
+            BitmapImage image = new BitmapImage();
+            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+            {
+                await stream.WriteAsync(bytes.AsBuffer());
+                stream.Seek(0);
+                await image.SetSourceAsync(stream);
+            }
+            imagenProducto.Source = image;
             nombreTxt.Text = subasta.NombreProducto;
             nombreVendedor.Text = $"{subasta.Usuario.Nombres} {subasta.Usuario.Apellidos}";
             precioTxt.Text = smartSell.FindOfertasBySubastaID(subasta.SubastaID).OrderByDescending(u => u.Monto).FirstOrDefault().Monto.ToString();

@@ -11,12 +11,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" MinHeight="600">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                 <TextBlock HorizontalAlignment="Left" Margin="85,92,0,0" Text="Información de subasta" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
                 <NavigationViewItemSeparator HorizontalAlignment="Stretch" Margin="70,0,100,10" BorderThickness="2" BorderBrush="Gray" Height="25" MinWidth="400"></NavigationViewItemSeparator>
-                <StackPanel Orientation="Horizontal" MinWidth="1300" Margin="70,0,70,0" Width="1125">
-                    <Image x:Name="imagenProducto" Source="/Assets/Images/missing-img.jpg" Width="570" VerticalAlignment="Stretch"></Image>
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Width="680">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" MaxWidth="600" HorizontalAlignment="Center" x:Name="imagenProducto" Source="/Assets/Images/missing-img.jpg" VerticalAlignment="Stretch" Stretch="fill"></Image>
+                    <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Stretch" Width="680">
                         <TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" Text="Información" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
                         <NavigationViewItemSeparator HorizontalAlignment="Stretch" Margin="10,0,10,10" BorderThickness="2" BorderBrush="Gray" Height="25" MinWidth="200"></NavigationViewItemSeparator>
                         <TextBlock HorizontalAlignment="Left" Margin="20,0,0,10" Text="Nombre del producto" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="24" Foreground="#212529"/>
@@ -34,7 +38,7 @@
                         <TextBlock HorizontalAlignment="Left" Margin="20,0,0,10" Text="Fecha de finalización" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="24" Foreground="#212529"/>
                         <TextBlock x:Name="fechaTxt" HorizontalAlignment="Left" Margin="20,0,0,20" Text="Nombre del producto" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="20" Foreground="#a1a1a1"/>
                     </StackPanel>
-                </StackPanel>
+                </Grid>
                 <TextBlock HorizontalAlignment="Left" Margin="100,20,0,20" Text="Ofertas" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
                 <Grid>
                     <ListView x:Name="OfertasSubasta" Margin="100,0,100,0" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Hidden">
