@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ProyectoFinal.Desktop.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -31,10 +33,75 @@
                         <TextBlock x:Name="vigenteTxt" HorizontalAlignment="Left" Margin="20,0,0,20" Text="Vigente" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="20" Foreground="#a1a1a1"/>
                         <TextBlock HorizontalAlignment="Left" Margin="20,0,0,10" Text="Fecha de finalización" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="24" Foreground="#212529"/>
                         <TextBlock x:Name="fechaTxt" HorizontalAlignment="Left" Margin="20,0,0,20" Text="Nombre del producto" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="20" Foreground="#a1a1a1"/>
-
                     </StackPanel>
                 </StackPanel>
+                <TextBlock HorizontalAlignment="Left" Margin="100,20,0,20" Text="Ofertas" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
+                <Grid>
+                    <ListView x:Name="OfertasSubasta" Margin="100,0,100,0" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <interactivity:Interaction.Behaviors>
+                            <behaviors:StickyHeaderBehavior />
+                        </interactivity:Interaction.Behaviors>
+                        <ListView.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="25*"/>
+                                    <ColumnDefinition Width="97*"/>
+                                    <ColumnDefinition Width="138*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" Background="#2D2D2D" Padding="10,8" Grid.ColumnSpan="3">
+                                    <TextBlock Text="Ofertante" Width="auto" MinWidth="400" Foreground="White" FontWeight="SemiBold" />
+                                    <TextBlock  Text="Monto" Width="auto" MinWidth="400"  Foreground="White" FontWeight="SemiBold" />
+                                    <TextBlock Text="Fecha de envío" Width="auto" MinWidth="400" Foreground="White" FontWeight="SemiBold" />
+                                </StackPanel>
+                            </Grid>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Height="20">
+                                    <TextBlock Text="{Binding OfertaID}" Width="400"></TextBlock>
+                                    <TextBlock Text="{Binding Monto}" Width="400"></TextBlock>
+                                    <TextBlock Text="{Binding FechaCreacion}" Width="400"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock HorizontalAlignment="Left" Margin="100,20,0,20" Text="Comentarios" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
+                </StackPanel>
+                <Grid>
+                    <ListView x:Name="ComentariosGrid" HorizontalAlignment="Stretch" Margin="100,0,100,50">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <StackPanel HorizontalAlignment="Stretch" Padding="10,10" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <Viewbox MaxHeight="10" MaxWidth="15">
+                                                <SymbolIcon Symbol="Contact" Foreground="Black"/>
+                                            </Viewbox>
+                                            <TextBlock Text="{Binding UsuarioID}" Margin="10,0"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Descripcion}" Width="1000"></TextBlock>
+                                            <TextBlock Text="{Binding FechaCreacion}"></TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0,0,0,0" />
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                <Setter Property="BorderBrush" Value="#c3c6c9"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="Margin" Value="0,0,0,10"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
+
     </Grid>
 </Page>
