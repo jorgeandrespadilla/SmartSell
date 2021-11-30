@@ -35,21 +35,21 @@ namespace ProyectoFinal.Desktop.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            subasta = smartSell.GetSubastas().Where(s => s.SubastaID==Int32.Parse(e.Parameter.ToString())).FirstOrDefault();
+            subasta = smartSell.GetSubastas().Where(s => s.SubastaID == Int32.Parse(e.Parameter.ToString())).FirstOrDefault();
             CargarInformacion();
         }
-        
+
         public void CargarInformacion()
         {
             /*BitmapImage bitmapImage = new BitmapImage();
             imagenProducto.Width = bitmapImage.DecodePixelWidth = 80;
             bitmapImage.UriSource = new Uri(imagenProducto.BaseUri, subasta.FotoUrlProducto);
             imagenProducto.Source = bitmapImage;*/
-            nombreTxt.Text =subasta.NombreProducto;
+            nombreTxt.Text = subasta.NombreProducto;
             nombreVendedor.Text = $"{subasta.Usuario.Nombres} {subasta.Usuario.Apellidos}";
             precioTxt.Text = smartSell.FindOfertasBySubastaID(subasta.SubastaID).FirstOrDefault().Monto.ToString();
             descripcionTxt.Text = subasta.DescripcionProducto;
-            if (DateTime.Compare(DateTime.Now, subasta.FechaLimite)<0)
+            if (DateTime.Compare(DateTime.Now, subasta.FechaLimite) < 0)
             {
                 vigenteTxt.Text = "Sí";
             }
@@ -61,7 +61,7 @@ namespace ProyectoFinal.Desktop.Views
             CargarTablaOfertas();
             CargarComentarios();
         }
-        
+
         public void CargarTablaOfertas()
         {
             ICollection<Oferta> ofertas = smartSell.GetOfertas().Where(u => u.SubastaID == subasta.SubastaID).OrderByDescending(o => o.Monto).ToList();
