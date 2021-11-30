@@ -49,7 +49,7 @@ namespace ProyectoFinal.Desktop.Views
                 return;
             }
             smartSell.CurrentUser = usuario;
-            this.Frame.Navigate(typeof(DetailsSubasta),5);
+            this.Frame.Navigate(typeof(Perfil),null);
             
 
         }

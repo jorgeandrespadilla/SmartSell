@@ -58,24 +58,6 @@ namespace ProyectoFinal.Desktop.Views
                 vigenteTxt.Text = "No";
             }
             fechaTxt.Text = subasta.FechaLimite.ToString();
-            CargarTablaOfertas();
-            CargarComentarios();
         }
-        
-        public void CargarTablaOfertas()
-        {
-            ICollection<Oferta> ofertas = smartSell.GetOfertas().Where(u => u.SubastaID == subasta.SubastaID).OrderByDescending(o => o.Monto).ToList();
-            OfertasSubasta.ItemsSource = ofertas;
-        }
-
-        public void CargarComentarios()
-        {
-            ICollection<Comentario> comentarios = smartSell.GetComentarios().Where(u => u.SubastaID == subasta.SubastaID).OrderByDescending(o => o.FechaCreacion).ToList();
-            ComentariosGrid.ItemsSource = comentarios;
-        }
-
-
-
-
     }
 }

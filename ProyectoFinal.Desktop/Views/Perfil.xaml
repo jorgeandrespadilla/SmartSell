@@ -55,12 +55,12 @@
             </StackPanel>
             <muxc:TabView x:Name="opSelected" CanDragTabs="False" CanReorderTabs="False" AllowFocusOnInteraction="False" IsAddTabButtonVisible="false"  Margin="100,0,100,0" SelectionChanged="ActualizarTabla">
                 <muxc:TabView.TabItems>
-                    <muxc:TabViewItem Header="Ofertas actuales" IsClosable="False">
+                    <muxc:TabViewItem Header="M" IsClosable="False">
                         <muxc:TabViewItem.IconSource>
                             <muxc:BitmapIconSource UriSource="/Assets/TabViewIcons/cmd.png" ShowAsMonochrome="False" />
                         </muxc:TabViewItem.IconSource>
                     </muxc:TabViewItem>
-                    <muxc:TabViewItem Header="Subastas ganadas" IsClosable="False">
+                    <muxc:TabViewItem Header="PowerShell" IsClosable="False">
                         <muxc:TabViewItem.IconSource>
                             <muxc:BitmapIconSource UriSource="/Assets/TabViewIcons/powershell.png" ShowAsMonochrome="False" />
                         </muxc:TabViewItem.IconSource>
