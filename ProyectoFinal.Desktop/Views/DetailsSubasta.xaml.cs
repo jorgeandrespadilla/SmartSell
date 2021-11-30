@@ -47,7 +47,7 @@ namespace ProyectoFinal.Desktop.Views
             imagenProducto.Source = bitmapImage;*/
             nombreTxt.Text = subasta.NombreProducto;
             nombreVendedor.Text = $"{subasta.Usuario.Nombres} {subasta.Usuario.Apellidos}";
-            precioTxt.Text = smartSell.FindOfertasBySubastaID(subasta.SubastaID).FirstOrDefault().Monto.ToString();
+            precioTxt.Text = smartSell.FindOfertasBySubastaID(subasta.SubastaID).OrderByDescending(u => u.Monto).FirstOrDefault().Monto.ToString();
             descripcionTxt.Text = subasta.DescripcionProducto;
             if (DateTime.Compare(DateTime.Now, subasta.FechaLimite) < 0)
             {
