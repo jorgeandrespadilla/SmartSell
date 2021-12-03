@@ -135,6 +135,9 @@
     <Compile Include="Views\Editar.xaml.cs">
       <DependentUpon>Editar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\IndexSubastas.xaml.cs">
+      <DependentUpon>IndexSubastas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -219,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Editar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IndexSubastas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

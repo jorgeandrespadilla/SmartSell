@@ -81,8 +81,9 @@ namespace ProyectoFinal.Desktop.Views
             ComentariosGrid.ItemsSource = comentarios;
         }
 
+        private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
 
-
-
+        }
     }
 }
