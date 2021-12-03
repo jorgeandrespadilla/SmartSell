@@ -30,7 +30,7 @@ namespace ProyectoFinal.Desktop.Views
             
         }
 
-        private void enviarBtn_Click(object sender, RoutedEventArgs e)
+        private void EnviarBtn_Click(object sender, RoutedEventArgs e)
         {
             string correo = userTxt.Text;
             string pwd = pwdText.Password;
