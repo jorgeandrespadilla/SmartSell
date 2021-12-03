@@ -271,7 +271,12 @@
       <Version>2.7.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ProyectoFinal.Shared\ProyectoFinal.Shared.csproj">
+      <Project>{4e36bfa9-2650-462a-b5c4-fdd6fae9cb15}</Project>
+      <Name>ProyectoFinal.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
