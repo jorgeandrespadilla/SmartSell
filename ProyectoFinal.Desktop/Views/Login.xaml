@@ -30,7 +30,7 @@
                 Text="Contraseña"/>
                 <PasswordBox x:Name="pwdText"/>
 
-                <Button x:Name="enviarBtn" Content="Ingresar" Margin="0,30" Padding="10,10" MinWidth="500" FontSize="18"  Style="{StaticResource AccentButtonStyle}" Click="enviarBtn_Click">
+                <Button x:Name="enviarBtn" Content="Ingresar" Margin="0,30" Padding="10,10" MinWidth="500" FontSize="18"  Style="{StaticResource AccentButtonStyle}" Click="EnviarBtn_Click">
                 </Button>
                 <Grid HorizontalAlignment="Center">
                     <HyperlinkButton x:Name="registroBtn" Content="Registrarse" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="HandleRegistrar" />
