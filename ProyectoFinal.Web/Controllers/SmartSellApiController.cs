@@ -15,9 +15,9 @@ namespace ProyectoFinal.Web.Controllers
         /* Métodos para los usuarios */
 
         [HttpPost]
-        public IHttpActionResult Authorize([FromBody] string correo, [FromBody] string clave)
+        public IHttpActionResult Authorize([FromBody] CredencialesUsuarioDto dto)
         {
-            Usuario usuario = db.Usuario.Where(u => u.Correo == correo.ToLower() && u.Clave == clave).FirstOrDefault();
+            Usuario usuario = db.Usuario.Where(u => u.Correo == dto.Correo.ToLower() && u.Clave == dto.Clave).FirstOrDefault();
             if (usuario == null)
             {
                 return BadRequest("Las credenciales ingresadas no son válidas.");

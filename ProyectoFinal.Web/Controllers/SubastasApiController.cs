@@ -10,6 +10,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ProyectoFinal.Web.Models;
 
+// TODO: Eliminar este controlador de prueba
+
 namespace ProyectoFinal.Web.Controllers
 {
     public class SubastasApiController : ApiController
