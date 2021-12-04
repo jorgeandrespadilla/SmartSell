@@ -72,22 +72,39 @@
                             </StackPanel>
                         </StackPanel>
                     </Grid>
-                    
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
-                            <Viewbox Width="300" Margin="200,0,0,0" Visibility="Visible">
-                                <RatingControl x:Name="ratingUsuarioBtn"/>
-                            </Viewbox>
-                            
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button Background="Red" Margin="0,0,10,0" FontSize="20">
-                                <TextBlock Text="Eliminar"></TextBlock>
-                            </Button>
-                            <Button Background="blue">
-                                <TextBlock Text="Editar" FontSize="20"></TextBlock>
-                            </Button>
-                        </StackPanel>
-                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible" x:Name="ratingWrapper">
+                        <Viewbox Width="300" Margin="200,0,0,0" Visibility="Visible">
+                            <RatingControl x:Name="ratingUsuarioBtn"/>
+                        </Viewbox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="buttonWrapper" Margin="0,0,20,0">
+                        <Button Background="White" Margin="0,0,10,0" FontSize="20" Foreground="#dc3545" BorderBrush="#dc3545" >
+                            <Button.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.ThemeDictionaries>
+                                        <ResourceDictionary x:Key="Light">
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#dc3545"/>
+                                        </ResourceDictionary>
+                                    </ResourceDictionary.ThemeDictionaries>
+                                </ResourceDictionary>
+                            </Button.Resources>
+                            <TextBlock Text="Eliminar" x:Name="eliminarBtn"></TextBlock>
+                        </Button>
+                        <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd">
+                            <Button.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.ThemeDictionaries>
+                                        <ResourceDictionary x:Key="Light">
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#1875fd"/>
+                                        </ResourceDictionary>
+                                    </ResourceDictionary.ThemeDictionaries>
+                                </ResourceDictionary>
+                            </Button.Resources>
+                            <TextBlock Text="Editar" x:Name="editarBtn" FontSize="20"></TextBlock>
+                        </Button>
+                    </StackPanel>
                     <muxc:TabView x:Name="opSelected" CanDragTabs="False" CanReorderTabs="False" AllowFocusOnInteraction="False" IsAddTabButtonVisible="false"  Margin="100,0,100,0" SelectionChanged="ActualizarTabla" HorizontalAlignment="Left">
                         <muxc:TabView.TabItems>
                             <muxc:TabViewItem Header="Subastas actuales" IsClosable="False">
@@ -102,7 +119,7 @@
                             </muxc:TabViewItem>
                         </muxc:TabView.TabItems>
                     </muxc:TabView>
-                    <Grid>
+                    <Grid x:Name="tableWrapper">
                         <ListView x:Name="MisOfertas" Margin="100,0,100,0" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                             <interactivity:Interaction.Behaviors>
                                 <behaviors:StickyHeaderBehavior />

@@ -81,9 +81,9 @@ namespace ProyectoFinal.Desktop.Views
             ComentariosGrid.ItemsSource = comentarios;
         }
 
-        private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        private void NavigatePerfilVendedor(object sender, RoutedEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(Perfil), subasta.UsuarioID);
         }
     }
 }
