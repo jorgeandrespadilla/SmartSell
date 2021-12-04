@@ -7,6 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
+using System.Net.Http;
+using ProyectoFinal.Shared.Dto;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using ProyectoFinal.Shared.Helpers;
 
 namespace ProyectoFinal.Desktop.Models
 {
@@ -14,11 +19,24 @@ namespace ProyectoFinal.Desktop.Models
     public sealed class SmartSell
     {
         private string connectionString = (App.Current as App).ConnectionString;
-        public Usuario CurrentUser { get; set; }
+
+
+        private static HttpClient client;
+        public AuthorizedUsuarioDto CurrentUser { get; set; }
 
 
         private static readonly SmartSell instance = new SmartSell();
-        static SmartSell() {}
+        static SmartSell() {
+            // Se permite la validación de cualquier certificado SSL, dado que HttpClient no acepta certificados SSL autogenerados por defecto
+            var handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
+            client = new HttpClient(handler);
+            client.BaseAddress = new Uri("https://localhost:44338/api/smartsellapi/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
         private SmartSell() {}
 
         public static SmartSell Instance
@@ -26,6 +44,24 @@ namespace ProyectoFinal.Desktop.Models
             get
             {
                 return instance;
+            }
+        }
+
+        public async Task<AuthorizedUsuarioDto> Authorize(string correo, string clave)
+        {
+            var body = JsonConvert.SerializeObject(new CredencialesUsuarioDto(
+                correo,
+                Hasher.ToSHA256(clave.ToString())
+            ));
+            HttpResponseMessage response = await client.PostAsync("authorize", new StringContent(body, Encoding.UTF8, "application/json"));
+            if (response.IsSuccessStatusCode)
+            {
+                var content = JsonConvert.DeserializeObject<AuthorizedUsuarioDto>(response.Content.ReadAsStringAsync().Result);
+                return content;
+            }
+            else
+            {
+                throw new Exception("NOPE");
             }
         }
 
