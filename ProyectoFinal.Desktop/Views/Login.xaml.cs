@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Desktop.Infrastructure;
+using ProyectoFinal.Desktop.Infrastructure.Helpers;
 using ProyectoFinal.Shared.Dto;
 using ProyectoFinal.Shared.Helpers;
 using System;
@@ -43,16 +44,10 @@ namespace ProyectoFinal.Desktop.Views
                 await smartSell.Login(correo, pwd);
                 this.Frame.Navigate(typeof(DetailsSubasta), 4);
             }
-            catch (Exception a)
+            catch (Exception ex)
             {
-                var messageDialog = new MessageDialog("");
-                messageDialog.Title = "Error";
-                messageDialog.Content = a.Message;
-                messageDialog.Commands.Add(new UICommand("Cerrar"));
-                messageDialog.CancelCommandIndex = 0;
-                await messageDialog.ShowAsync();
+                await Dialog.InfoMessage("Acceso denegado", ex.Message).ShowAsync();
             }
-
         }
 
         private void HandleRegistrar(object sender, RoutedEventArgs e)
