@@ -12,7 +12,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <controls:AdaptiveGridView  VerticalAlignment="top" HorizontalAlignment="Center" AllowFocusOnInteraction="False" SelectionMode="None">
+    <controls:AdaptiveGridView  VerticalAlignment="top" HorizontalAlignment="Center" AllowFocusOnInteraction="False" SelectionMode="None" Margin="0,20">
         <Grid>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical">
