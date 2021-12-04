@@ -22,23 +22,58 @@ namespace ProyectoFinal.Desktop.Views
     /*Necesario implementar que le diseño sea reactivo*/
     public sealed partial class Perfil : Page
     {
+        Usuario usuarioActual;
         private SmartSell smartSell = SmartSell.Instance;
         
 
         public Perfil()
         {
-
             this.InitializeComponent();
-            ChargeInformation();
+            
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter != null) 
+            {
+                usuarioActual = smartSell.GetUsuarios().FirstOrDefault(u => u.UsuarioID== int.Parse(e.Parameter.ToString()));
+                CargarInformacion();
+            }
         }
 
-        private void ChargeInformation()
+        private void CargarInformacion()
         {
-            nombreCompletoTxt.Text = smartSell.CurrentUser.Nombres + " " + smartSell.CurrentUser.Apellidos;
-            nombresTxt.Text = smartSell.CurrentUser.Nombres;
-            apellidosTxt.Text = smartSell.CurrentUser.Apellidos;
-            correoTxt.Text = smartSell.CurrentUser.Correo;
-            var id = smartSell.CurrentUser.UsuarioID;
+            var id = usuarioActual.UsuarioID;
+            if (usuarioActual.UsuarioID == smartSell.CurrentUser.UsuarioID)
+            {
+                buttonWrapper.Visibility = Visibility.Visible;
+                ratingWrapper.Visibility = Visibility.Collapsed;
+                var ofertasQuery = smartSell.GetOfertas().Where(o => o.UsuarioID == id).GroupBy(o => o.SubastaID).Select(g => new
+                {
+                    OfertaActual = g.OrderByDescending(x => x.Monto).Select(x => x).FirstOrDefault()
+                }).ToList();
+
+                List<Oferta> ofertasUsuario = new List<Oferta>();
+                ofertasQuery = ofertasQuery.Where(o => DateTime.Compare(o.OfertaActual.Subasta.FechaLimite, DateTime.Now) > 0).ToList();
+                foreach (var oferta in ofertasQuery)
+                {
+                    ofertasUsuario.Add(oferta.OfertaActual);
+                }
+                ofertasUsuario = ofertasUsuario.OrderByDescending(o => o.Monto).ToList();
+                MisOfertas.ItemsSource = ofertasUsuario;
+            }
+            else
+            {
+                opSelected.Visibility = Visibility.Collapsed;
+                buttonWrapper.Visibility = Visibility.Collapsed;
+                ratingWrapper.Visibility = Visibility.Visible;
+                tableWrapper.Visibility = Visibility.Collapsed; 
+            }
+            nombreCompletoTxt.Text = usuarioActual.Nombres + " " + usuarioActual.Apellidos;
+            nombresTxt.Text = usuarioActual.Nombres;
+            apellidosTxt.Text = usuarioActual.Apellidos;
+            correoTxt.Text = usuarioActual.Correo;
+            
 
             var ratings = smartSell.GetRatingUsuario().Where(u => u.UsuarioCalificadoID == id).ToList();
             double avgRating = 0;
@@ -47,27 +82,11 @@ namespace ProyectoFinal.Desktop.Views
                 avgRating = ratings.Average(ru => ru.Rating);
             }
             calificacionTxt.Text = avgRating.ToString();
-
-            //Recuperar últimas ofertas//Borrar despues
-            var ofertasQuery = smartSell.GetOfertas().Where(o => o.UsuarioID == id).GroupBy(o => o.SubastaID).Select(g => new
-            {
-                OfertaActual = g.OrderByDescending(x => x.Monto).Select(x => x).FirstOrDefault()
-            }).ToList();
-            
-            List<Oferta> ofertasUsuario = new List<Oferta>();
-            ofertasQuery = ofertasQuery.Where(o => DateTime.Compare(o.OfertaActual.Subasta.FechaLimite, DateTime.Now) > 0).ToList();
-            foreach (var oferta in ofertasQuery)
-            {
-                ofertasUsuario.Add(oferta.OfertaActual);
-            }
-            ofertasUsuario = ofertasUsuario.OrderByDescending(o => o.Monto).ToList();
-            MisOfertas.ItemsSource = ofertasUsuario;
-            
         }
 
         private void ActualizarTabla(object sender, SelectionChangedEventArgs e)
         {
-            var id = smartSell.CurrentUser.UsuarioID;
+            var id = usuarioActual.UsuarioID;
             int op = opSelected.SelectedIndex;
             List<Oferta> ofertasUsuario = new List<Oferta>();
             var ofertasQuery = smartSell.GetOfertas().Where(o => o.UsuarioID == id).GroupBy(o => o.SubastaID).Select(g => new

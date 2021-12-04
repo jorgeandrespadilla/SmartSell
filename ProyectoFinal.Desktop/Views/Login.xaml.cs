@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Desktop.Models;
+using ProyectoFinal.Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,7 +35,7 @@ namespace ProyectoFinal.Desktop.Views
         {
             string correo = userTxt.Text;
             string pwd = pwdText.Password;
-            string passwordHash = smartSell.ToSHA256(pwd.ToString());
+            string passwordHash = Hasher.ToSHA256(pwd.ToString());
             Usuario usuario = smartSell.GetUsuarios().Where(u => u.Correo == correo.ToString().ToLower() && u.Clave == passwordHash).FirstOrDefault();
             if (usuario == null)
             {
@@ -49,7 +50,7 @@ namespace ProyectoFinal.Desktop.Views
                 return;
             }
             smartSell.CurrentUser = usuario;
-            this.Frame.Navigate(typeof(IndexSubastas),null);
+            this.Frame.Navigate(typeof(DetailsSubasta),4);
             
 
         }

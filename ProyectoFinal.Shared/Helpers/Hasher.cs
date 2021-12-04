@@ -5,10 +5,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace ProyectoFinal.Web.Infrastructure.Helpers
+namespace ProyectoFinal.Shared.Helpers
 {
-    public static class Hasher
+    public class Hasher
     {
+
         public static string ToSHA256(string data)
         {
             // Create a SHA256   
@@ -27,4 +28,5 @@ namespace ProyectoFinal.Web.Infrastructure.Helpers
             }
         }
     }
+
 }
