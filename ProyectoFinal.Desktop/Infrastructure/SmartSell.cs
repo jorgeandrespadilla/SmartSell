@@ -74,6 +74,55 @@ namespace ProyectoFinal.Desktop.Infrastructure
             CurrentUser = null;
         }
 
+        public Boolean IsAuthorized()
+        {
+            return CurrentUser != null;
+        }
+
+        public async Task CreateAccount(string nombres, string apellidos, string correo, string clave)
+        {
+            var body = JsonConvert.SerializeObject(new CreateUsuarioDto(
+                nombres,
+                apellidos,
+                correo,
+                Hasher.ToSHA256(clave.ToString())
+            ));
+            HttpResponseMessage response = await client.PostAsync("CreateAccount", new StringContent(body, Encoding.UTF8, "application/json"));
+            string content = response.Content.ReadAsStringAsync().Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                throw new Exception(error.Message);
+            }
+        }
+
+        public bool AddUserDB(string nombres, string apellidos, string correo, string clave)
+        {
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectionString);
+                string addUser = $"INSERT INTO Usuarios VALUES('{nombres}','{apellidos}','{correo}','{clave}',1)";
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(addUser, conn);
+                int cantidad = cmd.ExecuteNonQuery();
+                if (cantidad == 1)
+                {
+                    return true;
+                }
+                return false;
+
+
+
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+                return false;
+            }
+        }
+
+
         public ObservableCollection<Usuario> GetUsuarios()
         {
             const string GetUsersQuery = "Select * from Usuarios";
@@ -332,30 +381,6 @@ namespace ProyectoFinal.Desktop.Infrastructure
             return null;
         }
 
-        public bool AddUserDB(string nombres, string apellidos, string correo, string clave)
-        {
-
-            try
-            {
-                SqlConnection conn = new SqlConnection(connectionString);
-                string addUser = $"INSERT INTO Usuarios VALUES('{nombres}','{apellidos}','{correo}','{clave}',1)";
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(addUser, conn);
-                int cantidad = cmd.ExecuteNonQuery();
-                if (cantidad == 1)
-                {
-                    return true;
-                }
-                return false;
-
-
-
-            }
-            catch (Exception eSql)
-            {
-                Debug.WriteLine("Exception: " + eSql.Message);
-                return false;
-            }
-        }
+       
     }
 }

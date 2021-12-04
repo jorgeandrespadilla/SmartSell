@@ -35,7 +35,7 @@ namespace ProyectoFinal.Web.Controllers
 
         // POST CreateAccount
         [HttpPost]
-        public IHttpActionResult CreateAccount([FromBody] CreateAccountDto dto)
+        public IHttpActionResult CreateAccount([FromBody] CreateUsuarioDto dto)
         {
             Usuario userQuery = db.Usuario.Where(u => u.Correo == dto.Correo).FirstOrDefault();
             if (userQuery != null)
