@@ -72,6 +72,22 @@
                             </StackPanel>
                         </StackPanel>
                     </Grid>
+                    
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
+                            <Viewbox Width="300" Margin="200,0,0,0" Visibility="Visible">
+                                <RatingControl x:Name="ratingUsuarioBtn"/>
+                            </Viewbox>
+                            
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Background="Red" Margin="0,0,10,0" FontSize="20">
+                                <TextBlock Text="Eliminar"></TextBlock>
+                            </Button>
+                            <Button Background="blue">
+                                <TextBlock Text="Editar" FontSize="20"></TextBlock>
+                            </Button>
+                        </StackPanel>
+                    
                     <muxc:TabView x:Name="opSelected" CanDragTabs="False" CanReorderTabs="False" AllowFocusOnInteraction="False" IsAddTabButtonVisible="false"  Margin="100,0,100,0" SelectionChanged="ActualizarTabla" HorizontalAlignment="Left">
                         <muxc:TabView.TabItems>
                             <muxc:TabViewItem Header="Subastas actuales" IsClosable="False">
