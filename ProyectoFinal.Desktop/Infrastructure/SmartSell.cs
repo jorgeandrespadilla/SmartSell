@@ -48,7 +48,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
             }
         }
 
-        public async Task<AuthorizedUsuarioDto> Authorize(string correo, string clave)
+        public async Task<AuthorizedUsuarioDto> Login(string correo, string clave)
         {
             var body = JsonConvert.SerializeObject(new CredencialesUsuarioDto(
                 correo,
@@ -59,6 +59,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
             if (response.IsSuccessStatusCode)
             {
                 var data = JsonConvert.DeserializeObject<AuthorizedUsuarioDto>(content);
+                CurrentUser = data;
                 return data;
             }
             else
@@ -66,6 +67,11 @@ namespace ProyectoFinal.Desktop.Infrastructure
                 var data = JsonConvert.DeserializeObject<MessageDto>(content);
                 throw new Exception(data.Message);
             }
+        }
+
+        public void Logout()
+        {
+            CurrentUser = null;
         }
 
         public ObservableCollection<Usuario> GetUsuarios()

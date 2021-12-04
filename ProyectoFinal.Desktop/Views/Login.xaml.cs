@@ -40,21 +40,13 @@ namespace ProyectoFinal.Desktop.Views
 
             try
             {
-                var data = await smartSell.Authorize(correo, pwd);
-                var messageDialog = new MessageDialog("");
-                messageDialog.Title = "Autenticación exitosa";
-                messageDialog.Content = data.Nombre;
-                messageDialog.Commands.Add(new UICommand("Cerrar"));
-                messageDialog.CancelCommandIndex = 0;
-                await messageDialog.ShowAsync();
-
-                smartSell.CurrentUser = null; // TODO: Asignar el valor
+                await smartSell.Login(correo, pwd);
                 this.Frame.Navigate(typeof(DetailsSubasta), 4);
             }
             catch (Exception a)
             {
                 var messageDialog = new MessageDialog("");
-                messageDialog.Title = "Autenticación ";
+                messageDialog.Title = "Error";
                 messageDialog.Content = a.Message;
                 messageDialog.Commands.Add(new UICommand("Cerrar"));
                 messageDialog.CancelCommandIndex = 0;
