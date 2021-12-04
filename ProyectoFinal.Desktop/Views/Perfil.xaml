@@ -75,8 +75,8 @@
                     
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                             <Viewbox Width="300" Margin="200,0,0,0" Visibility="Visible">
-                                <RatingControl x:Name="ratingUsuarioBtn"/>
-                            </Viewbox>
+                            <RatingControl  x:Name="ratingUsuarioBtn" ValueChanged="ratingUsuarioBtn_DataContextChanged" />
+                        </Viewbox>
                             
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

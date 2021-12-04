@@ -100,6 +100,13 @@ namespace ProyectoFinal.Desktop.Views
             }
             MisOfertas.ItemsSource = ofertasUsuario;
         }
+
+
+        private void ratingUsuarioBtn_DataContextChanged(RatingControl sender, object args)
+        {
+            double RatingControl = ratingUsuarioBtn.Value;
+            calificacionTxt.Text = RatingControl.ToString();
+        }
     }
     
     
