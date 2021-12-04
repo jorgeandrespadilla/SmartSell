@@ -36,17 +36,14 @@ namespace ProyectoFinal.Desktop.Views
 
         private async void EnviarBtn_Click(object sender, RoutedEventArgs e)
         {
-            string correo = userTxt.Text;
-            string pwd = pwdText.Password;
-
             try
             {
-                await smartSell.Login(correo, pwd);
+                await smartSell.Login(userTxt.Text, pwdText.Password);
                 this.Frame.Navigate(typeof(DetailsSubasta), 4);
             }
             catch (Exception ex)
             {
-                await Dialog.InfoMessage("Acceso denegado", ex.Message).ShowAsync();
+                await Dialog.InfoMessage("Acceso fallido", ex.Message).ShowAsync();
             }
         }
 

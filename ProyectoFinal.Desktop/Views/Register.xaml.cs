@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Desktop.Infrastructure;
+using ProyectoFinal.Desktop.Infrastructure.Helpers;
 using ProyectoFinal.Shared.Helpers;
 using System;
 using System.Collections.Generic;
@@ -31,17 +32,23 @@ namespace ProyectoFinal.Desktop.Views
             this.InitializeComponent();
         }
 
-        private void RegisterHandle(object sender, RoutedEventArgs e)
+        private async void RegisterHandle(object sender, RoutedEventArgs e)
         {
-            string nombres = nombresTxt.Text;
-            string apellidos = apellidoTxt.Text;
-            string correo = correoTxt.Text;
-            string passwordHash = Hasher.ToSHA256(pwdText.Password);
-            if(smartSell.AddUserDB(nombres,apellidos,correo, passwordHash))
+            try
             {
+                await smartSell.CreateAccount(
+                    nombresTxt.Text,
+                    apellidoTxt.Text,
+                    correoTxt.Text,
+                    pwdText.Password
+                );
+                await Dialog.InfoMessage("Registro exitoso", "Usuario registrado con éxito.").ShowAsync();
                 this.Frame.Navigate(typeof(Login), null);
             }
-            
+            catch(Exception ex)
+            {
+                await Dialog.InfoMessage("Registro fallido", ex.Message).ShowAsync();
+            }
         }
 
         private void LoginHandler(object sender, RoutedEventArgs e)

@@ -50,6 +50,20 @@ namespace ProyectoFinal.Desktop.Infrastructure
 
         public async Task<AuthorizedUsuarioDto> Login(string correo, string clave)
         {
+            // Validar credenciales
+            if (Validator.IsEmpty(correo) || Validator.IsEmpty(clave))
+            {
+                throw new Exception("Las credenciales de usuario no pueden contener campos vacíos.");
+            }
+            if (!Validator.IsValidEmail(correo))
+            {
+                throw new Exception("El correo electrónico no es válido.");
+            }
+            if (!Validator.IsValidPassword(clave))
+            {
+                throw new Exception("La contraseña no es válida.");
+            }
+
             var body = JsonConvert.SerializeObject(new CredencialesUsuarioDto(
                 correo,
                 Hasher.ToSHA256(clave.ToString())
@@ -74,13 +88,27 @@ namespace ProyectoFinal.Desktop.Infrastructure
             CurrentUser = null;
         }
 
-        public Boolean IsAuthorized()
+        public bool IsAuthorized()
         {
             return CurrentUser != null;
         }
 
         public async Task CreateAccount(string nombres, string apellidos, string correo, string clave)
         {
+            // Validar información
+            if (Validator.IsEmpty(nombres) || Validator.IsEmpty(apellidos) || Validator.IsEmpty(correo) || Validator.IsEmpty(clave))
+            {
+                throw new Exception("La información de usuario no puede contener campos vacíos.");
+            }
+            if (!Validator.IsValidEmail(correo))
+            {
+                throw new Exception("El correo electrónico no es válido.");
+            }
+            if (!Validator.IsValidPassword(clave))
+            {
+                throw new Exception("La contraseña no es válida (debe contener al menos 8 caracteres).");
+            }
+
             var body = JsonConvert.SerializeObject(new CreateUsuarioDto(
                 nombres,
                 apellidos,
@@ -95,33 +123,6 @@ namespace ProyectoFinal.Desktop.Infrastructure
                 throw new Exception(error.Message);
             }
         }
-
-        public bool AddUserDB(string nombres, string apellidos, string correo, string clave)
-        {
-
-            try
-            {
-                SqlConnection conn = new SqlConnection(connectionString);
-                string addUser = $"INSERT INTO Usuarios VALUES('{nombres}','{apellidos}','{correo}','{clave}',1)";
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(addUser, conn);
-                int cantidad = cmd.ExecuteNonQuery();
-                if (cantidad == 1)
-                {
-                    return true;
-                }
-                return false;
-
-
-
-            }
-            catch (Exception eSql)
-            {
-                Debug.WriteLine("Exception: " + eSql.Message);
-                return false;
-            }
-        }
-
 
         public ObservableCollection<Usuario> GetUsuarios()
         {
