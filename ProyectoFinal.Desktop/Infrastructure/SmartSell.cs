@@ -20,7 +20,6 @@ namespace ProyectoFinal.Desktop.Models
     {
         private string connectionString = (App.Current as App).ConnectionString;
 
-
         private static HttpClient client;
         public AuthorizedUsuarioDto CurrentUser { get; set; }
 

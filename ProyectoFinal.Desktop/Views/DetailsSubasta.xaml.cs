@@ -42,7 +42,7 @@ namespace ProyectoFinal.Desktop.Views
 
         public async void CargarInformacion()
         {
-            if (subasta.UsuarioID == smartSell.CurrentUser.UsuarioID) {
+            if (subasta.UsuarioID == smartSell.CurrentUser.ID) {
                 buttonEliminarWrapper.Visibility = Visibility.Visible;
                 buttonWrapper.Visibility = Visibility.Collapsed;
             }

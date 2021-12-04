@@ -125,7 +125,7 @@
     <Compile Include="Models\Comentario.cs" />
     <Compile Include="Models\Oferta.cs" />
     <Compile Include="Models\RatingUsuario.cs" />
-    <Compile Include="Models\SmartSell.cs" />
+    <Compile Include="Infrastructure\SmartSell.cs" />
     <Compile Include="Models\Subasta.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
