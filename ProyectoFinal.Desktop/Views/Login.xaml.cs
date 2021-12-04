@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Desktop.Models;
+using ProyectoFinal.Shared.Dto;
 using ProyectoFinal.Shared.Helpers;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,27 +33,33 @@ namespace ProyectoFinal.Desktop.Views
             
         }
 
-        private void EnviarBtn_Click(object sender, RoutedEventArgs e)
+        private async void EnviarBtn_Click(object sender, RoutedEventArgs e)
         {
             string correo = userTxt.Text;
             string pwd = pwdText.Password;
-            string passwordHash = Hasher.ToSHA256(pwd.ToString());
-            Usuario usuario = smartSell.GetUsuarios().Where(u => u.Correo == correo.ToString().ToLower() && u.Clave == passwordHash).FirstOrDefault();
-            if (usuario == null)
+
+            try
             {
-                /*ModelState.AddModelError("loginError", "Las credenciales ingresadas no son válidas.");
-                return View();*/
-                return;
+                var data = await smartSell.Authorize(correo, pwd);
+                var messageDialog = new MessageDialog("");
+                messageDialog.Title = "Autenticación exitosa";
+                messageDialog.Content = data.Nombre;
+                messageDialog.Commands.Add(new UICommand("Cerrar"));
+                messageDialog.CancelCommandIndex = 0;
+                await messageDialog.ShowAsync();
+
+                smartSell.CurrentUser = null; // TODO: Asignar el valor
+                this.Frame.Navigate(typeof(DetailsSubasta), 4);
             }
-            if (!usuario.Activo)
+            catch (Exception a)
             {
-                /*ModelState.AddModelError("loginError", "La cuenta ya no se encuentra disponible.");
-                return View();*/
-                return;
+                var messageDialog = new MessageDialog("");
+                messageDialog.Title = "Autenticación ";
+                messageDialog.Content = a.Message;
+                messageDialog.Commands.Add(new UICommand("Cerrar"));
+                messageDialog.CancelCommandIndex = 0;
+                await messageDialog.ShowAsync();
             }
-            smartSell.CurrentUser = usuario;
-            this.Frame.Navigate(typeof(DetailsSubasta),4);
-            
 
         }
 

@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Desktop.Models;
+using ProyectoFinal.Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,7 +36,7 @@ namespace ProyectoFinal.Desktop.Views
             string nombres = nombresTxt.Text;
             string apellidos = apellidoTxt.Text;
             string correo = correoTxt.Text;
-            string passwordHash = smartSell.ToSHA256(pwdText.Password);
+            string passwordHash = Hasher.ToSHA256(pwdText.Password);
             if(smartSell.AddUserDB(nombres,apellidos,correo, passwordHash))
             {
                 this.Frame.Navigate(typeof(Login), null);

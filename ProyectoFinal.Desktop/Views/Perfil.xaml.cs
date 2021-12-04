@@ -44,7 +44,7 @@ namespace ProyectoFinal.Desktop.Views
         private void CargarInformacion()
         {
             var id = usuarioActual.UsuarioID;
-            if (usuarioActual.UsuarioID == smartSell.CurrentUser.UsuarioID)
+            if (usuarioActual.UsuarioID == smartSell.CurrentUser.ID)
             {
                 buttonWrapper.Visibility = Visibility.Visible;
                 ratingWrapper.Visibility = Visibility.Collapsed;
