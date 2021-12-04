@@ -155,7 +155,6 @@
     </Compile>
     <Compile Include="Infrastructure\Helpers\Uploader.cs" />
     <Compile Include="Infrastructure\AuthenticationFilter.cs" />
-    <Compile Include="Infrastructure\Helpers\Hasher.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comentario.cs" />
     <Compile Include="Models\Oferta.cs" />

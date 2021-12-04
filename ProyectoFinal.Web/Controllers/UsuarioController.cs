@@ -6,8 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoFinal.Shared.Helpers;
 using ProyectoFinal.Web.Infrastructure;
-using ProyectoFinal.Web.Infrastructure.Helpers;
 using ProyectoFinal.Web.Models;
 using ProyectoFinal.Web.ViewModels;
 
