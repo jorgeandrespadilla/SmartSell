@@ -1,4 +1,5 @@
-﻿using ProyectoFinal.Web.Infrastructure.Helpers;
+﻿using ProyectoFinal.Shared.Helpers;
+using ProyectoFinal.Web.Infrastructure.Helpers;
 using ProyectoFinal.Web.Models;
 using ProyectoFinal.Web.ViewModels;
 using System;
