@@ -1,4 +1,4 @@
-﻿using ProyectoFinal.Desktop.Models;
+﻿using ProyectoFinal.Desktop.Infrastructure;
 using ProyectoFinal.Shared.Helpers;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace ProyectoFinal.Desktop.Views
 {
-    
+
     /// <summary>
     /// Una página vacía que se puede usar de forma independiente o a la que se puede navegar dentro de un objeto Frame.
     /// </summary>

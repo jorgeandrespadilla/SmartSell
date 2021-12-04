@@ -1,4 +1,4 @@
-﻿using ProyectoFinal.Desktop.Models;
+﻿using ProyectoFinal.Desktop.Infrastructure;
 using ProyectoFinal.Shared.Dto;
 using ProyectoFinal.Shared.Helpers;
 using System;

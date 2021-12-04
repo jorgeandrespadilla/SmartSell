@@ -12,20 +12,22 @@ using ProyectoFinal.Shared.Dto;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using ProyectoFinal.Shared.Helpers;
+using ProyectoFinal.Desktop.Models;
 
-namespace ProyectoFinal.Desktop.Models
+namespace ProyectoFinal.Desktop.Infrastructure
 {
     //Delete user: DELETE FROM Usuarios WHERE UsuarioID = *
     public sealed class SmartSell
     {
-        private string connectionString = (App.Current as App).ConnectionString;
+        private string connectionString = (Windows.UI.Xaml.Application.Current as App).ConnectionString;
 
         private static HttpClient client;
         public AuthorizedUsuarioDto CurrentUser { get; set; }
 
 
         private static readonly SmartSell instance = new SmartSell();
-        static SmartSell() {
+        static SmartSell()
+        {
             // Se permite la validación de cualquier certificado SSL, dado que HttpClient no acepta certificados SSL autogenerados por defecto
             var handler = new HttpClientHandler()
             {
@@ -36,7 +38,7 @@ namespace ProyectoFinal.Desktop.Models
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        private SmartSell() {}
+        private SmartSell() { }
 
         public static SmartSell Instance
         {
@@ -324,7 +326,7 @@ namespace ProyectoFinal.Desktop.Models
 
         public bool AddUserDB(string nombres, string apellidos, string correo, string clave)
         {
-            
+
             try
             {
                 SqlConnection conn = new SqlConnection(connectionString);
@@ -337,7 +339,7 @@ namespace ProyectoFinal.Desktop.Models
                     return true;
                 }
                 return false;
-                
+
 
 
             }
