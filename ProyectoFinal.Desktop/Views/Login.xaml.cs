@@ -50,7 +50,7 @@ namespace ProyectoFinal.Desktop.Views
                 return;
             }
             smartSell.CurrentUser = usuario;
-            this.Frame.Navigate(typeof(Perfil),null);
+            this.Frame.Navigate(typeof(IndexSubastas),null);
             
 
         }
