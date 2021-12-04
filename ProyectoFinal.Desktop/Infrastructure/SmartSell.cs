@@ -34,7 +34,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             };
             client = new HttpClient(handler);
-            client.BaseAddress = new Uri("https://localhost:44338/api/smartsellapi/");
+            client.BaseAddress = new Uri("https://localhost:44338/api/SmartSellApi/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -54,15 +54,17 @@ namespace ProyectoFinal.Desktop.Infrastructure
                 correo,
                 Hasher.ToSHA256(clave.ToString())
             ));
-            HttpResponseMessage response = await client.PostAsync("authorize", new StringContent(body, Encoding.UTF8, "application/json"));
+            HttpResponseMessage response = await client.PostAsync("Authorize", new StringContent(body, Encoding.UTF8, "application/json"));
+            string content = response.Content.ReadAsStringAsync().Result;
             if (response.IsSuccessStatusCode)
             {
-                var content = JsonConvert.DeserializeObject<AuthorizedUsuarioDto>(response.Content.ReadAsStringAsync().Result);
-                return content;
+                var data = JsonConvert.DeserializeObject<AuthorizedUsuarioDto>(content);
+                return data;
             }
             else
             {
-                throw new Exception("NOPE");
+                var data = JsonConvert.DeserializeObject<MessageDto>(content);
+                throw new Exception(data.Message);
             }
         }
 

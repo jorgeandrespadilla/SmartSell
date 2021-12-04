@@ -14,6 +14,7 @@ namespace ProyectoFinal.Web.Controllers
 
         /* Métodos para los usuarios */
 
+        // POST Authorize
         [HttpPost]
         public IHttpActionResult Authorize([FromBody] CredencialesUsuarioDto dto)
         {
@@ -32,6 +33,7 @@ namespace ProyectoFinal.Web.Controllers
             ));
         }
 
+        // POST CreateAccount
         [HttpPost]
         public IHttpActionResult CreateAccount([FromBody] CreateAccountDto dto)
         {
