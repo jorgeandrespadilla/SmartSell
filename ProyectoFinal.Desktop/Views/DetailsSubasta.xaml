@@ -42,7 +42,51 @@
                             <TextBlock HorizontalAlignment="Left" Margin="20,0,0,10" Text="Fecha de finalización" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="24" Foreground="#212529"/>
                             <TextBlock x:Name="fechaTxt" HorizontalAlignment="Left" Margin="20,0,0,20" Text="Nombre del producto" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="20" Foreground="#a1a1a1"/>
                         </StackPanel>
+                        
                     </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="buttonWrapper" Margin="0,0,20,0">
+                        <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd">
+                            <Button.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.ThemeDictionaries>
+                                        <ResourceDictionary x:Key="Light">
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#1875fd"/>
+                                        </ResourceDictionary>
+                                    </ResourceDictionary.ThemeDictionaries>
+                                </ResourceDictionary>
+                            </Button.Resources>
+                            <TextBlock Text="Ofertar" x:Name="editarBtn" FontSize="20"></TextBlock>
+                        </Button>
+                        <Button Background="White" Margin="0,0,10,0"  Foreground="#dc3545" BorderBrush="#dc3545" >
+                            <Button.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.ThemeDictionaries>
+                                        <ResourceDictionary x:Key="Light">
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#dc3545"/>
+                                        </ResourceDictionary>
+                                    </ResourceDictionary.ThemeDictionaries>
+                                </ResourceDictionary>
+                            </Button.Resources>
+                            <TextBlock Text="Eliminar oferta" x:Name="eliminarBtn" FontSize="20"></TextBlock>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="buttonEliminarWrapper" Margin="0,0,20,0">
+                        <Button Background="White" Margin="0,0,10,0" Foreground="#dc3545" BorderBrush="#dc3545">
+                            <Button.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.ThemeDictionaries>
+                                        <ResourceDictionary x:Key="Light">
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#dc3545"/>
+                                        </ResourceDictionary>
+                                    </ResourceDictionary.ThemeDictionaries>
+                                </ResourceDictionary>
+                            </Button.Resources>
+                            <TextBlock Text="Eliminar subasta" x:Name="borarrSubastabtn" FontSize="20"></TextBlock>
+                        </Button>
+                    </StackPanel>
                     <TextBlock HorizontalAlignment="Left" Margin="100,20,0,20" Text="Ofertas" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
                     <Grid VerticalAlignment="Center">
                         <ListView x:Name="OfertasSubasta" Margin="100,0,100,0" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Hidden">
@@ -75,7 +119,22 @@
                         </ListView>
                     </Grid>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock HorizontalAlignment="Left" Margin="100,20,0,20" Text="Comentarios" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="100,20,800,20" Text="Comentarios" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
+                        <StackPanel x:Name="wrapperComentarioBtn">
+                            <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Light">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#1875fd"/>
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                                <TextBlock Text="Nuevo comentario" x:Name="agregarComentarioBtn" FontSize="20"></TextBlock>
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
                     <Grid HorizontalAlignment="Center">
                         <ListView x:Name="ComentariosGrid" HorizontalAlignment="Stretch" Margin="100,0,100,50">

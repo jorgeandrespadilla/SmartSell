@@ -42,6 +42,16 @@ namespace ProyectoFinal.Desktop.Views
 
         public async void CargarInformacion()
         {
+            if (subasta.UsuarioID == smartSell.CurrentUser.UsuarioID) {
+                buttonEliminarWrapper.Visibility = Visibility.Visible;
+                buttonWrapper.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                buttonEliminarWrapper.Visibility = Visibility.Collapsed;
+                buttonWrapper.Visibility = Visibility.Visible;
+            }
+
             string imgString = subasta.FotoUrlProducto.Split(", ").Last();
             var bytes = Convert.FromBase64String(imgString);
             BitmapImage image = new BitmapImage();

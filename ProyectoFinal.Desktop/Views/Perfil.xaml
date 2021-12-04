@@ -78,7 +78,7 @@
                         </Viewbox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="buttonWrapper" Margin="0,0,20,0">
-                        <Button Background="White" Margin="0,0,10,0" FontSize="20" Foreground="#dc3545" BorderBrush="#dc3545" >
+                        <Button Background="White" Margin="0,0,10,0"  Foreground="#dc3545" BorderBrush="#dc3545" >
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
@@ -89,7 +89,7 @@
                                     </ResourceDictionary.ThemeDictionaries>
                                 </ResourceDictionary>
                             </Button.Resources>
-                            <TextBlock Text="Eliminar" x:Name="eliminarBtn"></TextBlock>
+                            <TextBlock Text="Eliminar" x:Name="eliminarBtn" FontSize="20"></TextBlock>
                         </Button>
                         <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd">
                             <Button.Resources>
