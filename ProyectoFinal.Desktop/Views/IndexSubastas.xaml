@@ -17,7 +17,7 @@
                             <HyperlinkButton x:Name="crearSubastaBtn" Content="Crear subasta" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                         </Grid>
                     </StackPanel>
-                    <ListView x:Name="subastas" Margin="0,0,0,0" >
+                    <ListView x:Name="subastas" Margin="0,0,0,0" SelectionChanged="subastas_SelectionChanged"  >
                         <ColumnDefinition Width="0.3*"/>
                         <ColumnDefinition Width="0.3*"/>
                         <ColumnDefinition Width="0.3*"/>

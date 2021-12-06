@@ -39,7 +39,7 @@ namespace ProyectoFinal.Desktop.Views
             try
             {
                 await smartSell.Login(userTxt.Text, pwdText.Password);
-                this.Frame.Navigate(typeof(DetailsSubasta), 4);
+                this.Frame.Navigate(typeof(IndexSubastas), null);
             }
             catch (Exception ex)
             {

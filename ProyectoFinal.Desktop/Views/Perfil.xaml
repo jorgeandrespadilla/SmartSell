@@ -16,6 +16,9 @@
         <Grid>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical">
+                    <Button Click="Volver">
+                        <SymbolIcon Symbol="Back" Foreground="Black"/>
+                    </Button>
                     <TextBlock HorizontalAlignment="Left" Margin="90,20,0,20" Text="Perfil de usuario" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529" />
                     <Grid HorizontalAlignment="Center" Margin="0,20" Width="1200">
                         <Grid.ColumnDefinitions>
@@ -73,7 +76,7 @@
                         </StackPanel>
                     </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible" x:Name="ratingWrapper">
-                        <Viewbox Width="300" Margin="200,0,0,0" Visibility="Visible">
+                        <Viewbox Width="300" Margin="170,0,0,0" Visibility="Visible">
                             <RatingControl x:Name="ratingUsuarioBtn" ValueChanged="ratingUsuarioBtn_DataContextChanged"/>
                         </Viewbox>
                     </StackPanel>

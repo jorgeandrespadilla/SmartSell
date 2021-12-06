@@ -127,7 +127,24 @@ namespace ProyectoFinal.Desktop.Views
             double RatingControl = ratingUsuarioBtn.Value;
             calificacionTxt.Text = RatingControl.ToString();
         }
+
+        private void Volver(object sender, RoutedEventArgs e)
+        {
+            TryGoBack();
+        }
+
+        public static bool TryGoBack()
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame.CanGoBack)
+            {
+                rootFrame.GoBack();
+                return true;
+            }
+            return false;
+        }
     }
     
+
     
 }
