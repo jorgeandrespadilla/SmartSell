@@ -7,7 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoFinal.Web", "Proyec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoFinal.Desktop", "ProyectoFinal.Desktop\ProyectoFinal.Desktop.csproj", "{167252CA-B025-4F6F-AFAF-0E1169813E89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoFinal.Shared", "ProyectoFinal.Shared\ProyectoFinal.Shared.csproj", "{4E36BFA9-2650-462A-B5C4-FDD6FAE9CB15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoFinal.Shared", "ProyectoFinal.Shared\ProyectoFinal.Shared.csproj", "{4E36BFA9-2650-462A-B5C4-FDD6FAE9CB15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CD419225-71DF-48EF-B22D-86223B51AAD3}"
+	ProjectSection(SolutionItems) = preProject
+		ApiTest.http = ApiTest.http
+		DataBackup.sql = DataBackup.sql
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

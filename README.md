@@ -41,6 +41,10 @@ Una vez habilitado el protocolo, debemos reiniciar y verificar que los servicios
 
 ![image](https://user-images.githubusercontent.com/58148764/142557377-1dc89393-4562-418a-bc40-c303cf813a3c.png)
 
+## Pruebas con la API
+
+Para realizar pruebas con la API, se puede hacer uso del archivo `ApiTest.http` que se encuentra en el directorio raíz del proyecto, cuyas peticiones pueden ser ejecutadas con el uso de la extensión **HTTP Client** para Visual Studio Code.
+
 ## ¿Cómo arreglar errores?
 
 Para arreglar errores, se deben seguir los siguientes pasos:
