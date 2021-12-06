@@ -1,6 +1,8 @@
 ﻿using ProyectoFinal.Desktop.Infrastructure;
+using ProyectoFinal.Desktop.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,16 +25,26 @@ namespace ProyectoFinal.Desktop.Views
     /// </summary>
     public sealed partial class IndexSubastas : Page
     {
+        
         private SmartSell smartSell = SmartSell.Instance;
+        private ObservableCollection<Subasta> subastasCargadas;
+
         public IndexSubastas()
         {
             this.InitializeComponent();
+            subastasCargadas = smartSell.GetSubastas();
             cargarSubastas();
         }
 
         public void cargarSubastas()
         {
-            subastas.ItemsSource = smartSell.GetSubastas();
+            subastas.ItemsSource = subastasCargadas;
+        }
+
+        private void subastas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Subasta subasta = subastasCargadas.ElementAt(subastas.SelectedIndex);
+            this.Frame.Navigate(typeof(DetailsSubasta), subasta.SubastaID);
         }
     }
 }

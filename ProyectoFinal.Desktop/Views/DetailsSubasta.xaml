@@ -16,6 +16,9 @@
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
             <ScrollViewer>
                 <StackPanel>
+                    <Button Click="Volver">
+                        <SymbolIcon Symbol="Back" Foreground="Black"/>
+                    </Button>
                     <TextBlock HorizontalAlignment="Left" Margin="85,92,0,0" Text="Información de subasta" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
                     <NavigationViewItemSeparator HorizontalAlignment="Stretch" Margin="70,0,100,10" BorderThickness="2" BorderBrush="Gray" Height="25" MinWidth="400"></NavigationViewItemSeparator>
                     <Grid HorizontalAlignment="Center">
@@ -23,7 +26,9 @@
                             <ColumnDefinition Width="0.5*"></ColumnDefinition>
                             <ColumnDefinition Width="0.5*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" MaxWidth="600" HorizontalAlignment="Center" x:Name="imagenProducto" Source="/Assets/Images/missing-img.jpg" VerticalAlignment="Stretch" Stretch="fill"></Image>
+                        <Grid Grid.Column="0" MaxHeight="600" HorizontalAlignment="Center" Padding="0,0,100,0">
+                            <Image x:Name="imagenProducto" Source="/Assets/Images/missing-img.jpg"></Image>
+                        </Grid>
                         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Stretch" MinWidth="100" Width="600">
                             <TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" Text="Información" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
                             <NavigationViewItemSeparator HorizontalAlignment="Stretch" Margin="10,0,10,10" BorderThickness="2" BorderBrush="Gray" Height="25" ></NavigationViewItemSeparator>
@@ -118,7 +123,7 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </Grid>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                         <TextBlock HorizontalAlignment="Left" Margin="100,20,800,20" Text="Comentarios" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
                         <StackPanel x:Name="wrapperComentarioBtn">
                             <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd">

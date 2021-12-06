@@ -65,7 +65,15 @@ namespace ProyectoFinal.Desktop.Views
             imagenProducto.Source = image;
             nombreTxt.Text = subasta.NombreProducto;
             nombreVendedor.Text = $"{subasta.Usuario.Nombres} {subasta.Usuario.Apellidos}";
-            precioTxt.Text = smartSell.FindOfertasBySubastaID(subasta.SubastaID).OrderByDescending(u => u.Monto).FirstOrDefault().Monto.ToString();
+            if (smartSell.FindOfertasBySubastaID(subasta.SubastaID).Count > 0)
+            {
+                precioTxt.Text = smartSell.FindOfertasBySubastaID(subasta.SubastaID).OrderByDescending(u => u.Monto).FirstOrDefault().Monto.ToString();
+            }
+            else
+            {
+                precioTxt.Text = subasta.PrecioInicial.ToString();
+            }
+            
             descripcionTxt.Text = subasta.DescripcionProducto;
             if (DateTime.Compare(DateTime.Now, subasta.FechaLimite) < 0)
             {
@@ -95,6 +103,22 @@ namespace ProyectoFinal.Desktop.Views
         private void NavigatePerfilVendedor(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Perfil), subasta.UsuarioID);
+        }
+
+        private void Volver(object sender, RoutedEventArgs e)
+        {
+            TryGoBack();
+        }
+
+        public static bool TryGoBack()
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame.CanGoBack)
+            {
+                rootFrame.GoBack();
+                return true;
+            }
+            return false;
         }
     }
 }
