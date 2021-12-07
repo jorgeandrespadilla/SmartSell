@@ -41,4 +41,25 @@ content-type: application/json
 ###
 # Perfil
 
-GET {{baseUrl}}/Perfil/1
+GET {{baseUrl}}/Perfil/8
+
+###
+# PerfilOfertas
+
+GET {{baseUrl}}/PerfilOfertas/3
+    ?showOfertas=GANADAS
+
+
+###
+# EditPerfil
+
+PUT {{baseUrl}}/EditPerfil/8
+content-type: application/json
+
+{
+    "Nombres": "Nuevo",
+    "Apellidos": "Nuevo",
+    "Correo": "nuevo.nuevo@prueba.com",
+    "Clave": null
+}
+

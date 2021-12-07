@@ -2,6 +2,7 @@
 using ProyectoFinal.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 
@@ -65,7 +66,25 @@ namespace ProyectoFinal.Web.Controllers
         [HttpGet]
         public IHttpActionResult Perfil(int id)
         {
-            return BadRequest("Not implemented");
+            Usuario usuario = db.Usuario.Find(id);
+            if (usuario == null)
+            {
+                return BadRequest("No se encontró el perfil del usuario.");
+            }
+
+            var ratings = db.RatingUsuario.Where(u => u.UsuarioCalificadoID == id).ToList();
+            double avgRating = 0;
+            if (ratings.Count != 0)
+            {
+                avgRating = ratings.Average(ru => ru.Rating);
+            }
+
+            return Ok(new PerfilDto(
+                usuario.Nombres,
+                usuario.Apellidos,
+                usuario.Correo,
+                (float)avgRating
+            ));
         }
         // PerfilDto
 
@@ -74,29 +93,136 @@ namespace ProyectoFinal.Web.Controllers
         [HttpGet]
         public IHttpActionResult PerfilOfertas(int id, string showOfertas = null)
         {
-            return BadRequest("Not implemented");
+            Usuario usuario = db.Usuario.Find(id);
+            if (usuario == null)
+            {
+                return BadRequest("No se encontraron las ofertas del usuario.");
+            }
+
+            showOfertas = String.IsNullOrEmpty(showOfertas) ? "PARTICIPACION" : showOfertas.ToUpper();
+            var ofertasQuery = db.Oferta.Where(o => o.UsuarioID == id).GroupBy(o => o.SubastaID).Select(g => new
+            {
+                OfertaActual = g.OrderByDescending(x => x.Monto).Select(x => x).FirstOrDefault()
+            }).ToList();
+            ICollection<Oferta> filteredOfertas = new List<Oferta>();
+            if (showOfertas == "PARTICIPACION")
+            {
+                ofertasQuery = ofertasQuery.Where(o => DateTime.Compare(o.OfertaActual.Subasta.FechaLimite, DateTime.Now) > 0).ToList();
+                foreach (var oferta in ofertasQuery)
+                {
+                    filteredOfertas.Add(oferta.OfertaActual);
+                }
+                filteredOfertas = filteredOfertas.OrderByDescending(o => o.Monto).ToList();
+            }
+            else if (showOfertas == "GANADAS")
+            {
+                ofertasQuery = ofertasQuery.Where(o => DateTime.Compare(o.OfertaActual.Subasta.FechaLimite, DateTime.Now) <= 0).ToList();
+                foreach (var oferta in ofertasQuery)
+                {
+                    var subasta = oferta.OfertaActual.Subasta;
+                    var highestOferta = subasta.Ofertas.OrderByDescending(o => o.Monto).FirstOrDefault();
+                    if (highestOferta != null && highestOferta.OfertaID == oferta.OfertaActual.OfertaID)
+                    {
+                        filteredOfertas.Add(oferta.OfertaActual);
+                    }
+                }
+                filteredOfertas = filteredOfertas.OrderByDescending(o => o.Subasta.FechaLimite).ToList();
+            }
+
+            ICollection<OfertaDto> ofertas = new List<OfertaDto>();
+            foreach(var oferta in filteredOfertas)
+            {
+                ofertas.Add(new OfertaDto(
+                    oferta.SubastaID,
+                    oferta.Subasta.NombreProducto,
+                    oferta.Monto,
+                    oferta.FechaCreacion
+                ));
+            }
+            return Ok(ofertas);
         }
-        // OfertaDto
+        // ICollection<OfertaDto> -> Nombre contiene el NombreProducto
 
         // PUT EditPerfil/{id}
         [HttpPut]
         public IHttpActionResult EditPerfil(int id, [FromBody] EditPerfilDto dto)
         {
-            return BadRequest("Not implemented");
-        }
+            Usuario usuario = db.Usuario.Where(u => u.Correo == dto.Correo.Trim().ToLower()).FirstOrDefault();
+            if (usuario != null && usuario.UsuarioID != id)
+            {
+                return BadRequest("Ya existe un usuario con este correo.");
+            }
+            usuario = db.Usuario.Find(id);
+
+            usuario.Nombres = dto.Nombres.Trim();
+            usuario.Apellidos = dto.Apellidos.Trim();
+            usuario.Correo = dto.Correo.Trim().ToLower();
+            if (!String.IsNullOrEmpty(dto.Clave))
+            {
+                usuario.Clave = dto.Clave;
+            }
+            db.Entry(usuario).State = EntityState.Modified;
+            db.SaveChanges();
+
+            var ratings = db.RatingUsuario.Where(u => u.UsuarioCalificadoID == id).ToList();
+            double avgRating = 0;
+            if (ratings.Count != 0)
+            {
+                avgRating = ratings.Average(ru => ru.Rating);
+            }
+
+            return Ok(new PerfilDto(
+                usuario.Nombres,
+                usuario.Apellidos,
+                usuario.Correo,
+                (float)avgRating
+            ));
+        } 
+        // PerfilDto
 
         // DELETE DeletePerfil/{id}
         [HttpDelete]
         public IHttpActionResult DeletePerfil(int id)
         {
-            return BadRequest("Not implemented");
+            Usuario usuario = db.Usuario.Find(id);
+            if (usuario == null)
+            {
+                return BadRequest("No se encontró el perfil del usuario.");
+            }
+            usuario.Activo = false;
+            db.Entry(usuario).State = EntityState.Modified;
+            db.SaveChanges();
+            return Ok();
         }
 
-        // GET PerfilVendedor/{id}
+        // GET PerfilVendedor/{id}?idUsuarioActual={value}
+        // 
+        // idUsuarioActual: id del usuario actualmente logeado
         [HttpGet]
-        public IHttpActionResult PerfilVendedor(int id)
+        public IHttpActionResult PerfilVendedor(int id, int idUsuarioActual)
         {
-            return BadRequest("Not implemented");
+            Usuario usuario = db.Usuario.Find(id);
+            if (usuario == null || !usuario.Activo)
+            {
+                return BadRequest("No se encontró el perfil del usuario.");
+            }
+            var currentRating = db.RatingUsuario.Where(ru => ru.UsuarioCalificadorID == idUsuarioActual && ru.UsuarioCalificadoID == id).FirstOrDefault();
+            int rating = currentRating != null ? currentRating.Rating : 0;
+            var ratings = db.RatingUsuario.Where(u => u.UsuarioCalificadoID == id).ToList();
+            double avgRating = 0;
+            if (ratings.Count != 0)
+            {
+                avgRating = ratings.Average(ru => ru.Rating);
+            }
+
+            return Ok(new PerfilVendedorDto(
+                usuario.UsuarioID,
+                usuario.Nombres,
+                usuario.Apellidos,
+                usuario.Correo,
+                (float)avgRating,
+                rating
+            ));
         }
         // PerfilVendedorDto
 
@@ -104,7 +230,27 @@ namespace ProyectoFinal.Web.Controllers
         [HttpPost]
         public IHttpActionResult RatingUsuario([FromBody] RatingUsuarioDto dto)
         {
-            return BadRequest("Not implemented");
+            if (dto.Rating != 0)
+            {
+                var currentRating = db.RatingUsuario.Where(ru => ru.UsuarioCalificadorID == dto.UsuarioCalificadorID && ru.UsuarioCalificadoID == dto.UsuarioCalificadoID).FirstOrDefault();
+                if (currentRating == null)
+                {
+                    db.RatingUsuario.Add(new RatingUsuario
+                    {
+                        UsuarioCalificadorID =dto.UsuarioCalificadorID,
+                        UsuarioCalificadoID = dto.UsuarioCalificadoID,
+                        Rating = dto.Rating
+                    });
+                    db.SaveChanges();
+                }
+                else
+                {
+                    currentRating.Rating = dto.Rating;
+                    db.Entry(currentRating).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            return Ok();
         }
 
 

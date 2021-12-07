@@ -13,9 +13,9 @@ namespace ProyectoFinal.Shared.Dto
         public float AvgRating { get; set; }
         public int Rating { get; set; }
 
-        public PerfilVendedorDto(int iD, string nombres, string apellidos, string correo, float avgRating, int rating)
+        public PerfilVendedorDto(int id, string nombres, string apellidos, string correo, float avgRating, int rating)
         {
-            ID = iD;
+            ID = id;
             Nombres = nombres;
             Apellidos = apellidos;
             Correo = correo;

@@ -101,7 +101,7 @@ namespace ProyectoFinal.Web.Controllers
                 Usuario = usuario,
                 AvgRating = (float)avgRating,                
                 Rating =  rating
-            }) ;
+            });
 
         }
 
