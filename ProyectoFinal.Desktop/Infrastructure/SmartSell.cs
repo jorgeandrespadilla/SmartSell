@@ -48,6 +48,10 @@ namespace ProyectoFinal.Desktop.Infrastructure
             }
         }
 
+
+
+        /**** Métodos para la autenticación ****/
+
         public async Task<AuthorizedUsuarioDto> Login(string correo, string clave)
         {
             // Validar credenciales
@@ -68,18 +72,28 @@ namespace ProyectoFinal.Desktop.Infrastructure
                 correo,
                 Hasher.ToSHA256(clave.ToString())
             ));
-            HttpResponseMessage response = await client.PostAsync("Authorize", new StringContent(body, Encoding.UTF8, "application/json"));
+
+            string url = "Authorize";
+            HttpResponseMessage response = await client.PostAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
             string content = response.Content.ReadAsStringAsync().Result;
-            if (response.IsSuccessStatusCode)
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+            else
             {
                 var data = JsonConvert.DeserializeObject<AuthorizedUsuarioDto>(content);
                 CurrentUser = data;
                 return data;
-            }
-            else
-            {
-                var data = JsonConvert.DeserializeObject<MessageDto>(content);
-                throw new Exception(data.Message);
             }
         }
 
@@ -96,7 +110,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
         public async Task CreateAccount(string nombres, string apellidos, string correo, string clave)
         {
             // Validar información
-            if (Validator.IsEmpty(nombres) || Validator.IsEmpty(apellidos) || Validator.IsEmpty(correo) || Validator.IsEmpty(clave))
+            if (Validator.IsEmpty(nombres) || Validator.IsEmpty(apellidos) || Validator.IsEmpty(correo) || String.IsNullOrEmpty(clave))
             {
                 throw new Exception("La información de usuario no puede contener campos vacíos.");
             }
@@ -115,14 +129,203 @@ namespace ProyectoFinal.Desktop.Infrastructure
                 correo,
                 Hasher.ToSHA256(clave.ToString())
             ));
-            HttpResponseMessage response = await client.PostAsync("CreateAccount", new StringContent(body, Encoding.UTF8, "application/json"));
+
+            string url = "CreateAccount";
+            HttpResponseMessage response = await client.PostAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+
+
+        /**** Métodos para los usuarios ****/
+
+        public async Task<PerfilDto> GetPerfil()
+        {
+            string url = $"Perfil/{CurrentUser.ID}";
+            HttpResponseMessage response = await client.GetAsync(url);
+            string content = response.Content.ReadAsStringAsync().Result;
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+            else
+            {
+                var data = JsonConvert.DeserializeObject<PerfilDto>(content);
+                return data;
+            }
+        }
+
+        // showOfertas: "PARTICIPACION", "GANADAS"
+        public async Task<ICollection<OfertaDto>> GetPerfilOfertas(string showOfertas = null)
+        {
+            string url = $"PerfilOfertas/{CurrentUser.ID}";
+            if (!string.IsNullOrEmpty(showOfertas))
+            {
+                url += $"&showOfertas={showOfertas}";
+            }
+            HttpResponseMessage response = await client.GetAsync(url);
+            string content = response.Content.ReadAsStringAsync().Result;
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+            else
+            {
+                var data = JsonConvert.DeserializeObject<ICollection<OfertaDto>>(content);
+                return data;
+            }
+        }
+
+        public async Task<PerfilDto> EditPerfil(string nombres, string apellidos, string correo, string clave)
+        {
+            // Validar información
+            if (Validator.IsEmpty(nombres) || Validator.IsEmpty(apellidos) || Validator.IsEmpty(correo))
+            {
+                throw new Exception("La información de usuario no puede contener campos vacíos.");
+            }
+            if (!Validator.IsValidEmail(correo))
+            {
+                throw new Exception("El correo electrónico no es válido.");
+            }
+            if (string.IsNullOrEmpty(clave) && !Validator.IsValidPassword(clave))
+            {
+                throw new Exception("La contraseña no es válida (debe contener al menos 8 caracteres).");
+            }
+
+            var body = JsonConvert.SerializeObject(new EditPerfilDto(
+                nombres,
+                apellidos,
+                correo,
+                string.IsNullOrEmpty(clave) ? null : Hasher.ToSHA256(clave)
+            ));
+
+            string url = $"EditPerfil/{CurrentUser.ID}";
+            HttpResponseMessage response = await client.PutAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
+            string content = response.Content.ReadAsStringAsync().Result;
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+            else
+            {
+                var data = JsonConvert.DeserializeObject<PerfilDto>(content);
+                return data;
+            }
+        }
+
+        public async Task DeletePerfil()
+        {
+            string url = $"DeletePerfil/{CurrentUser.ID}";
+            HttpResponseMessage response = await client.DeleteAsync(url);
             string content = response.Content.ReadAsStringAsync().Result;
             if (!response.IsSuccessStatusCode)
             {
-                var error = JsonConvert.DeserializeObject<MessageDto>(content);
-                throw new Exception(error.Message);
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
             }
         }
+
+        public async Task<PerfilVendedorDto> GetPerfilVendedor(int id)
+        {
+            string url = $"PerfilVendedors/{id}?idUsuarioActual={CurrentUser.ID}";
+            HttpResponseMessage response = await client.GetAsync(url);
+            string content = response.Content.ReadAsStringAsync().Result;
+           
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+            else
+            {
+                var data = JsonConvert.DeserializeObject<PerfilVendedorDto>(content);
+                return data;
+            }
+        }
+
+        public async Task SetRatingUsuario(int id, int rating)
+        {
+            var body = JsonConvert.SerializeObject(new RatingUsuarioDto(
+                id, // UsuarioCalificadoID
+                CurrentUser.ID, // UsuarioCalificadorID
+                rating
+            ));
+
+            string url = "RatingUsuario";
+            HttpResponseMessage response = await client.PostAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+
+
+        /******* OLD METHODS ********/
 
         public ObservableCollection<Usuario> GetUsuarios()
         {
