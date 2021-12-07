@@ -46,5 +46,10 @@ namespace ProyectoFinal.Desktop.Views
             Subasta subasta = subastasCargadas.ElementAt(subastas.SelectedIndex);
             this.Frame.Navigate(typeof(DetailsSubasta), subasta.SubastaID);
         }
+
+        private void CrearSubastaHandler(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CrearSubasta),null);
+        }
     }
 }
