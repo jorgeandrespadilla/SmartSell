@@ -63,3 +63,13 @@ content-type: application/json
     "Clave": null
 }
 
+
+## Métodos para las subastas
+#########################################################
+
+###
+# Subastas/{id}?page=1&searchString={value}&sortOrder={value}&hideEnded={value}&hideMySubastas={value}&showAll={value}
+
+GET {{baseUrl}}/Subastas/1
+    ?page=1
+    &hideended="false"

@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Shared.Dto;
+using ProyectoFinal.Shared.Models;
 using ProyectoFinal.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -130,9 +131,10 @@ namespace ProyectoFinal.Web.Controllers
             }
 
             ICollection<OfertaDto> ofertas = new List<OfertaDto>();
-            foreach(var oferta in filteredOfertas)
+            foreach (var oferta in filteredOfertas)
             {
                 ofertas.Add(new OfertaDto(
+                    oferta.OfertaID,
                     oferta.SubastaID,
                     oferta.Subasta.NombreProducto,
                     oferta.Monto,
@@ -177,7 +179,7 @@ namespace ProyectoFinal.Web.Controllers
                 usuario.Correo,
                 (float)avgRating
             ));
-        } 
+        }
         // PerfilDto
 
         // DELETE DeletePerfil/{id}
@@ -237,7 +239,7 @@ namespace ProyectoFinal.Web.Controllers
                 {
                     db.RatingUsuario.Add(new RatingUsuario
                     {
-                        UsuarioCalificadorID =dto.UsuarioCalificadorID,
+                        UsuarioCalificadorID = dto.UsuarioCalificadorID,
                         UsuarioCalificadoID = dto.UsuarioCalificadoID,
                         Rating = dto.Rating
                     });
@@ -258,22 +260,179 @@ namespace ProyectoFinal.Web.Controllers
 
         /**** Métodos para las subastas ****/
 
-        // GET Subastas?page=1&searchString={value}&sortOrder={value}&hideEnded={value}&hideMySubastas={value}&showAll={value}
+        // GET Subastas/{id}?page=1&searchString={value}&sortOrder={value}&hideEnded={value}&hideMySubastas={value}&showAll={value}
         [HttpGet]
-        public IHttpActionResult Subastas(int page = 1, string searchString = null, string sortOrder = null, string hideEnded = null, string hideMySubastas = null, string showAll = null)
+        public IHttpActionResult Subastas(int id, int page = 1, string searchString = null, string sortOrder = null, string hideEnded = null, string hideMySubastas = null, string showAll = null)
         {
-            const int size = 6;
-            return BadRequest("Not implemented");
+            /* Manejar configuración de filtrado y de ocultamiento */
+            showAll = String.IsNullOrEmpty(showAll) ? "true" : showAll;
+            sortOrder = String.IsNullOrEmpty(sortOrder) ? "" : sortOrder;
+            hideEnded = String.IsNullOrEmpty(hideEnded) ? "true" : hideEnded;
+            hideMySubastas = string.IsNullOrEmpty(hideMySubastas) && String.Compare(showAll, "true") == 0 ? "true" : hideMySubastas;
+
+            /* Manejar configuración de búsqueda y paginación */
+            if (searchString != null)
+            {
+                page = 1;
+            }
+
+            /* Consultar subastas junto con su mayor oferta */
+            var subastasQuery = db.Subasta.Where(s => s.Usuario.Activo).GroupJoin(db.Oferta, s => s.SubastaID, o => o.SubastaID, (s, o) => new
+            {
+                Subasta = s,
+                OfertaActual = o.OrderByDescending(x => x.Monto).FirstOrDefault()
+            }
+            ).ToList();
+
+            /* Manejar despliegue para mis ofertas/todas las ofertas */
+            if (showAll == "false")
+            {
+                subastasQuery = subastasQuery.Where(s => s.Subasta.UsuarioID == id).ToList();
+            }
+
+            /* Manejar cadena de búsqueda */
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                subastasQuery = subastasQuery.Where(s => s.Subasta.NombreProducto.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+
+
+            /* Generar modelos de subastas */
+            var subastasDto = new List<SubastaItemDto>();
+            foreach (var subastaQuery in subastasQuery)
+            {
+                subastasDto.Add(new SubastaItemDto(
+                    subastaQuery.Subasta.SubastaID,
+                    (int)subastaQuery.Subasta.UsuarioID,
+                    subastaQuery.Subasta.FotoUrlProducto,
+                    subastaQuery.Subasta.NombreProducto,
+                    subastaQuery.OfertaActual == null ? subastaQuery.Subasta.PrecioInicial : (float)subastaQuery.OfertaActual.Monto, // Si existen ofertas, obtiene el monto actual de la oferta más alta. Caso contrario, obtiene el precio inicial
+                    subastaQuery.Subasta.FechaLimite,
+                    DateTime.Compare(DateTime.Now, subastaQuery.Subasta.FechaLimite) <= 0 // Si la fecha y hora actuales son anteriores a la fecha límite, la subasta se encuentra vigente
+                ));
+            }
+
+            if (subastasQuery.Count() != 0)
+            {
+                /* Manejar ocultamiento de subastas pasadas/finalizadas */
+                if (hideEnded == "true")
+                {
+                    subastasDto = subastasDto.Where(s => s.Vigente).ToList();
+                }
+                if (hideMySubastas == "true" && showAll == "true")
+                {
+                    subastasDto = subastasDto.Where(s => s.UsuarioID != id).ToList();
+                }
+
+                /* Manejar filtros */
+                switch (sortOrder)
+                {
+                    case "price_asc":
+                        subastasDto = subastasDto.OrderBy(s => s.MontoActual).ToList();
+                        break;
+                    case "price_desc":
+                        subastasDto = subastasDto.OrderByDescending(s => s.MontoActual).ToList();
+                        break;
+                    case "name_asc":
+                        subastasDto = subastasDto.OrderBy(s => s.NombreProducto).ToList();
+                        break;
+                    case "name_desc":
+                        subastasDto = subastasDto.OrderByDescending(s => s.NombreProducto).ToList();
+                        break;
+                    default:
+                        subastasDto = subastasDto.OrderBy(s => s.Fecha).ToList();
+                        break;
+                }
+            }
+
+            /* Configurar paginación */
+            int pageSize = 6; // Numero de elementos por página
+            int totalPages = Convert.ToInt32(subastasDto.Count() / pageSize) + 1;
+            if (page < 1 || page > totalPages)
+            {
+                page = 1;
+            }
+
+            var data = subastasDto.Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+
+            return Ok(new SubastasPagedData(
+                data,
+                page,
+                pageSize,
+                totalPages,
+                searchString,
+                sortOrder,
+                hideEnded == "true",
+                hideMySubastas == "true",
+                showAll == "true"
+            ));
         }
-        // PagedData<SubastaItemDto>
+        // SubastasPagedData
 
         // GET Subasta/{id}
         [HttpGet]
         public IHttpActionResult Subasta(int id)
         {
-            return BadRequest("Not implemented");
+            Subasta subasta = db.Subasta.Find(id);
+            if (subasta == null || !subasta.Usuario.Activo)
+            {
+                return BadRequest("No se encontró el detalle de subasta.");
+            }
+
+            Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == id).OrderByDescending(o => o.Monto).FirstOrDefault();
+            float montoActual;
+            if (ofertaActual == null)
+            {
+                montoActual = subasta.PrecioInicial;
+            }
+            else
+            {
+                montoActual = ofertaActual.Monto;
+            }
+            ICollection<Oferta> ofertas = db.Oferta.Where(u => u.SubastaID == id).OrderByDescending(o => o.Monto).ToList();
+
+            ICollection<OfertaDto> ofertasDto = new List<OfertaDto>();
+            foreach(var oferta in ofertas)
+            {
+                ofertasDto.Add(new OfertaDto(
+                    oferta.OfertaID,
+                    oferta.SubastaID,
+                    oferta.Subasta.NombreProducto,
+                    oferta.Monto,
+                    oferta.FechaCreacion
+                ));
+            }
+
+            ICollection<ComentarioDto> comentariosDto = new List<ComentarioDto>();
+            foreach(var comentario in subasta.Comentarios)
+            {
+                comentariosDto.Add(new ComentarioDto(
+                    comentario.ComentarioID,
+                    comentario.UsuarioID,
+                    $"{comentario.Usuario.Nombres} {comentario.Usuario.Apellidos}",
+                    comentario.Descripcion,
+                    comentario.FechaCreacion
+                ));
+            }
+            comentariosDto = comentariosDto.OrderByDescending(o => o.FechaCreacion).ToList();
+
+            return Ok(new SubastaDto(
+                subasta.SubastaID,
+                (int)subasta.UsuarioID,
+                subasta.NombreProducto,
+                subasta.DescripcionProducto,
+                $"{subasta.Usuario.Nombres} {subasta.Usuario.Apellidos}",
+                montoActual,
+                subasta.FechaLimite,
+                DateTime.Compare(DateTime.Now, subasta.FechaLimite) <= 0,
+                subasta.FotoUrlProducto,
+                ofertasDto,
+                comentariosDto
+            ));
         }
         // SubastaDto -> should also contain a list of Comentarios
+        //
+        // ofertaActual and viewMode should be check at UWP & Xamarin app 
 
         // POST CreateSubasta
         [HttpPost]
@@ -335,14 +494,48 @@ namespace ProyectoFinal.Web.Controllers
 
         /**** Métodos para las ofertas ****/
 
-        // GET Ofertas?page=1&searchString={value}
+        // GET Ofertas/{id}?page=1&searchString={value}
         [HttpGet]
-        public IHttpActionResult Ofertas(int page = 1, string searchString = null)
+        public IHttpActionResult Ofertas(int id, int page = 1, string searchString = null)
         {
-            const int size = 10;
-            return BadRequest("Not implemented");
+            /* Manejar configuración de búsqueda y paginación */
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            var ofertasQuery = db.Oferta.Where(o => o.UsuarioID == id).OrderByDescending(o => o.FechaCreacion).ToList();
+            
+            /* Manejar cadena de búsqueda */
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ofertasQuery = ofertasQuery.Where(s => s.Subasta.NombreProducto.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+
+            /* Configurar paginación */
+            int pageSize = 10; // Numero de elementos por página
+            int totalPages = Convert.ToInt32(ofertasQuery.Count() / pageSize) + 1;
+            if (page < 1 || page > totalPages)
+            {
+                page = 1;
+            }
+
+            var data = ofertasQuery.Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+
+            ICollection<OfertaDto> ofertasDto = new List<OfertaDto>();
+            foreach(var oferta in data)
+            {
+                ofertasDto.Add(new OfertaDto(
+                    oferta.OfertaID,
+                    oferta.SubastaID,
+                    oferta.Subasta.NombreProducto,
+                    oferta.Monto,
+                    oferta.FechaCreacion
+                ));
+            }
+
+            return Ok(ofertasDto);
         }
-        // PagedData<OfertaDto>
+        // PagedData<OfertaDto> -> Nombre corresponde al NombreProducto
 
         // POST CreateOferta
         [HttpPost]

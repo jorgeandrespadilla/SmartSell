@@ -13,6 +13,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using ProyectoFinal.Shared.Helpers;
 using ProyectoFinal.Desktop.Models;
+using ProyectoFinal.Shared.Models;
 
 namespace ProyectoFinal.Desktop.Infrastructure
 {
@@ -183,7 +184,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
             string url = $"PerfilOfertas/{CurrentUser.ID}";
             if (!string.IsNullOrEmpty(showOfertas))
             {
-                url += $"&showOfertas={showOfertas}";
+                url += $"?showOfertas={showOfertas}";
             }
             HttpResponseMessage response = await client.GetAsync(url);
             string content = response.Content.ReadAsStringAsync().Result;
@@ -322,6 +323,81 @@ namespace ProyectoFinal.Desktop.Infrastructure
                 }
             }
         }
+
+
+
+        /**** Métodos para las subastas ****/
+
+        public async Task<SubastasPagedData> GetSubastas(int id, int page = 1, string searchString = null, string sortOrder = null, string hideEnded = null, string hideMySubastas = null, string showAll = null)
+        {
+            string url = $"Subastas/{CurrentUser.ID}?page={page}";
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                url += $"&searchString={searchString}";
+            }
+            if (!string.IsNullOrEmpty(sortOrder))
+            {
+                url += $"&searchString={sortOrder}";
+            }
+            if (!string.IsNullOrEmpty(hideEnded))
+            {
+                url += $"&searchString={hideEnded}";
+            }
+            if (!string.IsNullOrEmpty(hideMySubastas))
+            {
+                url += $"&searchString={hideMySubastas}";
+            }
+            if (!string.IsNullOrEmpty(showAll))
+            {
+                url += $"&searchString={showAll}";
+            }
+            HttpResponseMessage response = await client.GetAsync(url);
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+            else
+            {
+                var data = JsonConvert.DeserializeObject<SubastasPagedData>(content);
+                return data;
+            }
+        }
+
+        public async Task<SubastaDto> GetSubasta(int id)
+        {
+            string url = $"Subasta/{id}";
+            HttpResponseMessage response = await client.GetAsync(url);
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+            else
+            {
+                var data = JsonConvert.DeserializeObject<SubastaDto>(content);
+                return data;
+            }
+        }
+
 
 
 
