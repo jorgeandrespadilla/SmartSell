@@ -35,5 +35,6 @@ namespace ProyectoFinal.Desktop.Infrastructure.Helpers
         }
 
         // https://www.py4u.net/discuss/754119 -> Could be donde directly when image is uploaded
+        // https://github.com/sunteenwu/PersonalDemo/blob/master/Cuploadpicture/CuploadpictureClient/MainPage.xaml.cs
     }
 }
