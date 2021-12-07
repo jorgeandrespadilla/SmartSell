@@ -35,7 +35,7 @@ namespace ProyectoFinal.Desktop.Views
         }
 
         private async void EnviarBtn_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             try
             {
                 await smartSell.Login(userTxt.Text, pwdText.Password);

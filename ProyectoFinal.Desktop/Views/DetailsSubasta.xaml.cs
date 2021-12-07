@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Desktop.Infrastructure;
+using ProyectoFinal.Desktop.Infrastructure.Helpers;
 using ProyectoFinal.Desktop.Models;
 using System;
 using System.Collections.Generic;
@@ -52,16 +53,7 @@ namespace ProyectoFinal.Desktop.Views
                 buttonEliminarWrapper.Visibility = Visibility.Collapsed;
                 buttonWrapper.Visibility = Visibility.Visible;
             }
-
-            string imgString = subasta.FotoUrlProducto.Split(", ").Last();
-            var bytes = Convert.FromBase64String(imgString);
-            BitmapImage image = new BitmapImage();
-            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
-            {
-                await stream.WriteAsync(bytes.AsBuffer());
-                stream.Seek(0);
-                await image.SetSourceAsync(stream);
-            }
+            BitmapImage image = await UriImage.UriToBitmapImage(subasta.FotoUrlProducto);
             imagenProducto.Source = image;
             nombreTxt.Text = subasta.NombreProducto;
             nombreVendedor.Text = $"{subasta.Usuario.Nombres} {subasta.Usuario.Apellidos}";
