@@ -1,0 +1,44 @@
+@baseUrl = https://localhost:44338/api/SmartSellApi/
+
+# Observaciones:
+# - Las URL y las propiedades JSON son "non-case sensitive"
+# - Las llamadas GET a URL que requieren de un id pueden ser realizadas con cualquiera de los siguientes formatos:
+#   - https://localhost:44338/api/SmartSellApi/Sample/1
+#   - https://localhost:44338/api/SmartSellApi/Sample?id=1
+
+
+## Métodos de autenticación
+#########################################################
+
+###
+# Authorize
+# clave de acceso aplicado SHA256 (original: 12345678)
+
+POST {{baseUrl}}/Authorize
+content-type: application/json
+
+{
+    "Correo": "jorge.padilla@prueba.com",
+    "Clave": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f"
+}
+
+###
+# CreateAccount
+
+POST {{baseUrl}}/CreateAccount
+content-type: application/json
+
+{
+    "Nombres": "Nuevo",
+    "Apellidos": "Nuevo",
+    "Correo": "nuevo@prueba.com",
+    "Clave": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f"
+}
+
+## Métodos para los usuarios
+#########################################################
+
+###
+# Perfil
+
+GET {{baseUrl}}/Perfil/1
