@@ -129,6 +129,7 @@
     <Compile Include="Models\RatingUsuario.cs" />
     <Compile Include="Infrastructure\SmartSell.cs" />
     <Compile Include="Models\Subasta.cs" />
+    <Compile Include="Models\SubastaItem.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\DetailsSubasta.xaml.cs">
