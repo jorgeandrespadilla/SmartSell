@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using ProyectoFinal.Shared.Helpers;
 using ProyectoFinal.Desktop.Models;
 using ProyectoFinal.Shared.Models;
+using ProyectoFinal.Desktop.Infrastructure.Helpers;
 
 namespace ProyectoFinal.Desktop.Infrastructure
 {
@@ -373,6 +374,25 @@ namespace ProyectoFinal.Desktop.Infrastructure
             }
         }
 
+        public async Task<ICollection<SubastaItem>> ConvertToSubastaItems(IEnumerable<SubastaItemDto> itemsDto)
+        {
+            ICollection<SubastaItem> items = new List<SubastaItem>();
+            foreach (var itemDto in itemsDto)
+            {
+                var image = await UriImage.UriToBitmapImage(itemDto.UriImagen);
+                items.Add(new SubastaItem(
+                    itemDto.ID,
+                    itemDto.UsuarioID,
+                    image,
+                    itemDto.NombreProducto,
+                    itemDto.MontoActual,
+                    itemDto.Fecha,
+                    itemDto.Vigente
+                ));
+            }
+            return items;
+        }
+
         public async Task<SubastaDto> GetSubasta(int id)
         {
             string url = $"Subasta/{id}";
@@ -398,7 +418,98 @@ namespace ProyectoFinal.Desktop.Infrastructure
             }
         }
 
+        // Observación: Validar peso de la imagen
+        public async Task CreateSubasta(string nombreProducto, string descripcionProducto, string uriImagen, float precioInicial, DateTime fechaLimite)
+        {
+            if (Validator.IsEmpty(nombreProducto) || Validator.IsEmpty(descripcionProducto))
+            {
+                throw new Exception("La información de subasta no puede contener campos vacíos.");
+            }
+            if (precioInicial <= 0)
+            {
+                throw new Exception("El precio inicial debe ser positivo.");
+            }
+            if (DateTime.Compare(fechaLimite, DateTime.Now) <= 0)
+            {
+                throw new Exception("La fecha seleccionada ya ha pasado.");
+            }
 
+            var body = JsonConvert.SerializeObject(new CreateSubastaDto(
+                CurrentUser.ID,
+                nombreProducto,
+                descripcionProducto,
+                uriImagen,
+                precioInicial,
+                fechaLimite
+            ));
+
+            string url = "CreateSubasta";
+            HttpResponseMessage response = await client.PostAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+        public async Task EditSubasta(string nombreProducto, string descripcionProducto, string uriImagen = null)
+        {
+            if (Validator.IsEmpty(nombreProducto) || Validator.IsEmpty(descripcionProducto))
+            {
+                throw new Exception("La información de subasta no puede contener campos vacíos.");
+            }
+
+            var body = JsonConvert.SerializeObject(new EditSubastaDto(
+                nombreProducto,
+                descripcionProducto,
+                uriImagen
+            ));
+
+            string url = $"CreateSubasta/{CurrentUser.ID}";
+            HttpResponseMessage response = await client.PostAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+        public async Task DeleteSubasta(int id)
+        {
+            string url = $"DeleteSubasta/{id}";
+            HttpResponseMessage response = await client.DeleteAsync(url);
+            string content = response.Content.ReadAsStringAsync().Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
 
 
 

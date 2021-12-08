@@ -437,23 +437,59 @@ namespace ProyectoFinal.Web.Controllers
         // POST CreateSubasta
         [HttpPost]
         public IHttpActionResult CreateSubasta([FromBody] CreateSubastaDto dto)
-        {
-            return BadRequest("Not implemented");
+        { 
+            db.Subasta.Add(new Subasta
+            {
+                UsuarioID = dto.UsuarioID,
+                NombreProducto = dto.NombreProducto,
+                DescripcionProducto = dto.DescripcionProducto,
+                FotoUrlProducto = dto.UriImagen,
+                PrecioInicial = dto.PrecioInicial,
+                FechaLimite = dto.FechaLimite
+            });
+            db.SaveChanges();
+            return Ok();
         }
 
         // PUT EditSubasta/{id}
         [HttpPut]
         public IHttpActionResult EditSubasta(int id, [FromBody] EditSubastaDto dto)
         {
-            return BadRequest("Not implemented");
+            Subasta subasta = db.Subasta.Find(id);
+
+            subasta.NombreProducto = dto.NombreProducto.Trim();
+            subasta.DescripcionProducto = dto.DescripcionProducto.Trim();
+            if (dto.UriImagen != null)
+            {
+                subasta.FotoUrlProducto = dto.UriImagen;
+            }
+            
+            db.Entry(subasta).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Ok();
         }
 
         // DELETE DeleteSubasta/{id}
         [HttpDelete]
         public IHttpActionResult DeleteSubasta(int id)
         {
-            return BadRequest("Not implemented");
+            Subasta subasta = db.Subasta.Find(id);
+            if (subasta == null)
+            {
+                return BadRequest("No se encontró la subasta.");
+            }
+
+            var ofertas = db.Oferta.Where(o => o.SubastaID == id).ToList();
+            db.Oferta.RemoveRange(ofertas);
+            db.Subasta.Remove(subasta);
+            db.SaveChanges();
+           
+            return Ok();
         }
+
+
+
 
 
 
