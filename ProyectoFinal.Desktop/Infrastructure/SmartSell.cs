@@ -159,7 +159,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
             string url = $"Perfil/{CurrentUser.ID}";
             HttpResponseMessage response = await client.GetAsync(url);
             string content = response.Content.ReadAsStringAsync().Result;
-            
+
             if (!response.IsSuccessStatusCode)
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
@@ -189,7 +189,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
             }
             HttpResponseMessage response = await client.GetAsync(url);
             string content = response.Content.ReadAsStringAsync().Result;
-            
+
             if (!response.IsSuccessStatusCode)
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
@@ -235,7 +235,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
             string url = $"EditPerfil/{CurrentUser.ID}";
             HttpResponseMessage response = await client.PutAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
             string content = response.Content.ReadAsStringAsync().Result;
-            
+
             if (!response.IsSuccessStatusCode)
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
@@ -279,7 +279,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
             string url = $"PerfilVendedors/{id}?idUsuarioActual={CurrentUser.ID}";
             HttpResponseMessage response = await client.GetAsync(url);
             string content = response.Content.ReadAsStringAsync().Result;
-           
+
             if (!response.IsSuccessStatusCode)
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
@@ -329,7 +329,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
 
         /**** Métodos para las subastas ****/
 
-        public async Task<SubastasPagedData> GetSubastas(int id, int page = 1, string searchString = null, string sortOrder = null, string hideEnded = null, string hideMySubastas = null, string showAll = null)
+        public async Task<SubastasPagedData> GetSubastas(int page = 1, string searchString = null, string sortOrder = null, string hideEnded = null, string hideMySubastas = null, string showAll = null)
         {
             string url = $"Subastas/{CurrentUser.ID}?page={page}";
             if (!string.IsNullOrEmpty(searchString))
@@ -338,19 +338,19 @@ namespace ProyectoFinal.Desktop.Infrastructure
             }
             if (!string.IsNullOrEmpty(sortOrder))
             {
-                url += $"&searchString={sortOrder}";
+                url += $"&sortOrder={sortOrder}";
             }
             if (!string.IsNullOrEmpty(hideEnded))
             {
-                url += $"&searchString={hideEnded}";
+                url += $"&hideEnded={hideEnded}";
             }
             if (!string.IsNullOrEmpty(hideMySubastas))
             {
-                url += $"&searchString={hideMySubastas}";
+                url += $"&hideMySubastas={hideMySubastas}";
             }
             if (!string.IsNullOrEmpty(showAll))
             {
-                url += $"&searchString={showAll}";
+                url += $"&showAll={showAll}";
             }
             HttpResponseMessage response = await client.GetAsync(url);
             string content = response.Content.ReadAsStringAsync().Result;
@@ -461,7 +461,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
             }
         }
 
-        public async Task EditSubasta(string nombreProducto, string descripcionProducto, string uriImagen = null)
+        public async Task EditSubasta(int id, string nombreProducto, string descripcionProducto, string uriImagen = null)
         {
             if (Validator.IsEmpty(nombreProducto) || Validator.IsEmpty(descripcionProducto))
             {
@@ -474,8 +474,8 @@ namespace ProyectoFinal.Desktop.Infrastructure
                 uriImagen
             ));
 
-            string url = $"CreateSubasta/{CurrentUser.ID}";
-            HttpResponseMessage response = await client.PostAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
+            string url = $"EditSubasta/{id}";
+            HttpResponseMessage response = await client.PutAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
             string content = response.Content.ReadAsStringAsync().Result;
 
             if (!response.IsSuccessStatusCode)
@@ -514,7 +514,203 @@ namespace ProyectoFinal.Desktop.Infrastructure
 
 
 
+        /******* Métodos para los comentarios ********/
+
+        public async Task<ComentarioDto> GetComentario(int id)
+        {
+            string url = $"PerfilOfertas/{id}";
+            HttpResponseMessage response = await client.GetAsync(url);
+            string content = response.Content.ReadAsStringAsync().Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+            else
+            {
+                var data = JsonConvert.DeserializeObject<ComentarioDto>(content);
+                return data;
+            }
+        }
+
+        public async Task CreateComentario(int subastaID, string descripcion)
+        {
+            // Validar información
+            if (Validator.IsEmpty(descripcion))
+            {
+                throw new Exception("El comentario debe contener una descripción.");
+            }
+
+            var body = JsonConvert.SerializeObject(new CreateComentarioDto(
+                CurrentUser.ID,
+                subastaID,
+                descripcion.Trim()
+            ));
+
+            string url = $"CreateComentario";
+            HttpResponseMessage response = await client.PostAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+        public async Task EditComentario(int id, string descripcion)
+        {
+            // Validar información
+            if (Validator.IsEmpty(descripcion))
+            {
+                throw new Exception("El comentario debe contener una descripción.");
+            }
+
+            var body = JsonConvert.SerializeObject(new EditComentarioDto(
+                descripcion.Trim()
+            ));
+
+            string url = $"EditComentario/{id}";
+            HttpResponseMessage response = await client.PutAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+        public async Task DeleteComentario(int id)
+        {
+            string url = $"DeleteComentario/{id}";
+            HttpResponseMessage response = await client.DeleteAsync(url);
+            string content = response.Content.ReadAsStringAsync().Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+
+
+
+        /**** Métodos para las ofertas ****/
+
+        public async Task<PagedData<OfertaDto>> GetOfertas(int page = 1, string searchString = null)
+        {
+            string url = $"Subastas/{CurrentUser.ID}?page={page}";
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                url += $"&searchString={searchString}";
+            }
+            HttpResponseMessage response = await client.GetAsync(url);
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+            else
+            {
+                var data = JsonConvert.DeserializeObject<PagedData<OfertaDto>>(content);
+                return data;
+            }
+        }
+
+        public async Task CreateOferta(int subastaID, float monto)
+        {
+            // Validar información
+            if (monto <= 0)
+            {
+                throw new Exception("El monto de la oferta debe ser positivo.");
+            }
+
+            var body = JsonConvert.SerializeObject(new CreateOfertaDto(
+                CurrentUser.ID,
+                subastaID,
+                monto
+            ));
+
+            string url = $"CreateOferta";
+            HttpResponseMessage response = await client.PostAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+        public async Task DeleteOferta(int id)
+        {
+            string url = $"DeleteOferta/{id}";
+            HttpResponseMessage response = await client.DeleteAsync(url);
+            string content = response.Content.ReadAsStringAsync().Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+
+
+
         /******* OLD METHODS ********/
+        // TODO: Remove old methods
 
         public ObservableCollection<Usuario> GetUsuarios()
         {

@@ -457,6 +457,11 @@ namespace ProyectoFinal.Web.Controllers
         {
             Subasta subasta = db.Subasta.Find(id);
 
+            if (subasta == null)
+            {
+                return BadRequest("No se encontró la subasta.");
+            }
+
             subasta.NombreProducto = dto.NombreProducto.Trim();
             subasta.DescripcionProducto = dto.DescripcionProducto.Trim();
             if (dto.UriImagen != null)
@@ -491,16 +496,24 @@ namespace ProyectoFinal.Web.Controllers
 
 
 
-
-
-
         /**** Métodos para los comentarios ****/
 
         // GET Comentario/{id}
         [HttpGet]
         public IHttpActionResult Comentario(int id)
         {
-            return BadRequest("Not implemented");
+            Comentario comentario = db.Comentario.Find(id);
+            if (comentario == null)
+            {
+                return BadRequest("No se encontró el comentario.");
+            }
+            return Ok(new ComentarioDto(
+                comentario.ComentarioID,
+                comentario.UsuarioID,
+                $"{comentario.Usuario.Nombres} {comentario.Usuario.Apellidos}",
+                comentario.Descripcion,
+                comentario.FechaCreacion
+            ));
         }
         // ComentarioDto
 
@@ -508,21 +521,49 @@ namespace ProyectoFinal.Web.Controllers
         [HttpPost]
         public IHttpActionResult CreateComentario([FromBody] CreateComentarioDto dto)
         {
-            return BadRequest("Not implemented");
+            db.Comentario.Add(new Comentario
+            {
+                UsuarioID = dto.UsuarioID,
+                SubastaID = dto.SubastaID,
+                Descripcion = dto.Descripcion
+            });
+            db.SaveChanges();
+            return Ok();
         }
 
         // PUT EditComentario/{id}
         [HttpPut]
         public IHttpActionResult EditComentario(int id, [FromBody] EditComentarioDto dto)
         {
-            return BadRequest("Not implemented");
+            Comentario comentario = db.Comentario.Find(id);
+
+            if (comentario == null)
+            {
+                return BadRequest("No se encontró el comentario.");
+            }
+
+            comentario.Descripcion = dto.Descripcion;
+
+            db.Entry(comentario).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Ok();
         }
 
         // DELETE DeleteComentario/{id}
         [HttpDelete]
         public IHttpActionResult DeleteComentario(int id)
         {
-            return BadRequest("Not implemented");
+            Comentario comentario = db.Comentario.Find(id);
+            if (comentario == null)
+            {
+                return BadRequest("No se encontró el comentario.");
+            }
+
+            db.Comentario.Remove(comentario);
+            db.SaveChanges();
+
+            return Ok();
         }
 
 
@@ -569,7 +610,13 @@ namespace ProyectoFinal.Web.Controllers
                 ));
             }
 
-            return Ok(ofertasDto);
+            return Ok(new PagedData<OfertaDto>(
+                ofertasDto,
+                page,
+                pageSize,
+                totalPages,
+                searchString
+            ));
         }
         // PagedData<OfertaDto> -> Nombre corresponde al NombreProducto
 
@@ -577,14 +624,44 @@ namespace ProyectoFinal.Web.Controllers
         [HttpPost]
         public IHttpActionResult CreateOferta([FromBody] CreateOfertaDto dto)
         {
-            return BadRequest("Not implemented");
+            Oferta ofertaActual = db.Oferta.Where(m => m.SubastaID == dto.SubastaID).OrderByDescending(o => o.Monto).FirstOrDefault();
+            if (ofertaActual == null)
+            {
+                Subasta subasta = db.Subasta.Find(dto.SubastaID);
+                if (dto.Monto < subasta.PrecioInicial)
+                {
+                    return BadRequest("El monto es inferior al precio inicial.");
+                }
+            }
+            else if (dto.Monto <= ofertaActual.Monto)
+            {
+                return BadRequest("El monto es inferior o igual al monto actual");
+            }
+            db.Oferta.Add(new Oferta
+            {
+                UsuarioID = dto.UsuarioID,
+                SubastaID = dto.SubastaID,
+                Monto = dto.Monto,
+                FechaCreacion = DateTime.Now
+            });
+            db.SaveChanges();
+            return Ok();
         }
 
         // DELETE DeleteOferta/{id}
         [HttpDelete]
         public IHttpActionResult DeleteOferta(int id)
         {
-            return BadRequest("Not implemented");
+            Oferta oferta = db.Oferta.Find(id);
+            if (oferta == null)
+            {
+                return BadRequest("No se encontró la oferta.");
+            }
+
+            db.Oferta.Remove(oferta);
+            db.SaveChanges();
+
+            return Ok();
         }
 
     }
