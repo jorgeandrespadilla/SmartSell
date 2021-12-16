@@ -276,7 +276,7 @@ namespace ProyectoFinal.Desktop.Infrastructure
 
         public async Task<PerfilVendedorDto> GetPerfilVendedor(int id)
         {
-            string url = $"PerfilVendedors/{id}?idUsuarioActual={CurrentUser.ID}";
+            string url = $"PerfilVendedor/{id}?idUsuarioActual={CurrentUser.ID}";
             HttpResponseMessage response = await client.GetAsync(url);
             string content = response.Content.ReadAsStringAsync().Result;
 
