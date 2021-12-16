@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ProyectoFinal.Shared.Dto
 {
-    public class EditComentarioDto : CreateComentarioDto
+    public class EditComentarioDto //: CreateComentarioDto // No se necesario la herencia
     {
         public string Descripcion { get; set; }
 
