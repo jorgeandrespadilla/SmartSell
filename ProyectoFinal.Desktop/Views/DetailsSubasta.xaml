@@ -115,9 +115,9 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" Height="20">
-                                        <TextBlock Text="{Binding OfertaID}" Width="400"></TextBlock>
+                                        <TextBlock Text="{Binding Nombre}" Width="400"></TextBlock>
                                         <TextBlock Text="{Binding Monto}" Width="400"></TextBlock>
-                                        <TextBlock Text="{Binding FechaCreacion}" Width="400"></TextBlock>
+                                        <TextBlock Text="{Binding Fecha}" Width="400"></TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

@@ -397,7 +397,7 @@ namespace ProyectoFinal.Web.Controllers
                 ofertasDto.Add(new OfertaDto(
                     oferta.OfertaID,
                     oferta.SubastaID,
-                    oferta.Subasta.NombreProducto,
+                    $"{oferta.Usuario.Nombres} {oferta.Usuario.Apellidos}",
                     oferta.Monto,
                     oferta.FechaCreacion
                 ));

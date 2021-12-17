@@ -1,6 +1,7 @@
 ﻿using ProyectoFinal.Desktop.Infrastructure;
 using ProyectoFinal.Desktop.Infrastructure.Helpers;
 using ProyectoFinal.Desktop.Models;
+using ProyectoFinal.Shared.Dto;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,26 +26,32 @@ namespace ProyectoFinal.Desktop.Views
     /// <summary>
     /// Una página vacía que se puede usar de forma independiente o a la que se puede navegar dentro de un objeto Frame.
     /// </summary>
+    /// 
+
+    
+
     public sealed partial class DetailsSubasta : Page
     {
-        private Subasta subasta;
-        private SmartSell smartSell = SmartSell.Instance;
+
+        private int UsuarioSubasta;
+        
+        private SmartSell smartsell = SmartSell.Instance;
 
         public DetailsSubasta()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            subasta = smartSell.GetSubastas().Where(s => s.SubastaID == Int32.Parse(e.Parameter.ToString())).FirstOrDefault();
-            CargarInformacion();
+            SubastaDto subasta = await smartsell.GetSubasta(Int32.Parse(e.Parameter.ToString()));
+            CargarInformacion(subasta);
         }
 
-        public async void CargarInformacion()
+        public async void CargarInformacion(SubastaDto subasta)
         {
-            if (subasta.UsuarioID == smartSell.CurrentUser.ID) {
+            if (subasta.UsuarioID == smartsell.CurrentUser.ID) {
                 buttonEliminarWrapper.Visibility = Visibility.Visible;
                 buttonWrapper.Visibility = Visibility.Collapsed;
             }
@@ -53,21 +60,14 @@ namespace ProyectoFinal.Desktop.Views
                 buttonEliminarWrapper.Visibility = Visibility.Collapsed;
                 buttonWrapper.Visibility = Visibility.Visible;
             }
-            BitmapImage image = await UriImage.UriToBitmapImage(subasta.FotoUrlProducto);
+            BitmapImage image = await UriImage.UriToBitmapImage(subasta.UriImagen);
             imagenProducto.Source = image;
             nombreTxt.Text = subasta.NombreProducto;
-            nombreVendedor.Text = $"{subasta.Usuario.Nombres} {subasta.Usuario.Apellidos}";
-            if (smartSell.FindOfertasBySubastaID(subasta.SubastaID).Count > 0)
-            {
-                precioTxt.Text = smartSell.FindOfertasBySubastaID(subasta.SubastaID).OrderByDescending(u => u.Monto).FirstOrDefault().Monto.ToString();
-            }
-            else
-            {
-                precioTxt.Text = subasta.PrecioInicial.ToString();
-            }
-            
+            nombreVendedor.Text = $"{subasta.NombreVendedor}";
+            precioTxt.Text = subasta.MontoActual.ToString();
+
             descripcionTxt.Text = subasta.DescripcionProducto;
-            if (DateTime.Compare(DateTime.Now, subasta.FechaLimite) < 0)
+            if (subasta.Vigente == true)
             {
                 vigenteTxt.Text = "Sí";
             }
@@ -75,26 +75,16 @@ namespace ProyectoFinal.Desktop.Views
             {
                 vigenteTxt.Text = "No";
             }
-            fechaTxt.Text = subasta.FechaLimite.ToString();
-            CargarTablaOfertas();
-            CargarComentarios();
+            fechaTxt.Text = subasta.Fecha.ToString();
+            OfertasSubasta.ItemsSource = subasta.Ofertas;
+            ComentariosGrid.ItemsSource = subasta.Comentarios;
+            UsuarioSubasta = subasta.UsuarioID;
         }
 
-        public void CargarTablaOfertas()
-        {
-            ICollection<Oferta> ofertas = smartSell.GetOfertas().Where(u => u.SubastaID == subasta.SubastaID).OrderByDescending(o => o.Monto).ToList();
-            OfertasSubasta.ItemsSource = ofertas;
-        }
-
-        public void CargarComentarios()
-        {
-            ICollection<Comentario> comentarios = smartSell.GetComentarios().Where(u => u.SubastaID == subasta.SubastaID).OrderByDescending(o => o.FechaCreacion).ToList();
-            ComentariosGrid.ItemsSource = comentarios;
-        }
-
+   
         private void NavigatePerfilVendedor(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Perfil), subasta.UsuarioID);
+            this.Frame.Navigate(typeof(Perfil), UsuarioSubasta);
         }
 
         private void Volver(object sender, RoutedEventArgs e)
