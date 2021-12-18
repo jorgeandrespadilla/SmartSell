@@ -125,6 +125,11 @@ namespace ProyectoFinal.Desktop.Views
             }
             return false;
         }
+
+        private void EditarButtonHandler(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Editar), null);
+        }
     }
     
 

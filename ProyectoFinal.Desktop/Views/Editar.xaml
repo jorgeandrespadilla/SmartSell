@@ -33,8 +33,7 @@
                             </ResourceDictionary>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="confirmarBtn" Margin="10,0,0,0" Content="Guardar" FontSize="12"  Style="{StaticResource AccentButtonStyle}" >
-                    </Button>
+                    <Button x:Name="confirmarBtn" Margin="10,0,0,0" Content="Guardar" FontSize="12"  Style="{StaticResource AccentButtonStyle}" Click="ConfirmarBtnHandler" ></Button>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

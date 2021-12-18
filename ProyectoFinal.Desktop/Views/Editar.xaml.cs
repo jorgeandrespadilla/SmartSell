@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProyectoFinal.Desktop.Infrastructure;
+using ProyectoFinal.Shared.Dto;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,12 +24,26 @@ namespace ProyectoFinal.Desktop.Views
     /// </summary>
     public sealed partial class Editar : Page
     {
+        private SmartSell smartsell = SmartSell.Instance;
+        
+
         public Editar()
         {
             this.InitializeComponent();
+            CargarInformacion();
         }
 
+        private async void CargarInformacion()
+        {
+            PerfilDto usuario = await smartsell.GetPerfil();
+            nombresTxt.Text = usuario.Nombres;
+            apellidosTxt.Text = usuario.Apellidos;
+            correoTxt.Text = usuario.Correo;
+        }
 
-        
+        private void ConfirmarBtnHandler(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Perfil), smartsell.CurrentUser.ID);
+        }
     }
 }

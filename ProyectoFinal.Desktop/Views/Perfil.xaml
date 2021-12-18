@@ -94,7 +94,7 @@
                             </Button.Resources>
                             <TextBlock Text="Eliminar" x:Name="eliminarBtn" FontSize="20"></TextBlock>
                         </Button>
-                        <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd">
+                        <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd" Click="EditarButtonHandler" >
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
