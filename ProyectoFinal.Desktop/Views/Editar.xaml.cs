@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Desktop.Infrastructure;
+using ProyectoFinal.Desktop.Infrastructure.Helpers;
 using ProyectoFinal.Shared.Dto;
 using System;
 using System.Collections.Generic;
@@ -41,9 +42,41 @@ namespace ProyectoFinal.Desktop.Views
             correoTxt.Text = usuario.Correo;
         }
 
-        private void ConfirmarBtnHandler(object sender, RoutedEventArgs e)
+        private async void ConfirmarBtnHandler(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Perfil), smartsell.CurrentUser.ID);
+            //Arreglar API para que acepte un valor de contraseña null
+            try
+            {
+                await smartsell.EditPerfil(
+                    nombresTxt.Text,
+                    apellidosTxt.Text,
+                    correoTxt.Text,
+                    pwdTxt.Password
+                );
+                await Dialog.InfoMessage("Registro exitoso", "Cambio de información con éxito.").ShowAsync();
+                this.Frame.Navigate(typeof(Perfil), smartsell.CurrentUser.ID);
+            }
+            catch (Exception ex)
+            {
+                await Dialog.InfoMessage("Registro fallido", ex.Message).ShowAsync();
+            }
+            
+        }
+
+        private void CancelarHandleButton(object sender, RoutedEventArgs e)
+        {
+            TryGoBack();
+        }
+
+        public static bool TryGoBack()
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame.CanGoBack)
+            {
+                rootFrame.GoBack();
+                return true;
+            }
+            return false;
         }
     }
 }
