@@ -51,15 +51,39 @@ namespace ProyectoFinal.Desktop.Views
 
         public async void CargarInformacion(SubastaDto subasta)
         {
-            if (subasta.UsuarioID == smartsell.CurrentUser.ID) {
-                buttonEliminarWrapper.Visibility = Visibility.Visible;
-                buttonWrapper.Visibility = Visibility.Collapsed;
+            if (subasta.Vigente)
+            {
+                if (subasta.UsuarioID == smartsell.CurrentUser.ID)
+                {
+
+
+                    buttonSubastadorWrapper.Visibility = Visibility.Visible;
+                    if (DateTime.Compare(subasta.Fecha.AddDays(-1), DateTime.Now) >= 0)
+                    {
+                        eliminarSubastabtn.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        eliminarSubastabtn.Visibility = Visibility.Collapsed;
+                    }
+
+
+                    buttonOfertanteWrapper.Visibility = Visibility.Collapsed;
+
+                }
+                else
+                {
+                    buttonSubastadorWrapper.Visibility = Visibility.Collapsed;
+                    buttonOfertanteWrapper.Visibility = Visibility.Visible;
+                }
             }
             else
             {
-                buttonEliminarWrapper.Visibility = Visibility.Collapsed;
-                buttonWrapper.Visibility = Visibility.Visible;
+                //Agregar usuarioID para poder identificar al ofertante
+                buttonSubastadorWrapper.Visibility = Visibility.Collapsed;
+                buttonOfertanteWrapper.Visibility = Visibility.Collapsed;
             }
+            
             BitmapImage image = await UriImage.UriToBitmapImage(subasta.UriImagen);
             imagenProducto.Source = image;
             nombreTxt.Text = subasta.NombreProducto;

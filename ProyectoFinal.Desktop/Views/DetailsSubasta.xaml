@@ -49,8 +49,8 @@
                         </StackPanel>
                         
                     </Grid>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="buttonWrapper" Margin="0,0,20,0">
-                        <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="buttonOfertanteWrapper" Margin="0,0,20,0">
+                        <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd" x:Name="ofertarBtn">
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
@@ -61,9 +61,9 @@
                                     </ResourceDictionary.ThemeDictionaries>
                                 </ResourceDictionary>
                             </Button.Resources>
-                            <TextBlock Text="Ofertar" x:Name="editarBtn" FontSize="20"></TextBlock>
+                            <TextBlock Text="Ofertar"  FontSize="20"></TextBlock>
                         </Button>
-                        <Button Background="White" Margin="0,0,10,0"  Foreground="#dc3545" BorderBrush="#dc3545" >
+                        <Button Background="White" Margin="0,0,10,0"  Foreground="#dc3545" BorderBrush="#dc3545"  x:Name="eliminarOfertaBtn" >
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
@@ -74,11 +74,24 @@
                                     </ResourceDictionary.ThemeDictionaries>
                                 </ResourceDictionary>
                             </Button.Resources>
-                            <TextBlock Text="Eliminar oferta" x:Name="eliminarBtn" FontSize="20"></TextBlock>
+                            <TextBlock Text="Eliminar oferta" FontSize="20"></TextBlock>
                         </Button>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="buttonEliminarWrapper" Margin="0,0,20,0">
-                        <Button Background="White" Margin="0,0,10,0" Foreground="#dc3545" BorderBrush="#dc3545">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="buttonSubastadorWrapper" Margin="0,0,20,0" >
+                        <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd"  x:Name="editarSubastaBtn"> 
+                            <Button.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.ThemeDictionaries>
+                                        <ResourceDictionary x:Key="Light">
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#1875fd"/>
+                                        </ResourceDictionary>
+                                    </ResourceDictionary.ThemeDictionaries>
+                                </ResourceDictionary>
+                            </Button.Resources>
+                            <TextBlock Text="Editar"  FontSize="20"></TextBlock>
+                        </Button>
+                        <Button Background="White" Margin="0,0,10,0" Foreground="#dc3545" BorderBrush="#dc3545" x:Name="eliminarSubastabtn">
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
@@ -89,7 +102,7 @@
                                     </ResourceDictionary.ThemeDictionaries>
                                 </ResourceDictionary>
                             </Button.Resources>
-                            <TextBlock Text="Eliminar subasta" x:Name="borarrSubastabtn" FontSize="20"></TextBlock>
+                            <TextBlock Text="Eliminar subasta" FontSize="20"></TextBlock>
                         </Button>
                     </StackPanel>
                     <TextBlock HorizontalAlignment="Left" Margin="100,20,0,20" Text="Ofertas" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
