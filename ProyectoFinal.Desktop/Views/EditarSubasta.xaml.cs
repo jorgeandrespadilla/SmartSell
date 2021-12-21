@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProyectoFinal.Desktop.Infrastructure;
+using ProyectoFinal.Shared.Dto;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +24,24 @@ namespace ProyectoFinal.Desktop.Views
     /// </summary>
     public sealed partial class EditarSubasta : Page
     {
+        private SubastaDto subasta;
+        private SmartSell smartsell = SmartSell.Instance;
+
         public EditarSubasta()
         {
             this.InitializeComponent();
+        }
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            subasta = await smartsell.GetSubasta(Int32.Parse(e.Parameter.ToString()));
+            CargarInformacion();
+        }
+
+        private void CargarInformacion()
+        {
+
         }
     }
 }

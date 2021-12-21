@@ -78,7 +78,7 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="buttonSubastadorWrapper" Margin="0,0,20,0" >
-                        <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd"  x:Name="editarSubastaBtn"> 
+                        <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd"  x:Name="editarSubastaBtn" Click="EditarSubastaHandlerButton"> 
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
@@ -91,7 +91,7 @@
                             </Button.Resources>
                             <TextBlock Text="Editar"  FontSize="20"></TextBlock>
                         </Button>
-                        <Button Background="White" Margin="0,0,10,0" Foreground="#dc3545" BorderBrush="#dc3545" x:Name="eliminarSubastabtn">
+                        <Button Background="White" Margin="0,0,10,0" Foreground="#dc3545" BorderBrush="#dc3545" x:Name="eliminarSubastabtn" Click="EliminarSubastaHandlerButton" >
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
