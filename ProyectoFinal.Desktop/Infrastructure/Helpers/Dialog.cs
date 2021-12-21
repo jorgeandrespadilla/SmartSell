@@ -18,5 +18,29 @@ namespace ProyectoFinal.Desktop.Infrastructure.Helpers
             messageDialog.CancelCommandIndex = 0;
             return messageDialog;
         }
+
+        public static MessageDialog ConfirmationMessage(string title, string description)
+        {
+
+            var messageDialog = new MessageDialog("");
+            messageDialog.Title = title;
+            messageDialog.Content = description;
+            messageDialog.Commands.Add(new UICommand("Cancelar")
+            {
+                Id = 0
+            });
+            messageDialog.Commands.Add(new UICommand("Aceptar")
+            {
+                Id = 1
+            });
+            messageDialog.DefaultCommandIndex = 1;
+            messageDialog.CancelCommandIndex = 0;
+            return messageDialog;
+        }
+
+
     }
+
+
+
 }
