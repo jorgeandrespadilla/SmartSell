@@ -134,6 +134,7 @@ namespace ProyectoFinal.Web.Controllers
             foreach (var oferta in filteredOfertas)
             {
                 ofertas.Add(new OfertaDto(
+                    oferta.UsuarioID,
                     oferta.OfertaID,
                     oferta.SubastaID,
                     oferta.Subasta.NombreProducto,
@@ -395,6 +396,7 @@ namespace ProyectoFinal.Web.Controllers
             foreach(var oferta in ofertas)
             {
                 ofertasDto.Add(new OfertaDto(
+                    oferta.UsuarioID,
                     oferta.OfertaID,
                     oferta.SubastaID,
                     $"{oferta.Usuario.Nombres} {oferta.Usuario.Apellidos}",
@@ -602,6 +604,7 @@ namespace ProyectoFinal.Web.Controllers
             foreach(var oferta in data)
             {
                 ofertasDto.Add(new OfertaDto(
+                    oferta.UsuarioID,
                     oferta.OfertaID,
                     oferta.SubastaID,
                     oferta.Subasta.NombreProducto,

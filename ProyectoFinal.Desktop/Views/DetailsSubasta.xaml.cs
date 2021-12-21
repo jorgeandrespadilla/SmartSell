@@ -75,11 +75,26 @@ namespace ProyectoFinal.Desktop.Views
                 {
                     buttonSubastadorWrapper.Visibility = Visibility.Collapsed;
                     buttonOfertanteWrapper.Visibility = Visibility.Visible;
+                    if (subasta.Ofertas.Count!=0)
+                    {
+                        if (subasta.Ofertas.FirstOrDefault().UsuarioID == smartsell.CurrentUser.ID)
+                        {
+                            eliminarOfertaBtn.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            eliminarOfertaBtn.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                    else
+                    {
+                        eliminarOfertaBtn.Visibility = Visibility.Collapsed;
+                    }
+                    
                 }
             }
             else
             {
-                //Agregar usuarioID para poder identificar al ofertante
                 buttonSubastadorWrapper.Visibility = Visibility.Collapsed;
                 buttonOfertanteWrapper.Visibility = Visibility.Collapsed;
             }
