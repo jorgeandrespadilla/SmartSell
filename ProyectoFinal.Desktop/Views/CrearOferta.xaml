@@ -16,7 +16,7 @@
                 <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Monto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
                 <TextBox x:Name="montoTxt" HorizontalAlignment="Left" Margin="85,20,0,0" Text="" IsSpellCheckEnabled="False" MinWidth="150" Width="200"/>
                 <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
-                    <Button x:Name="cancelarBtn" Margin="80,0,0,0" Content="Volver" FontSize="12" Background="Gray" Foreground="White">
+                    <Button x:Name="cancelarBtn" Margin="80,0,0,0" Content="Volver" FontSize="12" Background="Gray" Foreground="White" Click="CancelarHandlerButton" >
                         <Button.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>
@@ -28,7 +28,7 @@
                             </ResourceDictionary>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="ofertarBtn" Margin="10,0,0,0" Content="Ofertar" FontSize="12" Background="#0d6efd" Foreground="White" BorderBrush="#0d6efd" >
+                    <Button x:Name="ofertarBtn" Margin="10,0,0,0" Content="Ofertar" FontSize="12" Background="#0d6efd" Foreground="White" BorderBrush="#0d6efd" Click="OfertarHandlerBtn"  >
                         <Button.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>
