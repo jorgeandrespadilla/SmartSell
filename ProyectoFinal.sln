@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoFinal.Web", "ProyectoFinal.Web\ProyectoFinal.Web.csproj", "{4CA37626-D848-4244-9FBE-6F32BF91DFF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoFinal.UWP", "ProyectoFinal.Desktop\ProyectoFinal.UWP.csproj", "{167252CA-B025-4F6F-AFAF-0E1169813E89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoFinal.Desktop", "ProyectoFinal.Desktop\ProyectoFinal.Desktop.csproj", "{167252CA-B025-4F6F-AFAF-0E1169813E89}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoFinal.Shared", "ProyectoFinal.Shared\ProyectoFinal.Shared.csproj", "{4E36BFA9-2650-462A-B5C4-FDD6FAE9CB15}"
 EndProject
