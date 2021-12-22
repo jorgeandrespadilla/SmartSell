@@ -527,7 +527,8 @@ namespace ProyectoFinal.Web.Controllers
             {
                 UsuarioID = dto.UsuarioID,
                 SubastaID = dto.SubastaID,
-                Descripcion = dto.Descripcion
+                Descripcion = dto.Descripcion,
+                FechaCreacion = DateTime.Now
             });
             db.SaveChanges();
             return Ok();
