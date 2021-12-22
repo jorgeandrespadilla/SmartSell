@@ -50,7 +50,7 @@
                         
                     </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="buttonOfertanteWrapper" Margin="0,0,20,0">
-                        <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd" x:Name="ofertarBtn">
+                        <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd" x:Name="ofertarBtn" Click="OfertarHandlerBtn" >
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
@@ -63,7 +63,7 @@
                             </Button.Resources>
                             <TextBlock Text="Ofertar"  FontSize="20"></TextBlock>
                         </Button>
-                        <Button Background="White" Margin="0,0,10,0"  Foreground="#dc3545" BorderBrush="#dc3545"  x:Name="eliminarOfertaBtn" >
+                        <Button Background="White" Margin="0,0,10,0"  Foreground="#dc3545" BorderBrush="#dc3545"  x:Name="eliminarOfertaBtn" Click="EliminarOfertaHandlerBtn" >
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
@@ -139,7 +139,7 @@
                     <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                         <TextBlock HorizontalAlignment="Left" Margin="100,20,800,20" Text="Comentarios" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
                         <StackPanel x:Name="wrapperComentarioBtn">
-                            <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd">
+                            <Button Background="White" Margin="0,0,10,0" Foreground="#1875fd" BorderBrush="#1875fd" Click="CrearComentarioHandlerBtn"  x:Name="agregarComentarioBtn">
                                 <Button.Resources>
                                     <ResourceDictionary>
                                         <ResourceDictionary.ThemeDictionaries>
@@ -150,7 +150,7 @@
                                         </ResourceDictionary.ThemeDictionaries>
                                     </ResourceDictionary>
                                 </Button.Resources>
-                                <TextBlock Text="Nuevo comentario" x:Name="agregarComentarioBtn" FontSize="20"></TextBlock>
+                                <TextBlock Text="Nuevo comentario" FontSize="20"></TextBlock>
                             </Button>
                         </StackPanel>
                     </StackPanel>
@@ -164,11 +164,24 @@
                                                 <Viewbox MaxHeight="10" MaxWidth="15">
                                                     <SymbolIcon Symbol="Contact" Foreground="Black"/>
                                                 </Viewbox>
-                                                <TextBlock Text="{Binding UsuarioID}" Margin="10,0"></TextBlock>
+                                                <TextBlock Text="{Binding NombreUsuario}" Margin="10,0"></TextBlock>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Descripcion}" Width="1000"></TextBlock>
-                                                <TextBlock Text="{Binding FechaCreacion}"></TextBlock>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding FechaCreacion}"></TextBlock>
+                                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" x:Name="ComentarioBtnWrapper">
+                                                        <HyperlinkButton x:Name="editarComentario" Content="Editar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="EditarComentarioHandlerBtn" />
+                                                        <HyperlinkButton x:Name="eliminarComentario" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="EliminarComentarioHandlerBtn" Foreground="Red"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                
+                                            </StackPanel>
+                                            
+                                                
+                                            
+                                            <StackPanel>
+
                                             </StackPanel>
                                         </StackPanel>
                                     </Grid>

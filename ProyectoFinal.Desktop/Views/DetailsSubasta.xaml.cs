@@ -47,17 +47,18 @@ namespace ProyectoFinal.Desktop.Views
             base.OnNavigatedTo(e);
             try
             {
-                subasta = await smartsell.GetSubasta(Int32.Parse(e.Parameter.ToString()));
+                CargarInformacion(Int32.Parse(e.Parameter.ToString()));
             }
             catch (Exception ex)
             {
-                await Dialog.InfoMessage("Registro fallido", ex.Message).ShowAsync();
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
             }
-            CargarInformacion();
+            
         }
 
-        public async void CargarInformacion()
+        public async void CargarInformacion(int id)
         {
+            subasta = await smartsell.GetSubasta(id);
             try
             {
                 if (subasta.Vigente)
@@ -123,18 +124,73 @@ namespace ProyectoFinal.Desktop.Views
                 fechaTxt.Text = subasta.Fecha.ToString();
                 OfertasSubasta.ItemsSource = subasta.Ofertas;
                 ComentariosGrid.ItemsSource = subasta.Comentarios;
+
             }
             catch (Exception ex)
             {
-                await Dialog.InfoMessage("Registro fallido", ex.Message).ShowAsync();
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
             } 
         }
 
-   
+      
+
+
         private void NavigatePerfilVendedor(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Perfil), subasta.UsuarioID);
         }
+
+        
+
+        private void EditarSubastaHandlerButton(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(EditarSubasta), subasta.SubastaID);
+        }
+
+        private async void EliminarSubastaHandlerButton(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var result = await Dialog.ConfirmationMessage("Eliminar Subasta", "¿Seguro que desea eliminar la subasta?").ShowAsync();
+                if ((int)result.Id == 1)
+                {
+                    await smartsell.DeleteSubasta(subasta.SubastaID);
+                    this.Frame.Navigate(typeof(IndexSubastas), null);
+                }
+            }
+            catch (Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
+        }
+
+        private void OfertarHandlerBtn(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CrearOferta), subasta.SubastaID);
+        }
+
+        private async void EliminarOfertaHandlerBtn(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var result = await Dialog.ConfirmationMessage("Eliminar oferta", "¿Seguro que desea eliminar su oferta?").ShowAsync();
+                if ((int)result.Id == 1)
+                {
+                    await smartsell.DeleteOferta(subasta.Ofertas.FirstOrDefault().OfertaID);
+                    CargarInformacion(subasta.SubastaID);
+                }
+            }
+            catch (Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
+        }
+
+        private void CrearComentarioHandlerBtn(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CrearComentario), subasta.SubastaID);
+        }
+
 
         private void Volver(object sender, RoutedEventArgs e)
         {
@@ -152,26 +208,23 @@ namespace ProyectoFinal.Desktop.Views
             return false;
         }
 
-        private void EditarSubastaHandlerButton(object sender, RoutedEventArgs e)
+        private async void EliminarComentarioHandlerBtn(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(EditarSubasta), subasta.SubastaID);
+            var result = await Dialog.ConfirmationMessage("Eliminar comentario", "¿Seguro que desea eliminar el comentario?").ShowAsync();
+            if ((int)result.Id == 1)
+            {
+                //await smartsell.DeleteComentario(subasta.SubastaID); Agregar ID de comentario?
+                CargarInformacion(subasta.SubastaID);
+            }
         }
 
-        private async void EliminarSubastaHandlerButton(object sender, RoutedEventArgs e)
+        private void EditarComentarioHandlerBtn(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var result = await Dialog.ConfirmationMessage("Eliminar Subasta", "¿Seguro que desea eliminar la subasta?").ShowAsync();
-                if ((int)result.Id == 1)
-                {
-                    await smartsell.DeleteSubasta(subasta.SubastaID);
-                    this.Frame.Navigate(typeof(IndexSubastas), null);
-                }               
-            }
-            catch (Exception ex)
-            {
-                await Dialog.InfoMessage("Registro fallido", ex.Message).ShowAsync();
-            }
+            //this.Frame.Navigate(typeof(EditarComentario), null);Agregar ID de comentario?
         }
     }
+
+
+
+
 }
