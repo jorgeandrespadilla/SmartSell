@@ -8,7 +8,9 @@ using Windows.UI.Xaml;
 namespace ProyectoFinal.UWP
 {
     public sealed partial class App : Application
+
     {
+        
         private Lazy<ActivationService> _activationService;
 
         private ActivationService ActivationService
@@ -18,6 +20,7 @@ namespace ProyectoFinal.UWP
 
         public App()
         {
+
             InitializeComponent();
             UnhandledException += OnAppUnhandledException;
 

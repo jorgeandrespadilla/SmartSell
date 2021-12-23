@@ -119,8 +119,29 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit">
+      <Version>7.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Mvvm">
       <Version>7.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp">
+      <Version>7.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>7.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Behaviors">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>7.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.5.0</Version>
@@ -128,13 +149,25 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-us\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
+    <Compile Include="Helpers\Dialog.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
+    <Compile Include="Helpers\UriImage.cs" />
+    <Compile Include="Infrastructure\SmartSell.cs" />
+    <Compile Include="Models\Comentario.cs" />
+    <Compile Include="Models\Oferta.cs" />
+    <Compile Include="Models\RatingUsuario.cs" />
+    <Compile Include="Models\Subasta.cs" />
+    <Compile Include="Models\SubastaItem.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
     <Compile Include="Services\NavigationService.cs" />
@@ -142,15 +175,26 @@
     <Compile Include="ViewModels\IndexSubastasViewModel.cs" />
     <Compile Include="ViewModels\PerfilViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\CrearComentario.xaml.cs" />
+    <Compile Include="Views\CrearOferta.xaml.cs" />
+    <Compile Include="Views\CrearSubasta.xaml.cs" />
+    <Compile Include="Views\DetailsSubasta.xaml.cs" />
+    <Compile Include="Views\Editar.xaml.cs" />
+    <Compile Include="Views\EditarComentario.xaml.cs" />
+    <Compile Include="Views\EditarSubasta.xaml.cs" />
     <Compile Include="Views\IndexOfertasPage.xaml.cs">
       <DependentUpon>IndexOfertasPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\IndexSubastas.xaml.cs" />
     <Compile Include="Views\IndexSubastasPage.xaml.cs">
       <DependentUpon>IndexSubastasPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Login.xaml.cs" />
+    <Compile Include="Views\Perfil.xaml.cs" />
     <Compile Include="Views\PerfilPage.xaml.cs">
       <DependentUpon>PerfilPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Register.xaml.cs" />
     <Compile Include="Views\ShellPage.xaml.cs">
       <DependentUpon>ShellPage.xaml</DependentUpon>
     </Compile>
@@ -182,7 +226,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CrearComentario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CrearOferta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CrearSubasta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DetailsSubasta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Editar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditarComentario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditarSubasta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\IndexOfertasPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\IndexSubastas.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -190,7 +266,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Perfil.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\PerfilPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Register.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -278,6 +366,7 @@
       <Name>ProyectoFinal.Shared</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
