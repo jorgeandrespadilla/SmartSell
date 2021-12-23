@@ -16,34 +16,37 @@
                             <HyperlinkButton x:Name="crearSubastaBtn" Content="Crear subasta" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="CrearSubastaHandler" />
                         </Grid>
                     </StackPanel>
-                    <ListView x:Name="subastas" ItemClick="subastas_SelectionChanged" HorizontalAlignment="Center" >
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical">
-                                    <Grid MaxHeight="600" HorizontalAlignment="Center" Padding="20,2">
-                                        <Image Source="{Binding Imagen}" VerticalAlignment="Stretch" Stretch="fill"></Image>
-                                    </Grid>
-                                    <TextBlock Text="{Binding NombreProducto}" Margin="20,3"></TextBlock>
-                                    <TextBlock Text="{Binding MontoActual}" Margin="20,3"></TextBlock>
-                                    <TextBlock Text="{Binding Fecha}" Margin="20,3" HorizontalAlignment="Right"></TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Padding" Value="0,0,0,0" />
-                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                <Setter Property="BorderBrush" Value="#c3c6c9"/>
-                                <Setter Property="BorderThickness" Value="1"/>
-                                <Setter Property="Margin" Value="0,0,20,20"/>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                    </ListView>
+                    <Grid HorizontalAlignment="Left" Padding="20,0,0,0">
+                        <ListView x:Name="subastas" ItemClick="subastas_SelectionChanged" HorizontalAlignment="Left" >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Grid MaxHeight="600" HorizontalAlignment="Center" Padding="20,2">
+                                            <Image Source="{Binding Imagen}" VerticalAlignment="Stretch" Stretch="fill"></Image>
+                                        </Grid>
+                                        <TextBlock Text="{Binding NombreProducto}" Margin="20,3"></TextBlock>
+                                        <TextBlock Text="{Binding MontoActual}" Margin="20,3"></TextBlock>
+                                        <TextBlock Text="{Binding Fecha}" Margin="20,3" HorizontalAlignment="Right"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Padding" Value="0,0,0,0" />
+                                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                    <Setter Property="BorderBrush" Value="#c3c6c9"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <Setter Property="Margin" Value="0,0,20,20"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+                    </Grid>
+                    
                 </StackPanel>
             </Grid>
         </ScrollViewer>
