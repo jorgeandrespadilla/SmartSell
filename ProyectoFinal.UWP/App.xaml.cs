@@ -1,5 +1,5 @@
 ﻿using System;
-
+using ProyectoFinal.Desktop.Views;
 using ProyectoFinal.UWP.Services;
 
 using Windows.ApplicationModel.Activation;
@@ -49,7 +49,7 @@ namespace ProyectoFinal.UWP
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(Views.IndexSubastasPage), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(this, typeof(Login), null);
         }
 
         private UIElement CreateShell()

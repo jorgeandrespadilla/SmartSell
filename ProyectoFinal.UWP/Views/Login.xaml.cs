@@ -2,6 +2,7 @@
 using ProyectoFinal.Desktop.Infrastructure.Helpers;
 using ProyectoFinal.Shared.Dto;
 using ProyectoFinal.Shared.Helpers;
+using ProyectoFinal.UWP.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,7 +40,7 @@ namespace ProyectoFinal.Desktop.Views
             try
             {
                 await smartSell.Login(userTxt.Text, pwdText.Password);
-                this.Frame.Navigate(typeof(IndexSubastas), null);
+                this.Frame.Navigate(typeof(IndexSubastasPage), null);
             }
             catch (Exception ex)
             {

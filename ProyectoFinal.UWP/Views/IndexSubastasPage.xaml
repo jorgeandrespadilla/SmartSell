@@ -7,12 +7,46 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
-        </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid HorizontalAlignment="Center">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Left" Margin="0,100,0,20" Text="Información de subasta" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
+                    <StackPanel Orientation="Vertical">
+                        <Grid HorizontalAlignment="Left">
+                            <HyperlinkButton x:Name="crearSubastaBtn" Content="Crear subasta" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="CrearSubastaHandler" />
+                        </Grid>
+                    </StackPanel>
+                    <ListView x:Name="subastas" Margin="0,0,0,0" ItemClick="subastas_SelectionChanged"  >
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/Assets/Images/missing-img.jpg" MinWidth="300" MinHeight="500" VerticalAlignment="Stretch" Stretch="fill"></Image>
+                                    <TextBlock Text="{Binding NombreProducto}" Margin="20,3"></TextBlock>
+                                    <TextBlock Text="{Binding MontoActual}" Margin="20,3"></TextBlock>
+                                    <TextBlock Text="{Binding Fecha}" Margin="20,3" HorizontalAlignment="Right"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0,0,0,0" />
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="BorderBrush" Value="#c3c6c9"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="Margin" Value="0,0,20,20"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid MaximumRowsOrColumns="3"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>
