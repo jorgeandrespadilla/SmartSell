@@ -155,7 +155,7 @@
                         </StackPanel>
                     </StackPanel>
                     <Grid HorizontalAlignment="Center">
-                        <ListView x:Name="ComentariosGrid" HorizontalAlignment="Stretch" Margin="100,0,100,50">
+                        <ListView x:Name="ComentariosGrid" HorizontalAlignment="Stretch" Margin="100,0,90,50">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid HorizontalAlignment="Stretch">
@@ -171,17 +171,10 @@
                                                 <StackPanel>
                                                     <TextBlock Text="{Binding FechaCreacion}"></TextBlock>
                                                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" x:Name="ComentarioBtnWrapper">
-                                                        <HyperlinkButton x:Name="editarComentario" Content="Editar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="EditarComentarioHandlerBtn" />
+                                                        <HyperlinkButton x:Name="editarComentario" Content="Editar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="EditarComentarioHandlerBtn" Margin="10,0"/>
                                                         <HyperlinkButton x:Name="eliminarComentario" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="EliminarComentarioHandlerBtn" Foreground="Red"/>
                                                     </StackPanel>
                                                 </StackPanel>
-                                                
-                                            </StackPanel>
-                                            
-                                                
-                                            
-                                            <StackPanel>
-
                                             </StackPanel>
                                         </StackPanel>
                                     </Grid>

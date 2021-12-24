@@ -17,7 +17,7 @@
                         </Grid>
                     </StackPanel>
                     <Grid HorizontalAlignment="Left" Padding="20,0,0,0">
-                        <ListView x:Name="subastas" ItemClick="subastas_SelectionChanged" HorizontalAlignment="Left" >
+                        <ListView x:Name="subastas" ItemClick ="subastas_SelectionChanged" HorizontalAlignment="Left" IsItemClickEnabled="True">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">
