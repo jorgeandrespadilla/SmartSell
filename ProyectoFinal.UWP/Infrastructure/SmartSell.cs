@@ -220,7 +220,7 @@ namespace ProyectoFinal.UWP.Infrastructure
             {
                 throw new Exception("El correo electrónico no es válido.");
             }
-            if (string.IsNullOrEmpty(clave) && !Validator.IsValidPassword(clave))
+            if (!string.IsNullOrEmpty(clave) && !Validator.IsValidPassword(clave))
             {
                 throw new Exception("La contraseña no es válida (debe contener al menos 8 caracteres).");
             }
