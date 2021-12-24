@@ -43,7 +43,7 @@
                         <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Fecha límite" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
                         <CalendarDatePicker PlaceholderText="Fecha" Margin="85,20,0,0" x:Name="fechaSelected"/>
                         <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
-                            <Button x:Name="cancelarBtn" Margin="80,0,0,0" Content="Cancelar" FontSize="12" Background="White" Foreground="#0d6efd" BorderBrush="#0d6efd">
+                            <Button x:Name="cancelarBtn" Margin="80,0,0,0" Content="Cancelar" FontSize="12" Background="White" Foreground="#0d6efd" BorderBrush="#0d6efd" Click="CancelarHandlerBtn" >
                                 <Button.Resources>
                                     <ResourceDictionary>
                                         <ResourceDictionary.ThemeDictionaries>

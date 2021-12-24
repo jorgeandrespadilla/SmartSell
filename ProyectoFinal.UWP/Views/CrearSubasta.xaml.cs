@@ -1,4 +1,5 @@
-﻿using ProyectoFinal.UWP.Infrastructure;
+﻿using ProyectoFinal.UWP.Helpers;
+using ProyectoFinal.UWP.Infrastructure;
 using ProyectoFinal.UWP.Infrastructure.Helpers;
 using System;
 using Windows.Storage;
@@ -54,6 +55,11 @@ namespace ProyectoFinal.UWP.Views
             {
                 await Dialog.InfoMessage("Error", "Se debe seleccionar una imagen").ShowAsync();
             }
+        }
+
+        private void CancelarHandlerBtn(object sender, RoutedEventArgs e)
+        {
+            ReturnNavHelper.TryGoBack();
         }
     }
 }

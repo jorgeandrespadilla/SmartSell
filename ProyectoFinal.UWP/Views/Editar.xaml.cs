@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ProyectoFinal.UWP.Helpers;
 
 // La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -65,18 +66,7 @@ namespace ProyectoFinal.UWP.Views
 
         private void CancelarHandleButton(object sender, RoutedEventArgs e)
         {
-            TryGoBack();
-        }
-
-        public static bool TryGoBack()
-        {
-            Frame rootFrame = Window.Current.Content as Frame;
-            if (rootFrame.CanGoBack)
-            {
-                rootFrame.GoBack();
-                return true;
-            }
-            return false;
+            ReturnNavHelper.TryGoBack();
         }
     }
 }

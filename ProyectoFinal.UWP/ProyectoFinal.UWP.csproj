@@ -160,6 +160,7 @@
     <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="Helpers\Dialog.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
+    <Compile Include="Helpers\ReturnNavHelper.cs" />
     <Compile Include="Helpers\UriImage.cs" />
     <Compile Include="Infrastructure\SmartSell.cs" />
     <Compile Include="Models\Comentario.cs" />

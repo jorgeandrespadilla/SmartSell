@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoFinal.UWP.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace ProyectoFinal.UWP.Views
         public EditarComentario()
         {
             this.InitializeComponent();
+        }
+
+        private void CancelarHandlerBtn(object sender, RoutedEventArgs e)
+        {
+            ReturnNavHelper.TryGoBack();
         }
     }
 }

@@ -16,7 +16,7 @@
                 <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Comentario" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
                 <TextBox x:Name="descripcionTxt" AutomationProperties.Name="multi-line TextBox" TextWrapping="Wrap" Text="" Margin="85,20,0,0"  MinWidth="150" Width="200" HorizontalAlignment="Left" AcceptsReturn="True"  MaxHeight="150"></TextBox>
                 <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
-                    <Button x:Name="cancelarBtn" Margin="80,0,0,0" Content="Volver" FontSize="12" Background="Gray" Foreground="White">
+                    <Button x:Name="cancelarBtn" Margin="80,0,0,0" Content="Volver" FontSize="12" Background="Gray" Foreground="White" Click="CancelarHandlerBtn">
                         <Button.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>

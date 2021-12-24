@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media.Imaging;
 using ProyectoFinal.UWP.Infrastructure.Helpers;
 using Windows.Storage;
+using ProyectoFinal.UWP.Helpers;
 
 // La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -82,6 +83,11 @@ namespace ProyectoFinal.UWP.Views
             {
                 await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
             }
+        }
+
+        private void CancelarHandlerBtn(object sender, RoutedEventArgs e)
+        {
+            ReturnNavHelper.TryGoBack();
         }
     }
 }
