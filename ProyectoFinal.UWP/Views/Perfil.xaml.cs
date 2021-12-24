@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ProyectoFinal.UWP.Infrastructure.Helpers;
 
 // La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,7 +27,7 @@ namespace ProyectoFinal.UWP.Views
     {
         //Usuario usuarioActual;
         private SmartSell smartSell = SmartSell.Instance;
-
+        private int usuarioCalificadoID = -1;
 
         public Perfil()
         {
@@ -42,13 +43,13 @@ namespace ProyectoFinal.UWP.Views
 
                 if (int.Parse(e.Parameter.ToString()) == smartSell.CurrentUser.ID)
                 {
-                    PerfilDto usuarioActual = await smartSell.GetPerfil();
-                    CargarInformacion(usuarioActual);
+                    CargarInformacion();
                 }
                 else
                 {
-                    PerfilVendedorDto usuarioActual = await smartSell.GetPerfilVendedor(int.Parse(e.Parameter.ToString()));
-                    CargarInformacionVendedor(usuarioActual);
+                    usuarioCalificadoID = int.Parse(e.Parameter.ToString());
+                    CargarInformacionVendedor(usuarioCalificadoID);
+                    
                 }
                 
             }
@@ -56,8 +57,9 @@ namespace ProyectoFinal.UWP.Views
 
 
 
-        private async void CargarInformacion(PerfilDto usuarioActual)
+        private async void CargarInformacion()
         {
+            PerfilDto usuarioActual = await smartSell.GetPerfil();
             buttonWrapper.Visibility = Visibility.Visible;
             ratingWrapper.Visibility = Visibility.Collapsed;
             var ofertasQuery = await smartSell.GetPerfilOfertas("PARTICIPACION");
@@ -71,9 +73,9 @@ namespace ProyectoFinal.UWP.Views
         }
 
 
-        private void CargarInformacionVendedor(PerfilVendedorDto usuarioActual)
+        private async void CargarInformacionVendedor(int id)
         {
-
+            PerfilVendedorDto usuarioActual = await smartSell.GetPerfilVendedor(id);
             opSelected.Visibility = Visibility.Collapsed;
             buttonWrapper.Visibility = Visibility.Collapsed;
             ratingWrapper.Visibility = Visibility.Visible;
@@ -103,13 +105,6 @@ namespace ProyectoFinal.UWP.Views
             }
         }
 
-
-        private void ratingUsuarioBtn_DataContextChanged(RatingControl sender, object args)
-        {
-            double RatingControl = ratingUsuarioBtn.Value;
-            calificacionTxt.Text = RatingControl.ToString();
-        }
-
         private void Volver(object sender, RoutedEventArgs e)
         {
             TryGoBack();
@@ -129,6 +124,23 @@ namespace ProyectoFinal.UWP.Views
         private void EditarButtonHandler(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Editar), null);
+        }
+
+        private async void EnviarRatingHandlerButton(object sender, RoutedEventArgs e)
+        {
+            int RatingControl = (int)ratingUsuarioBtn.Value;
+            try
+            {
+                
+                await smartSell.SetRatingUsuario(usuarioCalificadoID,RatingControl);
+                CargarInformacionVendedor(usuarioCalificadoID);
+            }
+            catch (Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
+
+
         }
     }
     

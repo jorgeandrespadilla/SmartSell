@@ -44,10 +44,23 @@
                                     <TextBlock x:Name="nombreCompletoTxt" Text="Nombre de usuario" Margin="0,20,0,0" FontWeight="SemiBold" FontSize="20" Foreground="White" Width="255" TextAlignment="Center"/>
                                 </StackPanel>
                             </Grid>
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Visible" x:Name="ratingWrapper">
+                            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" Visibility="Visible" x:Name="ratingWrapper">
                                 <Viewbox Width="300" Visibility="Visible">
-                                    <RatingControl x:Name="ratingUsuarioBtn" ValueChanged="ratingUsuarioBtn_DataContextChanged"/>
+                                    <RatingControl x:Name="ratingUsuarioBtn" Height="25"/>
                                 </Viewbox>
+                                <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd" Click="EnviarRatingHandlerButton"  x:Name="enviarRatingBtn" HorizontalAlignment="Center">
+                                    <Button.Resources>
+                                        <ResourceDictionary>
+                                            <ResourceDictionary.ThemeDictionaries>
+                                                <ResourceDictionary x:Key="Light">
+                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#1875fd"/>
+                                                </ResourceDictionary>
+                                            </ResourceDictionary.ThemeDictionaries>
+                                        </ResourceDictionary>
+                                    </Button.Resources>
+                                    <TextBlock Text="Enviar" FontSize="20"></TextBlock>
+                                </Button>
                             </StackPanel>
                         </Grid>
                         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30">
@@ -100,7 +113,7 @@
                             </Button.Resources>
                             <TextBlock Text="Eliminar" x:Name="eliminarBtn" FontSize="20"></TextBlock>
                         </Button>
-                        <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd" Click="EditarButtonHandler" >
+                        <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd" Click="EditarButtonHandler"  x:Name="editarBtn">
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
@@ -111,7 +124,7 @@
                                     </ResourceDictionary.ThemeDictionaries>
                                 </ResourceDictionary>
                             </Button.Resources>
-                            <TextBlock Text="Editar" x:Name="editarBtn" FontSize="20"></TextBlock>
+                            <TextBlock Text="Editar" FontSize="20"></TextBlock>
                         </Button>
                     </StackPanel>
                     <muxc:TabView x:Name="opSelected" CanDragTabs="False" CanReorderTabs="False" AllowFocusOnInteraction="False" IsAddTabButtonVisible="false"  Margin="100,0,100,0" SelectionChanged="ActualizarTabla" HorizontalAlignment="Left">
