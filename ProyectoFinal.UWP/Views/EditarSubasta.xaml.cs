@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Media.Imaging;
+using ProyectoFinal.UWP.Infrastructure.Helpers;
+using Windows.Storage;
 
 // La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,6 +29,7 @@ namespace ProyectoFinal.UWP.Views
     {
         private SubastaDto subasta;
         private SmartSell smartsell = SmartSell.Instance;
+        private StorageFile selectedImage;
 
         public EditarSubasta()
         {
@@ -39,9 +43,45 @@ namespace ProyectoFinal.UWP.Views
             CargarInformacion();
         }
 
-        private void CargarInformacion()
+        private async void CargarInformacion()
         {
+            BitmapImage image = await UriImage.UriToBitmapImage(subasta.UriImagen);
+            imagenProducto.Source = image;
+            nombreTxt.Text = subasta.NombreProducto;
+            descripcionTxt.Text = subasta.DescripcionProducto;
+        }
 
+        private async void cargarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            StorageFile file = await UriImage.CreateImagePicker().PickSingleFileAsync();
+            if (file == null)
+            {
+                return;
+            }
+            selectedImage = file;
+            imagenProducto.Source = await UriImage.FileToBitMapImage(selectedImage);
+        }
+
+        private async void EditarHandlerBtn(object sender, RoutedEventArgs e)
+        {
+            string uriImage;
+            if (selectedImage != null)
+            {
+                uriImage = await UriImage.FileToUri(selectedImage);
+            }
+            else
+            {
+                uriImage = subasta.UriImagen;
+            }
+            try
+            {
+                await smartsell.EditSubasta(subasta.SubastaID, nombreTxt.Text, descripcionTxt.Text, uriImage);
+                this.Frame.Navigate(typeof(DetailsSubasta), subasta.SubastaID);
+            }
+            catch (Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
         }
     }
 }

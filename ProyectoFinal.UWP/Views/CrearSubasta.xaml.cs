@@ -36,18 +36,24 @@ namespace ProyectoFinal.UWP.Views
 
         private async void crearBtn_Click(object sender, RoutedEventArgs e)
         {
-            string uriImage = await UriImage.FileToUri(selectedImage);
-            try
-            {
-                DateTimeOffset Fecha = fechaSelected.Date ?? default(DateTimeOffset);
-                await smartsell.CreateSubasta(nombreTxt.Text, descripcionTxt.Text,uriImage,float.Parse(precioTxt.Text), Fecha.Date);
-                this.Frame.Navigate(typeof(IndexSubastasPage), null);
+            if (selectedImage != null) {
+                string uriImage = await UriImage.FileToUri(selectedImage);
+                try
+                {
+
+                    DateTimeOffset Fecha = fechaSelected.Date ?? default(DateTimeOffset);
+                    await smartsell.CreateSubasta(nombreTxt.Text, descripcionTxt.Text, uriImage, float.Parse(precioTxt.Text), Fecha.Date);
+                    this.Frame.Navigate(typeof(IndexSubastasPage), null);
+                }
+                catch (Exception ex)
+                {
+                    await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+                }
             }
-            catch (Exception ex)
+            else
             {
-                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+                await Dialog.InfoMessage("Error", "Se debe seleccionar una imagen").ShowAsync();
             }
-            
         }
     }
 }
