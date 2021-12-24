@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using ProyectoFinal.UWP.Infrastructure.Helpers;
+using System;
+using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,9 +14,27 @@ namespace ProyectoFinal.UWP.Views
     /// </summary>
     public sealed partial class CrearSubasta : Page
     {
+        private StorageFile selectedImage;
+
         public CrearSubasta()
         {
             this.InitializeComponent();
+        }
+
+        private async void cargarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            StorageFile file = await UriImage.CreateImagePicker().PickSingleFileAsync();
+            if (file == null)
+            {
+                return;
+            }
+            selectedImage = file;
+            ImagenProducto.Source = await UriImage.FileToBitMapImage(selectedImage);
+        }
+
+        private async void crearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string uriImage = await UriImage.FileToUri(selectedImage);
         }
     }
 }
