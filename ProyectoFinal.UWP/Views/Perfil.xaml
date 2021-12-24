@@ -20,25 +20,49 @@
                         <SymbolIcon Symbol="Back" Foreground="Black"/>
                     </Button>
                     <TextBlock HorizontalAlignment="Left" Margin="90,20,0,20" Text="Perfil de usuario" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529" />
-                    <Grid HorizontalAlignment="Center" Margin="0,20" Width="1200">
+                    <Grid HorizontalAlignment="Center" Width="1200">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.4*"></ColumnDefinition>
                             <ColumnDefinition Width="0.6*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Orientation="Vertical" Height="300" VerticalAlignment="Center" Padding="100">
-                            <StackPanel.Background>
-                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                    <GradientStop Color="#f29263" Offset="0.65"/>
-                                    <GradientStop Color="#ee5a6f" Offset="0.30"/>
-                                </LinearGradientBrush>
-                            </StackPanel.Background>
-                            <StackPanel Width="400" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Viewbox MaxHeight="50" MaxWidth="50">
-                                    <SymbolIcon Symbol="Contact" Foreground="White"/>
+                        <Grid Grid.Column="0" Height="400" VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.7*"></RowDefinition>
+                                <RowDefinition Height="0.3*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" HorizontalAlignment="Stretch" > 
+                                <Grid.Background>
+                                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                        <GradientStop Color="#f29263" Offset="0.65"/>
+                                        <GradientStop Color="#ee5a6f" Offset="0.30"/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <StackPanel Width="400" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Viewbox MaxHeight="50" MaxWidth="50">
+                                        <SymbolIcon Symbol="Contact" Foreground="White"/>
+                                    </Viewbox>
+                                    <TextBlock x:Name="nombreCompletoTxt" Text="Nombre de usuario" Margin="0,20,0,0" FontWeight="SemiBold" FontSize="20" Foreground="White" Width="255" TextAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" Visibility="Visible" x:Name="ratingWrapper">
+                                <Viewbox Width="300" Visibility="Visible">
+                                    <RatingControl x:Name="ratingUsuarioBtn" Height="25"/>
                                 </Viewbox>
-                                <TextBlock x:Name="nombreCompletoTxt" Text="Nombre de usuario" Margin="0,20,0,0" FontWeight="SemiBold" FontSize="20" Foreground="White" Width="255" TextAlignment="Center"/>
+                                <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd" Click="EnviarRatingHandlerButton"  x:Name="enviarRatingBtn" HorizontalAlignment="Center">
+                                    <Button.Resources>
+                                        <ResourceDictionary>
+                                            <ResourceDictionary.ThemeDictionaries>
+                                                <ResourceDictionary x:Key="Light">
+                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#1875fd"/>
+                                                </ResourceDictionary>
+                                            </ResourceDictionary.ThemeDictionaries>
+                                        </ResourceDictionary>
+                                    </Button.Resources>
+                                    <TextBlock Text="Enviar" FontSize="20"></TextBlock>
+                                </Button>
                             </StackPanel>
-                        </StackPanel>
+                        </Grid>
                         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30">
                             <TextBlock Text="Información" FontWeight="SemiBold" Margin="0,0,0,30" FontSize="20" Foreground="Black"/>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,20" VerticalAlignment="Stretch">
@@ -75,11 +99,6 @@
                             </StackPanel>
                         </StackPanel>
                     </Grid>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible" x:Name="ratingWrapper">
-                        <Viewbox Width="300" Margin="170,0,0,0" Visibility="Visible">
-                            <RatingControl x:Name="ratingUsuarioBtn" ValueChanged="ratingUsuarioBtn_DataContextChanged"/>
-                        </Viewbox>
-                    </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="buttonWrapper" Margin="0,0,20,0">
                         <Button Background="White" Margin="0,0,10,0"  Foreground="#dc3545" BorderBrush="#dc3545" >
                             <Button.Resources>
@@ -94,7 +113,7 @@
                             </Button.Resources>
                             <TextBlock Text="Eliminar" x:Name="eliminarBtn" FontSize="20"></TextBlock>
                         </Button>
-                        <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd" Click="EditarButtonHandler" >
+                        <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd" Click="EditarButtonHandler"  x:Name="editarBtn">
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
@@ -105,7 +124,7 @@
                                     </ResourceDictionary.ThemeDictionaries>
                                 </ResourceDictionary>
                             </Button.Resources>
-                            <TextBlock Text="Editar" x:Name="editarBtn" FontSize="20"></TextBlock>
+                            <TextBlock Text="Editar" FontSize="20"></TextBlock>
                         </Button>
                     </StackPanel>
                     <muxc:TabView x:Name="opSelected" CanDragTabs="False" CanReorderTabs="False" AllowFocusOnInteraction="False" IsAddTabButtonVisible="false"  Margin="100,0,100,0" SelectionChanged="ActualizarTabla" HorizontalAlignment="Left">
