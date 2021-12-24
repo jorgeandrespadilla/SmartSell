@@ -1,4 +1,5 @@
-﻿using ProyectoFinal.UWP.Infrastructure.Helpers;
+﻿using ProyectoFinal.UWP.Infrastructure;
+using ProyectoFinal.UWP.Infrastructure.Helpers;
 using System;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
@@ -15,6 +16,7 @@ namespace ProyectoFinal.UWP.Views
     public sealed partial class CrearSubasta : Page
     {
         private StorageFile selectedImage;
+        private SmartSell smartsell = SmartSell.Instance;
 
         public CrearSubasta()
         {
@@ -35,6 +37,17 @@ namespace ProyectoFinal.UWP.Views
         private async void crearBtn_Click(object sender, RoutedEventArgs e)
         {
             string uriImage = await UriImage.FileToUri(selectedImage);
+            try
+            {
+                DateTimeOffset Fecha = fechaSelected.Date ?? default(DateTimeOffset);
+                await smartsell.CreateSubasta(nombreTxt.Text, descripcionTxt.Text,uriImage,float.Parse(precioTxt.Text), Fecha.Date);
+                this.Frame.Navigate(typeof(IndexSubastasPage), null);
+            }
+            catch (Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
+            
         }
     }
 }

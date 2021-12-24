@@ -12,11 +12,15 @@
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="1500" MinHeight="600">
                 <TextBlock HorizontalAlignment="Left" Margin="85,92,0,0" Text="Crear subasta" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
                 <NavigationViewItemSeparator HorizontalAlignment="Stretch" Margin="70,0,0,0" BorderThickness="2" BorderBrush="Gray" Height="25"></NavigationViewItemSeparator>
-                <StackPanel Orientation="Horizontal" Margin="70,0,70,20" >
-                    <Grid Grid.Column="0" MaxHeight="500" HorizontalAlignment="Center" Padding="0,0,0,0">
-                            <Image x:Name="ImagenProducto" Source="/Assets/Images/missing-img.jpg"></Image>
+                <Grid Margin="70,0,70,20" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" MaxHeight="600" HorizontalAlignment="Center">
+                        <Image x:Name="ImagenProducto" Source="/Assets/Images/missing-img.jpg"></Image>
                     </Grid>
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Grid.Column="1" Orientation="Vertical">
                         <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Nombre de producto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
                         <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Margin="85,20,0,0" Text="" IsSpellCheckEnabled="False" MinWidth="150" Width="200"/>
                         <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Descripción de producto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
@@ -37,7 +41,7 @@
                         <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Precio inicial" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
                         <TextBox x:Name="precioTxt" HorizontalAlignment="Left" Margin="85,20,0,0" Text="" IsSpellCheckEnabled="False" MinWidth="150" Width="200"/>
                         <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Fecha límite" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
-                        <CalendarDatePicker PlaceholderText="Fecha" Margin="85,20,0,0"/>
+                        <CalendarDatePicker PlaceholderText="Fecha" Margin="85,20,0,0" x:Name="fechaSelected"/>
                         <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
                             <Button x:Name="cancelarBtn" Margin="80,0,0,0" Content="Cancelar" FontSize="12" Background="White" Foreground="#0d6efd" BorderBrush="#0d6efd">
                                 <Button.Resources>
@@ -65,7 +69,7 @@
                             </Button>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </Grid>

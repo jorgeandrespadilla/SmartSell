@@ -26,7 +26,7 @@
                             <ColumnDefinition Width="0.5*"></ColumnDefinition>
                             <ColumnDefinition Width="0.5*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" MaxHeight="600" HorizontalAlignment="Center" Padding="0,0,100,0">
+                        <Grid Grid.Column="0" MaxHeight="600" HorizontalAlignment="Center" Padding="0,0,50,0">
                             <Image x:Name="imagenProducto" Source="/Assets/Images/missing-img.jpg"></Image>
                         </Grid>
                         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Stretch" MinWidth="100" Width="600">

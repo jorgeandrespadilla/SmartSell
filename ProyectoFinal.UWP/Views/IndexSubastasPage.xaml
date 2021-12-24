@@ -37,6 +37,8 @@
                                     <Setter Property="BorderBrush" Value="#c3c6c9"/>
                                     <Setter Property="BorderThickness" Value="1"/>
                                     <Setter Property="Margin" Value="0,0,20,20"/>
+                                    <Setter Property="MaxHeight" Value="700"/>
+                                    <Setter Property="MaxWidth" Value="400"/>
                                 </Style>
                             </ListView.ItemContainerStyle>
                             <ListView.ItemsPanel>
