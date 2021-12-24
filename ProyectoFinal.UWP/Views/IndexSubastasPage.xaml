@@ -10,10 +10,55 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid>
                 <StackPanel>
-                    <TextBlock HorizontalAlignment="Left" Margin="0,100,0,20" Text="Información de subasta" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Left" Margin="0,100,0,20" Text="Subastas" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
+                        <Button Grid.Column="1" x:Name="misSubastas" Margin="0,110,100,20" Content="Ver mis subastas" Height="35" Style="{StaticResource AccentButtonStyle}" HorizontalAlignment="Right" FontSize="18"></Button>
+                    </Grid>
                     <StackPanel Orientation="Vertical" Padding="0,0,0,10">
-                        <Grid HorizontalAlignment="Left">
-                            <HyperlinkButton x:Name="crearSubastaBtn" Content="Crear subasta" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="CrearSubastaHandler" />
+                        <Grid HorizontalAlignment="Left" >
+                            <HyperlinkButton x:Name="crearSubastaBtn" Content="Crear subasta" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="CrearSubastaHandler" FontSize="18" />
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" Padding="20,10,0,0">
+                            <DropDownButton Background="White">
+                                <Viewbox MaxHeight="20" MaxWidth="20">
+                                    <SymbolIcon Symbol="Filter" Foreground="Black" RequestedTheme="Dark"/>
+                                </Viewbox>
+                                <DropDownButton.Flyout>
+                                    <MenuFlyout Placement="Bottom" x:Name="dropDownItemsBtn">
+                                        <MenuFlyoutItem Text="Precio ascendente"/>
+                                        <MenuFlyoutItem Text="Precio descendente"/>
+                                        <MenuFlyoutItem Text="Nombre ascendente"/>
+                                        <MenuFlyoutItem Text="Nombre descendente"/>
+                                        <MenuFlyoutItem Text="Quitar filtros" Background="#a1a1a1"/>
+                                    </MenuFlyout>
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
+                            <TextBox x:Name="buscarTxt" Margin="10,0,10,0" Text="" IsSpellCheckEnabled="False" Width="300" Height="50" VerticalContentAlignment="Center"/>
+                            <Button x:Name="buscarBtn" Margin="0,30" Padding="10,10" Height="50" Style="{StaticResource AccentButtonStyle}">
+                                <StackPanel Orientation="Horizontal" >
+                                    <SymbolIcon Symbol="Find"></SymbolIcon>
+                                    <TextBlock Text="Buscar" FontSize="18" Padding="10,0,0,0"></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                                <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Orientation="Vertical" Padding="20,0,0,0">
+                                <CheckBox x:Name="ocultarFinalizadas" Padding="0,0,0,20">
+                                    <TextBlock Text="Ocultar subastas finalizadas" Padding="5,5,0,0" ></TextBlock>
+                                </CheckBox>
+                                <CheckBox x:Name="ocultarMisSubastas" Padding="0,0,0,20">
+                                    <TextBlock Text="Ocultar mis subastas" Padding="5,5,0,0" ></TextBlock>
+                                </CheckBox>
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" Text="Cantidad de subastas disponibles" HorizontalAlignment="Center" Foreground="#a1a1a1" x:Name="cantSubastasTxt" ></TextBlock>
                         </Grid>
                     </StackPanel>
                     <Grid HorizontalAlignment="Left" Padding="20,0,0,0">
@@ -48,7 +93,7 @@
                             </ListView.ItemsPanel>
                         </ListView>
                     </Grid>
-                    
+
                 </StackPanel>
             </Grid>
         </ScrollViewer>
