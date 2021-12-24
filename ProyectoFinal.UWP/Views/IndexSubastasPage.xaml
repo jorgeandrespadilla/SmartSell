@@ -16,7 +16,10 @@
                             <ColumnDefinition Width="0.3*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" HorizontalAlignment="Left" Margin="0,100,0,20" Text="Subastas" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
-                        <Button Grid.Column="1" x:Name="misSubastas" Margin="0,110,100,20" Content="Ver mis subastas" Height="35" Style="{StaticResource AccentButtonStyle}" HorizontalAlignment="Right" FontSize="18"></Button>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,110,100,20" HorizontalAlignment="Right">
+                            <Button  x:Name="misSubastas"  Content="Ver mis subastas" Height="35" Style="{StaticResource AccentButtonStyle}"  FontSize="18" Click="MisSubastasHandlerBtn"></Button>
+                            <Button  x:Name="todasSubastas" Content="Ver todas" Height="35" Style="{StaticResource AccentButtonStyle}" FontSize="18" Visibility="Collapsed" Click="TodasSubastasHandlerBtn" ></Button>
+                        </StackPanel>
                     </Grid>
                     <StackPanel Orientation="Vertical" Padding="0,0,0,10">
                         <Grid HorizontalAlignment="Left" >
@@ -38,7 +41,7 @@
                                 </DropDownButton.Flyout>
                             </DropDownButton>
                             <TextBox x:Name="buscarTxt" Margin="10,0,10,0" Text="" IsSpellCheckEnabled="False" Width="300" Height="50" VerticalContentAlignment="Center"/>
-                            <Button x:Name="buscarBtn" Margin="0,30" Padding="10,10" Height="50" Style="{StaticResource AccentButtonStyle}">
+                            <Button x:Name="buscarBtn" Margin="0,30" Padding="10,10" Height="50" Style="{StaticResource AccentButtonStyle}" Click="BuscarHandlerBtn">
                                 <StackPanel Orientation="Horizontal" >
                                     <SymbolIcon Symbol="Find"></SymbolIcon>
                                     <TextBlock Text="Buscar" FontSize="18" Padding="10,0,0,0"></TextBlock>
@@ -50,11 +53,11 @@
                                 <ColumnDefinition Width="0.7*"></ColumnDefinition>
                                 <ColumnDefinition Width="0.3*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0" Orientation="Vertical" Padding="20,0,0,0">
-                                <CheckBox x:Name="ocultarFinalizadas" Padding="0,0,0,20">
+                            <StackPanel Grid.Column="0" Orientation="Vertical" Padding="20,0,0,0" >
+                                <CheckBox x:Name="ocultarFinalizadas" Padding="0,0,0,20" IsChecked="True">
                                     <TextBlock Text="Ocultar subastas finalizadas" Padding="5,5,0,0" ></TextBlock>
                                 </CheckBox>
-                                <CheckBox x:Name="ocultarMisSubastas" Padding="0,0,0,20">
+                                <CheckBox x:Name="ocultarMisSubastas" Padding="0,0,0,20" IsChecked="True">
                                     <TextBlock Text="Ocultar mis subastas" Padding="5,5,0,0" ></TextBlock>
                                 </CheckBox>
                             </StackPanel>
