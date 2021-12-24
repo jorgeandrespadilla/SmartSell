@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectoFinal.Desktop.Models
+namespace ProyectoFinal.UWP.Models
 {
     public class Subasta
     {

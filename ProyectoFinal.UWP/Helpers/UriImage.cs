@@ -8,7 +8,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace ProyectoFinal.Desktop.Infrastructure.Helpers
+namespace ProyectoFinal.UWP.Infrastructure.Helpers
 {
     class UriImage
     {

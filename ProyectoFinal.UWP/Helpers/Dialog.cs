@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ProyectoFinal.Desktop.Infrastructure.Helpers
+namespace ProyectoFinal.UWP.Infrastructure.Helpers
 {
     public class Dialog
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectoFinal.Desktop.Models
+namespace ProyectoFinal.UWP.Models
 {
     /*The following code example demonstrates the how to implement the INotifyPropertyChanged interface.
      * When you run this example, you will notice the bound DataGridView control reflects the change in the data source 

@@ -1,5 +1,5 @@
-﻿using ProyectoFinal.Desktop.Infrastructure;
-using ProyectoFinal.Desktop.Models;
+﻿using ProyectoFinal.UWP.Infrastructure;
+using ProyectoFinal.UWP.Models;
 using ProyectoFinal.Shared.Dto;
 using ProyectoFinal.Shared.Models;
 using System;
@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Navigation;
 
 // La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace ProyectoFinal.Desktop.Views
+namespace ProyectoFinal.UWP.Views
 {
     /// <summary>
     /// Una página vacía que se puede usar de forma independiente o a la que se puede navegar dentro de un objeto Frame.

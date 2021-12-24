@@ -12,11 +12,11 @@ using ProyectoFinal.Shared.Dto;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using ProyectoFinal.Shared.Helpers;
-using ProyectoFinal.Desktop.Models;
+using ProyectoFinal.UWP.Models;
 using ProyectoFinal.Shared.Models;
-using ProyectoFinal.Desktop.Infrastructure.Helpers;
+using ProyectoFinal.UWP.Infrastructure.Helpers;
 
-namespace ProyectoFinal.Desktop.Infrastructure
+namespace ProyectoFinal.UWP.Infrastructure
 {
     //Delete user: DELETE FROM Usuarios WHERE UsuarioID = *
     public sealed class SmartSell

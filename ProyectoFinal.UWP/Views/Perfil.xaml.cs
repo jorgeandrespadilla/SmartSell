@@ -1,5 +1,5 @@
-﻿using ProyectoFinal.Desktop.Infrastructure;
-using ProyectoFinal.Desktop.Models;
+﻿using ProyectoFinal.UWP.Infrastructure;
+using ProyectoFinal.UWP.Models;
 using ProyectoFinal.Shared.Dto;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Navigation;
 
 // La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace ProyectoFinal.Desktop.Views
+namespace ProyectoFinal.UWP.Views
 {
     /*Necesario implementar que le diseño sea reactivo*/
     public sealed partial class Perfil : Page

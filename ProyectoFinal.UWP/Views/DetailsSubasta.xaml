@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="ProyectoFinal.Desktop.Views.DetailsSubasta"
+    x:Class="ProyectoFinal.UWP.Views.DetailsSubasta"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ProyectoFinal.Desktop.Views"
+    xmlns:local="using:ProyectoFinal.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"

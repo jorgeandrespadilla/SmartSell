@@ -175,26 +175,48 @@
     <Compile Include="ViewModels\IndexSubastasViewModel.cs" />
     <Compile Include="ViewModels\PerfilViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="Views\CrearComentario.xaml.cs" />
-    <Compile Include="Views\CrearOferta.xaml.cs" />
-    <Compile Include="Views\CrearSubasta.xaml.cs" />
-    <Compile Include="Views\DetailsSubasta.xaml.cs" />
-    <Compile Include="Views\Editar.xaml.cs" />
-    <Compile Include="Views\EditarComentario.xaml.cs" />
-    <Compile Include="Views\EditarSubasta.xaml.cs" />
+    <Compile Include="Views\CrearComentario.xaml.cs">
+      <DependentUpon>CrearComentario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CrearOferta.xaml.cs">
+      <DependentUpon>CrearOferta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CrearSubasta.xaml.cs">
+      <DependentUpon>CrearSubasta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DetailsSubasta.xaml.cs">
+      <DependentUpon>DetailsSubasta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Editar.xaml.cs">
+      <DependentUpon>Editar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditarComentario.xaml.cs">
+      <DependentUpon>EditarComentario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditarSubasta.xaml.cs">
+      <DependentUpon>EditarSubasta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\IndexOfertasPage.xaml.cs">
       <DependentUpon>IndexOfertasPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\IndexSubastas.xaml.cs" />
+    <Compile Include="Views\IndexSubastas.xaml.cs">
+      <DependentUpon>IndexSubastas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\IndexSubastasPage.xaml.cs">
       <DependentUpon>IndexSubastasPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Login.xaml.cs" />
-    <Compile Include="Views\Perfil.xaml.cs" />
+    <Compile Include="Views\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Perfil.xaml.cs">
+      <DependentUpon>Perfil.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PerfilPage.xaml.cs">
       <DependentUpon>PerfilPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Register.xaml.cs" />
+    <Compile Include="Views\Register.xaml.cs">
+      <DependentUpon>Register.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShellPage.xaml.cs">
       <DependentUpon>ShellPage.xaml</DependentUpon>
     </Compile>

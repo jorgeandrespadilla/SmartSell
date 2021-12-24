@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProyectoFinal.Desktop.Infrastructure;
-using ProyectoFinal.Desktop.Models;
-using ProyectoFinal.Desktop.Views;
+using ProyectoFinal.UWP.Infrastructure;
+using ProyectoFinal.UWP.Models;
+using ProyectoFinal.UWP.Views;
 using ProyectoFinal.Shared.Dto;
 using ProyectoFinal.Shared.Models;
 using ProyectoFinal.UWP.ViewModels;

@@ -1,5 +1,5 @@
 ﻿using System;
-using ProyectoFinal.Desktop.Views;
+using ProyectoFinal.UWP.Views;
 using ProyectoFinal.UWP.Services;
 
 using Windows.ApplicationModel.Activation;
