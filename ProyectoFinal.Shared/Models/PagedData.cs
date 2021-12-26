@@ -10,14 +10,16 @@ namespace ProyectoFinal.Shared.Models
         public int Page { get; set; }
         public int Size { get; set; }
         public int PageCount { get; set; }
+        public int TotalResults { get; set; }
         public string Search { get; set; }
 
-        public PagedData(IEnumerable<T> data, int page, int size, int pageCount, string search)
+        public PagedData(IEnumerable<T> data, int page, int size, int pageCount, int totalResults, string search)
         {
             Data = data;
             Page = page;
             Size = size;
             PageCount = pageCount;
+            totalResults = totalResults;
             Search = search;
         }
     }

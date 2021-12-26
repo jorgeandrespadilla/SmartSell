@@ -22,7 +22,7 @@ namespace ProyectoFinal.UWP.Views
     public sealed partial class IndexSubastasPage : Page
     {
         private SmartSell smartSell = SmartSell.Instance;
-        private ICollection<SubastaItem> subastasCargadas;
+        private SubastasPagedData results;
         private string mode = "TodasSubastas";
         private string filtroSeleccionado = "none";
 
@@ -36,15 +36,8 @@ namespace ProyectoFinal.UWP.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var resp = await smartSell.GetSubastas();
-            subastasCargadas = await smartSell.ConvertToSubastaItems(resp.Data);
             filtroActualTxt.Text = "Filtro: Ninguno";
-            cargarSubastas();
-        }
-        public void cargarSubastas()
-        {
-            subastas.ItemsSource = subastasCargadas;
-            cantSubastasTxt.Text = $"{subastasCargadas.Count.ToString()} resultados encontrados ";
+            await ObtenerSubastas();
         }
 
         private void subastas_SelectionChanged(object sender, ItemClickEventArgs e)
@@ -67,9 +60,6 @@ namespace ProyectoFinal.UWP.Views
             mode = "MisSubastas";
 
             await ObtenerSubastas();
-
-            cargarSubastas();
-            
         }
 
         private async void TodasSubastasHandlerBtn(object sender, RoutedEventArgs e)
@@ -82,17 +72,12 @@ namespace ProyectoFinal.UWP.Views
 
             mode = "TodasSubastas";
 
-            await ObtenerSubastas();                      
-
-            cargarSubastas();
+            await ObtenerSubastas();
         }
 
         private async void BuscarHandlerBtn(object sender, RoutedEventArgs e)
         {
             await ObtenerSubastas();
-
-            cargarSubastas();
-            
         }
 
         private async void FilterHandlerBtn(object sender, RoutedEventArgs e)
@@ -125,22 +110,39 @@ namespace ProyectoFinal.UWP.Views
             }
 
             await ObtenerSubastas();
+        }
 
-            cargarSubastas();
+        private async void CargarSubastas()
+        {
+            subastas.ItemsSource = await smartSell.ConvertToSubastaItems(results.Data);
+            cantSubastasTxt.Text = $"{results.TotalResults} resultados encontrados";
         }
 
         private async Task ObtenerSubastas()
         {
             if (mode == "MisSubastas")
             {
-                var resp = await smartSell.GetSubastas(searchString: buscarTxt.Text, showAll: "false", hideMySubastas: "false", hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(), sortOrder: filtroSeleccionado);
-                subastasCargadas = await smartSell.ConvertToSubastaItems(resp.Data);
+                var resp = await smartSell.GetSubastas(
+                    searchString: buscarTxt.Text,
+                    showAll: "false",
+                    hideMySubastas: "false",
+                    hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(),
+                    sortOrder: filtroSeleccionado
+                );
+                results = resp;
             }
             else
             {
-                var resp = await smartSell.GetSubastas(searchString: buscarTxt.Text, hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(), showAll: "true", hideMySubastas: ocultarMisSubastas.IsChecked.ToString().ToLower(), sortOrder: filtroSeleccionado);
-                subastasCargadas = await smartSell.ConvertToSubastaItems(resp.Data);
+                var resp = await smartSell.GetSubastas(
+                    searchString: buscarTxt.Text,
+                    hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(),
+                    showAll: "true",
+                    hideMySubastas: ocultarMisSubastas.IsChecked.ToString().ToLower(),
+                    sortOrder: filtroSeleccionado
+                );
+                results = resp;
             }
+            CargarSubastas();
         }
     }
 }

@@ -348,7 +348,8 @@ namespace ProyectoFinal.Web.Controllers
 
             /* Configurar paginación */
             int pageSize = 6; // Numero de elementos por página
-            int totalPages = Convert.ToInt32(subastasDto.Count() / pageSize) + 1;
+            int totalResults = subastasDto.Count();
+            int totalPages = Convert.ToInt32(totalResults / pageSize) + 1;
             if (page < 1 || page > totalPages)
             {
                 page = 1;
@@ -361,6 +362,7 @@ namespace ProyectoFinal.Web.Controllers
                 page,
                 pageSize,
                 totalPages,
+                totalResults,
                 searchString,
                 sortOrder,
                 hideEnded == "true",
@@ -593,7 +595,8 @@ namespace ProyectoFinal.Web.Controllers
 
             /* Configurar paginación */
             int pageSize = 10; // Numero de elementos por página
-            int totalPages = Convert.ToInt32(ofertasQuery.Count() / pageSize) + 1;
+            int totalResults = ofertasQuery.Count();
+            int totalPages = Convert.ToInt32(totalResults / pageSize) + 1;
             if (page < 1 || page > totalPages)
             {
                 page = 1;
@@ -619,6 +622,7 @@ namespace ProyectoFinal.Web.Controllers
                 page,
                 pageSize,
                 totalPages,
+                totalResults,
                 searchString
             ));
         }

@@ -261,7 +261,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
-    <Compile Include="Controllers\SubastasApiController.cs" />
     <Compile Include="Controllers\SubastasController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">

@@ -12,7 +12,7 @@ namespace ProyectoFinal.Shared.Models
         public bool HideMySubastas { get; set; }
         public bool ShowAll { get; set; }
 
-        public SubastasPagedData(IEnumerable<SubastaItemDto> data, int page, int size, int pageCount, string search, string sortOrder, bool hideEnded, bool hideMySubastas, bool showAll): base(data, page, size, pageCount, search)
+        public SubastasPagedData(IEnumerable<SubastaItemDto> data, int page, int size, int pageCount, int totalResults, string search, string sortOrder, bool hideEnded, bool hideMySubastas, bool showAll): base(data, page, size, pageCount, totalResults, search)
         {
             SortOrder = sortOrder;
             HideEnded = hideEnded;
