@@ -17,8 +17,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" HorizontalAlignment="Left" Margin="0,100,0,20" Text="Subastas" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,110,100,20" HorizontalAlignment="Right">
-                            <Button  x:Name="misSubastas"  Content="Ver mis subastas" Height="35" Style="{StaticResource AccentButtonStyle}"  FontSize="18" Click="MisSubastasHandlerBtn"></Button>
-                            <Button  x:Name="todasSubastas" Content="Ver todas" Height="35" Style="{StaticResource AccentButtonStyle}" FontSize="18" Visibility="Collapsed" Click="TodasSubastasHandlerBtn" ></Button>
+                            <Button  x:Name="misSubastas"  Content="Ver mis subastas" Height="35" Style="{StaticResource AccentButtonStyle}" Padding="15,0"  FontSize="18" Click="MisSubastasHandlerBtn"></Button>
+                            <Button  x:Name="todasSubastas" Content="Ver todas" Height="35" Style="{StaticResource AccentButtonStyle}" Padding="15,0" FontSize="18" Visibility="Collapsed" Click="TodasSubastasHandlerBtn" ></Button>
                         </StackPanel>
                     </Grid>
                     <StackPanel Orientation="Vertical" Padding="0,0,0,10">
@@ -32,16 +32,16 @@
                                 </Viewbox>
                                 <DropDownButton.Flyout>
                                     <MenuFlyout Placement="Bottom" x:Name="dropDownItemsBtn">
-                                        <MenuFlyoutItem Text="Precio ascendente"/>
-                                        <MenuFlyoutItem Text="Precio descendente"/>
-                                        <MenuFlyoutItem Text="Nombre ascendente"/>
-                                        <MenuFlyoutItem Text="Nombre descendente"/>
-                                        <MenuFlyoutItem Text="Quitar filtros" Background="#a1a1a1"/>
+                                        <MenuFlyoutItem Text="Precio ascendente" Click="FilterHandlerBtn" x:Name="price_asc"/>
+                                        <MenuFlyoutItem Text="Precio descendente" Click="FilterHandlerBtn" x:Name="price_desc"/>
+                                        <MenuFlyoutItem Text="Nombre ascendente" Click="FilterHandlerBtn" x:Name="name_asc"/>
+                                        <MenuFlyoutItem Text="Nombre descendente" Click="FilterHandlerBtn" x:Name="name_desc"/>
+                                        <MenuFlyoutItem Text="Quitar filtros" Click="FilterHandlerBtn" Background="#a1a1a1" x:Name="noneFilter"/>
                                     </MenuFlyout>
                                 </DropDownButton.Flyout>
                             </DropDownButton>
                             <TextBox x:Name="buscarTxt" Margin="10,0,10,0" Text="" IsSpellCheckEnabled="False" Width="300" Height="50" VerticalContentAlignment="Center"/>
-                            <Button x:Name="buscarBtn" Margin="0,30" Padding="10,10" Height="50" Style="{StaticResource AccentButtonStyle}" Click="BuscarHandlerBtn">
+                            <Button x:Name="buscarBtn" Margin="0,30" Padding="15,10" Height="50" Style="{StaticResource AccentButtonStyle}" Click="BuscarHandlerBtn">
                                 <StackPanel Orientation="Horizontal" >
                                     <SymbolIcon Symbol="Find"></SymbolIcon>
                                     <TextBlock Text="Buscar" FontSize="18" Padding="10,0,0,0"></TextBlock>
@@ -60,6 +60,7 @@
                                 <CheckBox x:Name="ocultarMisSubastas" Padding="0,0,0,20" IsChecked="True">
                                     <TextBlock Text="Ocultar mis subastas" Padding="5,5,0,0" ></TextBlock>
                                 </CheckBox>
+                                <TextBlock Text="Filtro aplicado" HorizontalAlignment="Left" Foreground="#a1a1a1" x:Name="filtroActualTxt" ></TextBlock>
                             </StackPanel>
                             <TextBlock Grid.Column="1" Text="Cantidad de subastas disponibles" HorizontalAlignment="Center" Foreground="#a1a1a1" x:Name="cantSubastasTxt" ></TextBlock>
                         </Grid>
