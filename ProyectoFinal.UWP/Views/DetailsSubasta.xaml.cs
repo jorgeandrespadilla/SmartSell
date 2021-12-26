@@ -24,13 +24,11 @@ using ProyectoFinal.UWP.Helpers;
 
 namespace ProyectoFinal.UWP.Views
 {
-    /// <summary>
-    /// Una página vacía que se puede usar de forma independiente o a la que se puede navegar dentro de un objeto Frame.
-    /// </summary>
-    /// 
-
-    
-
+    /*
+     * 
+     * Es necesario dar condicional para comprbar si un comentario le pertence y si ese es el caso, mostrar permitir editar
+     * 
+     */
     public sealed partial class DetailsSubasta : Page
     {
 
