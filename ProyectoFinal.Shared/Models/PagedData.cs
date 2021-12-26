@@ -19,7 +19,7 @@ namespace ProyectoFinal.Shared.Models
             Page = page;
             Size = size;
             PageCount = pageCount;
-            totalResults = totalResults;
+            TotalResults = totalResults;
             Search = search;
         }
     }
