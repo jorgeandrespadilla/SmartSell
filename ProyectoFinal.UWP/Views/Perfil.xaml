@@ -142,7 +142,7 @@
                         </muxc:TabView.TabItems>
                     </muxc:TabView>
                     <Grid x:Name="tableWrapper">
-                        <ListView x:Name="MisOfertas" Margin="100,0,100,0" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ListView x:Name="MisOfertas" Margin="100,0,100,0" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionMode="None">
                             <interactivity:Interaction.Behaviors>
                                 <behaviors:StickyHeaderBehavior />
                             </interactivity:Interaction.Behaviors>

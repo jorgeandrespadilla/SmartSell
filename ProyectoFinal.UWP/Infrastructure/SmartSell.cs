@@ -628,7 +628,7 @@ namespace ProyectoFinal.UWP.Infrastructure
 
         public async Task<PagedData<OfertaDto>> GetOfertas(int page = 1, string searchString = null)
         {
-            string url = $"Subastas/{CurrentUser.ID}?page={page}";
+            string url = $"Ofertas/{CurrentUser.ID}?page={page}";
             if (!string.IsNullOrEmpty(searchString))
             {
                 url += $"&searchString={searchString}";
