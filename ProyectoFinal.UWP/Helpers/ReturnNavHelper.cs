@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoFinal.UWP.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,9 @@ namespace ProyectoFinal.UWP.Helpers
     {
         public static bool TryGoBack()
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-            if (rootFrame.CanGoBack)
+            if (NavigationService.CanGoBack)
             {
-                rootFrame.GoBack();
+                NavigationService.GoBack();
                 return true;
             }
             return false;

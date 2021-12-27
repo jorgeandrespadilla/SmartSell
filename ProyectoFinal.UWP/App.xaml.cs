@@ -49,7 +49,8 @@ namespace ProyectoFinal.UWP
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(Login), null);
+            // new Lazy<UIElement>(CreateShell)
+            return new ActivationService(this, typeof(Login), new Lazy<UIElement>(CreateShell));
         }
 
         private UIElement CreateShell()

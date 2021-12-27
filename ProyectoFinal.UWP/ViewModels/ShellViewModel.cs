@@ -9,7 +9,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 
 using ProyectoFinal.UWP.Helpers;
 using ProyectoFinal.UWP.Services;
-
+using ProyectoFinal.UWP.Views;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -101,6 +101,17 @@ namespace ProyectoFinal.UWP.ViewModels
         private void Frame_Navigated(object sender, NavigationEventArgs e)
         {
             IsBackEnabled = NavigationService.CanGoBack;
+            // Additional validation for go back when previous interface is Login or Register
+            if (IsBackEnabled)
+            {
+                var last = (sender as Frame).BackStack.Last().SourcePageType;
+                if (last == typeof(Login) || last == typeof(Register))
+                {
+                    IsBackEnabled = false;
+                }
+            }
+            // Shows or hides navigation bar
+            _navigationView.IsPaneVisible = !(e.SourcePageType == typeof(Login) || e.SourcePageType == typeof(Register));
             var selectedItem = GetSelectedItem(_navigationView.MenuItems, e.SourcePageType);
             if (selectedItem != null)
             {
