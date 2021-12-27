@@ -4,8 +4,9 @@ using ProyectoFinal.Shared.Dto;
 using ProyectoFinal.Shared.Models;
 using ProyectoFinal.UWP.Infrastructure;
 using ProyectoFinal.UWP.Infrastructure.Helpers;
+using ProyectoFinal.UWP.Models;
 using ProyectoFinal.UWP.ViewModels;
-
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -46,9 +47,11 @@ namespace ProyectoFinal.UWP.Views
             ofertas.ItemsSource = ofertasCargadas.Data;
         }
 
-        private void VerSubastaHandlerBtn(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void VerSubastaHandlerBtn(object sender, RoutedEventArgs e)
         {
-            
+            HyperlinkButton link = e.OriginalSource as HyperlinkButton;
+            OfertaDto ofertaSeleccionada = link.DataContext as OfertaDto;
+            this.Frame.Navigate(typeof(DetailsSubasta), ofertaSeleccionada.SubastaID);
         }
 
         private async void BuscarHandlerBtn(object sender, Windows.UI.Xaml.RoutedEventArgs e)
