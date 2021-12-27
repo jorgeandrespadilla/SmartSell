@@ -164,11 +164,7 @@
     <Compile Include="Helpers\UriImage.cs" />
     <Compile Include="Infrastructure\SmartSell.cs" />
     <Compile Include="Models\Comentario.cs" />
-    <Compile Include="Models\Oferta.cs" />
-    <Compile Include="Models\RatingUsuario.cs" />
-    <Compile Include="Models\Subasta.cs" />
     <Compile Include="Models\SubastaItem.cs" />
-    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
     <Compile Include="Services\NavigationService.cs" />

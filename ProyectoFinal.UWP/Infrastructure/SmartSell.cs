@@ -428,6 +428,24 @@ namespace ProyectoFinal.UWP.Infrastructure
             }
         }
 
+        public ICollection<Comentario> ComentariosDtoToComentarios(ICollection<ComentarioDto> comentariosDto)
+        {
+            ICollection<Comentario> comentarios = new List<Comentario>();
+            foreach (var comentarioDto in comentariosDto)
+            {
+                bool isAuthor = comentarioDto.UsuarioID == CurrentUser.ID;
+                comentarios.Add(new Comentario(
+                    comentarioDto.ComentarioID,
+                    comentarioDto.UsuarioID,
+                    comentarioDto.NombreUsuario,
+                    comentarioDto.Descripcion,
+                    comentarioDto.FechaCreacion,
+                    isAuthor
+                ));
+            }
+            return comentarios;
+        }
+
         // Observación: Validar peso de la imagen
         public async Task CreateSubasta(string nombreProducto, string descripcionProducto, string uriImagen, float precioInicial, DateTime fechaLimite)
         {
