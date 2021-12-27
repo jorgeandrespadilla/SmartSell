@@ -54,7 +54,7 @@ namespace ProyectoFinal.UWP.Views
             this.Frame.Navigate(typeof(DetailsSubasta), ofertaSeleccionada.SubastaID);
         }
 
-        private async void BuscarHandlerBtn(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void BuscarHandlerBtn(object sender, RoutedEventArgs e)
         {
             ofertasCargadas = await smartsell.GetOfertas(searchString:buscarTxt.Text);
             CargarOfertas();
