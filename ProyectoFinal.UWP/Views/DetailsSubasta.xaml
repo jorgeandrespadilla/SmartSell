@@ -107,7 +107,7 @@
                     </StackPanel>
                     <TextBlock HorizontalAlignment="Left" Margin="100,20,0,20" Text="Ofertas" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
                     <Grid VerticalAlignment="Center">
-                        <ListView x:Name="OfertasSubasta" Margin="100,0,100,0" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ListView x:Name="OfertasSubasta" Margin="100,0,100,0" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionMode="None">
                             <interactivity:Interaction.Behaviors>
                                 <behaviors:StickyHeaderBehavior />
                             </interactivity:Interaction.Behaviors>
@@ -155,7 +155,7 @@
                         </StackPanel>
                     </StackPanel>
                     <Grid HorizontalAlignment="Center">
-                        <ListView x:Name="ComentariosGrid" HorizontalAlignment="Stretch" Margin="100,0,90,50">
+                        <ListView x:Name="ComentariosGrid" HorizontalAlignment="Stretch" Margin="100,0,90,50" SelectionMode="None">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid HorizontalAlignment="Stretch">

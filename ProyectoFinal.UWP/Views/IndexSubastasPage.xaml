@@ -101,7 +101,6 @@
                             </ListView.ItemsPanel>
                         </ListView>
                     </Grid>
-
                 </StackPanel>
             </Grid>
         </ScrollViewer>
