@@ -15,17 +15,27 @@ using ProyectoFinal.Shared.Helpers;
 using ProyectoFinal.UWP.Models;
 using ProyectoFinal.Shared.Models;
 using ProyectoFinal.UWP.Infrastructure.Helpers;
+using ProyectoFinal.UWP.ViewModels;
+using ProyectoFinal.UWP.Views;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace ProyectoFinal.UWP.Infrastructure
 {
     //Delete user: DELETE FROM Usuarios WHERE UsuarioID = *
-    public sealed class SmartSell
+    public sealed class SmartSell: ObservableObject
     {
 
 
         private static HttpClient client;
         public AuthorizedUsuarioDto CurrentUser { get; set; }
 
+        private string userName;
+
+        public string UserName
+        {
+            get => userName;
+            set => SetProperty(ref userName, value);
+        }
 
         private static readonly SmartSell instance = new SmartSell();
         static SmartSell()
@@ -49,8 +59,6 @@ namespace ProyectoFinal.UWP.Infrastructure
                 return instance;
             }
         }
-
-
 
         /**** Métodos para la autenticación ****/
 
@@ -95,6 +103,7 @@ namespace ProyectoFinal.UWP.Infrastructure
             {
                 var data = JsonConvert.DeserializeObject<AuthorizedUsuarioDto>(content);
                 CurrentUser = data;
+                UserName = CurrentUser.Nombre;
                 return data;
             }
         }
@@ -102,6 +111,7 @@ namespace ProyectoFinal.UWP.Infrastructure
         public void Logout()
         {
             CurrentUser = null;
+            UserName = "";
         }
 
         public bool IsAuthorized()

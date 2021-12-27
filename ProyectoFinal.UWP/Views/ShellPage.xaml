@@ -34,7 +34,7 @@
             -->
             <winui:NavigationViewItem x:Uid="Shell_IndexSubastas" helpers:NavHelper.NavigateTo="views:IndexSubastasPage" />
             <winui:NavigationViewItem x:Uid="Shell_IndexOfertas" helpers:NavHelper.NavigateTo="views:IndexOfertasPage" />
-            <winui:NavigationViewItem x:Uid="Shell_Perfil" helpers:NavHelper.NavigateTo="views:PerfilPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Perfil" helpers:NavHelper.NavigateTo="views:PerfilPage" x:Name="UserOption" Content="{x:Bind SmartSell.UserName, Mode=OneWay}"/>
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <ic:EventTriggerBehavior EventName="ItemInvoked">

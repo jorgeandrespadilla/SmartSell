@@ -1,5 +1,5 @@
 ﻿using System;
-
+using ProyectoFinal.UWP.Infrastructure;
 using ProyectoFinal.UWP.ViewModels;
 
 using Windows.UI.Xaml.Controls;
@@ -11,8 +11,9 @@ namespace ProyectoFinal.UWP.Views
     {
         public ShellViewModel ViewModel { get; } = new ShellViewModel();
 
+        public SmartSell SmartSell = SmartSell.Instance;
         public ShellPage()
-        {
+        {   
             InitializeComponent();
             DataContext = ViewModel;
             ViewModel.Initialize(shellFrame, navigationView, KeyboardAccelerators);
