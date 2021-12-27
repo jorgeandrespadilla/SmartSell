@@ -421,7 +421,7 @@ namespace ProyectoFinal.UWP.Infrastructure
         // Observación: Validar peso de la imagen
         public async Task CreateSubasta(string nombreProducto, string descripcionProducto, string uriImagen, float precioInicial, DateTime fechaLimite)
         {
-            if (Validator.IsEmpty(nombreProducto) || Validator.IsEmpty(descripcionProducto))
+            if (Validator.IsEmpty(nombreProducto) || Validator.IsEmpty(descripcionProducto) || float.IsNaN(precioInicial))
             {
                 throw new Exception("La información de subasta no puede contener campos vacíos.");
             }
@@ -658,6 +658,10 @@ namespace ProyectoFinal.UWP.Infrastructure
         public async Task CreateOferta(int subastaID, float monto)
         {
             // Validar información
+            if (float.IsNaN(monto))
+            {
+                throw new Exception("El monto no puede estar vacío.");
+            }
             if (monto <= 0)
             {
                 throw new Exception("El monto de la oferta debe ser positivo.");

@@ -51,7 +51,7 @@ namespace ProyectoFinal.UWP.Views
         {
             try
             {
-                await smartsell.CreateOferta(subasta.SubastaID, float.Parse(montoTxt.Text));
+                await smartsell.CreateOferta(subasta.SubastaID, (float)montoTxt.Value);
                 this.Frame.Navigate(typeof(DetailsSubasta), subasta.SubastaID);
             }
             catch (Exception ex)

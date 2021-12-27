@@ -41,9 +41,8 @@ namespace ProyectoFinal.UWP.Views
                 string uriImage = await UriImage.FileToUri(selectedImage);
                 try
                 {
-
                     DateTimeOffset Fecha = fechaSelected.Date ?? default(DateTimeOffset);
-                    await smartsell.CreateSubasta(nombreTxt.Text, descripcionTxt.Text, uriImage, float.Parse(precioTxt.Text), Fecha.Date);
+                    await smartsell.CreateSubasta(nombreTxt.Text, descripcionTxt.Text, uriImage, (float)precioTxt.Value, Fecha.Date);
                     this.Frame.Navigate(typeof(IndexSubastasPage), null);
                 }
                 catch (Exception ex)
