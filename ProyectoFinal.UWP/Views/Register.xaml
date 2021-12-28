@@ -25,25 +25,20 @@
         <Grid Padding="40">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderBrush="#dfdfdf" BorderThickness="1" CornerRadius="8" Padding="20,40">
                 <Image Height="60" Width="60" Source="/Assets/Logo/Logo.png"/>
-                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold" FontSize="32" Foreground="#212529" Margin="0,12"
-                Text="Registro de usuario"/>
-                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8"
-                Text="Nombres"/>
+                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold" FontSize="32" Foreground="#212529" Margin="0,12" Text="Registro de usuario"/>
+                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Text="Nombres" FontSize="16"/>
                 <TextBox x:Name="nombresTxt" Text="" IsSpellCheckEnabled="False" ></TextBox>
-                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8"
-                Text="Apellidos"/>
+                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Text="Apellidos" FontSize="16"/>
                 <TextBox x:Name="apellidoTxt" Text="" IsSpellCheckEnabled="False" ></TextBox>
-                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8"
-                Text="Correo Electrónico"/>
+                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Text="Correo Electrónico" FontSize="16"/>
                 <TextBox x:Name="correoTxt" Text="" IsSpellCheckEnabled="False" ></TextBox>
-                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8"
-                Text="Contraseña"/>
+                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Text="Contraseña" FontSize="16"/>
                 <PasswordBox x:Name="pwdText"/>
 
                 <Button x:Name="enviarBtn" Content="Registrar" Margin="0,30" Padding="10,10" MinWidth="500" FontSize="18"  Style="{StaticResource AccentButtonStyle}" Click="RegisterHandle">
                 </Button>
                 <Grid HorizontalAlignment="Center">
-                    <HyperlinkButton x:Name="registroBtn" Content="Iniciar sesión" Click="LoginHandler" />
+                    <HyperlinkButton x:Name="registroBtn" Content="Iniciar sesión" Click="LoginHandler" FontSize="16"/>
                 </Grid>
 
             </StackPanel>
