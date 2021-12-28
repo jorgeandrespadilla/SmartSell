@@ -16,9 +16,6 @@
             <Grid>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Orientation="Vertical">
-                        <Button Click="Volver">
-                            <SymbolIcon Symbol="Back" Foreground="Black"/>
-                        </Button>
                         <TextBlock HorizontalAlignment="Left" Margin="90,20,0,20" Text="Perfil de usuario" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529" />
                         <Grid HorizontalAlignment="Center" Width="1200">
                             <Grid.ColumnDefinitions>
