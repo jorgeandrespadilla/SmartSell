@@ -196,17 +196,11 @@
     <Compile Include="Views\IndexOfertasPage.xaml.cs">
       <DependentUpon>IndexOfertasPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\IndexSubastas.xaml.cs">
-      <DependentUpon>IndexSubastas.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\IndexSubastasPage.xaml.cs">
       <DependentUpon>IndexSubastasPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Perfil.xaml.cs">
-      <DependentUpon>Perfil.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PerfilPage.xaml.cs">
       <DependentUpon>PerfilPage.xaml</DependentUpon>
@@ -277,19 +271,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\IndexSubastas.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\IndexSubastasPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Login.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Perfil.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

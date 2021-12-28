@@ -55,7 +55,7 @@ namespace ProyectoFinal.UWP.Views
                     pwdTxt.Password
                 );
                 await Dialog.InfoMessage("Registro exitoso", "Cambio de información con éxito.").ShowAsync();
-                this.Frame.Navigate(typeof(Perfil), smartsell.CurrentUser.ID);
+                this.Frame.Navigate(typeof(PerfilPage), smartsell.CurrentUser.ID);
             }
             catch (Exception ex)
             {

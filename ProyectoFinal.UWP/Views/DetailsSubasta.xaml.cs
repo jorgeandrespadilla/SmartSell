@@ -139,7 +139,7 @@ namespace ProyectoFinal.UWP.Views
 
         private void NavigatePerfilVendedor(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Perfil), subasta.UsuarioID);
+            this.Frame.Navigate(typeof(PerfilPage), subasta.UsuarioID);
         }
 
         
@@ -157,7 +157,7 @@ namespace ProyectoFinal.UWP.Views
                 if ((int)result.Id == 1)
                 {
                     await smartsell.DeleteSubasta(subasta.SubastaID);
-                    this.Frame.Navigate(typeof(IndexSubastas), null);
+                    this.Frame.Navigate(typeof(IndexSubastasPage), null);
                 }
             }
             catch (Exception ex)
