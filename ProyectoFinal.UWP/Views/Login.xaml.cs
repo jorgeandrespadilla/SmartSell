@@ -32,6 +32,7 @@ namespace ProyectoFinal.UWP.Views
         public Login()
         {
             this.InitializeComponent();
+            smartSell.Logout();
             
         }
 
