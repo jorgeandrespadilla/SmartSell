@@ -34,6 +34,8 @@ namespace ProyectoFinal.UWP.Views
 
         private SubastaDto subasta;
 
+        private ICollection<Comentario> comentarios;
+
         private SmartSell smartsell = SmartSell.Instance;
 
         public DetailsSubasta()
@@ -58,6 +60,7 @@ namespace ProyectoFinal.UWP.Views
         public async void CargarInformacion(int id)
         {
             subasta = await smartsell.GetSubasta(id);
+            comentarios = smartsell.ComentariosDtoToComentarios(subasta.Comentarios);
             try
             {
                 if (subasta.Vigente)
@@ -122,7 +125,7 @@ namespace ProyectoFinal.UWP.Views
                 }
                 fechaTxt.Text = subasta.Fecha.ToString();
                 OfertasSubasta.ItemsSource = subasta.Ofertas;
-                ComentariosGrid.ItemsSource = subasta.Comentarios;
+                ComentariosGrid.ItemsSource = comentarios;
 
             }
             catch (Exception ex)

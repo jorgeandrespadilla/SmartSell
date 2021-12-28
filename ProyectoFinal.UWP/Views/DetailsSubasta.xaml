@@ -9,9 +9,14 @@
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="bool2vis"/>
+    </Page.Resources>
+    
     <controls:AdaptiveGridView VerticalAlignment="Center" HorizontalAlignment="Center" AllowFocusOnInteraction="False" SelectionMode="None" >
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
             <ScrollViewer>
@@ -170,7 +175,7 @@
                                                 <TextBlock Text="{Binding Descripcion}" Width="1000"></TextBlock>
                                                 <StackPanel>
                                                     <TextBlock Text="{Binding FechaCreacion}"></TextBlock>
-                                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" x:Name="ComentarioBtnWrapper">
+                                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" x:Name="ComentarioBtnWrapper" Visibility="{Binding IsAuthor, Converter={StaticResource bool2vis}}">
                                                         <HyperlinkButton x:Name="editarComentario" Content="Editar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="EditarComentarioHandlerBtn" Margin="10,0"/>
                                                         <HyperlinkButton x:Name="eliminarComentario" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="EliminarComentarioHandlerBtn" Foreground="Red"/>
                                                     </StackPanel>
