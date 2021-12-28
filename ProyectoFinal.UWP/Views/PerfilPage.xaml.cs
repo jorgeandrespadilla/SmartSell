@@ -26,7 +26,7 @@ namespace ProyectoFinal.UWP.Views
     {
         //Usuario usuarioActual;
         private SmartSell smartSell = SmartSell.Instance;
-        private int usuarioCalificadoID = -1;
+        
 
         public PerfilPage()
         {
@@ -37,21 +37,7 @@ namespace ProyectoFinal.UWP.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.Parameter != null)
-            {
-
-                if (int.Parse(e.Parameter.ToString()) == smartSell.CurrentUser.ID)
-                {
-                    CargarInformacion();
-                }
-                else
-                {
-                    usuarioCalificadoID = int.Parse(e.Parameter.ToString());
-                    CargarInformacionVendedor(usuarioCalificadoID);
-
-                }
-
-            }
+            CargarInformacion();
         }
 
 
@@ -59,8 +45,6 @@ namespace ProyectoFinal.UWP.Views
         private async void CargarInformacion()
         {
             PerfilDto usuarioActual = await smartSell.GetPerfil();
-            buttonWrapper.Visibility = Visibility.Visible;
-            ratingWrapper.Visibility = Visibility.Collapsed;
             var ofertasQuery = await smartSell.GetPerfilOfertas("PARTICIPACION");
             MisOfertas.ItemsSource = ofertasQuery;
 
@@ -69,24 +53,6 @@ namespace ProyectoFinal.UWP.Views
             apellidosTxt.Text = usuarioActual.Apellidos;
             correoTxt.Text = usuarioActual.Correo;
             calificacionTxt.Text = usuarioActual.AvgRating.ToString();
-        }
-
-
-        private async void CargarInformacionVendedor(int id)
-        {
-            PerfilVendedorDto usuarioActual = await smartSell.GetPerfilVendedor(id);
-            opSelected.Visibility = Visibility.Collapsed;
-            buttonWrapper.Visibility = Visibility.Collapsed;
-            ratingWrapper.Visibility = Visibility.Visible;
-            tableWrapper.Visibility = Visibility.Collapsed;
-
-            nombreCompletoTxt.Text = usuarioActual.Nombres + " " + usuarioActual.Apellidos;
-            nombresTxt.Text = usuarioActual.Nombres;
-            apellidosTxt.Text = usuarioActual.Apellidos;
-            correoTxt.Text = usuarioActual.Correo;
-            calificacionTxt.Text = usuarioActual.AvgRating.ToString();
-            ratingUsuarioBtn.Value = usuarioActual.Rating;
-
         }
 
         private async void ActualizarTabla(object sender, SelectionChangedEventArgs e)
@@ -116,21 +82,17 @@ namespace ProyectoFinal.UWP.Views
             this.Frame.Navigate(typeof(Editar), null);
         }
 
-        private async void EnviarRatingHandlerButton(object sender, RoutedEventArgs e)
+        private async void EliminarHandlerBtn(object sender, RoutedEventArgs e)
         {
-            int RatingControl = (int)ratingUsuarioBtn.Value;
             try
             {
-
-                await smartSell.SetRatingUsuario(usuarioCalificadoID, RatingControl);
-                CargarInformacionVendedor(usuarioCalificadoID);
+                await smartSell.DeletePerfil();
+                this.Frame.Navigate(typeof(Login), null);
             }
             catch (Exception ex)
             {
                 await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
             }
-
-
         }
     }
 }

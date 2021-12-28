@@ -36,7 +36,7 @@
                         <TextBlock HorizontalAlignment="Left" Margin="20,0,0,10" Text="Nombre del producto" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="16" Foreground="#212529"/>
                         <TextBlock x:Name="nombreTxt" HorizontalAlignment="Left" Margin="20,0,0,20" Text="Nombre del producto" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="16" Foreground="#a1a1a1"/>
                         <TextBlock HorizontalAlignment="Left" Margin="20,0,0,10" Text="Vendedor" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="16" Foreground="#212529"/>
-                        <HyperlinkButton x:Name="vendedorBtn" Margin="20,0,0,20" HorizontalContentAlignment="Left" FontSize="16" Padding="0" Click="NavigatePerfilVendedor">
+                        <HyperlinkButton x:Name="vendedorBtn" Margin="20,0,0,20" HorizontalContentAlignment="Left" FontSize="16" Padding="0" Click="NavigatePerfil">
                             <TextBlock x:Name="nombreVendedor"  Text="Nombre de vendedor" Foreground="#3A84FD"/>
                         </HyperlinkButton>
                         <TextBlock HorizontalAlignment="Left" Margin="20,0,0,10" Text="Precio actual" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="16" Foreground="#212529"/>

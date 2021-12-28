@@ -138,9 +138,18 @@ namespace ProyectoFinal.UWP.Views
 
 
 
-        private void NavigatePerfilVendedor(object sender, RoutedEventArgs e)
+        private void NavigatePerfil(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PerfilPage), subasta.UsuarioID);
+            if(subasta.UsuarioID == smartsell.CurrentUser.ID)
+            {
+                this.Frame.Navigate(typeof(PerfilPage), null);
+            }
+            else
+            {
+                this.Frame.Navigate(typeof(PerfilVendedor), subasta.UsuarioID);
+            }
+
+            
         }
 
 
