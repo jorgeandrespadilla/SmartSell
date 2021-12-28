@@ -90,7 +90,7 @@
                                             </StackPanel>
                                             <TextBlock Text="{Binding Fecha}"  FontSize="16" Foreground="#6c757d" HorizontalAlignment="Right"></TextBlock>
                                         </StackPanel>
-                                        
+
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -111,6 +111,13 @@
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
                         </ListView>
+                    </Grid>
+                    <Grid HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="PrevButton" Content="Anterior" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="0,0,20,0" />
+                            <TextBlock Text="Cantidad de paginas" VerticalAlignment="Center" x:Name="cantPaginas"  Foreground="#6c757d"></TextBlock>
+                            <Button x:Name="NextButton" Content="Siguiente" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="20,0,0,0" />
+                        </StackPanel>
                     </Grid>
                 </StackPanel>
             </Grid>
