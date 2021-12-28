@@ -25,18 +25,22 @@
         IsSettingsVisible="False"
         PaneDisplayMode="Top"
         Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+        <winui:NavigationView.PaneHeader>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Padding="10,0">
+                <Image Source="/Assets/Logo/Logo.png" Width="30" Height="30" Margin="10,0"></Image>
+                <TextBlock Text="SmartSell" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="20"></TextBlock>
+            </StackPanel>
+        </winui:NavigationView.PaneHeader>
+
         <winui:NavigationView.MenuItems>
-            <!--
-            TODO WTS: Change the symbols for each item as appropriate for your app
-            More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
-            Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/release/docs/UWP/projectTypes/navigationpane.md
-            Edit String/en-US/Resources.resw: Add a menu item title for each page
-            -->
             <winui:NavigationViewItem x:Uid="Shell_IndexSubastas" helpers:NavHelper.NavigateTo="views:IndexSubastasPage" />
             <winui:NavigationViewItem x:Uid="Shell_IndexOfertas" helpers:NavHelper.NavigateTo="views:IndexOfertasPage" />
-            <winui:NavigationViewItem x:Uid="Shell_Perfil" helpers:NavHelper.NavigateTo="views:PerfilPage" x:Name="UserOption" Content="{x:Bind SmartSell.UserName, Mode=OneWay}"/>
-            <winui:NavigationViewItem helpers:NavHelper.NavigateTo="views:Login"  Content="Cerrar Sesión"/>
+            
         </winui:NavigationView.MenuItems>
+        <winui:NavigationView.FooterMenuItems>
+            <winui:NavigationViewItem x:Uid="Shell_Perfil" helpers:NavHelper.NavigateTo="views:PerfilPage" x:Name="UserOption" Content="{x:Bind SmartSell.UserName, Mode=OneWay}" Icon="contact"/>
+            <winui:NavigationViewItem helpers:NavHelper.NavigateTo="views:Login"  Content="Cerrar Sesión" Background="LightGray"/>
+        </winui:NavigationView.FooterMenuItems>
         <i:Interaction.Behaviors>
             <ic:EventTriggerBehavior EventName="ItemInvoked">
                 <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
