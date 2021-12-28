@@ -28,7 +28,7 @@
                             </ResourceDictionary>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="editarbtn" Margin="10,0,0,0" Content="Editar" FontSize="12" Background="#0d6efd" Foreground="White" BorderBrush="#0d6efd" >
+                    <Button x:Name="editarbtn" Margin="10,0,0,0" Content="Editar" FontSize="12" Background="#0d6efd" Foreground="White" BorderBrush="#0d6efd" Click="EditarHandlerBtn" >
                         <Button.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>

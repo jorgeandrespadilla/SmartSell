@@ -54,15 +54,16 @@ namespace ProyectoFinal.UWP.Views
             {
                 await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
             }
-            
+
         }
 
         public async void CargarInformacion(int id)
         {
-            subasta = await smartsell.GetSubasta(id);
-            comentarios = smartsell.ComentariosDtoToComentarios(subasta.Comentarios);
             try
             {
+
+                subasta = await smartsell.GetSubasta(id);
+                comentarios = smartsell.ComentariosDtoToComentarios(subasta.Comentarios);
                 if (subasta.Vigente)
                 {
                     if (subasta.UsuarioID == smartsell.CurrentUser.ID)
@@ -131,10 +132,10 @@ namespace ProyectoFinal.UWP.Views
             catch (Exception ex)
             {
                 await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
-            } 
+            }
         }
 
-      
+
 
 
         private void NavigatePerfilVendedor(object sender, RoutedEventArgs e)
@@ -142,7 +143,7 @@ namespace ProyectoFinal.UWP.Views
             this.Frame.Navigate(typeof(PerfilPage), subasta.UsuarioID);
         }
 
-        
+
 
         private void EditarSubastaHandlerButton(object sender, RoutedEventArgs e)
         {
@@ -201,17 +202,29 @@ namespace ProyectoFinal.UWP.Views
 
         private async void EliminarComentarioHandlerBtn(object sender, RoutedEventArgs e)
         {
-            var result = await Dialog.ConfirmationMessage("Eliminar comentario", "¿Seguro que desea eliminar el comentario?").ShowAsync();
-            if ((int)result.Id == 1)
+            HyperlinkButton link = e.OriginalSource as HyperlinkButton;
+            Comentario comentario = link.DataContext as Comentario;
+            try
             {
-                //await smartsell.DeleteComentario(subasta.SubastaID); Agregar ID de comentario?
-                CargarInformacion(subasta.SubastaID);
+                var result = await Dialog.ConfirmationMessage("Eliminar comentario", "¿Seguro que desea eliminar el comentario?").ShowAsync();
+                if ((int)result.Id == 1)
+                {
+                    await smartsell.DeleteComentario(comentario.ComentarioID);
+                    CargarInformacion(subasta.SubastaID);
+                }
             }
+            catch (Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
+
         }
 
         private void EditarComentarioHandlerBtn(object sender, RoutedEventArgs e)
         {
-            //this.Frame.Navigate(typeof(EditarComentario), null);Agregar ID de comentario?
+            HyperlinkButton link = e.OriginalSource as HyperlinkButton;
+            Comentario comentario = link.DataContext as Comentario;
+            this.Frame.Navigate(typeof(EditarComentario), comentario.ComentarioID);
         }
     }
 

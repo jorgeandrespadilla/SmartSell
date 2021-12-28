@@ -27,7 +27,7 @@ namespace ProyectoFinal.UWP.Views
     public sealed partial class Editar : Page
     {
         private SmartSell smartsell = SmartSell.Instance;
-        
+
 
         public Editar()
         {
@@ -37,10 +37,18 @@ namespace ProyectoFinal.UWP.Views
 
         private async void CargarInformacion()
         {
-            PerfilDto usuario = await smartsell.GetPerfil();
-            nombresTxt.Text = usuario.Nombres;
-            apellidosTxt.Text = usuario.Apellidos;
-            correoTxt.Text = usuario.Correo;
+            try
+            {
+                PerfilDto usuario = await smartsell.GetPerfil();
+                nombresTxt.Text = usuario.Nombres;
+                apellidosTxt.Text = usuario.Apellidos;
+                correoTxt.Text = usuario.Correo;
+            }
+            catch (Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
+
         }
 
         private async void ConfirmarBtnHandler(object sender, RoutedEventArgs e)
@@ -61,7 +69,7 @@ namespace ProyectoFinal.UWP.Views
             {
                 await Dialog.InfoMessage("Registro fallido", ex.Message).ShowAsync();
             }
-            
+
         }
 
         private void CancelarHandleButton(object sender, RoutedEventArgs e)

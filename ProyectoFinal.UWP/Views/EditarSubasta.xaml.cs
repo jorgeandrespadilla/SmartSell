@@ -40,16 +40,33 @@ namespace ProyectoFinal.UWP.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            subasta = await smartsell.GetSubasta(Int32.Parse(e.Parameter.ToString()));
-            CargarInformacion();
+            try
+            {
+                subasta = await smartsell.GetSubasta(Int32.Parse(e.Parameter.ToString()));
+                CargarInformacion();
+            }
+            catch(Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
+
         }
 
         private async void CargarInformacion()
         {
-            BitmapImage image = await UriImage.UriToBitmapImage(subasta.UriImagen);
-            imagenProducto.Source = image;
-            nombreTxt.Text = subasta.NombreProducto;
-            descripcionTxt.Text = subasta.DescripcionProducto;
+            try
+            {
+                BitmapImage image = await UriImage.UriToBitmapImage(subasta.UriImagen);
+                imagenProducto.Source = image;
+                nombreTxt.Text = subasta.NombreProducto;
+                descripcionTxt.Text = subasta.DescripcionProducto;
+            }
+            catch (Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+
+            }
+
         }
 
         private async void cargarBtn_Click(object sender, RoutedEventArgs e)

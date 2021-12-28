@@ -415,7 +415,8 @@ namespace ProyectoFinal.Web.Controllers
                     comentario.UsuarioID,
                     $"{comentario.Usuario.Nombres} {comentario.Usuario.Apellidos}",
                     comentario.Descripcion,
-                    comentario.FechaCreacion
+                    comentario.FechaCreacion,
+                    comentario.SubastaID
                 ));
             }
             comentariosDto = comentariosDto.OrderByDescending(o => o.FechaCreacion).ToList();
@@ -516,7 +517,8 @@ namespace ProyectoFinal.Web.Controllers
                 comentario.UsuarioID,
                 $"{comentario.Usuario.Nombres} {comentario.Usuario.Apellidos}",
                 comentario.Descripcion,
-                comentario.FechaCreacion
+                comentario.FechaCreacion,
+                comentario.SubastaID
             ));
         }
         // ComentarioDto

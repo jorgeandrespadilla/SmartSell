@@ -546,7 +546,7 @@ namespace ProyectoFinal.UWP.Infrastructure
 
         public async Task<ComentarioDto> GetComentario(int id)
         {
-            string url = $"PerfilOfertas/{id}";
+            string url = $"Comentario/{id}";
             HttpResponseMessage response = await client.GetAsync(url);
             string content = response.Content.ReadAsStringAsync().Result;
             if (!response.IsSuccessStatusCode)

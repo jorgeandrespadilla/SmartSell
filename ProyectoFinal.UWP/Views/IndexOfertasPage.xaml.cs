@@ -56,8 +56,15 @@ namespace ProyectoFinal.UWP.Views
 
         private async void BuscarHandlerBtn(object sender, RoutedEventArgs e)
         {
-            ofertasCargadas = await smartsell.GetOfertas(searchString:buscarTxt.Text);
-            CargarOfertas();
+            try
+            {
+                ofertasCargadas = await smartsell.GetOfertas(searchString: buscarTxt.Text);
+                CargarOfertas();
+            }
+            catch(Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
         }
     }
 }

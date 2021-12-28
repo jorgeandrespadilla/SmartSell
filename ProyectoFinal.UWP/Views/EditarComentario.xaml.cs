@@ -1,4 +1,7 @@
-﻿using ProyectoFinal.UWP.Helpers;
+﻿using ProyectoFinal.Shared.Dto;
+using ProyectoFinal.UWP.Helpers;
+using ProyectoFinal.UWP.Infrastructure;
+using ProyectoFinal.UWP.Infrastructure.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,14 +26,62 @@ namespace ProyectoFinal.UWP.Views
     /// </summary>
     public sealed partial class EditarComentario : Page
     {
+
+        private SmartSell smartSell = SmartSell.Instance;
+        private ComentarioDto comentario;
+
         public EditarComentario()
         {
             this.InitializeComponent();
         }
 
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            try
+            {
+                CargarInformacion(Int32.Parse(e.Parameter.ToString()));
+            }
+            catch (Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
+
+        }
+
+
+        private async void CargarInformacion(int id)
+        {
+            try
+            {
+                comentario = await smartSell.GetComentario(id);
+                descripcionTxt.Text = comentario.Descripcion;
+            }catch(Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
+            
+        }
+
+
+
         private void CancelarHandlerBtn(object sender, RoutedEventArgs e)
         {
             ReturnNavHelper.TryGoBack();
+        }
+
+        private async void EditarHandlerBtn(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await smartSell.EditComentario(comentario.ComentarioID, descripcionTxt.Text);
+                await Dialog.InfoMessage("Registro exitoso", "Cambio de información con éxito.").ShowAsync();
+                this.Frame.Navigate(typeof(DetailsSubasta), comentario.SubastaID);
+            }
+            catch(Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+            }
         }
     }
 }

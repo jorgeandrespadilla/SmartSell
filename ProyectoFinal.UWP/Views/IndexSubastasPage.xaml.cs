@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media;
 using System.Threading.Tasks;
+using ProyectoFinal.UWP.Infrastructure.Helpers;
 
 namespace ProyectoFinal.UWP.Views
 {
@@ -120,29 +121,36 @@ namespace ProyectoFinal.UWP.Views
 
         private async Task ObtenerSubastas()
         {
-            if (mode == "MisSubastas")
+            try
             {
-                var resp = await smartSell.GetSubastas(
-                    searchString: buscarTxt.Text,
-                    showAll: "false",
-                    hideMySubastas: "false",
-                    hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(),
-                    sortOrder: filtroSeleccionado
-                );
-                results = resp;
-            }
-            else
+                if (mode == "MisSubastas")
+                {
+                    var resp = await smartSell.GetSubastas(
+                        searchString: buscarTxt.Text,
+                        showAll: "false",
+                        hideMySubastas: "false",
+                        hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(),
+                        sortOrder: filtroSeleccionado
+                    );
+                    results = resp;
+                }
+                else
+                {
+                    var resp = await smartSell.GetSubastas(
+                        searchString: buscarTxt.Text,
+                        hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(),
+                        showAll: "true",
+                        hideMySubastas: ocultarMisSubastas.IsChecked.ToString().ToLower(),
+                        sortOrder: filtroSeleccionado
+                    );
+                    results = resp;
+                }
+                CargarSubastas();
+            }catch(Exception ex)
             {
-                var resp = await smartSell.GetSubastas(
-                    searchString: buscarTxt.Text,
-                    hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(),
-                    showAll: "true",
-                    hideMySubastas: ocultarMisSubastas.IsChecked.ToString().ToLower(),
-                    sortOrder: filtroSeleccionado
-                );
-                results = resp;
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
             }
-            CargarSubastas();
+
         }
     }
 }
