@@ -4,10 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:StringFormatConverter x:Key="formatter"/>
+    </Page.Resources>
+    
     <Grid x:Name="ContentArea" Background="white">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <Grid Margin="80,20">
                 <StackPanel>
                     <Grid>
@@ -70,16 +76,21 @@
                         </Grid>
                     </StackPanel>
                     <Grid HorizontalAlignment="Left" Padding="0,20,0,0">
-                        <ListView x:Name="subastas" ItemClick ="subastas_SelectionChanged" HorizontalAlignment="Left" IsItemClickEnabled="True">
+                        <ListView x:Name="subastas" ItemClick ="subastas_SelectionChanged" HorizontalAlignment="Left" IsItemClickEnabled="True" >
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">
-                                        <Grid MaxHeight="600" HorizontalAlignment="Center" Padding="20,2">
-                                            <Image Source="{Binding Imagen}" VerticalAlignment="Stretch" Stretch="fill"></Image>
+                                        <Grid MaxHeight="400" HorizontalAlignment="Center">
+                                            <Image Source="{Binding Imagen}" VerticalAlignment="Center" HorizontalAlignment="Center"  Stretch="UniformToFill"></Image>
                                         </Grid>
-                                        <TextBlock Text="{Binding NombreProducto}" Margin="20,3"></TextBlock>
-                                        <TextBlock Text="{Binding MontoActual}" Margin="20,3"></TextBlock>
-                                        <TextBlock Text="{Binding Fecha}" Margin="20,3" HorizontalAlignment="Right"></TextBlock>
+                                        <StackPanel Padding="10">
+                                            <TextBlock Text="{Binding NombreProducto}" FontSize="20" FontWeight="SemiBold" Padding="0,0,0,10"></TextBlock>
+                                            <StackPanel Background="#0D6EFD" HorizontalAlignment="Left" CornerRadius="12" >
+                                                <TextBlock Text="{Binding MontoActual}" Margin="10,4" FontSize="16" Foreground="White" FontWeight="SemiBold"></TextBlock>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding Fecha}"  FontSize="16" Foreground="#6c757d" HorizontalAlignment="Right"></TextBlock>
+                                        </StackPanel>
+                                        
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -89,9 +100,9 @@
                                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
                                     <Setter Property="BorderBrush" Value="#c3c6c9"/>
                                     <Setter Property="BorderThickness" Value="1"/>
-                                    <Setter Property="Margin" Value="0,0,20,20"/>
+                                    <Setter Property="Margin" Value="10"/>
                                     <Setter Property="MaxHeight" Value="700"/>
-                                    <Setter Property="MaxWidth" Value="400"/>
+                                    <Setter Property="MaxWidth" Value="380"/>
                                 </Style>
                             </ListView.ItemContainerStyle>
                             <ListView.ItemsPanel>
