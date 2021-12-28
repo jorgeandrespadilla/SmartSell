@@ -38,12 +38,13 @@
                                         <Viewbox MaxHeight="50" MaxWidth="50">
                                             <SymbolIcon Symbol="Contact" Foreground="White"/>
                                         </Viewbox>
-                                        <TextBlock x:Name="nombreCompletoTxt" Text="Nombre de usuario" Margin="0,20,0,0" FontWeight="SemiBold" FontSize="20" Foreground="White" Width="255" TextAlignment="Center"/>
+                                        <TextBlock x:Name="nombreCompletoTxt" Text="Nombre de usuario" Margin="0,20,0,0" FontWeight="SemiBold" FontSize="24
+                                                   " Foreground="White" Width="255" TextAlignment="Center"/>
                                     </StackPanel>
                                 </Grid>
                                 <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" Visibility="Visible" x:Name="ratingWrapper">
                                     <Viewbox Width="300" Visibility="Visible">
-                                        <RatingControl x:Name="ratingUsuarioBtn" Height="25"/>
+                                        <RatingControl x:Name="ratingUsuarioBtn" Height="24"/>
                                     </Viewbox>
                                     <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd" Click="EnviarRatingHandlerButton"  x:Name="enviarRatingBtn" HorizontalAlignment="Center">
                                         <Button.Resources>
@@ -56,12 +57,13 @@
                                                 </ResourceDictionary.ThemeDictionaries>
                                             </ResourceDictionary>
                                         </Button.Resources>
-                                        <TextBlock Text="Enviar" FontSize="20"></TextBlock>
+                                        <TextBlock Text="Enviar" FontSize="16"></TextBlock>
                                     </Button>
                                 </StackPanel>
                             </Grid>
                             <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30">
-                                <TextBlock Text="Información" FontWeight="SemiBold" Margin="0,0,0,30" FontSize="20" Foreground="Black"/>
+                                <TextBlock Text="Información" FontWeight="SemiBold" Margin="0,0,0,30" FontSize="24
+                                           " Foreground="Black"/>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20" VerticalAlignment="Stretch">
                                     <Grid HorizontalAlignment="Center" Width="500">
                                         <Grid.ColumnDefinitions>
@@ -69,12 +71,12 @@
                                             <ColumnDefinition Width="0.3*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Grid.Column="0" Orientation="Vertical">
-                                            <TextBlock Text="Nombres" FontWeight="SemiBold" FontSize="20" Foreground="Black" Margin="0,0,0,10" />
-                                            <TextBlock x:Name="nombresTxt" Text="Nombres"  FontWeight="SemiBold" FontSize="20" Foreground="#a1a1a1"/>
+                                            <TextBlock Text="Nombres" FontWeight="SemiBold" FontSize="16" Foreground="Black" Margin="0,0,0,10" />
+                                            <TextBlock x:Name="nombresTxt" Text="Nombres"  FontWeight="SemiBold" FontSize="16" Foreground="#a1a1a1"/>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1" Orientation="Vertical">
-                                            <TextBlock Text="Apellidos"  FontWeight="SemiBold" FontSize="20" Foreground="Black" Margin="0,0,0,10"/>
-                                            <TextBlock x:Name="apellidosTxt" Text="Apellidos" FontWeight="SemiBold" FontSize="20" Foreground="#a1a1a1"/>
+                                            <TextBlock Text="Apellidos"  FontWeight="SemiBold" FontSize="16" Foreground="Black" Margin="0,0,0,10"/>
+                                            <TextBlock x:Name="apellidosTxt" Text="Apellidos" FontWeight="SemiBold" FontSize="16" Foreground="#a1a1a1"/>
                                         </StackPanel>
                                     </Grid>
                                 </StackPanel>
@@ -85,12 +87,12 @@
                                             <ColumnDefinition Width="0.3*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Grid.Column="0" Orientation="Vertical" Width="479">
-                                            <TextBlock Text="Correo"  FontWeight="SemiBold" FontSize="20" Foreground="Black" Margin="0,0,0,10" />
-                                            <TextBlock x:Name="correoTxt" Text="Correo"  FontWeight="SemiBold" FontSize="20" Foreground="#a1a1a1"/>
+                                            <TextBlock Text="Correo"  FontWeight="SemiBold" FontSize="16" Foreground="Black" Margin="0,0,0,10" />
+                                            <TextBlock x:Name="correoTxt" Text="Correo"  FontWeight="SemiBold" FontSize="16" Foreground="#a1a1a1"/>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1" Orientation="Vertical">
-                                            <TextBlock Text="Calificación"  FontWeight="SemiBold" FontSize="20" Foreground="Black" Margin="0,0,0,10"/>
-                                            <TextBlock x:Name="calificacionTxt" Text="Calificacion"  FontWeight="SemiBold" FontSize="20" Foreground="#a1a1a1"/>
+                                            <TextBlock Text="Calificación"  FontWeight="SemiBold" FontSize="16" Foreground="Black" Margin="0,0,0,10"/>
+                                            <TextBlock x:Name="calificacionTxt" Text="Calificacion"  FontWeight="SemiBold" FontSize="16" Foreground="#a1a1a1"/>
                                         </StackPanel>
                                     </Grid>
                                 </StackPanel>
@@ -108,7 +110,7 @@
                                         </ResourceDictionary.ThemeDictionaries>
                                     </ResourceDictionary>
                                 </Button.Resources>
-                                <TextBlock Text="Eliminar" x:Name="eliminarBtn" FontSize="20"></TextBlock>
+                                <TextBlock Text="Eliminar" x:Name="eliminarBtn" FontSize="16"></TextBlock>
                             </Button>
                             <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd" Click="EditarButtonHandler"  x:Name="editarBtn">
                                 <Button.Resources>
@@ -121,17 +123,17 @@
                                         </ResourceDictionary.ThemeDictionaries>
                                     </ResourceDictionary>
                                 </Button.Resources>
-                                <TextBlock Text="Editar" FontSize="20"></TextBlock>
+                                <TextBlock Text="Editar" FontSize="16"></TextBlock>
                             </Button>
                         </StackPanel>
                         <muxc:TabView x:Name="opSelected" CanDragTabs="False" CanReorderTabs="False" AllowFocusOnInteraction="False" IsAddTabButtonVisible="false"  Margin="100,0,100,0" SelectionChanged="ActualizarTabla" HorizontalAlignment="Left">
                             <muxc:TabView.TabItems>
-                                <muxc:TabViewItem Header="Subastas actuales" IsClosable="False">
+                                <muxc:TabViewItem Header="Subastas actuales" IsClosable="False" FontSize="16" FontWeight="Bold">
                                     <muxc:TabViewItem.IconSource>
                                         <muxc:BitmapIconSource UriSource="/Assets/TabViewIcons/cmd.png" ShowAsMonochrome="False" />
                                     </muxc:TabViewItem.IconSource>
                                 </muxc:TabViewItem>
-                                <muxc:TabViewItem Header="Subastas ganadas" IsClosable="False">
+                                <muxc:TabViewItem Header="Subastas ganadas" IsClosable="False" FontWeight="Bold">
                                     <muxc:TabViewItem.IconSource>
                                         <muxc:BitmapIconSource UriSource="/Assets/TabViewIcons/powershell.png" ShowAsMonochrome="False" />
                                     </muxc:TabViewItem.IconSource>
@@ -151,9 +153,9 @@
                                             <ColumnDefinition Width="0.3*"/>
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Orientation="Horizontal" Background="#2D2D2D" Padding="10,8" Grid.ColumnSpan="3">
-                                            <TextBlock Text="Subasta" Width="400"  Foreground="White" FontWeight="SemiBold" />
-                                            <TextBlock  Text="Monto" Width="400"   Foreground="White" FontWeight="SemiBold" />
-                                            <TextBlock Text="Fecha de creación" Width="400" Foreground="White" FontWeight="SemiBold" />
+                                            <TextBlock Text="Subasta" Width="400" FontSize="16" Foreground="White" FontWeight="SemiBold" />
+                                            <TextBlock  Text="Monto" Width="400" FontSize="16" Foreground="White" FontWeight="SemiBold" />
+                                            <TextBlock Text="Fecha de creación" Width="400" FontSize="16" Foreground="White" FontWeight="SemiBold" />
                                         </StackPanel>
                                     </Grid>
                                 </ListView.Header>
