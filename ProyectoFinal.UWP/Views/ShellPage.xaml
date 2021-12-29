@@ -33,13 +33,13 @@
         </winui:NavigationView.PaneHeader>
 
         <winui:NavigationView.MenuItems>
-            <winui:NavigationViewItem x:Uid="Shell_IndexSubastas" helpers:NavHelper.NavigateTo="views:IndexSubastasPage" />
-            <winui:NavigationViewItem x:Uid="Shell_IndexOfertas" helpers:NavHelper.NavigateTo="views:IndexOfertasPage" />
+            <winui:NavigationViewItem x:Uid="Shell_IndexSubastas" helpers:NavHelper.NavigateTo="views:IndexSubastasPage" FontSize="16" />
+            <winui:NavigationViewItem x:Uid="Shell_IndexOfertas" helpers:NavHelper.NavigateTo="views:IndexOfertasPage" FontSize="16" />
             
         </winui:NavigationView.MenuItems>
         <winui:NavigationView.FooterMenuItems>
-            <winui:NavigationViewItem x:Uid="Shell_Perfil" helpers:NavHelper.NavigateTo="views:PerfilPage" x:Name="UserOption" Content="{x:Bind SmartSell.UserName, Mode=OneWay}" Icon="contact"/>
-            <winui:NavigationViewItem helpers:NavHelper.NavigateTo="views:Login"  Content="Cerrar Sesión" Background="LightGray"/>
+            <winui:NavigationViewItem x:Uid="Shell_Perfil" helpers:NavHelper.NavigateTo="views:PerfilPage" FontSize="16" x:Name="UserOption" Content="{x:Bind SmartSell.UserName, Mode=OneWay}" Icon="contact"/>
+            <winui:NavigationViewItem helpers:NavHelper.NavigateTo="views:Login"  Content="Cerrar Sesión" Background="LightGray" FontSize="16"/>
         </winui:NavigationView.FooterMenuItems>
         <i:Interaction.Behaviors>
             <ic:EventTriggerBehavior EventName="ItemInvoked">
