@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using ProyectoFinal.UWP.Helpers;
 using ProyectoFinal.UWP.Converters;
+using System.Globalization;
 
 // La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -125,7 +126,7 @@ namespace ProyectoFinal.UWP.Views
                 {
                     vigenteTxt.Text = "No";
                 }
-                fechaTxt.Text = subasta.Fecha.ToString("dd MMM yyyy, HH:mm");
+                fechaTxt.Text = subasta.Fecha.ToString("dd MMM yyyy, HH:mm", new CultureInfo("es-ES"));
                 OfertasSubasta.ItemsSource = subasta.Ofertas;
                 ComentariosGrid.ItemsSource = comentarios;
 
