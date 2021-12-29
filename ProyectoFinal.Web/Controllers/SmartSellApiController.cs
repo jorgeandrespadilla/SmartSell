@@ -271,12 +271,6 @@ namespace ProyectoFinal.Web.Controllers
             hideEnded = String.IsNullOrEmpty(hideEnded) ? "true" : hideEnded;
             hideMySubastas = string.IsNullOrEmpty(hideMySubastas) && String.Compare(showAll, "true") == 0 ? "true" : hideMySubastas;
 
-            /* Manejar configuración de búsqueda y paginación */
-            if (searchString != null)
-            {
-                page = 1;
-            }
-
             /* Consultar subastas junto con su mayor oferta */
             var subastasQuery = db.Subasta.Where(s => s.Usuario.Activo).GroupJoin(db.Oferta, s => s.SubastaID, o => o.SubastaID, (s, o) => new
             {
@@ -583,11 +577,6 @@ namespace ProyectoFinal.Web.Controllers
         [HttpGet]
         public IHttpActionResult Ofertas(int id, int page = 1, string searchString = null)
         {
-            /* Manejar configuración de búsqueda y paginación */
-            if (searchString != null)
-            {
-                page = 1;
-            }
             var ofertasQuery = db.Oferta.Where(o => o.UsuarioID == id).OrderByDescending(o => o.FechaCreacion).ToList();
             
             /* Manejar cadena de búsqueda */

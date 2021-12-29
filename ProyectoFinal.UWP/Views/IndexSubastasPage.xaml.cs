@@ -26,6 +26,7 @@ namespace ProyectoFinal.UWP.Views
         private SubastasPagedData results;
         private string mode = "TodasSubastas";
         private string filtroSeleccionado = "none";
+        private string searchstring = "";
 
         private int page = 1;
 
@@ -60,6 +61,8 @@ namespace ProyectoFinal.UWP.Views
             todasSubastas.Visibility = Visibility.Visible;
             misSubastas.Visibility = Visibility.Collapsed;
             ocultarMisSubastas.Visibility = Visibility.Collapsed;
+            buscarTxt.Text = "";
+            searchstring = buscarTxt.Text;
 
             mode = "MisSubastas";
 
@@ -71,6 +74,8 @@ namespace ProyectoFinal.UWP.Views
             todasSubastas.Visibility = Visibility.Collapsed;
             misSubastas.Visibility = Visibility.Visible;
             ocultarMisSubastas.Visibility = Visibility.Visible;
+            buscarTxt.Text = "";
+            searchstring = buscarTxt.Text;
 
             ocultarMisSubastas.IsChecked = true;
 
@@ -81,6 +86,12 @@ namespace ProyectoFinal.UWP.Views
 
         private async void BuscarHandlerBtn(object sender, RoutedEventArgs e)
         {
+            /* Manejar configuración de búsqueda y paginación */
+            if (buscarTxt.Text != null && buscarTxt.Text != searchstring)
+            {
+                page = 1;
+            }
+            searchstring = buscarTxt.Text;
             await ObtenerSubastas();
         }
 
@@ -143,7 +154,7 @@ namespace ProyectoFinal.UWP.Views
                 {
                     var resp = await smartSell.GetSubastas(
                         page: page,
-                        searchString: buscarTxt.Text,
+                        searchString: searchstring,
                         showAll: "false",
                         hideMySubastas: "false",
                         hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(),
@@ -155,7 +166,7 @@ namespace ProyectoFinal.UWP.Views
                 {
                     var resp = await smartSell.GetSubastas(
                         page: page,
-                        searchString: buscarTxt.Text,
+                        searchString: searchstring,
                         hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(),
                         showAll: "true",
                         hideMySubastas: ocultarMisSubastas.IsChecked.ToString().ToLower(),

@@ -24,6 +24,7 @@ namespace ProyectoFinal.UWP.Views
 
         private int page = 1;
 
+        private string searchstring = "";
 
         public IndexOfertasPage()
         {
@@ -71,6 +72,12 @@ namespace ProyectoFinal.UWP.Views
 
         private async void BuscarHandlerBtn(object sender, RoutedEventArgs e)
         {
+            /* Manejar configuración de búsqueda y paginación */
+            if (buscarTxt.Text != null && buscarTxt.Text != searchstring)
+            {
+                page = 1;
+            }
+            searchstring = buscarTxt.Text;
             await ObtenerOfertas();
         }
 
@@ -79,7 +86,7 @@ namespace ProyectoFinal.UWP.Views
             try
             {
                 LoadingControl.IsEnabled = true;
-                var resp = await smartsell.GetOfertas(page: page, searchString: buscarTxt.Text);
+                var resp = await smartsell.GetOfertas(page: page, searchString: searchstring);
                 ofertasCargadas = resp;
                 CargarOfertas();
             }
