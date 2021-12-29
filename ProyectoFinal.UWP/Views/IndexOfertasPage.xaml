@@ -6,9 +6,15 @@
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:customConverters="using:ProyectoFinal.UWP.Converters"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    
+
+    <Page.Resources>
+        <customConverters:CurrencyConverter x:Key="currencyConverter" />
+        <customConverters:DateTimeConverter x:Key="dateTimeConverter" />
+    </Page.Resources>
+
     <Grid x:Name="ContentArea">
         <ScrollViewer>
             <Grid Margin="80,20">
@@ -57,8 +63,8 @@
                                             <ColumnDefinition Width="0.15*"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="{Binding Nombre}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding Monto}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                                        <TextBlock Grid.Column="2" Text="{Binding Fecha}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Monto, Converter={StaticResource currencyConverter}}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Fecha, Converter={StaticResource dateTimeConverter}}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Grid.Column="3">
                                             <HyperlinkButton x:Name="verSubastaBtn"  HorizontalAlignment="Left" Click="VerSubastaHandlerBtn">
                                                 <TextBlock Text="Ver subasta" FontSize="16"/>
@@ -76,9 +82,9 @@
                     </Grid>
                     <Grid HorizontalAlignment="Center" Padding="0,20,0,0">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="PrevButton" Content="Anterior" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="0,0,20,0" />
-                            <TextBlock Text="Cantidad de paginas" VerticalAlignment="Center" x:Name="cantPaginas"  Foreground="#6c757d"></TextBlock>
-                            <Button x:Name="NextButton" Content="Siguiente" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="20,0,0,0" />
+                            <Button x:Name="PrevButton" Content="Anterior" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="0,0,20,0" FontSize="16"/>
+                            <TextBlock Text="Página * de *" VerticalAlignment="Center" x:Name="cantPaginas"  Foreground="#6c757d" FontSize="16"></TextBlock>
+                            <Button x:Name="NextButton" Content="Siguiente" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="20,0,0,0" FontSize="16" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>

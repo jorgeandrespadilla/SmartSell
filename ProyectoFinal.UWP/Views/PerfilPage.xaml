@@ -9,8 +9,15 @@
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:customConverters="using:ProyectoFinal.UWP.Converters"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <customConverters:CurrencyConverter x:Key="currencyConverter" />
+        <customConverters:DateTimeConverter x:Key="dateTimeConverter" />
+    </Page.Resources>
+
     <Grid x:Name="ContentArea">
         <Grid HorizontalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
