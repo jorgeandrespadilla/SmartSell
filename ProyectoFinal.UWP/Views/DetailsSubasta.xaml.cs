@@ -236,6 +236,21 @@ namespace ProyectoFinal.UWP.Views
             Comentario comentario = link.DataContext as Comentario;
             this.Frame.Navigate(typeof(EditarComentario), comentario.ComentarioID);
         }
+
+        private void VerUsuarioHandlerBtn(object sender, RoutedEventArgs e)
+        {
+            HyperlinkButton link = e.OriginalSource as HyperlinkButton;
+            OfertaDto oferta = link.DataContext as OfertaDto;
+            if (oferta.UsuarioID == smartsell.CurrentUser.ID)
+            {
+                this.Frame.Navigate(typeof(PerfilPage), null);
+            }
+            else
+            {
+                this.Frame.Navigate(typeof(PerfilVendedor), oferta.UsuarioID);
+            }
+            
+        }
     }
 
 
