@@ -7,21 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid>
+    <Grid HorizontalAlignment="Stretch">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="1500" MinHeight="600">
-                <TextBlock HorizontalAlignment="Left" Margin="85,92,0,0" Text="Editar usuario" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
-                <NavigationViewItemSeparator HorizontalAlignment="Stretch" Margin="70,0,0,0" BorderThickness="2" BorderBrush="Gray" Height="25"></NavigationViewItemSeparator>
-                <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Nombres" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
-                <TextBox x:Name="nombresTxt" HorizontalAlignment="Left" Margin="85,20,0,0" Text="" IsSpellCheckEnabled="False" MinWidth="150" Width="200"/>
-                <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Apellidos" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
-                <TextBox x:Name="apellidosTxt" Text="" IsSpellCheckEnabled="False" Margin="85,20,0,0"  MinWidth="150" Width="200" HorizontalAlignment="Left"></TextBox>
-                <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Correo" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
-                <TextBox x:Name="correoTxt" Text="" IsSpellCheckEnabled="False" Margin="85,20,0,0"  MinWidth="150" Width="200" HorizontalAlignment="Left"></TextBox>
-                <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Contraseña" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
-                <PasswordBox x:Name="pwdTxt" Margin="85,20,0,0"  MinWidth="150" Width="200" HorizontalAlignment="Left"></PasswordBox>
+            <StackPanel Orientation="Vertical" Margin="80,20">
+                <TextBlock HorizontalAlignment="Left" Text="Editar usuario" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
+                <NavigationViewItemSeparator HorizontalAlignment="Stretch" Margin="0,0,0,10" BorderThickness="2" BorderBrush="Gray" Height="25"></NavigationViewItemSeparator>
+                <TextBlock HorizontalAlignment="Left" Margin="0,20,0,10" Text="Nombres" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
+                <TextBox x:Name="nombresTxt" HorizontalAlignment="Left" Margin="0,20,0,10" Text="" IsSpellCheckEnabled="False"  Width="250" FontSize="16"/>
+                <TextBlock HorizontalAlignment="Left" Margin="0,20,0,10" Text="Apellidos" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
+                <TextBox x:Name="apellidosTxt" Text="" IsSpellCheckEnabled="False" Margin="0,20,0,10"  MinWidth="150" Width="250" HorizontalAlignment="Left" FontSize="16"></TextBox>
+                <TextBlock HorizontalAlignment="Left" Margin="0,20,0,10" Text="Correo" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
+                <TextBox x:Name="correoTxt" Text="" IsSpellCheckEnabled="False" Margin="0,20,0,10"  MinWidth="150" Width="250" HorizontalAlignment="Left" FontSize="16"></TextBox>
+                <TextBlock HorizontalAlignment="Left" Margin="0,20,0,10" Text="Contraseña" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
+                <PasswordBox x:Name="pwdTxt" Margin="0,20,0,10"  MinWidth="150" Width="250" HorizontalAlignment="Left"></PasswordBox>
                 <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
-                    <Button x:Name="cancelarBtn" Margin="80,0,0,0" Content="Cancelar" FontSize="12" Background="Gray" Foreground="White" Click="CancelarHandleButton" >
+                    <Button x:Name="cancelarBtn" Content="Cancelar" FontSize="16" Padding="25,8" Background="Gray" Foreground="White" Click="CancelarHandleButton" >
                         <Button.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>
@@ -33,7 +33,7 @@
                             </ResourceDictionary>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="confirmarBtn" Margin="10,0,0,0" Content="Guardar" FontSize="12"  Style="{StaticResource AccentButtonStyle}" Click="ConfirmarBtnHandler" ></Button>
+                    <Button x:Name="confirmarBtn" Margin="10,0,0,0" Content="Guardar" FontSize="16" Padding="25,8" Style="{StaticResource AccentButtonStyle}" Click="ConfirmarBtnHandler" ></Button>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

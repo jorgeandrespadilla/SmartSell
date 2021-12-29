@@ -207,7 +207,7 @@ namespace ProyectoFinal.UWP.Views
 
         private void Volver(object sender, RoutedEventArgs e)
         {
-            ReturnNavHelper.TryGoBack();
+            this.Frame.Navigate(typeof(IndexOfertasPage), null);
         }
 
         private async void EliminarComentarioHandlerBtn(object sender, RoutedEventArgs e)

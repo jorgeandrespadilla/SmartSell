@@ -8,43 +8,32 @@
     x:Class="ProyectoFinal.UWP.Views.CrearSubasta"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="1500" MinHeight="600">
-                <TextBlock HorizontalAlignment="Left" Margin="85,92,0,0" Text="Crear subasta" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
-                <NavigationViewItemSeparator HorizontalAlignment="Stretch" Margin="70,0,0,0" BorderThickness="2" BorderBrush="Gray" Height="25"/>
-                <Grid Margin="70,0,70,20" >
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ScrollViewer>
+            <StackPanel Margin="80,20">
+                <TextBlock HorizontalAlignment="Left" Text="Crear subasta" Margin="20,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="32" Foreground="#212529"/>
+                <NavigationViewItemSeparator HorizontalAlignment="Stretch" Margin="0,0,0,10" BorderThickness="2" BorderBrush="Gray" Height="25"></NavigationViewItemSeparator>
+                <Grid HorizontalAlignment="Stretch" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.5*"/>
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" MaxHeight="600" HorizontalAlignment="Center">
+                    <Grid Grid.Column="0" MaxHeight="600" HorizontalAlignment="Center" Padding="0,0,40,0">
                         <Image x:Name="ImagenProducto" Source="/Assets/Images/missing-img.jpg"/>
                     </Grid>
                     <StackPanel Grid.Column="1" Orientation="Vertical">
-                        <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Nombre de producto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
-                        <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Margin="85,20,0,0" Text="" IsSpellCheckEnabled="False" MinWidth="150" Width="200"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Descripción de producto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
-                        <TextBox x:Name="descripcionTxt" AutomationProperties.Name="multi-line TextBox" TextWrapping="Wrap" Text="" Margin="85,20,0,0"  MinWidth="150" Width="200" HorizontalAlignment="Left" AcceptsReturn="True"  MaxHeight="90"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Imagen" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529" CanBeScrollAnchor="False"/>
-                        <Button x:Name="cargarBtn" Margin="85,20,0,0" Content="Cargar archivo" FontSize="12" Background="#0d6efd" Foreground="White" BorderBrush="#0d6efd" Click="cargarBtn_Click" >
-                            <Button.Resources>
-                                <ResourceDictionary>
-                                    <ResourceDictionary.ThemeDictionaries>
-                                        <ResourceDictionary x:Key="Light">
-                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#0d6efd"/>
-                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="White"/>
-                                        </ResourceDictionary>
-                                    </ResourceDictionary.ThemeDictionaries>
-                                </ResourceDictionary>
-                            </Button.Resources>
-                        </Button>
-                        <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Precio inicial" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
-                        <Custom:NumberBox x:Name="precioTxt" HorizontalAlignment="Left" Margin="85,20,0,0" Text="" MinWidth="150" Width="200"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" Text="Fecha límite" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529"/>
-                        <CalendarDatePicker PlaceholderText="Fecha" Margin="85,20,0,0" x:Name="fechaSelected"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,20,0,5" Text="Nombre de producto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
+                        <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Margin="0,20,0,5" Text="" IsSpellCheckEnabled="False" MinWidth="150" Width="200" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,20,0,5" Text="Descripción de producto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529" />
+                        <TextBox x:Name="descripcionTxt" AutomationProperties.Name="multi-line TextBox" TextWrapping="Wrap" Text="" Margin="0,20,0,5"  MinWidth="150" Width="200" HorizontalAlignment="Left" AcceptsReturn="True" Height="90" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,20,0,5" Text="Imagen" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529" CanBeScrollAnchor="False"/>
+                        <Button x:Name="cargarBtn" Content="Cargar archivo" Margin="0,20,0,5" FontSize="16" Style="{StaticResource AccentButtonStyle}" Click="cargarBtn_Click"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,20,0,5" Text="Precio inicial" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
+                        <Custom:NumberBox x:Name="precioTxt" HorizontalAlignment="Left" Margin="0,20,0,5" Text="" MinWidth="150" Width="200" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,20,0,5" Text="Fecha límite" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
+                        <CalendarDatePicker PlaceholderText="Fecha" Margin="0,20,0,5" x:Name="fechaSelected" FontSize="16"/>
                         <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
-                            <Button x:Name="cancelarBtn" Margin="80,0,0,0" Content="Cancelar" FontSize="12" Background="White" Foreground="#0d6efd" BorderBrush="#0d6efd" Click="CancelarHandlerBtn" >
+                            <Button x:Name="cancelarBtn" Content="Cancelar" Padding="25,8" FontSize="16" Background="White" Foreground="#0d6efd" BorderBrush="#0d6efd" Click="CancelarHandlerBtn" >
                                 <Button.Resources>
                                     <ResourceDictionary>
                                         <ResourceDictionary.ThemeDictionaries>
@@ -56,18 +45,7 @@
                                     </ResourceDictionary>
                                 </Button.Resources>
                             </Button>
-                            <Button x:Name="crearBtn" Margin="10,0,0,0" Content="Crear" FontSize="12" Background="#0d6efd" Foreground="White" BorderBrush="#0d6efd" Click="crearBtn_Click" >
-                                <Button.Resources>
-                                    <ResourceDictionary>
-                                        <ResourceDictionary.ThemeDictionaries>
-                                            <ResourceDictionary x:Key="Light">
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#0d6efd"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="White"/>
-                                            </ResourceDictionary>
-                                        </ResourceDictionary.ThemeDictionaries>
-                                    </ResourceDictionary>
-                                </Button.Resources>
-                            </Button>
+                            <Button x:Name="crearBtn" Content="Crear" Margin="10,0,0,0" Padding="25,8" FontSize="16" Style="{StaticResource AccentButtonStyle}" Click="crearBtn_Click"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
