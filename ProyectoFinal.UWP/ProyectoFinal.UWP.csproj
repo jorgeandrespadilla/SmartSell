@@ -158,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
+    <Compile Include="Converters\CurrencyConverter.cs" />
+    <Compile Include="Converters\DateTimeConverter.cs" />
+    <Compile Include="Converters\EndDateConverter.cs" />
     <Compile Include="Helpers\Dialog.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\ReturnNavHelper.cs" />
