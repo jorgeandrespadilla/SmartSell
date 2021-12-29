@@ -22,13 +22,13 @@
                         <Image x:Name="imagenProducto" Source="/Assets/Images/missing-img.jpg"></Image>
                     </Grid>
                     <StackPanel Grid.Column="1" Orientation="Vertical">
-                        <TextBlock HorizontalAlignment="Left" Margin="0,20,0,10" Text="Nombre de producto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
-                        <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Margin="0,20,0,10" Text="" IsSpellCheckEnabled="False" MinWidth="150" Width="200" FontSize="16"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="0,20,0,10" Text="Descripción de producto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
-                        <TextBox x:Name="descripcionTxt" AutomationProperties.Name="multi-line TextBox" TextWrapping="Wrap" Text="" Margin="0,20,0,10"  Width="200" Height="90" HorizontalAlignment="Left" FontSize="16" AcceptsReturn="True"></TextBox>
-                        <TextBlock HorizontalAlignment="Left" Margin="0,20,0,10" Text="Imagen" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529" CanBeScrollAnchor="False"/>
-                        <Button x:Name="cargarBtn" Content="Cargar archivo" Margin="0,20,0,10" FontSize="16" Style="{StaticResource AccentButtonStyle}" Click="cargarBtn_Click"/>
-                        <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,0,10" Text="Nombre de producto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
+                        <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Margin="0,10,0,10" Text="" IsSpellCheckEnabled="False" MinWidth="150" Width="200" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,0,10" Text="Descripción de producto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
+                        <TextBox x:Name="descripcionTxt" AutomationProperties.Name="multi-line TextBox" TextWrapping="Wrap" Text="" Margin="0,10,0,10"  Width="200" Height="90" HorizontalAlignment="Left" FontSize="16" AcceptsReturn="True"></TextBox>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,0,10" Text="Imagen" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529" CanBeScrollAnchor="False"/>
+                        <Button x:Name="cargarBtn" Content="Cargar archivo" Margin="0,5,0,5" FontSize="16" Style="{StaticResource AccentButtonStyle}" Click="cargarBtn_Click"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                             <Button x:Name="cancelarBtn" Content="Cancelar" FontSize="16" Padding="25,8" Background="White" Foreground="#0d6efd" BorderBrush="#0d6efd" Click="CancelarHandlerBtn">
                                 <Button.Resources>
                                     <ResourceDictionary>

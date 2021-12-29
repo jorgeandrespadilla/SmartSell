@@ -207,7 +207,7 @@ namespace ProyectoFinal.UWP.Views
 
         private void Volver(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(IndexOfertasPage), null);
+            this.Frame.Navigate(typeof(IndexSubastasPage), null);
         }
 
         private async void EliminarComentarioHandlerBtn(object sender, RoutedEventArgs e)

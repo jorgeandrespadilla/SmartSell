@@ -98,5 +98,13 @@ namespace ProyectoFinal.UWP.Views
                 await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
             }
         }
+
+        private void VerSubastaHandlerBtn(object sender, RoutedEventArgs e)
+        {
+            HyperlinkButton link = e.OriginalSource as HyperlinkButton;
+            OfertaDto oferta = link.DataContext as OfertaDto;
+
+            this.Frame.Navigate(typeof(DetailsSubasta), oferta.SubastaID);
+        }
     }
 }

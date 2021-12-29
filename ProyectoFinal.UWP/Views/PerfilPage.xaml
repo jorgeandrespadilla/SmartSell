@@ -141,7 +141,11 @@
                                             <ColumnDefinition Width="0.3*"/>
                                             <ColumnDefinition Width="0.3*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding Nombre}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
+                                        <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Height="50" Grid.Column="0">
+                                            <HyperlinkButton x:Name="verSubastaBtn"  HorizontalAlignment="Left" Click="VerSubastaHandlerBtn">
+                                                <TextBlock Grid.Column="0" Text="{Binding Nombre}" FontSize="16" HorizontalAlignment="Stretch"></TextBlock>
+                                            </HyperlinkButton>
+                                        </Grid>
                                         <TextBlock Grid.Column="1" Text="{Binding Monto}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
                                         <TextBlock Grid.Column="2" Text="{Binding Fecha}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
                                     </Grid>
