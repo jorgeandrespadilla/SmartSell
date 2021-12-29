@@ -18,38 +18,39 @@
             <Setter Property="BorderBrush" Value="#dfdfdf"></Setter>
         </Style>
     </Page.Resources>
-
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
-        <Grid Padding="40">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderBrush="#dfdfdf" BorderThickness="1" CornerRadius="8" Padding="20,40">
-                <Image Height="60" Width="60" Source="/Assets/Logo/Logo.png"/>
-                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold" FontSize="32" Foreground="#212529" Margin="0,12" Text="Inicio de Sesión" />
-                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Text="Correo Electrónico" FontSize="16"/>
-                <TextBox x:Name="userTxt" Text="" IsSpellCheckEnabled="False" ></TextBox>
-                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Text="Contraseña" FontSize="16"/>
-                <PasswordBox x:Name="pwdText"/>
-                <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Foreground="#6c757d" Text="Clave para los usuarios de prueba: 12345678" FontSize="16"/>
-                <Button x:Name="enviarBtn" Content="Ingresar" Margin="0,15" Padding="10,10" MinWidth="500" FontSize="18" Style="{StaticResource AccentButtonStyle}" Click="EnviarBtn_Click"/>
-                <Grid HorizontalAlignment="Center">
-                    <HyperlinkButton x:Name="registroBtn" Content="Registrarse" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="HandleRegistrar" FontSize="16" />
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
+            <Grid Padding="40">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderBrush="#dfdfdf" BorderThickness="1" CornerRadius="8" Padding="20,40">
+                    <Image Height="60" Width="60" Source="/Assets/Logo/Logo.png"/>
+                    <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold" FontSize="32" Foreground="#212529" Margin="0,12" Text="Inicio de Sesión" />
+                    <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Text="Correo Electrónico" FontSize="16"/>
+                    <TextBox x:Name="userTxt" Text="" IsSpellCheckEnabled="False" ></TextBox>
+                    <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Text="Contraseña" FontSize="16"/>
+                    <PasswordBox x:Name="pwdText"/>
+                    <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Foreground="#6c757d" Text="Clave para los usuarios de prueba: 12345678" FontSize="16"/>
+                    <Button x:Name="enviarBtn" Content="Ingresar" Margin="0,15" Padding="10,10" MinWidth="500" FontSize="18" Style="{StaticResource AccentButtonStyle}" Click="EnviarBtn_Click"/>
+                    <Grid HorizontalAlignment="Center">
+                        <HyperlinkButton x:Name="registroBtn" Content="Registrarse" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="HandleRegistrar" FontSize="16" />
+                    </Grid>
+                </StackPanel>
+                <Grid/>
+            </Grid>
+        
+        </ScrollViewer>
+        <my:Loading x:Name="LoadingControl" >
+            <my:Loading.Background>
+                <brushes:AcrylicBrush BackgroundSource="Backdrop"
+                        TintColor="Black"
+                        TintOpacity="0.4"
+                        BlurAmount="8"/>
+            </my:Loading.Background>
+            <StackPanel Orientation="Horizontal" Padding="12">
+                <Grid Height="134" Width="134">
+                    <ProgressBar IsIndeterminate="True"
+                            Foreground="White" />
                 </Grid>
             </StackPanel>
-            <Grid/>
-            <my:Loading x:Name="LoadingControl" >
-                <DataTemplate>
-                    <ProgressBar IsIndeterminate="True" Width="{Binding ElementName=PageName, Path=ActualWidth}"
-                        Foreground="{ThemeResource Brush-Grey-04}" />
-                </DataTemplate>
-                <my:Loading.Background>
-                    <brushes:AcrylicBrush BackgroundSource="Backdrop"
-                    TintColor="Black"
-                    TintOpacity="0.4"
-                    BlurAmount="8"/>
-                </my:Loading.Background>
-            </my:Loading>
-         
-            
-        </Grid>
-    </ScrollViewer>
-    
+        </my:Loading>
+    </Grid>
 </Page>
