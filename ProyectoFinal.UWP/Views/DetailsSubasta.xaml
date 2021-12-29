@@ -131,7 +131,7 @@
                         </ListView.Header>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Height="25">
+                                <Grid Height="30">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="0.3*"/>
                                         <ColumnDefinition Width="0.3*"/>
