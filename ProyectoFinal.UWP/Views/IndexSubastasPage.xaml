@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:customConverters="using:ProyectoFinal.UWP.Converters"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:brushes="using:Microsoft.Toolkit.Uwp.UI.Media"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -123,5 +123,13 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
+        <controls:Loading x:Name="LoadingControl" >
+            <StackPanel Orientation="Horizontal" Padding="12">
+                <Grid Height="134" Width="134">
+                    <ProgressBar IsIndeterminate="True"
+                            Foreground="#0B5ED7" />
+                </Grid>
+            </StackPanel>
+            </controls:Loading>
     </Grid>
 </Page>

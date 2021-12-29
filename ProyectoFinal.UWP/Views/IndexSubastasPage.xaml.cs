@@ -47,6 +47,7 @@ namespace ProyectoFinal.UWP.Views
         {
             SubastaItem subasta = e.ClickedItem as SubastaItem;
             this.Frame.Navigate(typeof(DetailsSubasta), subasta.ID);
+            
         }
 
         private void CrearSubastaHandler(object sender, RoutedEventArgs e)
@@ -137,6 +138,7 @@ namespace ProyectoFinal.UWP.Views
         {
             try
             {
+                LoadingControl.IsLoading = true;
                 if (mode == "MisSubastas")
                 {
                     var resp = await smartSell.GetSubastas(
@@ -166,7 +168,7 @@ namespace ProyectoFinal.UWP.Views
             {
                 await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
             }
-
+            LoadingControl.IsLoading = false;
         }
 
         private async void PrevButton_Click(object sender, RoutedEventArgs e)
