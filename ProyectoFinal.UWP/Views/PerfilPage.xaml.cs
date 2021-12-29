@@ -86,8 +86,12 @@ namespace ProyectoFinal.UWP.Views
         {
             try
             {
-                await smartSell.DeletePerfil();
-                this.Frame.Navigate(typeof(Login), null);
+                var result = await Dialog.ConfirmationMessage("Eliminar Subasta", "¿Seguro que desea eliminar la subasta?").ShowAsync();
+                if ((int)result.Id == 1)
+                {
+                    await smartSell.DeletePerfil();
+                    this.Frame.Navigate(typeof(Login), null);
+                }
             }
             catch (Exception ex)
             {
