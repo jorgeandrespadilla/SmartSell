@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using ProyectoFinal.UWP.Helpers;
+using ProyectoFinal.UWP.Converters;
 
 // La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -113,7 +114,7 @@ namespace ProyectoFinal.UWP.Views
                 imagenProducto.Source = image;
                 nombreTxt.Text = subasta.NombreProducto;
                 nombreVendedor.Text = $"{subasta.NombreVendedor}";
-                precioTxt.Text = subasta.MontoActual.ToString();
+                precioTxt.Text = subasta.MontoActual.ToString("C2");
 
                 descripcionTxt.Text = subasta.DescripcionProducto;
                 if (subasta.Vigente == true)

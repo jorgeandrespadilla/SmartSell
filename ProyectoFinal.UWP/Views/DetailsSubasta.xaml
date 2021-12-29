@@ -10,11 +10,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    xmlns:customConverters="using:ProyectoFinal.UWP.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     
     <Page.Resources>
-        <converters:BoolToVisibilityConverter x:Key="bool2vis"/>
+        <converters:BoolToVisibilityConverter x:Key="bool2vis" />
+        <customConverters:CurrencyConverter x:Key="currencyConverter" />
     </Page.Resources>
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -128,16 +130,11 @@
                         </ListView.Header>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.3*"/>
-                                        <ColumnDefinition Width="0.3*"/>
-                                        <ColumnDefinition Width="0.3*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding Nombre}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
-                                    <TextBlock Grid.Column="1" Text="{Binding Monto}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
-                                    <TextBlock Grid.Column="2" Text="{Binding Fecha}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBlock>
-                                </Grid>
+                                <StackPanel Orientation="Horizontal" Height="20">
+                                    <TextBlock Text="{Binding Nombre}" Width="400" FontSize="16"></TextBlock>
+                                    <TextBlock Text="{Binding Monto, Converter={StaticResource currencyConverter}}" Width="400" FontSize="16"></TextBlock>
+                                    <TextBlock Text="{Binding Fecha}" Width="350" FontSize="16"></TextBlock>
+                                </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                         <ListView.ItemContainerStyle>
