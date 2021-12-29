@@ -13,6 +13,14 @@ Finalmente, debemos ejecutar el comando `Update-Database` en la consola de admin
 
 **Observación:** En caso de que el proyecto no funcione al compilar y ejecutar, se debe limpiar y recompilar la solución para resolver errores vinculados a la resolución de rutas y paquetes NuGet.
 
+## Estructura de la solución
+
+La solución creada para nuestro proyecto final tiene las siguientes características:
+- Aplicación web desarrollada en ASP.NET (ASP.NET MVC Framework 4.7)
+- API REST
+- Aplicación de escritorio desarrollada en UWP
+- Biblioteca de clases para .NET Standard 2.0
+
 ## ¿Cómo restaurar la base de datos?
 
 Para restaurar la base de datos, se deben seguir los siguientes pasos:
