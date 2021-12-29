@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:StringFormatConverter x:Key="formatter"/>
+        <converters:StringFormatConverter x:Key="StringFormatConverter"/>
     </Page.Resources>
     
     <Grid x:Name="ContentArea" Background="white">
@@ -112,7 +112,7 @@
                             </ListView.ItemsPanel>
                         </ListView>
                     </Grid>
-                    <Grid HorizontalAlignment="Center">
+                    <Grid HorizontalAlignment="Center" Padding="0,10,0,0">
                         <StackPanel Orientation="Horizontal">
                             <Button x:Name="PrevButton" Content="Anterior" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="0,0,20,0" />
                             <TextBlock Text="Cantidad de paginas" VerticalAlignment="Center" x:Name="cantPaginas"  Foreground="#6c757d"></TextBlock>

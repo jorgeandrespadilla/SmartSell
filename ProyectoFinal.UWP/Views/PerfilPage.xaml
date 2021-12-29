@@ -57,7 +57,7 @@
                                 </Grid>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Grid  HorizontalAlignment="Center" Width="500">
+                                <Grid HorizontalAlignment="Center" Width="500">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="0.7*"></ColumnDefinition>
                                         <ColumnDefinition Width="0.3*"></ColumnDefinition>
