@@ -38,9 +38,9 @@ namespace ProyectoFinal.UWP.Views
         private async void crearBtn_Click(object sender, RoutedEventArgs e)
         {
             if (selectedImage != null) {
-                string uriImage = await UriImage.FileToUri(selectedImage);
                 try
                 {
+                    string uriImage = await UriImage.FileToUri(selectedImage);
                     DateTimeOffset Fecha = fechaSelected.Date ?? default(DateTimeOffset);
                     await smartsell.CreateSubasta(nombreTxt.Text, descripcionTxt.Text, uriImage, (float)precioTxt.Value, Fecha.Date);
                     this.Frame.Navigate(typeof(IndexSubastasPage), null);

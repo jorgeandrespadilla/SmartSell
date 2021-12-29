@@ -42,6 +42,10 @@ namespace ProyectoFinal.UWP.Infrastructure.Helpers
             byte[] bytes;
             using (IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read))
             {
+                if (fileStream.Size > 1000000)
+                {
+                    throw new Exception("El tamaño de la imagen supera el límite permitido (1 MB).");
+                }
                 var dataReader = new DataReader(fileStream.GetInputStreamAt(0));
                 bytes = new byte[fileStream.Size];
                 await dataReader.LoadAsync((uint)fileStream.Size);

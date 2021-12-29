@@ -82,17 +82,17 @@ namespace ProyectoFinal.UWP.Views
 
         private async void EditarHandlerBtn(object sender, RoutedEventArgs e)
         {
-            string uriImage;
-            if (selectedImage != null)
-            {
-                uriImage = await UriImage.FileToUri(selectedImage);
-            }
-            else
-            {
-                uriImage = subasta.UriImagen;
-            }
             try
             {
+                string uriImage;
+                if (selectedImage != null)
+                {
+                    uriImage = await UriImage.FileToUri(selectedImage);
+                }
+                else
+                {
+                    uriImage = subasta.UriImagen;
+                }
                 await smartsell.EditSubasta(subasta.SubastaID, nombreTxt.Text, descripcionTxt.Text, uriImage);
                 this.Frame.Navigate(typeof(DetailsSubasta), subasta.SubastaID);
             }
