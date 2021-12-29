@@ -17,22 +17,26 @@ Finalmente, debemos ejecutar el comando `Update-Database` en la consola de admin
 
 Para restaurar la base de datos, se deben seguir los siguientes pasos:
 
-1. Ejecutar el comando `Update-Database`
-2. Restaurar los datos de prueba de la base de datos: Con Microsoft SQL Management Studio (SSMS), ejecutar el script SQL `DataBackup.sql` ubicado en la raíz del proyecto, el cual solo contiene los datos de prueba de la base de datos
+1. Eliminar cualquier instancia creada previamente de la base de datos (`SmartSell`).
+2. Ejecutar el comando `Update-Database` en la consola del *Administrador de Paquetes*, asegurándose de seleccionar `ProyectoFinal.Web` como el proyecto predeterminado.
+![image](https://user-images.githubusercontent.com/58148764/147685226-cb16e937-4fe2-4598-9615-a35f4bfceab0.png)
+3. Restaurar los datos de prueba de la base de datos: Con Microsoft SQL Management Studio (SSMS), ejecutar el script SQL `DataBackup.sql` ubicado en la raíz del proyecto, el cual solo contiene los datos de prueba de la base de datos.
+
+*El proyecto también incluye un script de respaldo que permite restaurar la estructura de la base de datos junto con los datos de prueba (archivo `Backup.sql`).*
 
 **Observación:** Los datos de prueba de la base de datos se respaldan por medio del SSMS.
 
 ## Ejecución de proyectos
 
-Para ejecutar un proyecto en específico dentro de la solución, debemos modificar las configuraciones de la solución. Para ello, nos dirigimos al *Explorador de soluciones*, abrimos sus *Propiedades*, y en el apartado *Propiedades comunes* > *Proyecto de inicio* marcamos la opción *Selección actual*. Con ello, al trabajar con cualquiera de los proyectos existentes, se desplegará automáticamnete la opción para ejecutar la solución seleccionada.
+Para ejecutar varios proyectos a la vez, debemos modificar las configuraciones de la solución. Para ello, nos dirigimos al *Explorador de soluciones*, abrimos sus *Propiedades*, y en el apartado *Propiedades comunes* > *Proyecto de inicio* marcamos la opción *Proyectos de inicio múltiples*. Una vez marcada esta opción, cambiamos la acción a `Iniciar` para todos los proyectos que queremos iniciar en paralelo (ej. API del proyecto web y aplicación UWP). Con ello, al correr la solución se ejecutarán varios proyectos a la vez.
+![image](https://user-images.githubusercontent.com/58148764/147686176-5cf4f9b0-3669-4fc1-b40c-e22eb775e653.png)
 
-En caso de que una de las soluciones presente problemas al compliar o nos arroje mensajes de omisión al compilar la solución, debemos dirigirnos a la opción *Compilar* > *Administrador de configuración*, y marcamos la opción *Compilación* para todos los proyectos, y la opción *Implementar* para los proyectos que tengan esta opción habilitada.
+En caso de que una de las soluciones presente problemas al compilar o nos arroje mensajes de omisión al compilar la solución, debemos dirigirnos a la opción *Compilar* > *Administrador de configuración*, y marcamos la opción *Compilación* para todos los proyectos, y la opción *Implementar* para los proyectos que tengan esta opción habilitada.
 ![image](https://user-images.githubusercontent.com/58148764/142246833-9b991726-3535-4d7a-b989-7b689cdbf60b.png)
 
 ## Configuración de proyecto UWP
 
 Para ejecutar el proyecto UWP, es necesario verificar que tenemos habilitado el protocolo *TCP/IP* para SQL Express en nuestro equipo, para permitir la conexión de la aplicación de escritorio con la base de datos. Para ello, nos dirigimos al panel de *Administración de equipos* y habilitamos el protocolo *TCP/IP* para SQL Express, tal y como se muestra en la imagen a continuación.
-
 ![image](https://user-images.githubusercontent.com/58148764/142556391-0747bede-8b83-4b48-bf08-e55073df1723.png)
 
 Una vez habilitado el protocolo, debemos reiniciar y verificar que los servicios *SQL Server (SQLEXPRESS)* y *SQL Server Browser* se encuentren activados (Estado: *En ejecución*) y habilitados (Tipo de inicio: *Automático*).
