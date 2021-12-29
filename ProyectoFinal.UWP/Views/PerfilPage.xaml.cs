@@ -86,7 +86,7 @@ namespace ProyectoFinal.UWP.Views
         {
             try
             {
-                var result = await Dialog.ConfirmationMessage("Eliminar Subasta", "¿Seguro que desea eliminar la subasta?").ShowAsync();
+                var result = await Dialog.ConfirmationMessage("Eliminar usuario", "¿Seguro que desea eliminar el usuario?").ShowAsync();
                 if ((int)result.Id == 1)
                 {
                     await smartSell.DeletePerfil();

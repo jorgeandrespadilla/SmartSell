@@ -27,8 +27,7 @@
                 <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Text="Contraseña" FontSize="16"/>
                 <PasswordBox x:Name="pwdText"/>
                 <TextBlock Width="500" TextWrapping="Wrap" TextAlignment="Left" Margin="5,20,0,8" Foreground="#6c757d" Text="Clave para los usuarios de prueba: 12345678" FontSize="16"/>
-                <Button x:Name="enviarBtn" Content="Ingresar" Margin="0,15" Padding="10,10" MinWidth="500" FontSize="18" Style="{StaticResource AccentButtonStyle}" Click="EnviarBtn_Click">
-                </Button>
+                <Button x:Name="enviarBtn" Content="Ingresar" Margin="0,15" Padding="10,10" MinWidth="500" FontSize="18" Style="{StaticResource AccentButtonStyle}" Click="EnviarBtn_Click"/>
                 <Grid HorizontalAlignment="Center">
                     <HyperlinkButton x:Name="registroBtn" Content="Registrarse" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="HandleRegistrar" FontSize="16" />
                 </Grid>
