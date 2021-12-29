@@ -82,9 +82,9 @@
                     </Grid>
                     <Grid HorizontalAlignment="Center" Padding="0,20,0,0">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="PrevButton" Content="Anterior" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="0,0,20,0" FontSize="16"/>
+                            <Button x:Name="PrevButton" Content="Anterior" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="0,0,20,0" FontSize="16" Click="PrevButton_Click"/>
                             <TextBlock Text="Página * de *" VerticalAlignment="Center" x:Name="cantPaginas"  Foreground="#6c757d" FontSize="16"></TextBlock>
-                            <Button x:Name="NextButton" Content="Siguiente" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="20,0,0,0" FontSize="16" />
+                            <Button x:Name="NextButton" Content="Siguiente" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="20,0,0,0" FontSize="16" Click="NextButton_Click" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>

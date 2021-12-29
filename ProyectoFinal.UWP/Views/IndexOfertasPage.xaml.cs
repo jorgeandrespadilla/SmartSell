@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ProyectoFinal.Shared.Dto;
 using ProyectoFinal.Shared.Models;
 using ProyectoFinal.UWP.Infrastructure;
@@ -21,6 +22,7 @@ namespace ProyectoFinal.UWP.Views
 
         private PagedData<OfertaDto> ofertasCargadas;
 
+        private int page = 1;
 
 
         public IndexOfertasPage()
@@ -45,6 +47,18 @@ namespace ProyectoFinal.UWP.Views
         private void CargarOfertas()
         {
             ofertas.ItemsSource = ofertasCargadas.Data;
+
+            // Pagination
+            page = ofertasCargadas.Page;
+            int totalPages = ofertasCargadas.PageCount;
+            cantPaginas.Text = $"Página {page} de {totalPages}";
+            PrevButton.IsEnabled = page != 1;
+            NextButton.IsEnabled = page != totalPages;
+            if (totalPages == 1)
+            {
+                PrevButton.IsEnabled = false;
+                NextButton.IsEnabled = false;
+            }
         }
 
         private void VerSubastaHandlerBtn(object sender, RoutedEventArgs e)
@@ -56,15 +70,34 @@ namespace ProyectoFinal.UWP.Views
 
         private async void BuscarHandlerBtn(object sender, RoutedEventArgs e)
         {
+            await ObtenerOfertas();
+        }
+
+        private async Task ObtenerOfertas()
+        {
             try
             {
-                ofertasCargadas = await smartsell.GetOfertas(searchString: buscarTxt.Text);
+                var resp = await smartsell.GetOfertas(page: page, searchString: buscarTxt.Text);
+                ofertasCargadas = resp;
                 CargarOfertas();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
             }
+
+        }
+
+        private async void PrevButton_Click(object sender, RoutedEventArgs e)
+        {
+            page--;
+            await ObtenerOfertas();
+        }
+
+        private async void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            page++;
+            await ObtenerOfertas();
         }
     }
 }

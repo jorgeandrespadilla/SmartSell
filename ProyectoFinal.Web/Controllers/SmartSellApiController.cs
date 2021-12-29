@@ -348,8 +348,9 @@ namespace ProyectoFinal.Web.Controllers
 
             /* Configurar paginación */
             int pageSize = 6; // Numero de elementos por página
+
             int totalResults = subastasDto.Count();
-            int totalPages = Convert.ToInt32(totalResults / pageSize) + 1;
+            int totalPages = ((totalResults - 1) / pageSize) + 1;
             if (page < 1 || page > totalPages)
             {
                 page = 1;
@@ -598,7 +599,7 @@ namespace ProyectoFinal.Web.Controllers
             /* Configurar paginación */
             int pageSize = 10; // Numero de elementos por página
             int totalResults = ofertasQuery.Count();
-            int totalPages = Convert.ToInt32(totalResults / pageSize) + 1;
+            int totalPages = ((totalResults - 1) / pageSize) + 1;
             if (page < 1 || page > totalPages)
             {
                 page = 1;

@@ -27,6 +27,8 @@ namespace ProyectoFinal.UWP.Views
         private string mode = "TodasSubastas";
         private string filtroSeleccionado = "none";
 
+        private int page = 1;
+
         public IndexSubastasViewModel ViewModel { get; } = new IndexSubastasViewModel();
 
         public IndexSubastasPage()
@@ -117,6 +119,18 @@ namespace ProyectoFinal.UWP.Views
         {
             subastas.ItemsSource = await smartSell.ConvertToSubastaItems(results.Data);
             cantSubastasTxt.Text = $"{results.TotalResults} resultados encontrados";
+
+            // Pagination
+            page = results.Page;
+            int totalPages = results.PageCount;
+            cantPaginas.Text = $"Página {page} de {totalPages}";
+            PrevButton.IsEnabled = page != 1;
+            NextButton.IsEnabled = page != totalPages;
+            if (totalPages == 1)
+            {
+                PrevButton.IsEnabled = false;
+                NextButton.IsEnabled = false;
+            }
         }
 
         private async Task ObtenerSubastas()
@@ -126,17 +140,19 @@ namespace ProyectoFinal.UWP.Views
                 if (mode == "MisSubastas")
                 {
                     var resp = await smartSell.GetSubastas(
+                        page: page,
                         searchString: buscarTxt.Text,
                         showAll: "false",
                         hideMySubastas: "false",
                         hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(),
                         sortOrder: filtroSeleccionado
-                    );
+                    ); ;
                     results = resp;
                 }
                 else
                 {
                     var resp = await smartSell.GetSubastas(
+                        page: page,
                         searchString: buscarTxt.Text,
                         hideEnded: ocultarFinalizadas.IsChecked.ToString().ToLower(),
                         showAll: "true",
@@ -151,6 +167,18 @@ namespace ProyectoFinal.UWP.Views
                 await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
             }
 
+        }
+
+        private async void PrevButton_Click(object sender, RoutedEventArgs e)
+        {
+            page--;
+            await ObtenerSubastas();
+        }
+
+        private async void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            page++;
+            await ObtenerSubastas();
         }
     }
 }
