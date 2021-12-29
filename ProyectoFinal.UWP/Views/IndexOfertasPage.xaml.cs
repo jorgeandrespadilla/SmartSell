@@ -46,6 +46,7 @@ namespace ProyectoFinal.UWP.Views
 
         private void CargarOfertas()
         {
+            
             ofertas.ItemsSource = ofertasCargadas.Data;
 
             // Pagination
@@ -77,6 +78,7 @@ namespace ProyectoFinal.UWP.Views
         {
             try
             {
+                LoadingControl.IsEnabled = true;
                 var resp = await smartsell.GetOfertas(page: page, searchString: buscarTxt.Text);
                 ofertasCargadas = resp;
                 CargarOfertas();
@@ -85,7 +87,7 @@ namespace ProyectoFinal.UWP.Views
             {
                 await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
             }
-
+            LoadingControl.IsEnabled = false;
         }
 
         private async void PrevButton_Click(object sender, RoutedEventArgs e)
