@@ -84,10 +84,10 @@
                                         <Grid MaxHeight="400" HorizontalAlignment="Center">
                                             <Image Source="{Binding Imagen}" VerticalAlignment="Center" HorizontalAlignment="Center"  Stretch="UniformToFill"></Image>
                                         </Grid>
-                                        <StackPanel Padding="10">
+                                        <StackPanel Padding="15,15">
                                             <TextBlock Text="{Binding NombreProducto}" FontSize="20" FontWeight="SemiBold" Padding="0,0,0,10"></TextBlock>
-                                            <StackPanel Background="#0D6EFD" HorizontalAlignment="Left" CornerRadius="12" >
-                                                <TextBlock Text="{Binding MontoActual, Converter={StaticResource currencyConverter}}" Margin="10,4" FontSize="16" Foreground="White" FontWeight="SemiBold"></TextBlock>
+                                            <StackPanel Background="#0D6EFD" HorizontalAlignment="Left" CornerRadius="16" >
+                                                <TextBlock Text="{Binding MontoActual, Converter={StaticResource currencyConverter}}" Margin="10,4" FontSize="16" Foreground="White" FontWeight="Normal"></TextBlock>
                                             </StackPanel>
                                             <TextBlock Text="{Binding Fecha, Converter={StaticResource endDateConverter}}" FontSize="16" Foreground="#6c757d" HorizontalAlignment="Right"></TextBlock>
                                         </StackPanel>

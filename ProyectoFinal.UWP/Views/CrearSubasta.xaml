@@ -26,7 +26,7 @@
                         <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Margin="0,10,0,10" Text="" IsSpellCheckEnabled="False" MinWidth="150" Width="200" FontSize="16"/>
                         <TextBlock HorizontalAlignment="Left" Margin="0,10,0,10" Text="Descripción de producto" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529" />
                         <TextBox x:Name="descripcionTxt" AutomationProperties.Name="multi-line TextBox" TextWrapping="Wrap" Text="" Margin="0,10,0,10"  MinWidth="150" Width="200" HorizontalAlignment="Left" AcceptsReturn="True" Height="90" FontSize="16"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="0,10,0,10" Text="Imagen" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="12" Foreground="#212529" CanBeScrollAnchor="False"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,0,10" Text="Imagen" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529" CanBeScrollAnchor="False"/>
                         <Button x:Name="cargarBtn" Content="Cargar archivo" Margin="0,10,0,10" FontSize="16" Style="{StaticResource AccentButtonStyle}" Click="cargarBtn_Click"/>
                         <TextBlock HorizontalAlignment="Left" Margin="0,10,0,10" Text="Precio inicial" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="16" Foreground="#212529"/>
                         <Custom:NumberBox x:Name="precioTxt" HorizontalAlignment="Left" Margin="0,10,0,10" Text="" MinWidth="150" Width="200" FontSize="16"/>
