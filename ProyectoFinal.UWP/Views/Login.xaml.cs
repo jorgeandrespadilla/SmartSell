@@ -40,6 +40,7 @@ namespace ProyectoFinal.UWP.Views
         { 
             try
             {
+                LoadingControl.IsLoading= true;
                 await smartSell.Login(userTxt.Text, pwdText.Password);
                 this.Frame.Navigate(typeof(IndexSubastasPage), null);
             }
@@ -47,11 +48,13 @@ namespace ProyectoFinal.UWP.Views
             {
                 await Dialog.InfoMessage("Acceso fallido", ex.Message).ShowAsync();
             }
+            LoadingControl.IsLoading = false; 
         }
 
         private void HandleRegistrar(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Register), null);
         }
+        
     }
 }
