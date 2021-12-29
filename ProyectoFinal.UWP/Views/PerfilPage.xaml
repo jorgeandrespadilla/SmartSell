@@ -153,8 +153,8 @@
                                                 <TextBlock Grid.Column="0" Text="{Binding Nombre}" FontSize="16" HorizontalAlignment="Stretch"></TextBlock>
                                             </HyperlinkButton>
                                         </Grid>
-                                        <TextBlock Grid.Column="1" Text="{Binding Monto}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
-                                        <TextBlock Grid.Column="2" Text="{Binding Fecha}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
+                                        <TextBlock Grid.Column="1" Text="{Binding Monto, Converter={StaticResource currencyConverter}}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
+                                        <TextBlock Grid.Column="2" Text="{Binding Fecha, Converter={StaticResource dateTimeConverter}}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
