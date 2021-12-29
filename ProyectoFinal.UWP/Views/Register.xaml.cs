@@ -36,6 +36,7 @@ namespace ProyectoFinal.UWP.Views
         {
             try
             {
+                LoadingControl.IsLoading = true;
                 await smartSell.CreateAccount(
                     nombresTxt.Text,
                     apellidoTxt.Text,
@@ -49,6 +50,7 @@ namespace ProyectoFinal.UWP.Views
             {
                 await Dialog.InfoMessage("Registro fallido", ex.Message).ShowAsync();
             }
+            LoadingControl.IsLoading = false;
         }
 
         private void LoginHandler(object sender, RoutedEventArgs e)

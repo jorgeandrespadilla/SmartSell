@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ProyectoFinal.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:brushes="using:Microsoft.Toolkit.Uwp.UI.Media"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -19,7 +19,7 @@
 
 
     </Page.Resources>
-
+    <Grid>
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
 
         <Grid Padding="40">
@@ -49,5 +49,19 @@
 
 
     </ScrollViewer>
-
+        <my:Loading x:Name="LoadingControl" >
+            <my:Loading.Background>
+                <brushes:AcrylicBrush BackgroundSource="Backdrop"
+                        TintColor="Black"
+                        TintOpacity="0.4"
+                        BlurAmount="8"/>
+            </my:Loading.Background>
+            <StackPanel Orientation="Horizontal" Padding="12">
+                <Grid Height="134" Width="134">
+                    <ProgressBar IsIndeterminate="True"
+                            Foreground="White" />
+                </Grid>
+            </StackPanel>
+        </my:Loading>
+    </Grid>
 </Page>
