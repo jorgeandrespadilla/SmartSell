@@ -30,7 +30,7 @@
                         </StackPanel>
                     </StackPanel>
                     <Grid HorizontalAlignment="Stretch">
-                        <ListView x:Name="ofertas" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Auto" SelectionMode="None" HorizontalAlignment="Stretch">
+                        <ListView x:Name="ofertas" MaxHeight="500" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Auto" SelectionMode="None" HorizontalAlignment="Stretch">
                             <interactivity:Interaction.Behaviors>
                                 <behaviors:StickyHeaderBehavior />
                             </interactivity:Interaction.Behaviors>

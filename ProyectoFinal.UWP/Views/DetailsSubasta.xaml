@@ -118,17 +118,15 @@
                             <behaviors:StickyHeaderBehavior />
                         </interactivity:Interaction.Behaviors>
                         <ListView.Header>
-                            <Grid HorizontalAlignment="Stretch">
+                            <Grid Background="#2D2D2D" Padding="10,8" HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.3*"/>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal" Background="#2D2D2D" Padding="10,8" Grid.ColumnSpan="3">
-                                    <TextBlock Text="Ofertante" Width="auto" MinWidth="400" Foreground="White" FontSize="16" FontWeight="SemiBold" />
-                                    <TextBlock  Text="Monto" Width="auto" MinWidth="400"  Foreground="White" FontSize="16" FontWeight="SemiBold" />
-                                    <TextBlock Text="Fecha de envío" Width="auto" MinWidth="350" Foreground="White" FontSize="16" FontWeight="SemiBold" />
-                                </StackPanel>
+                                <TextBlock Grid.Column="0" Text="Ofertante" FontSize="16" Foreground="White" FontWeight="SemiBold" />
+                                <TextBlock Grid.Column="1" Text="Monto" FontSize="16" Foreground="White" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="2" Text="Fecha de envío" FontSize="16" Foreground="White" FontWeight="SemiBold" />
                             </Grid>
                         </ListView.Header>
                         <ListView.ItemTemplate>
@@ -140,6 +138,11 @@
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
                     </ListView>
                 </Grid>
                 <Grid Margin="0,20">
