@@ -9,8 +9,15 @@
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:customConverters="using:ProyectoFinal.UWP.Converters"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <customConverters:CurrencyConverter x:Key="currencyConverter" />
+        <customConverters:DateTimeConverter x:Key="dateTimeConverter" />
+    </Page.Resources>
+
     <Grid x:Name="ContentArea">
         <Grid HorizontalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
@@ -142,8 +149,8 @@
                                             <ColumnDefinition Width="0.3*"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="{Binding Nombre}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
-                                        <TextBlock Grid.Column="1" Text="{Binding Monto}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
-                                        <TextBlock Grid.Column="2" Text="{Binding Fecha}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
+                                        <TextBlock Grid.Column="1" Text="{Binding Monto, Converter={StaticResource currencyConverter}}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
+                                        <TextBlock Grid.Column="2" Text="{Binding Fecha, Converter={StaticResource dateTimeConverter}}" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" ></TextBlock>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

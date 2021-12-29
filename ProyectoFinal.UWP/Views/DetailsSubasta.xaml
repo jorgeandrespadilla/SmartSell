@@ -17,6 +17,7 @@
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="bool2vis" />
         <customConverters:CurrencyConverter x:Key="currencyConverter" />
+        <customConverters:DateTimeConverter x:Key="dateTimeConverter" />
     </Page.Resources>
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -118,7 +119,7 @@
                             <behaviors:StickyHeaderBehavior />
                         </interactivity:Interaction.Behaviors>
                         <ListView.Header>
-                            <Grid Background="#2D2D2D" Padding="10,8" HorizontalAlignment="Stretch">
+                            <Grid Background="#2D2D2D" Padding="10,10,0,10" HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.3*"/>
                                     <ColumnDefinition Width="0.3*"/>
@@ -133,14 +134,15 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Height="20">
                                     <TextBlock Text="{Binding Nombre}" Width="400" FontSize="16"></TextBlock>
-                                    <TextBlock Text="{Binding Monto, Converter={StaticResource currencyConverter}}" Width="400" FontSize="16"></TextBlock>
-                                    <TextBlock Text="{Binding Fecha}" Width="350" FontSize="16"></TextBlock>
+                                    <TextBlock Text="{Binding Monto, Converter={StaticResource currencyConverter}}" Width="400" FontSize="16" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding Fecha, Converter={StaticResource dateTimeConverter}}" Width="350" FontSize="16"></TextBlock>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Padding" Value="10"/>
                             </Style>
                         </ListView.ItemContainerStyle>
                     </ListView>
@@ -189,7 +191,7 @@
                                 <StackPanel  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Grid.ColumnSpan="2"  Margin="0,15">
                                     <TextBlock Text="{Binding Descripcion}" FontSize="16" TextWrapping="Wrap"></TextBlock>
                                 </StackPanel>
-                                <TextBlock Text="{Binding FechaCreacion}" FontSize="16" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right"></TextBlock>
+                                <TextBlock Text="{Binding FechaCreacion, Converter={StaticResource dateTimeConverter}}" FontSize="16" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right"></TextBlock>
                                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" x:Name="ComentarioBtnWrapper" Grid.Column="1" Grid.Row="2" Visibility="{Binding IsAuthor, Converter={StaticResource bool2vis}}">
                                     <HyperlinkButton x:Name="editarComentario" Content="Editar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="EditarComentarioHandlerBtn" Margin="10,0"/>
                                     <HyperlinkButton x:Name="eliminarComentario" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="EliminarComentarioHandlerBtn" Foreground="Red"/>

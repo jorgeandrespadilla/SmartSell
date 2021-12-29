@@ -13,7 +13,11 @@ namespace ProyectoFinal.UWP.Converters
         {
             var endDateValue = (DateTime)value;
             bool vigente = DateTime.Compare(DateTime.Now, endDateValue) <= 0; // Si la fecha y hora actuales son anteriores a la fecha límite, la subasta se encuentra vigente
-            return vigente;
+            if (vigente)
+            {
+                return endDateValue.ToString("dd MMM yyyy, HH:mm");
+            }
+            return "Finalizado";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

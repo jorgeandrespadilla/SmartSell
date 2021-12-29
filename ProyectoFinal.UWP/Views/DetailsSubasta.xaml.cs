@@ -125,7 +125,7 @@ namespace ProyectoFinal.UWP.Views
                 {
                     vigenteTxt.Text = "No";
                 }
-                fechaTxt.Text = subasta.Fecha.ToString();
+                fechaTxt.Text = subasta.Fecha.ToString("dd MMM yyyy, HH:mm");
                 OfertasSubasta.ItemsSource = subasta.Ofertas;
                 ComentariosGrid.ItemsSource = comentarios;
 

@@ -52,7 +52,7 @@ namespace ProyectoFinal.UWP.Views
             nombresTxt.Text = usuarioActual.Nombres;
             apellidosTxt.Text = usuarioActual.Apellidos;
             correoTxt.Text = usuarioActual.Correo;
-            calificacionTxt.Text = usuarioActual.AvgRating.ToString();
+            calificacionTxt.Text = $"{calificacionTxt.Text = Math.Round(usuarioActual.AvgRating, 2).ToString("F2")}/{5:F2}";
         }
 
         private async void ActualizarTabla(object sender, SelectionChangedEventArgs e)

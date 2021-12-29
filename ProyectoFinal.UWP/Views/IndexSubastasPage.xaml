@@ -4,12 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    xmlns:customConverters="using:ProyectoFinal.UWP.Converters"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+        <customConverters:CurrencyConverter x:Key="currencyConverter" />
+        <customConverters:EndDateConverter x:Key="endDateConverter" />
     </Page.Resources>
     
     <Grid x:Name="ContentArea" Background="white">
@@ -86,9 +87,9 @@
                                         <StackPanel Padding="10">
                                             <TextBlock Text="{Binding NombreProducto}" FontSize="20" FontWeight="SemiBold" Padding="0,0,0,10"></TextBlock>
                                             <StackPanel Background="#0D6EFD" HorizontalAlignment="Left" CornerRadius="12" >
-                                                <TextBlock Text="{Binding MontoActual}" Margin="10,4" FontSize="16" Foreground="White" FontWeight="SemiBold"></TextBlock>
+                                                <TextBlock Text="{Binding MontoActual, Converter={StaticResource currencyConverter}}" Margin="10,4" FontSize="16" Foreground="White" FontWeight="SemiBold"></TextBlock>
                                             </StackPanel>
-                                            <TextBlock Text="{Binding Fecha}"  FontSize="16" Foreground="#6c757d" HorizontalAlignment="Right"></TextBlock>
+                                            <TextBlock Text="{Binding Fecha, Converter={StaticResource endDateConverter}}" FontSize="16" Foreground="#6c757d" HorizontalAlignment="Right"></TextBlock>
                                         </StackPanel>
 
                                     </StackPanel>
@@ -114,9 +115,9 @@
                     </Grid>
                     <Grid HorizontalAlignment="Center" Padding="0,10,0,0">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="PrevButton" Content="Anterior" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="0,0,20,0" />
-                            <TextBlock Text="Cantidad de paginas" VerticalAlignment="Center" x:Name="cantPaginas"  Foreground="#6c757d"></TextBlock>
-                            <Button x:Name="NextButton" Content="Siguiente" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="20,0,0,0" />
+                            <Button x:Name="PrevButton" Content="Anterior" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="0,0,20,0" FontSize="16"/>
+                            <TextBlock Text="Página * de *" VerticalAlignment="Center" x:Name="cantPaginas"  Foreground="#6c757d" FontSize="16"></TextBlock>
+                            <Button x:Name="NextButton" Content="Siguiente" VerticalAlignment="Bottom" IsEnabled="False" IsDoubleTapEnabled="False" Margin="20,0,0,0" FontSize="16" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>

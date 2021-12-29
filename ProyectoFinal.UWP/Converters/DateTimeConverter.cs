@@ -12,7 +12,7 @@ namespace ProyectoFinal.UWP.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             DateTime dateTimeValue = (DateTime)value;
-            return dateTimeValue.ToString("dd MMM yyyy, HH:mm");
+            return dateTimeValue.ToString("dd/MM/yyyy, HH:mm");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
