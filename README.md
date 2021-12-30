@@ -30,8 +30,6 @@ Para restaurar la base de datos, se deben seguir los siguientes pasos:
 ![image](https://user-images.githubusercontent.com/58148764/147685226-cb16e937-4fe2-4598-9615-a35f4bfceab0.png)
 3. Restaurar los datos de prueba de la base de datos: Con Microsoft SQL Management Studio (SSMS), ejecutar el script SQL `DataBackup.sql` ubicado en la raíz del proyecto, el cual solo contiene los datos de prueba de la base de datos.
 
-*El proyecto también incluye un script de respaldo que permite restaurar la estructura de la base de datos junto con los datos de prueba (archivo `Backup.sql`).*
-
 **Observación:** Los datos de prueba de la base de datos se respaldan por medio del SSMS.
 
 ## Ejecución de proyectos
