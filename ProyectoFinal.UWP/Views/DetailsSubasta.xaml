@@ -179,7 +179,7 @@
                 <ListView x:Name="ComentariosGrid" HorizontalAlignment="Stretch" Margin="0,0,0,50" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid HorizontalAlignment="Stretch" Margin="10,10">
+                            <Grid HorizontalAlignment="Stretch" Margin="10,10" Padding="10,5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition Width="0.5*"></ColumnDefinition>
