@@ -1,6 +1,7 @@
 ﻿using ProyectoFinal.Shared.Dto;
 using ProyectoFinal.UWP.Infrastructure;
 using ProyectoFinal.UWP.Infrastructure.Helpers;
+using ProyectoFinal.UWP.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,14 +46,23 @@ namespace ProyectoFinal.UWP.Views
 
         private async void CargarInformacionVendedor(int id)
         {
-            PerfilVendedorDto usuarioActual = await smartSell.GetPerfilVendedor(id);
+            try
+            {
+                PerfilVendedorDto usuarioActual = await smartSell.GetPerfilVendedor(id);
 
-            nombreCompletoTxt.Text = usuarioActual.Nombres + " " + usuarioActual.Apellidos;
-            nombresTxt.Text = usuarioActual.Nombres;
-            apellidosTxt.Text = usuarioActual.Apellidos;
-            correoTxt.Text = usuarioActual.Correo;
-            calificacionTxt.Text = $"{Math.Round(usuarioActual.AvgRating, 2).ToString("F2")}/{5:F2}";
-            ratingUsuarioBtn.Value = usuarioActual.Rating;
+                nombreCompletoTxt.Text = usuarioActual.Nombres + " " + usuarioActual.Apellidos;
+                nombresTxt.Text = usuarioActual.Nombres;
+                apellidosTxt.Text = usuarioActual.Apellidos;
+                correoTxt.Text = usuarioActual.Correo;
+                calificacionTxt.Text = $"{Math.Round(usuarioActual.AvgRating, 2).ToString("F2")}/{5:F2}";
+                ratingUsuarioBtn.Value = usuarioActual.Rating;
+            }
+            catch (Exception ex)
+            {
+                await Dialog.InfoMessage("Error", ex.Message).ShowAsync();
+                NavigationService.GoBack();
+            }
+
 
         }
 
