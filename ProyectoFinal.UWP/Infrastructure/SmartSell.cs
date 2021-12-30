@@ -261,6 +261,8 @@ namespace ProyectoFinal.UWP.Infrastructure
             else
             {
                 var data = JsonConvert.DeserializeObject<PerfilDto>(content);
+                CurrentUser.Nombre = $"{data.Nombres} {data.Apellidos}";
+                UserName = CurrentUser.Nombre;
                 return data;
             }
         }
