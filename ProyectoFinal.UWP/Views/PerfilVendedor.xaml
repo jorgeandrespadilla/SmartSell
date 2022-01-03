@@ -42,8 +42,12 @@
                                 </StackPanel>
                             </Grid>
                             <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" Visibility="Visible" x:Name="ratingWrapper">
-                                <Viewbox Width="300" Visibility="Visible">
-                                    <RatingControl x:Name="ratingUsuarioBtn" Height="25"/>
+                                <Viewbox Width="200" Visibility="Visible">
+                                    <RatingControl x:Name="ratingUsuarioBtn" Height="25">
+                                        <RatingControl.Resources>
+                                            <SolidColorBrush x:Key="RatingControlSelectedForeground" Color="#ffce00"/>
+                                        </RatingControl.Resources>
+                                    </RatingControl>
                                 </Viewbox>
                                 <Button Background="White" Foreground="#1875fd" BorderBrush="#1875fd" Click="EnviarRatingHandlerButton"  x:Name="enviarRatingBtn" HorizontalAlignment="Center">
                                     <Button.Resources>
