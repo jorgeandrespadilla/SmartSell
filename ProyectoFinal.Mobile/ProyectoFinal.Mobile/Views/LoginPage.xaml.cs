@@ -17,5 +17,15 @@ namespace ProyectoFinal.Mobile.Views
             InitializeComponent();
             this.BindingContext = new LoginViewModel();
         }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            bool loggedIn = true;
+            if (loggedIn)
+            {
+                await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+            }
+        }
     }
 }
