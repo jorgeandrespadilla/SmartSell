@@ -19,7 +19,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnRegisterClicked(object obj)
         {
-            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+            await Shell.Current.GoToAsync($"..", true);
         }
 
         private async void OnGoLoginClicked(object obj)

@@ -18,9 +18,9 @@
                 <Image Source="logo.png" VerticalOptions="Center" HeightRequest="100" />
                 <Label WidthRequest="500" HorizontalTextAlignment="Center" FontSize="32" TextColor="#212529" FontAttributes="Bold" Padding="0,20,0,40" Text="Inicio de Sesión" />
                 <Label WidthRequest="500" VerticalTextAlignment="Left" Text="Correo Electrónico" FontSize="16" Margin="5,0,0,0"/>
-                <Entry x:Name="userTxt" Text="" IsSpellCheckEnabled="False"/>
+                <Entry x:Name="userTxt" Text="{Binding UserTxt}" IsSpellCheckEnabled="False"/>
                 <Label WidthRequest="500" VerticalTextAlignment="Left" Text="Contraseña" FontSize="16" Margin="5,20,0,0"/>
-                <Entry x:Name="pwdTxt" Text="" IsSpellCheckEnabled="False" IsPassword="True" />
+                <Entry x:Name="claveTxt" Text="{Binding ClaveTxt}" IsSpellCheckEnabled="False" IsPassword="True" />
                 <Label WidthRequest="500" VerticalTextAlignment="Left" Margin="5,20,0,8" TextColor="#6c757d" Text="Clave para los usuarios de prueba: 12345678" FontSize="16"/>
                 <Button x:Name="enviarBtn" Text="Ingresar" Margin="0,15,0,10" Padding="10,10" MinimumWidthRequest="500" FontSize="18" Command="{Binding LoginCommand}"/>
                 <Button x:Name="registrarBtn" Margin="0,10" Padding="10,10" MinimumWidthRequest="500" FontSize="16" Text="Registrarse" BackgroundColor="White" TextColor="{StaticResource Primary}" Command="{Binding GoRegisterCommand}"/>

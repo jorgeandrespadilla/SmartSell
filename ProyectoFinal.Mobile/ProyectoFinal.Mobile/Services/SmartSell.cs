@@ -17,7 +17,6 @@ namespace ProyectoFinal.Mobile.Services
     public sealed class SmartSell : ObservableObject
     {
 
-
         private static HttpClient client;
         public AuthorizedUsuarioDto CurrentUser { get; set; }
 
@@ -37,8 +36,15 @@ namespace ProyectoFinal.Mobile.Services
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;
             handler.ServerCertificateCustomValidationCallback =
                 (httpRequestMessage, cert, cetChain, policyErrors) => true;
-            client = new HttpClient(handler);
-            client.BaseAddress = new Uri("https://localhost:44338/api/SmartSellApi/");
+
+            #if DEBUG
+                HttpClientHandler insecureHandler = DependencyService.Get<IHttpClientHandlerService>().GetInsecureHandler();
+                client = new HttpClient(insecureHandler);
+            #else
+                client = new HttpClient();
+            #endif
+
+            client.BaseAddress = new Uri("https://10.0.2.2:44338/api/SmartSellApi/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

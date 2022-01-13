@@ -10,6 +10,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public SmartSell SmartSell = SmartSell.Instance;
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
 
         bool isBusy = false;
