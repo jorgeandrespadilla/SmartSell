@@ -44,7 +44,7 @@ namespace ProyectoFinal.Mobile.Services
                 client = new HttpClient();
             #endif
 
-            client.BaseAddress = new Uri("https://10.0.2.2:44338/api/SmartSellApi/");
+            client.BaseAddress = new Uri("http://10.0.2.2:17559/api/SmartSellApi/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
