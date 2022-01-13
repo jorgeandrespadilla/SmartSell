@@ -24,7 +24,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnGoLoginClicked(object obj)
         {
-            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+            await Shell.Current.GoToAsync($"..", true);
         }
     }
 }
