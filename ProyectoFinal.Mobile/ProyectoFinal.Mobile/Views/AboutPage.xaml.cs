@@ -1,6 +1,7 @@
-﻿using System;
+﻿using ProyectoFinal.Mobile.Helpers;
+using System;
 using System.ComponentModel;
-using Xamarin.Essentials;
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,26 +13,27 @@ namespace ProyectoFinal.Mobile.Views
         {
             InitializeComponent();
 
-            btnTomarFoto.Clicked += async (sender, args) =>
+            btnTomarFoto.Clicked += async(sender, args) =>
             {
-                var result = await MediaPicker.CapturePhotoAsync();
-                if (result != null)
+                try
                 {
-                    var stream = await result.OpenReadAsync();
-                    imagen.Source = ImageSource.FromStream(() => stream);
+                    imagen.Source = await MediaHelper.CameraInvoker();
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", ex.Message, "Aceptar");
                 }
             };
 
             btnSeleccionarFoto.Clicked += async (sender, args) =>
             {
-                var result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
+                try
                 {
-                    Title = "Please pick a photo"
-                });
-                if (result != null)
+                    imagen.Source = await MediaHelper.StorageInvoker();
+                }
+                catch (Exception ex)
                 {
-                    var stream = await result.OpenReadAsync();
-                    imagen.Source = ImageSource.FromStream(() => stream);
+                    await DisplayAlert("Error", ex.Message, "Aceptar");
                 }
             };
         }
