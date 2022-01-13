@@ -23,7 +23,7 @@
                 <Entry x:Name="pwdTxt" Text="" IsSpellCheckEnabled="False" IsPassword="True" />
                 <Label WidthRequest="500" VerticalTextAlignment="Left" Margin="5,20,0,8" TextColor="#6c757d" Text="Clave para los usuarios de prueba: 12345678" FontSize="16"/>
                 <Button x:Name="enviarBtn" Text="Ingresar" Margin="0,15,0,10" Padding="10,10" MinimumWidthRequest="500" FontSize="18" Command="{Binding LoginCommand}"/>
-                <Button x:Name="registrarBtn" Margin="0,10" Padding="10,10" MinimumWidthRequest="500" FontSize="16" Text="Registrarse" BackgroundColor="White" TextColor="{StaticResource Primary}"/>
+                <Button x:Name="registrarBtn" Margin="0,10" Padding="10,10" MinimumWidthRequest="500" FontSize="16" Text="Registrarse" BackgroundColor="White" TextColor="{StaticResource Primary}" Command="{Binding GoRegisterCommand}"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
