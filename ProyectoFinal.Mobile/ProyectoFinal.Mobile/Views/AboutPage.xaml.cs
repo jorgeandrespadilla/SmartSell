@@ -1,6 +1,6 @@
-﻿using Plugin.Media;
-using System;
+﻿using System;
 using System.ComponentModel;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,55 +14,25 @@ namespace ProyectoFinal.Mobile.Views
 
             btnTomarFoto.Clicked += async (sender, args) =>
             {
-
-                if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                var result = await MediaPicker.CapturePhotoAsync();
+                if (result != null)
                 {
-                    await DisplayAlert("No Camera", ":( No camera avaialble.", "OK");
-                    return;
+                    var stream = await result.OpenReadAsync();
+                    imagen.Source = ImageSource.FromStream(() => stream);
                 }
-
-                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-                {
-                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium,
-                    Directory = "Sample",
-                    Name = "test.jpg"
-                });
-
-                if (file == null)
-                    return;
-
-                await DisplayAlert("File Location", file.Path, "OK");
-
-                imagen.Source = ImageSource.FromStream(() =>
-                {
-                    var stream = file.GetStream();
-                    file.Dispose();
-                    return stream;
-                });
             };
 
             btnSeleccionarFoto.Clicked += async (sender, args) =>
             {
-                if (!CrossMedia.Current.IsPickPhotoSupported)
+                var result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
                 {
-                    await DisplayAlert("Photos Not Supported", ":( Permission not granted to photos.", "OK");
-                    return;
+                    Title = "Please pick a photo"
+                });
+                if (result != null)
+                {
+                    var stream = await result.OpenReadAsync();
+                    imagen.Source = ImageSource.FromStream(() => stream);
                 }
-                var file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
-                {
-                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
-                });
-
-
-                if (file == null)
-                    return;
-
-                imagen.Source = ImageSource.FromStream(() =>
-                {
-                    var stream = file.GetStream();
-                    file.Dispose();
-                    return stream;
-                });
             };
         }
     }

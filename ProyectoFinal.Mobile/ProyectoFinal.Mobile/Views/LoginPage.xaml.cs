@@ -21,7 +21,7 @@ namespace ProyectoFinal.Mobile.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            bool loggedIn = true;
+            bool loggedIn = false;
             if (loggedIn)
             {
                 await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");

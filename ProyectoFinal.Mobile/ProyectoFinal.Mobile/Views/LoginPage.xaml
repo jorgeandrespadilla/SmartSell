@@ -5,11 +5,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="ProyectoFinal.Mobile.Views.LoginPage"
+             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel />
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-        </StackLayout>
+        <ScrollView VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center" Padding="20,20" >
+                <Image Source="logo.png" VerticalOptions="Center" HeightRequest="100" />
+                <Label WidthRequest="500" HorizontalTextAlignment="Center" FontSize="32" TextColor="#212529" FontAttributes="Bold" Padding="0,20,0,40" Text="Inicio de Sesión" />
+                <Label WidthRequest="500" VerticalTextAlignment="Left" Text="Correo Electrónico" FontSize="16" Margin="5,0,0,0"/>
+                <Entry x:Name="userTxt" Text="" IsSpellCheckEnabled="False"/>
+                <Label WidthRequest="500" VerticalTextAlignment="Left" Text="Contraseña" FontSize="16" Margin="5,20,0,0"/>
+                <Entry x:Name="pwdTxt" Text="" IsSpellCheckEnabled="False" IsPassword="True" />
+                <Label WidthRequest="500" VerticalTextAlignment="Left" Margin="5,20,0,8" TextColor="#6c757d" Text="Clave para los usuarios de prueba: 12345678" FontSize="16"/>
+                <Button x:Name="enviarBtn" Text="Ingresar" Margin="0,15,0,10" Padding="10,10" MinimumWidthRequest="500" FontSize="18" Command="{Binding LoginCommand}"/>
+                <Button x:Name="registrarBtn" Margin="0,10" Padding="10,10" MinimumWidthRequest="500" FontSize="16" Text="Registrarse" BackgroundColor="White" TextColor="{StaticResource Primary}"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
