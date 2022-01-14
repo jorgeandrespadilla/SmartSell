@@ -17,7 +17,8 @@ namespace ProyectoFinal.Mobile.Views
             {
                 try
                 {
-                    imagen.Source = await MediaHelper.CameraInvoker();
+                    var imageData = await MediaHelper.CameraInvoker();
+                    imagen.Source = imageData.ImageSource;
                 }
                 catch (Exception ex)
                 {
@@ -29,7 +30,8 @@ namespace ProyectoFinal.Mobile.Views
             {
                 try
                 {
-                    imagen.Source = await MediaHelper.StorageInvoker();
+                    var imageData = await MediaHelper.StorageInvoker();
+                    imagen.Source = imageData.ImageSource;
                 }
                 catch (Exception ex)
                 {

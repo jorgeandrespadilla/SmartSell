@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ProyectoFinal.Mobile.Models;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -9,7 +11,7 @@ namespace ProyectoFinal.Mobile.Helpers
 {
     public class MediaHelper
     {
-        public static async Task<ImageSource> CameraInvoker()
+        public static async Task<ImageData> CameraInvoker()
         {
             try
             {
@@ -17,12 +19,18 @@ namespace ProyectoFinal.Mobile.Helpers
                 await Permissions.RequestAsync<Permissions.StorageRead>();
                 await Permissions.RequestAsync<Permissions.StorageWrite>();
                 var result = await MediaPicker.CapturePhotoAsync();
-                if (result != null)
+                if (result == null)
                 {
-                    var stream = await result.OpenReadAsync();
-                    return ImageSource.FromStream(() => stream);
+                    return null;
                 }
-                return null;
+                using (Stream stream = await result.OpenReadAsync())
+                {
+                    ImageSource imageSource = StreamToImageSource(stream);
+                    string base64Uri = StreamToUri(stream);
+
+                    ImageData imageData = new ImageData(imageSource, base64Uri);
+                    return imageData;
+                }   
             }
             catch (FeatureNotSupportedException)
             {
@@ -39,7 +47,7 @@ namespace ProyectoFinal.Mobile.Helpers
 
         }
 
-        public static async Task<ImageSource> StorageInvoker()
+        public static async Task<ImageData> StorageInvoker()
         {
             try
             {
@@ -50,12 +58,18 @@ namespace ProyectoFinal.Mobile.Helpers
                 {
                     Title = "Seleccione una imagen"
                 });
-                if (result != null)
+                if (result == null)
                 {
-                    var stream = await result.OpenReadAsync();
-                    return ImageSource.FromStream(() => stream);
+                    return null;
                 }
-                return null;
+                using (Stream stream = await result.OpenReadAsync())
+                {
+                    ImageSource imageSource = StreamToImageSource(stream);
+                    string base64Uri = StreamToUri(stream);
+
+                    ImageData imageData = new ImageData(imageSource, base64Uri);
+                    return imageData;
+                }
             }
             catch (FeatureNotSupportedException)
             {
@@ -69,7 +83,31 @@ namespace ProyectoFinal.Mobile.Helpers
             {
                 throw new Exception("No fue posible cargar la imagen.");
             }
+        }
 
+        public static ImageSource UriToImageSource(string imageUri)
+        {
+            string imgString = imageUri.Split(',').Last().Trim();
+            byte[] bytes = Convert.FromBase64String(imgString);
+            using (Stream stream = new MemoryStream(bytes))
+            {
+                return StreamToImageSource(stream);
+            }
+        }
+
+        private static string StreamToUri(Stream stream)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                stream.CopyTo(memoryStream);
+                byte[] bytes = memoryStream.ToArray();
+                return string.Concat("data:image/jpeg;charset=utf-8;base64, ", Convert.ToBase64String(bytes));
+            }
+        }
+
+        private static ImageSource StreamToImageSource(Stream stream)
+        {
+            return ImageSource.FromStream(() => stream);
         }
     }
 }
