@@ -34,15 +34,15 @@ Para restaurar la base de datos, se deben seguir los siguientes pasos:
 
 ## Ejecución de proyectos
 
-Para ejecutar varios proyectos a la vez, debemos modificar las configuraciones de la solución. Para ello, nos dirigimos al *Explorador de soluciones*, abrimos sus *Propiedades*, y en el apartado *Propiedades comunes* > *Proyecto de inicio* marcamos la opción *Proyectos de inicio múltiples*. Una vez marcada esta opción, cambiamos la acción a `Iniciar` para todos los proyectos que queremos iniciar en paralelo (ej. API del proyecto web y aplicación UWP). Con ello, al correr la solución se ejecutarán varios proyectos a la vez.
+Para ejecutar varios proyectos a la vez, debemos modificar las configuraciones de la solución. Para ello, nos dirigimos al *Explorador de soluciones*, abrimos sus *Propiedades*, y en el apartado *Propiedades comunes* > *Proyecto de inicio* marcamos la opción *Proyectos de inicio múltiples*. Una vez marcada esta opción, cambiamos la acción a `Iniciar` para todos los proyectos que queremos iniciar en paralelo (en nuestro caso, proyecto web con API REST, aplicación UWP y aplicación Xamarin). Con ello, al correr la solución se ejecutarán varios proyectos a la vez.
 ![image](https://user-images.githubusercontent.com/58148764/147686176-5cf4f9b0-3669-4fc1-b40c-e22eb775e653.png)
 
 En caso de que una de las soluciones presente problemas al compilar o nos arroje mensajes de omisión al compilar la solución, debemos dirigirnos a la opción *Compilar* > *Administrador de configuración*, y marcamos la opción *Compilación* para todos los proyectos, y la opción *Implementar* para los proyectos que tengan esta opción habilitada.
 ![image](https://user-images.githubusercontent.com/58148764/142246833-9b991726-3535-4d7a-b989-7b689cdbf60b.png)
 
-## Configuración de proyecto UWP
+## Configuración de proyectos UWP y Xamarin
 
-Para ejecutar el proyecto UWP, es necesario verificar que tenemos habilitado el protocolo *TCP/IP* para SQL Express en nuestro equipo, para permitir la conexión de la aplicación de escritorio con la base de datos. Para ello, nos dirigimos al panel de *Administración de equipos* y habilitamos el protocolo *TCP/IP* para SQL Express, tal y como se muestra en la imagen a continuación.
+Para ejecutar los proyectos UWP y Xamarin, es necesario verificar que tenemos habilitado el protocolo *TCP/IP* para SQL Express en nuestro equipo, para permitir la conexión de la aplicación de escritorio con la base de datos. Para ello, nos dirigimos al panel de *Administración de equipos* y habilitamos el protocolo *TCP/IP* para SQL Express, tal y como se muestra en la imagen a continuación.
 ![image](https://user-images.githubusercontent.com/58148764/142556391-0747bede-8b83-4b48-bf08-e55073df1723.png)
 
 Una vez habilitado el protocolo, debemos reiniciar y verificar que los servicios *SQL Server (SQLEXPRESS)* y *SQL Server Browser* se encuentren activados (Estado: *En ejecución*) y habilitados (Tipo de inicio: *Automático*).
@@ -50,6 +50,8 @@ Una vez habilitado el protocolo, debemos reiniciar y verificar que los servicios
 ![image](https://user-images.githubusercontent.com/58148764/142557227-82344092-ac6f-44f8-b7bc-e2edeb0fb9d6.png)
 
 ![image](https://user-images.githubusercontent.com/58148764/142557377-1dc89393-4562-418a-bc40-c303cf813a3c.png)
+
+Finalmente, debemos dirigirnos a la carpeta principal de la solución a través del Explorador de Archivos, y ejecutamos el archivo `patcher.exe`. Este archivo ejecutable parchea el archivo 'applicationhost.config' ubicado en la ruta `.vs/ProyectoFinal/config` dentro del proyecto actual, para así permitir la comunicación con la API a través de la aplicación móvil desarrollada en Xamarin.
 
 ## Pruebas con la API
 
