@@ -20,6 +20,8 @@ namespace ProyectoFinal.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            // Allows to connect Android Devices or Android Emulators to localhost HTTP IIS Client using ADB
+            // in order to use API services without any additional configuration
             try
             {
                 int httpPortNumber = 17559;
