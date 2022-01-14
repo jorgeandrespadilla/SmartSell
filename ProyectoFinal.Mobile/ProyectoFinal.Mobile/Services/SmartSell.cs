@@ -31,20 +31,9 @@ namespace ProyectoFinal.Mobile.Services
         private static readonly SmartSell instance = new SmartSell();
         static SmartSell()
         {
-            // Se permite la validación de cualquier certificado SSL, dado que HttpClient no acepta certificados SSL autogenerados por defecto
-            var handler = new HttpClientHandler();
-            handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-            handler.ServerCertificateCustomValidationCallback =
-                (httpRequestMessage, cert, cetChain, policyErrors) => true;
-
-            #if DEBUG
-                HttpClientHandler insecureHandler = DependencyService.Get<IHttpClientHandlerService>().GetInsecureHandler();
-                client = new HttpClient(insecureHandler);
-            #else
-                client = new HttpClient();
-            #endif
-
-            client.BaseAddress = new Uri("http://10.0.2.2:17559/api/SmartSellApi/");
+            client = new HttpClient();
+ 
+            client.BaseAddress = new Uri("http://localhost:17559/api/SmartSellApi/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

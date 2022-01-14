@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -18,7 +19,24 @@ namespace ProyectoFinal.Web
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            
+
+            try
+            {
+                int httpPortNumber = 17559;
+                using (Process process = new Process())
+                {
+                    process.StartInfo.FileName = $"{AppDomain.CurrentDomain.BaseDirectory}adb.exe";
+                    process.StartInfo.Arguments = $"reverse tcp:{httpPortNumber} tcp:{httpPortNumber}";
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.RedirectStandardOutput = true;
+                    process.StartInfo.CreateNoWindow = true;
+                    process.Start();
+                }
+            }
+            catch
+            {
+                Console.WriteLine("ADB command failed");
+            }
         }
     }
 }
