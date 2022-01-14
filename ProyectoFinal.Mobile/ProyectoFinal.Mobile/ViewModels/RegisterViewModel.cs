@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ProyectoFinal.Mobile.Views;
+using ProyectoFinal.Mobile.Services;
 
 namespace ProyectoFinal.Mobile.ViewModels
 {
@@ -10,6 +11,12 @@ namespace ProyectoFinal.Mobile.ViewModels
     {
         public Command RegisterCommand { get; }
         public Command GoLoginCommand { get; }
+
+        public string NombreTxt { get; set; }
+        public string ApellidoTxt { get; set; }
+        public string UserTxt { get; set; }
+        public string ClaveTxt { get; set; }
+
 
         public RegisterViewModel()
         {
@@ -19,7 +26,16 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnRegisterClicked(object obj)
         {
-            await Shell.Current.GoToAsync($"..", true);
+            try
+            {
+                IsBusy = true;
+                await SmartSell.CreateAccount(NombreTxt, ApellidoTxt, UserTxt, ClaveTxt);
+                await Shell.Current.GoToAsync($"..", true);
+            }catch(Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Acceso fallido", ex.Message, "Aceptar");
+            }
+            IsBusy = false;
         }
 
         private async void OnGoLoginClicked(object obj)
