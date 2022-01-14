@@ -54,8 +54,6 @@ Una vez habilitado el protocolo, debemos reiniciar y verificar que los servicios
 
 ![image](https://user-images.githubusercontent.com/58148764/142557377-1dc89393-4562-418a-bc40-c303cf813a3c.png)
 
-Finalmente, debemos dirigirnos a la carpeta principal de la solución a través del Explorador de Archivos, y ejecutamos el archivo `patcher.exe`. Este archivo ejecutable parchea el archivo 'applicationhost.config' ubicado en la ruta `.vs/ProyectoFinal/config` dentro del proyecto actual, para así permitir la comunicación con la API a través de la aplicación móvil desarrollada en Xamarin.
-
 ## Pruebas con la API
 
 Para realizar pruebas con la API, se puede hacer uso del archivo `ApiTest.http` que se encuentra en el directorio raíz del proyecto, cuyas peticiones pueden ser ejecutadas con el uso de la extensión **HTTP Client** para Visual Studio Code.
