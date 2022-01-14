@@ -35,14 +35,17 @@ Para restaurar la base de datos, se deben seguir los siguientes pasos:
 ## Ejecución de proyectos
 
 Para ejecutar varios proyectos a la vez, debemos modificar las configuraciones de la solución. Para ello, nos dirigimos al *Explorador de soluciones*, abrimos sus *Propiedades*, y en el apartado *Propiedades comunes* > *Proyecto de inicio* marcamos la opción *Proyectos de inicio múltiples*. Una vez marcada esta opción, cambiamos la acción a `Iniciar` para todos los proyectos que queremos iniciar en paralelo (en nuestro caso, proyecto web con API REST, aplicación UWP y aplicación Xamarin). Con ello, al correr la solución se ejecutarán varios proyectos a la vez.
-![image](https://user-images.githubusercontent.com/58148764/147686176-5cf4f9b0-3669-4fc1-b40c-e22eb775e653.png)
+
+![image](https://user-images.githubusercontent.com/58148764/149554092-304fb450-fd54-47d5-b89e-ed1ffe0bc0ea.png)
 
 En caso de que una de las soluciones presente problemas al compilar o nos arroje mensajes de omisión al compilar la solución, debemos dirigirnos a la opción *Compilar* > *Administrador de configuración*, y marcamos la opción *Compilación* para todos los proyectos, y la opción *Implementar* para los proyectos que tengan esta opción habilitada.
-![image](https://user-images.githubusercontent.com/58148764/142246833-9b991726-3535-4d7a-b989-7b689cdbf60b.png)
+
+![image](https://user-images.githubusercontent.com/58148764/149554175-9087b3a8-56c8-4de5-bd35-a030b64c5580.png)
 
 ## Configuración de proyectos UWP y Xamarin
 
 Para ejecutar los proyectos UWP y Xamarin, es necesario verificar que tenemos habilitado el protocolo *TCP/IP* para SQL Express en nuestro equipo, para permitir la conexión de la aplicación de escritorio con la base de datos. Para ello, nos dirigimos al panel de *Administración de equipos* y habilitamos el protocolo *TCP/IP* para SQL Express, tal y como se muestra en la imagen a continuación.
+
 ![image](https://user-images.githubusercontent.com/58148764/142556391-0747bede-8b83-4b48-bf08-e55073df1723.png)
 
 Una vez habilitado el protocolo, debemos reiniciar y verificar que los servicios *SQL Server (SQLEXPRESS)* y *SQL Server Browser* se encuentren activados (Estado: *En ejecución*) y habilitados (Tipo de inicio: *Automático*).
