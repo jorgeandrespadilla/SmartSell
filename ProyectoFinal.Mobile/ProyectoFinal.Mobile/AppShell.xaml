@@ -29,10 +29,10 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <ShellItem Route="LoginPage">
+    <TabBar>
         <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" />
-    </ShellItem>
-
+    </TabBar>
+    
     <TabBar>
         <ShellContent Title="About" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}">
             <ShellContent.Icon>
