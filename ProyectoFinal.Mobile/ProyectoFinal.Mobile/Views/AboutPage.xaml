@@ -23,7 +23,7 @@
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
             <Button x:Name="btnTomarFoto" Text="Tomar foto"/>
             <Button x:Name="btnSeleccionarFoto" Text="Seleccionar foto"/>
-            <Image x:Name="imagen" />
+            <Image x:Name="imagen" WidthRequest="200" HeightRequest="200"/>
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">

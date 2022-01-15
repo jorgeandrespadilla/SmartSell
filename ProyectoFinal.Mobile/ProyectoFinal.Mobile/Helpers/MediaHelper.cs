@@ -30,7 +30,7 @@ namespace ProyectoFinal.Mobile.Helpers
 
                     ImageData imageData = new ImageData(imageSource, base64Uri);
                     return imageData;
-                }   
+                }
             }
             catch (FeatureNotSupportedException)
             {
@@ -44,7 +44,6 @@ namespace ProyectoFinal.Mobile.Helpers
             {
                 throw new Exception("No fue posible cargar la imagen.");
             }
-
         }
 
         public static async Task<ImageData> StorageInvoker()
@@ -107,7 +106,11 @@ namespace ProyectoFinal.Mobile.Helpers
 
         private static ImageSource StreamToImageSource(Stream stream)
         {
-            return ImageSource.FromStream(() => stream);
+            MemoryStream memoryStream = new MemoryStream();
+            stream.CopyTo(memoryStream);
+            stream.Seek(0, SeekOrigin.Begin);
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            return ImageSource.FromStream(() => memoryStream);
         }
     }
 }
