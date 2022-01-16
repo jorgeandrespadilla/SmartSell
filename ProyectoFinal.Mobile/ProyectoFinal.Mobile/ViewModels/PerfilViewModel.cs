@@ -18,14 +18,15 @@ namespace ProyectoFinal.Mobile.ViewModels
         public string ApellidoTxt { get; set; }
         public string UserTxt { get; set; }
         public string CalificacionTxt { get; set; }
+        public ICollection<OfertaDto> ofertas { get; set; }
 
 
         public PerfilViewModel()
         {
-            CargarInformacion();
+            
         }
 
-        private async void CargarInformacion()
+        public async void CargarInformacion()
         {
             PerfilDto usuarioActual = await SmartSell.GetPerfil();
             //var ofertasQuery = await smartSell.GetPerfilOfertas("PARTICIPACION");
@@ -36,6 +37,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             ApellidoTxt = usuarioActual.Apellidos;
             UserTxt = usuarioActual.Correo;
             CalificacionTxt = $"{CalificacionTxt = Math.Round(usuarioActual.AvgRating, 2).ToString("F2")}/{5:F2}";
+            ofertas = await SmartSell.GetPerfilOfertas("Participacion");
         }
     }
 }

@@ -47,5 +47,11 @@ namespace ProyectoFinal.Mobile.Views
                 }
             };
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            imagen.Source = null;
+        }
     }
 }

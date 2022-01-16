@@ -14,5 +14,6 @@ namespace ProyectoFinal.Mobile.ViewModels
         }
 
         public ICommand OpenWebCommand { get; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoFinal.Mobile.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,14 @@ namespace ProyectoFinal.Mobile.Views
         public PerfilPage()
         {
             InitializeComponent();
+            BindingContext = new PerfilViewModel();
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ((PerfilViewModel) BindingContext).CargarInformacion();
+        }
+
     }
 }
