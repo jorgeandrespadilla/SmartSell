@@ -15,7 +15,7 @@ namespace ProyectoFinal.Mobile.Views
         public LoginPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
+            BindingContext = new LoginViewModel();
         }
 
         protected override async void OnAppearing()

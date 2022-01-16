@@ -21,7 +21,6 @@ namespace ProyectoFinal.Mobile.Services
         public AuthorizedUsuarioDto CurrentUser { get; set; }
 
         private string userName;
-
         public string UserName
         {
             get => userName;

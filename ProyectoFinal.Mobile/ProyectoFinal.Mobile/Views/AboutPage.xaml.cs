@@ -12,7 +12,7 @@ namespace ProyectoFinal.Mobile.Views
         public AboutPage()
         {
             InitializeComponent();
-
+            BindingContext = new AboutPage();
             btnTomarFoto.Clicked += async(sender, args) =>
             {
                 try

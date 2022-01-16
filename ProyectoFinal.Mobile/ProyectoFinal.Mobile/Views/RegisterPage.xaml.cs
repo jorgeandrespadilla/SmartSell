@@ -16,7 +16,7 @@ namespace ProyectoFinal.Mobile.Views
         public RegisterPage()
         {
             InitializeComponent();
-            this.BindingContext = new RegisterViewModel();
+            BindingContext = new RegisterViewModel();
         }
     }
 }
