@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Mobile.Helpers;
+using ProyectoFinal.Mobile.ViewModels;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -12,7 +13,7 @@ namespace ProyectoFinal.Mobile.Views
         public AboutPage()
         {
             InitializeComponent();
-            BindingContext = new AboutPage();
+            BindingContext = new AboutViewModel();
             btnTomarFoto.Clicked += async(sender, args) =>
             {
                 try
