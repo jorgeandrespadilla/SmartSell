@@ -1,6 +1,7 @@
 ﻿using ProyectoFinal.Shared.Dto;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -40,11 +41,15 @@ namespace ProyectoFinal.Mobile.ViewModels
             get => calificacionTxt;
             set => SetProperty(ref calificacionTxt, value);
         }
+
         private ICollection<OfertaDto> ofertas;
-        public ICollection<OfertaDto> Ofertas {
+        public ICollection<OfertaDto> Ofertas
+        {
             get => ofertas;
             set => SetProperty(ref ofertas, value);
         }
+
+        
 
         public PerfilViewModel()
         {
@@ -54,15 +59,18 @@ namespace ProyectoFinal.Mobile.ViewModels
         public async void CargarInformacion()
         {
             PerfilDto usuarioActual = await SmartSell.GetPerfil();
-            //var ofertasQuery = await smartSell.GetPerfilOfertas("PARTICIPACION");
-            //MisOfertas.ItemsSource = ofertasQuery;
-
             NombreCompletoTxt = $"{usuarioActual.Nombres} {usuarioActual.Apellidos}";
             NombreTxt = usuarioActual.Nombres;
             ApellidoTxt = usuarioActual.Apellidos;
             UserTxt = usuarioActual.Correo;
             CalificacionTxt = $"{CalificacionTxt = Math.Round(usuarioActual.AvgRating, 2).ToString("F2")}/{5:F2}";
-            Ofertas = await SmartSell.GetPerfilOfertas("Participacion");
+            UpdateOfertas("Participacion");
+            
+        }
+
+        public async void UpdateOfertas(string type)
+        {
+            Ofertas = await SmartSell.GetPerfilOfertas(type);
         }
     }
 }

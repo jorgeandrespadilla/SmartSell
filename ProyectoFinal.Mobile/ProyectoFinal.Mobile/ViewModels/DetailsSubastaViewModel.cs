@@ -60,23 +60,28 @@ namespace ProyectoFinal.Mobile.ViewModels
             
         }
 
-        public async void CargarInformacion()
+        public override async void Initialize()
         {
             SubastaDto subasta = await SmartSell.GetSubasta(2);
             Imagen = MediaHelper.UriToImageSource(subasta.UriImagen);
             NombreTxt = subasta.NombreProducto;
             VendedorTxt = subasta.NombreVendedor;
             PrecioActualTxt = subasta.MontoActual.ToString("C2");
-            
+            DescripcionTxt = subasta.DescripcionProducto;
             if (subasta.Vigente == true)
             {
-                DescripcionTxt = "Sí";
+                VigenteTxt = "Sí";
             }
             else
             {
-                DescripcionTxt = "No";
+                VigenteTxt = "No";
             }
             FechaFinalizacionTxt = subasta.Fecha.ToString("dd MMM yyyy, HH:mm", new CultureInfo("es-ES"));
+        }
+
+        public override void Dispose()
+        {
+            Imagen = null;
         }
 
     }

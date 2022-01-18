@@ -13,18 +13,20 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <ScrollView VerticalOptions="FillAndExpand">
-            <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center" Padding="20,20" >
-                <Image Source="logo.png" VerticalOptions="Center" HeightRequest="100" />
-                <Label HorizontalTextAlignment="Center" FontSize="32" TextColor="#212529" FontAttributes="Bold" Padding="0,20,0,40" Text="Inicio de Sesión" />
-                <Label VerticalTextAlignment="Left" Text="Correo Electrónico" FontSize="16" Margin="5,0,0,0"/>
-                <Entry x:Name="userTxt" Text="{Binding UserTxt}" IsSpellCheckEnabled="False" ReturnType="Next" />
-                <Label VerticalTextAlignment="Left" Text="Contraseña" FontSize="16" Margin="5,20,0,0"/>
-                <Entry x:Name="claveTxt" Text="{Binding ClaveTxt}" IsSpellCheckEnabled="False" IsPassword="True" ReturnType="Done" />
-                <Label VerticalTextAlignment="Left" Margin="5,20,5,8" TextColor="#6c757d" Text="Clave para los usuarios de prueba: 12345678" FontSize="16"/>
-                <Button x:Name="enviarBtn" Text="Ingresar" Margin="0,15,0,10" Padding="10,10" FontSize="18" Command="{Binding LoginCommand}"/>
-                <Button x:Name="registrarBtn" Margin="0,10" Padding="10,10" FontSize="16" Text="Registrarse" BackgroundColor="White" TextColor="{StaticResource Primary}" Command="{Binding GoRegisterCommand}"/>
-            </StackLayout>
-        </ScrollView>
+        <StackLayout>
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center" Padding="20,20" >
+                    <Image Source="logo.png" VerticalOptions="Center" HeightRequest="100" />
+                    <Label HorizontalTextAlignment="Center" FontSize="32" TextColor="#212529" FontAttributes="Bold" Padding="0,20,0,40" Text="Inicio de Sesión" />
+                    <Label VerticalTextAlignment="Left" Text="Correo Electrónico" FontSize="16" Margin="5,0,0,0"/>
+                    <Entry x:Name="userTxt" Text="{Binding UserTxt}" IsSpellCheckEnabled="False" ReturnType="Next" />
+                    <Label VerticalTextAlignment="Left" Text="Contraseña" FontSize="16" Margin="5,20,0,0"/>
+                    <Entry x:Name="claveTxt" Text="{Binding ClaveTxt}" IsSpellCheckEnabled="False" IsPassword="True" ReturnType="Done" />
+                    <Label VerticalTextAlignment="Left" Margin="5,20,5,8" TextColor="#6c757d" Text="Clave para los usuarios de prueba: 12345678" FontSize="16"/>
+                    <Button x:Name="enviarBtn" Text="Ingresar" Margin="0,15,0,10" Padding="10,10" FontSize="18" Command="{Binding LoginCommand}"/>
+                    <Button x:Name="registrarBtn" Margin="0,10" Padding="10,10" FontSize="16" Text="Registrarse" BackgroundColor="White" TextColor="{StaticResource Primary}" Command="{Binding GoRegisterCommand}"/>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

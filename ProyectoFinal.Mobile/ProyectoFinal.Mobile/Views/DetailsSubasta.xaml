@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.DetailsSubasta"
+             xmlns:v="clr-namespace:ProyectoFinal.Mobile.Views"
              xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels">
 
     <ContentPage.BindingContext>
@@ -9,23 +10,25 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Orientation="Vertical">
-                <Label HorizontalTextAlignment="Center" FontSize="32" TextColor="White" FontAttributes="Bold" Text="Información de subasta" />
-                <Image Source="{Binding Imagen, Mode=OneWay}" HorizontalOptions="Start"/>
-                <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,10,0,0"/>
-                <Label HorizontalOptions="Start" Text="{Binding NombreTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,0,20"/>
-                <Label HorizontalOptions="Start" Text="Vendedor" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
-                <Label HorizontalOptions="Start" Text="{Binding VendedorTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
-                <Label HorizontalOptions="Start" Text="Precio Actual" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
-                <Label HorizontalOptions="Start" Text="{Binding PrecioActualTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
-                <Label HorizontalOptions="Start" Text="Descripcion" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
-                <Label HorizontalOptions="Start" Text="{Binding DescripcionTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
-                <Label HorizontalOptions="Start" Text="Vigente" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
-                <Label HorizontalOptions="Start" Text="{Binding VigenteTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
-                <Label HorizontalOptions="Start" Text="Fecha de finalización" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
-                <Label HorizontalOptions="Start" Text="{Binding FechaFinalizacionTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
-            </StackLayout>
-        </ScrollView>
+        <StackLayout>
+            <ScrollView>
+                <StackLayout Orientation="Vertical">
+                    <Label HorizontalTextAlignment="Center" FontSize="32" TextColor="Black" FontAttributes="Bold" Text="Información de subasta" />
+                    <Image x:Name="imagen" Source="{Binding Imagen, Mode=OneWay}" HorizontalOptions="Start"/>
+                    <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,10,0,0"/>
+                    <Label HorizontalOptions="Start" Text="{Binding NombreTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,0,20"/>
+                    <Label HorizontalOptions="Start" Text="Vendedor" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
+                    <Label HorizontalOptions="Start" Text="{Binding VendedorTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
+                    <Label HorizontalOptions="Start" Text="Precio Actual" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
+                    <Label HorizontalOptions="Start" Text="{Binding PrecioActualTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
+                    <Label HorizontalOptions="Start" Text="Descripcion" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
+                    <Label HorizontalOptions="Start" Text="{Binding DescripcionTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
+                    <Label HorizontalOptions="Start" Text="Vigente" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
+                    <Label HorizontalOptions="Start" Text="{Binding VigenteTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
+                    <Label HorizontalOptions="Start" Text="Fecha de finalización" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
+                    <Label HorizontalOptions="Start" Text="{Binding FechaFinalizacionTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -13,6 +13,17 @@ namespace ProyectoFinal.Mobile.ViewModels
         public SmartSell SmartSell = SmartSell.Instance;
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
 
+        public virtual void Initialize()
+        {
+
+        }
+            
+            
+        public virtual void Dispose()
+        {
+            
+        }
+
         bool isBusy = false;
         public bool IsBusy
         {

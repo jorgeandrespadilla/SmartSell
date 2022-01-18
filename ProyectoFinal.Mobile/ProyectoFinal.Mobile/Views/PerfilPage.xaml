@@ -10,57 +10,65 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <ScrollView VerticalOptions="FillAndExpand">
-            <StackLayout Orientation="Vertical">
-                <yummy:PancakeView CornerRadius="0,0,60,60">
-                    <StackLayout Orientation="Vertical" Padding="20">
-                        <Label HorizontalTextAlignment="Center" FontSize="32" TextColor="White" FontAttributes="Bold" Text="Perfil" />
-                        <Label Text="{StaticResource IconUser}" HorizontalTextAlignment="Center" FontFamily="MaterialIcons" FontSize="80" TextColor="AliceBlue" />
-                        <Label HorizontalOptions="Center" Text="{Binding NombreCompletoTxt, Mode=OneWay}" TextColor="White" FontSize="24" Margin="0,0,0,10"/>
-                        <yummy:PancakeView HorizontalOptions="Center" CornerRadius="30" Shadow="{yummy:ShadowMarkup Color=#FF0000, Offset='10,10'}" >
-                            <StackLayout>
-                                <Label HorizontalOptions="Center" Text="{Binding CalificacionTxt, Mode=OneWay}" TextColor="White" FontSize="20" Padding="20,10"/>
-                                <StackLayout.Background>
-                                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                        <GradientStop Color="#84B5DA" Offset="0.3"/>
-                                        <GradientStop Color="#7A8D9D" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </StackLayout.Background>
-                            </StackLayout>
-                        </yummy:PancakeView>
-                        <StackLayout.Background>
-                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                <GradientStop Color="#f29263" Offset="0.1"/>
-                                <GradientStop Color="#ee5a6f" Offset="1"/>
-                            </LinearGradientBrush>
-                        </StackLayout.Background>
+        <StackLayout>
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Vertical">
+                    <yummy:PancakeView CornerRadius="0,0,60,60">
+                        <StackLayout Orientation="Vertical" Padding="20">
+                            <Label HorizontalTextAlignment="Center" FontSize="32" TextColor="White" FontAttributes="Bold" Text="Perfil" />
+                            <Label Text="{StaticResource IconUser}" HorizontalTextAlignment="Center" FontFamily="MaterialIcons" FontSize="80" TextColor="AliceBlue" />
+                            <Label HorizontalOptions="Center" Text="{Binding NombreCompletoTxt, Mode=OneWay}" TextColor="White" FontSize="24" Margin="0,0,0,10"/>
+                            <yummy:PancakeView HorizontalOptions="Center" CornerRadius="30" Shadow="{yummy:ShadowMarkup Color=#FF0000, Offset='10,10'}" >
+                                <StackLayout>
+                                    <Label HorizontalOptions="Center" Text="{Binding CalificacionTxt, Mode=OneWay}" TextColor="White" FontSize="20" Padding="20,10"/>
+                                    <StackLayout.Background>
+                                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                            <GradientStop Color="#84B5DA" Offset="0.3"/>
+                                            <GradientStop Color="#7A8D9D" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </StackLayout.Background>
+                                </StackLayout>
+                            </yummy:PancakeView>
+                            <StackLayout.Background>
+                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                    <GradientStop Color="#f29263" Offset="0.1"/>
+                                    <GradientStop Color="#ee5a6f" Offset="1"/>
+                                </LinearGradientBrush>
+                            </StackLayout.Background>
+                        </StackLayout>
+                    </yummy:PancakeView>
+                    <Label HorizontalOptions="Start" Text="Nombres" TextColor="Black" FontSize="Medium" Padding="20,10,0,0"/>
+                    <Label HorizontalOptions="Start" Text="{Binding NombreTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,0,20"/>
+                    <Label HorizontalOptions="Start" Text="Apellido" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
+                    <Label HorizontalOptions="Start" Text="{Binding ApellidoTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
+                    <Label HorizontalOptions="Start" Text="Correo" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
+                    <Label HorizontalOptions="Start" Text="{Binding UserTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
+                    <StackLayout Orientation ="Horizontal" Padding="30,10" HorizontalOptions="FillAndExpand">
+                        <Button CornerRadius="30" HorizontalOptions="FillAndExpand" IsEnabled="False" Text="Ofertas más altas"></Button>
+                        <Button CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Subastas ganadas"></Button>
                     </StackLayout>
-                </yummy:PancakeView>
-                <Label HorizontalOptions="Start" Text="Nombres" TextColor="Black" FontSize="Medium" Padding="20,10,0,0"/>
-                <Label HorizontalOptions="Start" Text="{Binding NombreTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,0,20"/>
-                <Label HorizontalOptions="Start" Text="Apellido" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
-                <Label HorizontalOptions="Start" Text="{Binding ApellidoTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
-                <Label HorizontalOptions="Start" Text="Correo" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
-                <Label HorizontalOptions="Start" Text="{Binding UserTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
-                <StackLayout Orientation ="Horizontal" Padding="30,10" HorizontalOptions="FillAndExpand">
-                    <Button CornerRadius="30" HorizontalOptions="FillAndExpand" IsEnabled="False" Text="Ofertas más altas"></Button>
-                    <Button CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Subastas ganadas"></Button>
+                    <StackLayout BindableLayout.ItemsSource="{Binding Ofertas}" BindableLayout.EmptyView="No se encontraron resultados">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="20,10">
+                                    <Frame HorizontalOptions="FillAndExpand">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer/>
+                                        </Frame.GestureRecognizers>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                                            <StackLayout HorizontalOptions="FillAndExpand">
+                                                <Label Text="{Binding Nombre}" ></Label>
+                                                <Label Text="{Binding Fecha, StringFormat='{0:dd MMM yyyy}'}"></Label>
+                                            </StackLayout>
+                                            <Label Text="{Binding Monto, StringFormat='{0:C}'}" HorizontalTextAlignment="End"></Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
                 </StackLayout>
-                <ListView ItemsSource="{Binding Ofertas, Mode=OneWay}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Nombre}"></Label>
-                                        <Label Text="{Binding Monto}"></Label>
-                                    </StackLayout>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-        </ScrollView>
+            </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

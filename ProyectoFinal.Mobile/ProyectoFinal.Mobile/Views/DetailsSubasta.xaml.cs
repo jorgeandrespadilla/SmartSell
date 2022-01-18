@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoFinal.Mobile.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,19 @@ namespace ProyectoFinal.Mobile.Views
         public DetailsSubasta()
         {
             InitializeComponent();
+            BindingContext = new DetailsSubastaViewModel();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ((DetailsSubastaViewModel)BindingContext).Initialize();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            ((DetailsSubastaViewModel)BindingContext).Dispose();
         }
     }
 }
