@@ -11,6 +11,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 {
     public class DetailsSubastaViewModel : BaseViewModel
     {
+        
         private ImageSource imagen;
         public ImageSource Imagen
         {
@@ -57,7 +58,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public DetailsSubastaViewModel()
         {
-            
+            Title = "Información de subasta";
         }
 
         public override async void Initialize()

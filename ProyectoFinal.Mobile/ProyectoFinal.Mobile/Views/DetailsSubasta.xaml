@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.DetailsSubasta"
-             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels">
-
+             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
+             Title="{Binding Title}">
+    
     <ContentPage.BindingContext>
         <vm:DetailsSubastaViewModel />
     </ContentPage.BindingContext>
@@ -12,8 +13,7 @@
         <StackLayout>
             <ScrollView>
                 <StackLayout Orientation="Vertical">
-                    <Label HorizontalTextAlignment="Center" FontSize="32" TextColor="Black" FontAttributes="Bold" Text="Información de subasta" />
-                    <Image x:Name="imagen" Source="{Binding Imagen, Mode=OneWay}" HorizontalOptions="Start"/>
+                    <Image x:Name="imagen" Source="{Binding Imagen, Mode=OneWay}" HorizontalOptions="Center"/>
                     <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,10,0,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding NombreTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,0,20"/>
                     <Label HorizontalOptions="Start" Text="Vendedor" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
