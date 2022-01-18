@@ -50,17 +50,17 @@
                     <StackLayout BindableLayout.ItemsSource="{Binding Ofertas}" BindableLayout.EmptyView="No se encontraron resultados">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout Padding="20,10">
+                                <StackLayout Padding="20,0">
                                     <Frame HorizontalOptions="FillAndExpand">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer/>
                                         </Frame.GestureRecognizers>
-                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                             <StackLayout HorizontalOptions="FillAndExpand">
-                                                <Label Text="{Binding Nombre}" ></Label>
-                                                <Label Text="{Binding Fecha, StringFormat='{0:dd MMM yyyy}'}"></Label>
+                                                <Label Text="{Binding Nombre}" FontAttributes="Bold" FontSize="16" ></Label>
+                                                <Label Text="{Binding Fecha, StringFormat='{0:dd MMM yyyy}'}" TextColor="#a1a1a1"></Label>
                                             </StackLayout>
-                                            <Label Text="{Binding Monto, StringFormat='{0:C}'}" HorizontalTextAlignment="End"></Label>
+                                            <Label Text="{Binding Monto, StringFormat='{0:C}'}" HorizontalTextAlignment="End" FontSize="16"></Label>
                                         </StackLayout>
                                     </Frame>
                                 </StackLayout>
