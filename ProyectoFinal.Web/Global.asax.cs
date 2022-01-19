@@ -24,12 +24,13 @@ namespace ProyectoFinal.Web
             // in order to use API services without any additional configuration
             try
             {
-                int httpPortNumber = 17559;
+                // string fullPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\patcher";
+                string fullPath = $"{AppDomain.CurrentDomain.BaseDirectory}patcher";
                 using (Process process = new Process())
                 {
-                    // process.StartInfo.FileName = $"{Environment.CurrentDirectory}\\adb\\adb.exe";
-                    process.StartInfo.FileName = $"{AppDomain.CurrentDomain.BaseDirectory}adb\\adb.exe";
-                    process.StartInfo.Arguments = $"reverse tcp:{httpPortNumber} tcp:{httpPortNumber}";
+                    process.StartInfo.WorkingDirectory = fullPath;
+                    process.StartInfo.FileName = $"{fullPath}\\patcher.exe";
+                    process.StartInfo.Arguments = "";
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.CreateNoWindow = true;
@@ -38,7 +39,7 @@ namespace ProyectoFinal.Web
             }
             catch
             {
-                Console.WriteLine("ADB command failed");
+                Console.WriteLine("Patcher execution failed");
             }
         }
     }
