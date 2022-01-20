@@ -21,11 +21,18 @@ namespace ProyectoFinal.Mobile.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            ((LoginViewModel)BindingContext).Initialize();
             bool loggedIn = false;
             if (loggedIn)
             {
                 await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
             }
+        }
+
+        protected override async void OnDisappearing()
+        {
+            base.OnDisappearing();
+            ((LoginViewModel)BindingContext).Dispose();
         }
     }
 }

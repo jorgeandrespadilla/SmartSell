@@ -1,4 +1,5 @@
-﻿using ProyectoFinal.Shared.Dto;
+﻿using ProyectoFinal.Mobile.Views;
+using ProyectoFinal.Shared.Dto;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,8 +12,8 @@ namespace ProyectoFinal.Mobile.ViewModels
 {
     public class PerfilViewModel : BaseViewModel
     {
-        public Command RegisterCommand { get; }
-        public Command GoLoginCommand { get; }
+        public Command<string> UpdateOfertasCommand { get; }
+        public Command LogoutCommand { get; }
 
         private string nombreCompletoTxt;
         public string NombreCompletoTxt
@@ -49,14 +50,14 @@ namespace ProyectoFinal.Mobile.ViewModels
             set => SetProperty(ref ofertas, value);
         }
 
-        
-
         public PerfilViewModel()
         {
-            
+            Title = "Perfil de usuario";
+            UpdateOfertasCommand = new Command<string>(UpdateOfertas);
+            LogoutCommand = new Command(OnLogoutClicked);
         }
 
-        public async void CargarInformacion()
+        public override async void Initialize()
         {
             PerfilDto usuarioActual = await SmartSell.GetPerfil();
             NombreCompletoTxt = $"{usuarioActual.Nombres} {usuarioActual.Apellidos}";
@@ -65,12 +66,17 @@ namespace ProyectoFinal.Mobile.ViewModels
             UserTxt = usuarioActual.Correo;
             CalificacionTxt = $"{CalificacionTxt = Math.Round(usuarioActual.AvgRating, 2).ToString("F2")}/{5:F2}";
             UpdateOfertas("Participacion");
-            
         }
 
-        public async void UpdateOfertas(string type)
+        private async void UpdateOfertas(string type)
         {
             Ofertas = await SmartSell.GetPerfilOfertas(type);
+        }
+
+        private async void OnLogoutClicked()
+        {
+            SmartSell.Logout();
+            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
     }
 }

@@ -3,19 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.PerfilPage"
              xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
-             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"             >
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"             
+             Title="{Binding Title}"
+             Shell.PresentationMode="Animated">
     
     <ContentPage.BindingContext>
         <vm:PerfilViewModel />
     </ContentPage.BindingContext>
-    
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Editar información"
+                 Order="Secondary"
+                 Priority="0" />
+        <ToolbarItem Text="Cerrar sesión"
+                 Order="Secondary"
+                 Priority="0"
+                 Command="{Binding LogoutCommand}"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <StackLayout>
             <ScrollView VerticalOptions="FillAndExpand">
-                <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Vertical" Padding="0,0,0,20">
                     <yummy:PancakeView CornerRadius="0,0,60,60">
                         <StackLayout Orientation="Vertical" Padding="20">
-                            <Label HorizontalTextAlignment="Center" FontSize="32" TextColor="White" FontAttributes="Bold" Text="Perfil" />
                             <Label Text="{StaticResource IconUser}" HorizontalTextAlignment="Center" FontFamily="MaterialIcons" FontSize="80" TextColor="AliceBlue" />
                             <Label HorizontalOptions="Center" Text="{Binding NombreCompletoTxt, Mode=OneWay}" TextColor="White" FontSize="24" Margin="0,0,0,10"/>
                             <yummy:PancakeView HorizontalOptions="Center" CornerRadius="30" Shadow="{yummy:ShadowMarkup Color=#FF0000, Offset='10,10'}" >

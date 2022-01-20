@@ -30,7 +30,7 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" />
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>
     
     <TabBar>
@@ -40,12 +40,12 @@
             </ShellContent.Icon>
         </ShellContent>
         <ShellContent Title="Browse" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
-        <ShellContent Title="Perfil" ContentTemplate="{DataTemplate local:PerfilPage}">
+        <ShellContent Title="Perfil" Route="PerfilPage" ContentTemplate="{DataTemplate local:PerfilPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconUser}"/>
             </ShellContent.Icon>
         </ShellContent>
-        <ShellContent Title="Perfil" ContentTemplate="{DataTemplate local:DetailsSubasta}">
+        <ShellContent Title="Details" ContentTemplate="{DataTemplate local:DetailsSubasta}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconUser}"/>
             </ShellContent.Icon>

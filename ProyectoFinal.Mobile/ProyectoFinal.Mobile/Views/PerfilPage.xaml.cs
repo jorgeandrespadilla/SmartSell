@@ -22,8 +22,7 @@ namespace ProyectoFinal.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ((PerfilViewModel) BindingContext).CargarInformacion();
+            ((PerfilViewModel)BindingContext).Initialize();
         }
-
     }
 }

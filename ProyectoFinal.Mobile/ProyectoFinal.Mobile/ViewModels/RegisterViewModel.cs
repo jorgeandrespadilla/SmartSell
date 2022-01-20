@@ -24,7 +24,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             GoLoginCommand = new Command(OnGoLoginClicked);
         }
 
-        private async void OnRegisterClicked(object obj)
+        private async void OnRegisterClicked()
         {
             try
             {
@@ -38,7 +38,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             IsBusy = false;
         }
 
-        private async void OnGoLoginClicked(object obj)
+        private async void OnGoLoginClicked()
         {
             await Shell.Current.GoToAsync($"..", true);
         }

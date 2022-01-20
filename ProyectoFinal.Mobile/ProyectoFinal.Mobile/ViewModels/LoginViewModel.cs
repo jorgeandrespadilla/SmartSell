@@ -9,22 +9,29 @@ namespace ProyectoFinal.Mobile.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        public string UserTxt { get; set; }
-        public string ClaveTxt { get; set; }
+        private string userTxt;
+        public string UserTxt
+        {
+            get => userTxt;
+            set => SetProperty(ref userTxt, value);
+        }
+        private string claveTxt;
+        public string ClaveTxt
+        {
+            get => claveTxt;
+            set => SetProperty(ref claveTxt, value);
+        }
 
         public Command LoginCommand { get; }
         public Command GoRegisterCommand { get; }
 
         public LoginViewModel()
         {
-            UserTxt = "";
-            ClaveTxt = "";
-
             LoginCommand = new Command(OnLoginClicked);
             GoRegisterCommand = new Command(OnGoRegisterClicked);
         }
 
-        private async void OnLoginClicked(object obj)
+        private async void OnLoginClicked()
         {
             try
             {
@@ -39,9 +46,21 @@ namespace ProyectoFinal.Mobile.ViewModels
             IsBusy = false;
         }
 
-        private async void OnGoRegisterClicked(object obj)
+        private async void OnGoRegisterClicked()
         {
             await Shell.Current.GoToAsync($"{nameof(RegisterPage)}");
+        }
+
+        public override void Initialize()
+        {
+            UserTxt = "";
+            ClaveTxt = "";
+        }
+
+        public override void Dispose()
+        {
+            UserTxt = "";
+            ClaveTxt = "";
         }
     }
 }
