@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.PerfilPage"
              xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
-             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"             
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Name="root"
              Title="{Binding Title}"
              Shell.PresentationMode="Animated">
     
@@ -55,16 +56,17 @@
                     <Label HorizontalOptions="Start" Text="Correo" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding UserTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
                     <StackLayout Orientation ="Horizontal" Padding="30,10" HorizontalOptions="FillAndExpand">
-                        <Button CornerRadius="30" HorizontalOptions="FillAndExpand" IsEnabled="False" Text="Ofertas más altas"></Button>
-                        <Button CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Subastas ganadas"></Button>
+                        <Button CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Ofertas más altas" Command="{Binding UpdateOfertasCommand}" CommandParameter="Participacion"></Button>
+                        <Button CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Subastas ganadas" Command="{Binding UpdateOfertasCommand}" CommandParameter="Ganadas"></Button>
                     </StackLayout>
+                    <Label HorizontalOptions="CenterAndExpand" Text="{Binding OfertasType, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Small" Padding="20,0"/>
                     <StackLayout BindableLayout.ItemsSource="{Binding Ofertas}" BindableLayout.EmptyView="No se encontraron resultados">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Padding="20,0">
                                     <Frame HorizontalOptions="FillAndExpand">
                                         <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer/>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ShowOfertaCommand}" CommandParameter="{Binding OfertaID}"/>
                                         </Frame.GestureRecognizers>
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                             <StackLayout HorizontalOptions="FillAndExpand">

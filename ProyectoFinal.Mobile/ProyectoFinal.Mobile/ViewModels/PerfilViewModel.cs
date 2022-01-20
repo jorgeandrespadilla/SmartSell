@@ -12,6 +12,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 {
     public class PerfilViewModel : BaseViewModel
     {
+        public Command<int> ShowOfertaCommand { get; }
         public Command<string> UpdateOfertasCommand { get; }
         public Command LogoutCommand { get; }
 
@@ -43,6 +44,13 @@ namespace ProyectoFinal.Mobile.ViewModels
             set => SetProperty(ref calificacionTxt, value);
         }
 
+        private string ofertasType;
+        public string OfertasType
+        {
+            get => ofertasType;
+            set => SetProperty(ref ofertasType, value);
+        }
+
         private ICollection<OfertaDto> ofertas;
         public ICollection<OfertaDto> Ofertas
         {
@@ -54,6 +62,7 @@ namespace ProyectoFinal.Mobile.ViewModels
         {
             Title = "Perfil de usuario";
             UpdateOfertasCommand = new Command<string>(UpdateOfertas);
+            ShowOfertaCommand = new Command<int>(OnOfertaClicked);
             LogoutCommand = new Command(OnLogoutClicked);
         }
 
@@ -71,6 +80,19 @@ namespace ProyectoFinal.Mobile.ViewModels
         private async void UpdateOfertas(string type)
         {
             Ofertas = await SmartSell.GetPerfilOfertas(type);
+            if (type == "Participacion")
+            {
+                OfertasType = "Ofertas más altas";
+            }
+            else
+            {
+                OfertasType = "Subastas ganadas";
+            }
+        }
+
+        private async void OnOfertaClicked(int ofertaID)
+        {
+            await Application.Current.MainPage.DisplayAlert("Oferta seleccionada", $"{ofertaID}", "Aceptar");
         }
 
         private async void OnLogoutClicked()
