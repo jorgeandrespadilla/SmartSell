@@ -11,9 +11,9 @@ using Xamarin.Forms.Xaml;
 namespace ProyectoFinal.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DetailsSubasta : ContentPage
+    public partial class SubastaDetailPage : ContentPage
     {
-        public DetailsSubasta()
+        public SubastaDetailPage()
         {
             InitializeComponent();
             BindingContext = new DetailsSubastaViewModel();
