@@ -11,21 +11,68 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <ScrollView>
-                <StackLayout Orientation="Vertical">
+            <ScrollView Padding="0,20">
+                <StackLayout Orientation="Vertical" >
                     <Image x:Name="imagen" Source="{Binding Imagen, Mode=OneWay}" HorizontalOptions="Center"/>
-                    <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,0"/>
+                    <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,10,0,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding NombreTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Vendedor" TextColor="Black" FontSize="Medium" Padding="20,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding VendedorTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Precio Actual" TextColor="Black" FontSize="Medium" Padding="20,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding PrecioActualTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
-                    <Label HorizontalOptions="Start" Text="Descripción" TextColor="Black" FontSize="Medium" Padding="20,0"/>
+                    <Label HorizontalOptions="Start" Text="Descripcion" TextColor="Black" FontSize="Medium" Padding="20,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding DescripcionTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Vigente" TextColor="Black" FontSize="Medium" Padding="20,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding VigenteTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Fecha de finalización" TextColor="Black" FontSize="Medium" Padding="20,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding FechaFinalizacionTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
+                    <Label HorizontalTextAlignment="Center" FontSize="32" Margin="0,30,0,0" TextColor="Black" FontAttributes="Bold" Text="Ofertas"/>
+                    <StackLayout BindableLayout.ItemsSource="{Binding Ofertas}" BindableLayout.EmptyView="No se encontraron resultados">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="20,0">
+                                    <Frame HorizontalOptions="FillAndExpand">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer/>
+                                        </Frame.GestureRecognizers>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                            <StackLayout HorizontalOptions="FillAndExpand">
+                                                <Label Text="{Binding Nombre}" FontAttributes="Bold" FontSize="16" ></Label>
+                                                <Label Text="{Binding Fecha, StringFormat='{0:dd MMM yyyy}'}" TextColor="#a1a1a1"></Label>
+                                            </StackLayout>
+                                            <Label Text="{Binding Monto, StringFormat='{0:C}'}" HorizontalTextAlignment="End" FontSize="16"></Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                    <Label HorizontalTextAlignment="Center" FontSize="32" Margin="0,30,0,0" TextColor="Black" FontAttributes="Bold" Text="Comentarios"/>
+                    <StackLayout BindableLayout.ItemsSource="{Binding Comentarios}" BindableLayout.EmptyView="No se encontraron resultados">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="20,0">
+                                    <Frame HorizontalOptions="FillAndExpand">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer/>
+                                        </Frame.GestureRecognizers>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                            <StackLayout HorizontalOptions="FillAndExpand">
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                                        <Label Text="{StaticResource IconUser}" HorizontalTextAlignment="Center" FontFamily="MaterialIcons" FontSize="20" TextColor="Black" />
+                                                        <Label Text="{Binding NombreUsuario}" FontAttributes="Bold" FontSize="16" ></Label>
+                                                    </StackLayout>
+                                                    <Label HorizontalOptions="End" Text="{Binding FechaCreacion, StringFormat='{0:dd MMM yyyy}'}" HorizontalTextAlignment="End" MaxLines="1"></Label>
+                                                </StackLayout>
+                                                <Label Text="{Binding Descripcion}" TextColor="#a1a1a1" FontSize="16"></Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
                 </StackLayout>
             </ScrollView>
         </StackLayout>

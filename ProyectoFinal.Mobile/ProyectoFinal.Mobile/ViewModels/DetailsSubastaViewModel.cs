@@ -55,6 +55,20 @@ namespace ProyectoFinal.Mobile.ViewModels
             set => SetProperty(ref fechaFinalizacionTxt, value);
         }
 
+        private ICollection<OfertaDto> ofertas;
+        public ICollection<OfertaDto> Ofertas
+        {
+            get => ofertas;
+            set => SetProperty(ref ofertas, value);
+        }
+
+        private ICollection<ComentarioDto> comentarios;
+        public ICollection<ComentarioDto> Comentarios
+        {
+            get => comentarios;
+            set => SetProperty(ref comentarios, value);
+        }
+
 
         public DetailsSubastaViewModel()
         {
@@ -63,7 +77,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public override async void Initialize()
         {
-            SubastaDto subasta = await SmartSell.GetSubasta(2);
+            SubastaDto subasta = await SmartSell.GetSubasta(5);
             Imagen = MediaHelper.UriToImageSource(subasta.UriImagen);
             NombreTxt = subasta.NombreProducto;
             VendedorTxt = subasta.NombreVendedor;
@@ -78,6 +92,8 @@ namespace ProyectoFinal.Mobile.ViewModels
                 VigenteTxt = "No";
             }
             FechaFinalizacionTxt = subasta.Fecha.ToString("dd MMM yyyy, HH:mm", new CultureInfo("es-ES"));
+            Ofertas = subasta.Ofertas;
+            Comentarios = subasta.Comentarios;
         }
 
         public override void Dispose()
