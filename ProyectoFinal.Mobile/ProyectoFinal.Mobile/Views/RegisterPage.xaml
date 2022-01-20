@@ -24,7 +24,7 @@
                     <Label VerticalTextAlignment="Left" Text="Apellidos" FontSize="16" Margin="5,20,0,0"/>
                     <Entry x:Name="apellidosTxt" Text="{Binding ApellidoTxt}" IsSpellCheckEnabled="False" ReturnType="Next"/>
                     <Label VerticalTextAlignment="Left" Text="Correo Electrónico" FontSize="16" Margin="5,20,0,0"/>
-                    <Entry x:Name="correoTxt" Text="{Binding UserTxt}" IsSpellCheckEnabled="False" ReturnType="Next"/>
+                    <Entry x:Name="correoTxt" Text="{Binding CorreoTxt}" IsSpellCheckEnabled="False" ReturnType="Next"/>
                     <Label VerticalTextAlignment="Left" Text="Contraseña" FontSize="16" Margin="5,20,0,0"/>
                     <Entry x:Name="claveTxt" Text="{Binding ClaveTxt}" IsSpellCheckEnabled="False" IsPassword="True" ReturnType="Done"/>
                     <Button x:Name="enviarBtn" Text="Crear cuenta" Margin="0,15,0,10" Padding="10,10" FontSize="18" Command="{Binding RegisterCommand}"/>

@@ -372,25 +372,24 @@ namespace ProyectoFinal.Mobile.Services
             }
         }
 
-        //public async Task<ICollection<SubastaItem>> ConvertToSubastaItems(IEnumerable<SubastaItemDto> itemsDto)
-        //{
-        //    throw new Exception("Method not implemented");
-        //    //ICollection<SubastaItem> items = new List<SubastaItem>();
-        //    //foreach (var itemDto in itemsDto)
-        //    //{
-        //    //    var image = await UriImage.UriToBitmapImage(itemDto.UriImagen);
-        //    //    items.Add(new SubastaItem(
-        //    //        itemDto.ID,
-        //    //        itemDto.UsuarioID,
-        //    //        image,
-        //    //        itemDto.NombreProducto,
-        //    //        itemDto.MontoActual,
-        //    //        itemDto.Fecha,
-        //    //        itemDto.Vigente
-        //    //    ));
-        //    //}
-        //    //return items;
-        //}
+        public ICollection<SubastaItem> ConvertToSubastaItems(IEnumerable<SubastaItemDto> itemsDto)
+        {
+            ICollection<SubastaItem> items = new List<SubastaItem>();
+            foreach (var itemDto in itemsDto)
+            {
+                var image = MediaHelper.UriToImageSource(itemDto.UriImagen);
+                items.Add(new SubastaItem(
+                    itemDto.ID,
+                    itemDto.UsuarioID,
+                    image,
+                    itemDto.NombreProducto,
+                    itemDto.MontoActual,
+                    itemDto.Fecha,
+                    itemDto.Vigente
+                ));
+            }
+            return items;
+        }
 
         public async Task<SubastaDto> GetSubasta(int id)
         {

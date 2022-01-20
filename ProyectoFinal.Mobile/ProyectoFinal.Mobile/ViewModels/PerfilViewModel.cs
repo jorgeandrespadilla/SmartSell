@@ -16,32 +16,17 @@ namespace ProyectoFinal.Mobile.ViewModels
         public Command<string> UpdateOfertasCommand { get; }
         public Command LogoutCommand { get; }
 
+        private PerfilDto perfil;
+        public PerfilDto Perfil
+        {
+            get => perfil;
+            set => SetProperty(ref perfil, value);
+        }
         private string nombreCompletoTxt;
         public string NombreCompletoTxt
         { 
             get => nombreCompletoTxt;
             set => SetProperty(ref nombreCompletoTxt, value);
-        }
-        private string nombreTxt;
-        public string NombreTxt {
-            get => nombreTxt;
-            set => SetProperty(ref nombreTxt, value);
-        }
-        private string apellidoTxt;
-        public string ApellidoTxt {
-            get => apellidoTxt;
-            set => SetProperty(ref apellidoTxt, value);
-        }
-        private string userTxt;
-        public string UserTxt {
-            get => userTxt;
-            set => SetProperty(ref userTxt, value);
-        }
-        private string calificacionTxt;
-        public string CalificacionTxt
-        {
-            get => calificacionTxt;
-            set => SetProperty(ref calificacionTxt, value);
         }
 
         private string ofertasType;
@@ -68,12 +53,8 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public override async void Initialize()
         {
-            PerfilDto usuarioActual = await SmartSell.GetPerfil();
-            NombreCompletoTxt = $"{usuarioActual.Nombres} {usuarioActual.Apellidos}";
-            NombreTxt = usuarioActual.Nombres;
-            ApellidoTxt = usuarioActual.Apellidos;
-            UserTxt = usuarioActual.Correo;
-            CalificacionTxt = $"{CalificacionTxt = Math.Round(usuarioActual.AvgRating, 2).ToString("F2")}/{5:F2}";
+            Perfil = await SmartSell.GetPerfil();
+            NombreCompletoTxt = $"{Perfil.Nombres} {Perfil.Apellidos}";
             UpdateOfertas("Participacion");
         }
 

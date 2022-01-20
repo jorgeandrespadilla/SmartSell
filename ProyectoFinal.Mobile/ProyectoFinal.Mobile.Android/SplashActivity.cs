@@ -17,6 +17,7 @@ namespace ProyectoFinal.Mobile.Droid
         Theme = "@style/SplashTheme",
         MainLauncher = true,
         NoHistory = true,
+        ScreenOrientation = ScreenOrientation.Portrait,
         ConfigurationChanges = ConfigChanges.ScreenSize
     )]
     public class SplashActivity : Activity

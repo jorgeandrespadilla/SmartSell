@@ -1,5 +1,7 @@
 ﻿using System;
 
+
+// TODO: REMOVE
 namespace ProyectoFinal.Mobile.Models
 {
     public class Item

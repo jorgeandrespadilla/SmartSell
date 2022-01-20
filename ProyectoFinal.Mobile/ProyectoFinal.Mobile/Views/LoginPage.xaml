@@ -19,7 +19,7 @@
                     <Image Source="logo.png" VerticalOptions="Center" HeightRequest="100" />
                     <Label HorizontalTextAlignment="Center" FontSize="32" TextColor="#212529" FontAttributes="Bold" Padding="0,20,0,40" Text="Inicio de Sesión" />
                     <Label VerticalTextAlignment="Left" Text="Correo Electrónico" FontSize="16" Margin="5,0,0,0"/>
-                    <Entry x:Name="userTxt" Text="{Binding UserTxt, Mode=TwoWay}" IsSpellCheckEnabled="False" ReturnType="Next" />
+                    <Entry x:Name="userTxt" Text="{Binding CorreoTxt, Mode=TwoWay}" IsSpellCheckEnabled="False" ReturnType="Next" />
                     <Label VerticalTextAlignment="Left" Text="Contraseña" FontSize="16" Margin="5,20,0,0"/>
                     <Entry x:Name="claveTxt" Text="{Binding ClaveTxt, Mode=TwoWay}" IsSpellCheckEnabled="False" IsPassword="True" ReturnType="Done" />
                     <Label VerticalTextAlignment="Left" Margin="5,20,5,8" TextColor="#6c757d" Text="Clave para los usuarios de prueba: 12345678" FontSize="16"/>

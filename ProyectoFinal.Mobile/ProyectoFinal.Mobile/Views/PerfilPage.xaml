@@ -3,11 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.PerfilPage"
              xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
-             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
              x:Name="root"
              Title="{Binding Title}"
              Shell.PresentationMode="Animated">
-    
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conveters:FloatToGradeConverter x:Key="FloatToGradeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.BindingContext>
         <vm:PerfilViewModel />
     </ContentPage.BindingContext>
@@ -32,7 +38,7 @@
                             <Label HorizontalOptions="Center" Text="{Binding NombreCompletoTxt, Mode=OneWay}" TextColor="White" FontSize="24" Margin="0,0,0,10"/>
                             <yummy:PancakeView HorizontalOptions="Center" CornerRadius="30" Shadow="{yummy:ShadowMarkup Color=#FF0000, Offset='10,10'}" >
                                 <StackLayout>
-                                    <Label HorizontalOptions="Center" Text="{Binding CalificacionTxt, Mode=OneWay}" TextColor="White" FontSize="20" Padding="20,10"/>
+                                    <Label HorizontalOptions="Center" Text="{Binding Perfil.AvgRating, Converter={StaticResource FloatToGradeConverter}, Mode=OneWay}" TextColor="White" FontSize="20" Padding="20,10"/>
                                     <StackLayout.Background>
                                         <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                                             <GradientStop Color="#84B5DA" Offset="0.3"/>
@@ -50,11 +56,11 @@
                         </StackLayout>
                     </yummy:PancakeView>
                     <Label HorizontalOptions="Start" Text="Nombres" TextColor="Black" FontSize="Medium" Padding="20,10,0,0"/>
-                    <Label HorizontalOptions="Start" Text="{Binding NombreTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,0,20"/>
+                    <Label HorizontalOptions="Start" Text="{Binding Perfil.Nombres, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,0,20"/>
                     <Label HorizontalOptions="Start" Text="Apellidos" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
-                    <Label HorizontalOptions="Start" Text="{Binding ApellidoTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
+                    <Label HorizontalOptions="Start" Text="{Binding Perfil.Apellidos, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
                     <Label HorizontalOptions="Start" Text="Correo" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
-                    <Label HorizontalOptions="Start" Text="{Binding UserTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
+                    <Label HorizontalOptions="Start" Text="{Binding Perfil.Correo, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,0,20"/>
                     <StackLayout Orientation ="Horizontal" Padding="30,10" HorizontalOptions="FillAndExpand">
                         <Button CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Ofertas más altas" Command="{Binding UpdateOfertasCommand}" CommandParameter="Participacion"></Button>
                         <Button CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Subastas ganadas" Command="{Binding UpdateOfertasCommand}" CommandParameter="Ganadas"></Button>

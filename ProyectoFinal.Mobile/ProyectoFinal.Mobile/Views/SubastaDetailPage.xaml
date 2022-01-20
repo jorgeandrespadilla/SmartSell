@@ -2,9 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.SubastaDetailPage"
-             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
+             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels" xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
              x:Name="root"
              Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conveters:BoolToStringConverter x:Key="BoolToStringConverter" />
+            <conveters:EndDateConverter x:Key="EndDateConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.BindingContext>
         <vm:SubastaDetailViewModel />
@@ -15,18 +22,18 @@
             <ScrollView Padding="0,20">
                 <StackLayout Orientation="Vertical" >
                     <Image x:Name="imagen" Source="{Binding Imagen, Mode=OneWay}" HorizontalOptions="Center"/>
-                    <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,10,0,0"/>
-                    <Label HorizontalOptions="Start" Text="{Binding NombreTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
+                    <Label HorizontalOptions="Start" Text="{Binding Subasta.NombreProducto, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Vendedor" TextColor="Black" FontSize="Medium" Padding="20,0"/>
-                    <Label HorizontalOptions="Start" Text="{Binding VendedorTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="{Binding Subasta.NombreVendedor, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Precio Actual" TextColor="Black" FontSize="Medium" Padding="20,0"/>
-                    <Label HorizontalOptions="Start" Text="{Binding PrecioActualTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
-                    <Label HorizontalOptions="Start" Text="Descripcion" TextColor="Black" FontSize="Medium" Padding="20,0"/>
-                    <Label HorizontalOptions="Start" Text="{Binding DescripcionTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="{Binding Subasta.MontoActual, StringFormat='{0:C}', Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="Descripción" TextColor="Black" FontSize="Medium" Padding="20,0"/>
+                    <Label HorizontalOptions="Start" Text="{Binding Subasta.DescripcionProducto, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Vigente" TextColor="Black" FontSize="Medium" Padding="20,0"/>
-                    <Label HorizontalOptions="Start" Text="{Binding VigenteTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="{Binding Subasta.Vigente, Converter={StaticResource BoolToStringConverter}, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Fecha de finalización" TextColor="Black" FontSize="Medium" Padding="20,0"/>
-                    <Label HorizontalOptions="Start" Text="{Binding FechaFinalizacionTxt, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="{Binding Subasta.Fecha, Converter={StaticResource EndDateConverter}, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
                     <Label HorizontalTextAlignment="Center" FontSize="32" Margin="0,30,0,0" TextColor="Black" FontAttributes="Bold" Text="Ofertas"/>
                     <StackLayout BindableLayout.ItemsSource="{Binding Ofertas}" BindableLayout.EmptyView="No se encontraron resultados">
                         <BindableLayout.ItemTemplate>

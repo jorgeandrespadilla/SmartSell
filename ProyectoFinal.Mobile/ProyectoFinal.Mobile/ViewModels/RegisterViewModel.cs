@@ -14,7 +14,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public string NombreTxt { get; set; }
         public string ApellidoTxt { get; set; }
-        public string UserTxt { get; set; }
+        public string CorreoTxt { get; set; }
         public string ClaveTxt { get; set; }
 
 
@@ -29,7 +29,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             try
             {
                 IsBusy = true;
-                await SmartSell.CreateAccount(NombreTxt, ApellidoTxt, UserTxt, ClaveTxt);
+                await SmartSell.CreateAccount(NombreTxt, ApellidoTxt, CorreoTxt, ClaveTxt);
                 await Shell.Current.GoToAsync($"..", true);
             }catch(Exception ex)
             {

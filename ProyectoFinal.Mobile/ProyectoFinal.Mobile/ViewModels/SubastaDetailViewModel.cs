@@ -2,9 +2,6 @@
 using ProyectoFinal.Shared.Dto;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace ProyectoFinal.Mobile.ViewModels
@@ -13,47 +10,17 @@ namespace ProyectoFinal.Mobile.ViewModels
     {
         public Command<int> ShowPerfilCommand { get; }
 
+        private SubastaDto subasta;
+        public SubastaDto Subasta
+        {
+            get => subasta;
+            set => SetProperty(ref subasta, value);
+        }
         private ImageSource imagen;
         public ImageSource Imagen
         {
             get => imagen;
             set => SetProperty(ref imagen, value);
-        }
-        private string nombreTxt;
-        public string NombreTxt
-        {
-            get => nombreTxt;
-            set => SetProperty(ref nombreTxt, value);
-        }
-        private string vendedorTxt;
-        public string VendedorTxt
-        {
-            get => vendedorTxt;
-            set => SetProperty(ref vendedorTxt, value);
-        }
-        private string precioActualTxt;
-        public string PrecioActualTxt
-        {
-            get => precioActualTxt;
-            set => SetProperty(ref precioActualTxt, value);
-        }
-        private string descripcionTxt;
-        public string DescripcionTxt
-        {
-            get => descripcionTxt;
-            set => SetProperty(ref descripcionTxt, value);
-        }
-        private string vigenteTxt;
-        public string VigenteTxt
-        {
-            get => vigenteTxt;
-            set => SetProperty(ref vigenteTxt, value);
-        }
-        private string fechaFinalizacionTxt;
-        public string FechaFinalizacionTxt
-        {
-            get => fechaFinalizacionTxt;
-            set => SetProperty(ref fechaFinalizacionTxt, value);
         }
 
         private ICollection<OfertaDto> ofertas;
@@ -70,7 +37,6 @@ namespace ProyectoFinal.Mobile.ViewModels
             set => SetProperty(ref comentarios, value);
         }
 
-
         public SubastaDetailViewModel()
         {
             Title = "Información de subasta";
@@ -79,21 +45,8 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public override async void Initialize()
         {
-            SubastaDto subasta = await SmartSell.GetSubasta(5);
-            Imagen = MediaHelper.UriToImageSource(subasta.UriImagen);
-            NombreTxt = subasta.NombreProducto;
-            VendedorTxt = subasta.NombreVendedor;
-            PrecioActualTxt = subasta.MontoActual.ToString("C2");
-            DescripcionTxt = subasta.DescripcionProducto;
-            if (subasta.Vigente == true)
-            {
-                VigenteTxt = "Sí";
-            }
-            else
-            {
-                VigenteTxt = "No";
-            }
-            FechaFinalizacionTxt = subasta.Fecha.ToString("dd MMM yyyy, HH:mm");
+            Subasta = await SmartSell.GetSubasta(5);
+            Imagen = MediaHelper.UriToImageSource(Subasta.UriImagen);
             Ofertas = subasta.Ofertas;
             Comentarios = subasta.Comentarios;
         }
@@ -105,7 +58,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public override void Dispose()
         {
-            Imagen = null;
+            //Imagen = null;
         }
 
     }

@@ -9,11 +9,11 @@ namespace ProyectoFinal.Mobile.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        private string userTxt;
-        public string UserTxt
+        private string correoTxt;
+        public string CorreoTxt
         {
-            get => userTxt;
-            set => SetProperty(ref userTxt, value);
+            get => correoTxt;
+            set => SetProperty(ref correoTxt, value);
         }
         private string claveTxt;
         public string ClaveTxt
@@ -36,7 +36,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             try
             {
                 IsBusy = true;
-                await SmartSell.Login(UserTxt.Trim(), ClaveTxt);
+                await SmartSell.Login(CorreoTxt.Trim(), ClaveTxt);
                 await Shell.Current.GoToAsync($"//{nameof(SubastasPage)}", true);
             }
             catch (Exception ex)
@@ -53,13 +53,13 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public override void Initialize()
         {
-            UserTxt = "";
+            CorreoTxt = "";
             ClaveTxt = "";
         }
 
         public override void Dispose()
         {
-            UserTxt = "";
+            CorreoTxt = "";
             ClaveTxt = "";
         }
     }

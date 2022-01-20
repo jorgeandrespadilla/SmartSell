@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ProyectoFinal.Mobile.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +15,18 @@ namespace ProyectoFinal.Mobile.Views
         public SubastasPage()
         {
             InitializeComponent();
+            BindingContext = new SubastasViewModel();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ((SubastasViewModel)BindingContext).Initialize();
+        }
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+            HeightRequest = Width;
         }
     }
 }

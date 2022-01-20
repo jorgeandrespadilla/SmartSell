@@ -25,11 +25,7 @@ namespace ProyectoFinal.Mobile.Helpers
                 }
                 using (Stream stream = await result.OpenReadAsync())
                 {
-                    ImageSource imageSource = StreamToImageSource(stream);
-                    string base64Uri = StreamToUri(stream);
-
-                    ImageData imageData = new ImageData(imageSource, base64Uri);
-                    return imageData;
+                    return StreamToImageData(stream);
                 }
             }
             catch (FeatureNotSupportedException)
@@ -63,11 +59,7 @@ namespace ProyectoFinal.Mobile.Helpers
                 }
                 using (Stream stream = await result.OpenReadAsync())
                 {
-                    ImageSource imageSource = StreamToImageSource(stream);
-                    string base64Uri = StreamToUri(stream);
-
-                    ImageData imageData = new ImageData(imageSource, base64Uri);
-                    return imageData;
+                    return StreamToImageData(stream);
                 }
             }
             catch (FeatureNotSupportedException)
@@ -94,6 +86,15 @@ namespace ProyectoFinal.Mobile.Helpers
             }
         }
 
+        private static ImageData StreamToImageData(Stream stream)
+        {
+            string base64Uri = StreamToUri(stream);
+            ImageSource imageSource = StreamToImageSource(stream);
+
+            ImageData imageData = new ImageData(imageSource, base64Uri);
+            return imageData;
+        }
+
         private static string StreamToUri(Stream stream)
         {
             using (MemoryStream memoryStream = new MemoryStream())
@@ -106,11 +107,13 @@ namespace ProyectoFinal.Mobile.Helpers
 
         private static ImageSource StreamToImageSource(Stream stream)
         {
-            MemoryStream memoryStream = new MemoryStream();
-            stream.CopyTo(memoryStream);
-            stream.Seek(0, SeekOrigin.Begin);
-            memoryStream.Seek(0, SeekOrigin.Begin);
-            return ImageSource.FromStream(() => memoryStream);
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                stream.CopyTo(memoryStream);
+                stream.Seek(0, SeekOrigin.Begin);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                return ImageSource.FromStream(() => new MemoryStream(memoryStream.ToArray()));
+            }
         }
     }
 }
