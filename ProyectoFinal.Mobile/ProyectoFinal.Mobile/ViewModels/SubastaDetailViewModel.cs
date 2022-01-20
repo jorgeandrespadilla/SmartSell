@@ -9,9 +9,10 @@ using Xamarin.Forms;
 
 namespace ProyectoFinal.Mobile.ViewModels
 {
-    public class DetailsSubastaViewModel : BaseViewModel
+    public class SubastaDetailViewModel : BaseViewModel
     {
-        
+        public Command<int> ShowPerfilCommand { get; }
+
         private ImageSource imagen;
         public ImageSource Imagen
         {
@@ -70,9 +71,10 @@ namespace ProyectoFinal.Mobile.ViewModels
         }
 
 
-        public DetailsSubastaViewModel()
+        public SubastaDetailViewModel()
         {
             Title = "Información de subasta";
+            ShowPerfilCommand = new Command<int>(OnPerfilClicked);
         }
 
         public override async void Initialize()
@@ -91,9 +93,14 @@ namespace ProyectoFinal.Mobile.ViewModels
             {
                 VigenteTxt = "No";
             }
-            FechaFinalizacionTxt = subasta.Fecha.ToString("dd MMM yyyy, HH:mm", new CultureInfo("es-ES"));
+            FechaFinalizacionTxt = subasta.Fecha.ToString("dd MMM yyyy, HH:mm");
             Ofertas = subasta.Ofertas;
             Comentarios = subasta.Comentarios;
+        }
+
+        private async void OnPerfilClicked(int usuarioID)
+        {
+            await Application.Current.MainPage.DisplayAlert("Perfil seleccionado", $"{usuarioID}", "Aceptar");
         }
 
         public override void Dispose()

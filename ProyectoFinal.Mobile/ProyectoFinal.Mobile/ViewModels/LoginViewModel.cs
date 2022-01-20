@@ -37,7 +37,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             {
                 IsBusy = true;
                 await SmartSell.Login(UserTxt.Trim(), ClaveTxt);
-                await Shell.Current.GoToAsync($"//{nameof(AboutPage)}", true);
+                await Shell.Current.GoToAsync($"//{nameof(SubastasPage)}", true);
             }
             catch (Exception ex)
             {

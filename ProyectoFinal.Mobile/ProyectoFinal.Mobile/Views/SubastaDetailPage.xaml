@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.SubastaDetailPage"
              xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
+             x:Name="root"
              Title="{Binding Title}">
 
     <ContentPage.BindingContext>
-        <vm:DetailsSubastaViewModel />
+        <vm:SubastaDetailViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
@@ -33,7 +34,7 @@
                                 <StackLayout Padding="20,0">
                                     <Frame HorizontalOptions="FillAndExpand">
                                         <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer/>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ShowPerfilCommand}" CommandParameter="{Binding UsuarioID}"/>
                                         </Frame.GestureRecognizers>
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                             <StackLayout HorizontalOptions="FillAndExpand">

@@ -34,9 +34,9 @@
     </TabBar>
     
     <TabBar>
-        <ShellContent Title="About" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}">
+        <ShellContent Title="Subastas" Route="SubastasPage" ContentTemplate="{DataTemplate local:SubastasPage}">
             <ShellContent.Icon>
-                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconList}"/>
+                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconDashboard}"/>
             </ShellContent.Icon>
         </ShellContent>
         <ShellContent Title="Browse" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />

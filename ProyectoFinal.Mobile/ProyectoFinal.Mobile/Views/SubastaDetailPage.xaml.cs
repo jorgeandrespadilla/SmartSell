@@ -16,19 +16,19 @@ namespace ProyectoFinal.Mobile.Views
         public SubastaDetailPage()
         {
             InitializeComponent();
-            BindingContext = new DetailsSubastaViewModel();
+            BindingContext = new SubastaDetailViewModel();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ((DetailsSubastaViewModel)BindingContext).Initialize();
+            ((SubastaDetailViewModel)BindingContext).Initialize();
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            ((DetailsSubastaViewModel)BindingContext).Dispose();
+            ((SubastaDetailViewModel)BindingContext).Dispose();
         }
     }
 }
