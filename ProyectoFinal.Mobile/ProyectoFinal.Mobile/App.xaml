@@ -27,11 +27,7 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
-
-            <!-- Icons used by the app -->
-            <x:String x:Key="IconDashboard">&#xe871;</x:String>
-            <x:String x:Key="IconList">&#xe8ef;</x:String>
-            <x:String x:Key="IconUser">&#xe7fd;</x:String>
+            <ResourceDictionary Source="Resources/Constants/icons.xaml"/>
         </ResourceDictionary>        
     </Application.Resources>
 </Application>

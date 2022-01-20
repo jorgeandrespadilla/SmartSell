@@ -1,0 +1,11 @@
+﻿<ResourceDictionary
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Icons used by the app from MaterialIcons font (add "&#x" prefix to all icon codes and end up with ";") -->
+    <x:String x:Key="IconDashboard">&#xe871;</x:String>
+    <x:String x:Key="IconList">&#xe8ef;</x:String>
+    <x:String x:Key="IconUser">&#xe7fd;</x:String>
+    <x:String x:Key="IconSearch">&#xe8b6;</x:String>
+    
+</ResourceDictionary>
