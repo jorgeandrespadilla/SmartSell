@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Mobile.Helpers;
+using ProyectoFinal.Mobile.Views;
 using ProyectoFinal.Shared.Dto;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 {
     public class SubastaDetailViewModel : BaseViewModel
     {
+        public Command EditCommand { get; }
         public Command<int> ShowPerfilCommand { get; }
 
         private SubastaDto subasta;
@@ -41,6 +43,7 @@ namespace ProyectoFinal.Mobile.ViewModels
         {
             Title = "Información de subasta";
             ShowPerfilCommand = new Command<int>(OnPerfilClicked);
+            EditCommand = new Command(OnEditClicked);
         }
 
         public async void CargarSubasta(int subastaID)
@@ -59,6 +62,11 @@ namespace ProyectoFinal.Mobile.ViewModels
         public override void Dispose()
         {
             //Imagen = null;
+        }
+
+        private async void OnEditClicked()
+        {
+            await Shell.Current.GoToAsync($"{nameof(EditSubastaPage)}?id={Subasta.SubastaID}");
         }
 
     }

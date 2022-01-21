@@ -13,6 +13,17 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Editar subasta"
+            Order="Primary"
+            Priority="0"
+            Command="{Binding EditCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconEdit}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>    
+    
     <ContentPage.BindingContext>
         <vm:SubastaDetailViewModel />
     </ContentPage.BindingContext>
