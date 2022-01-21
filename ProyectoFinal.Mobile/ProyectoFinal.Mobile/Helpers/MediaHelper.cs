@@ -25,7 +25,7 @@ namespace ProyectoFinal.Mobile.Helpers
                 }
                 using (Stream stream = await result.OpenReadAsync())
                 {
-                    return StreamToImageData(stream);
+                    return new ImageData(StreamToImageSource(stream), StreamToUri(stream));
                 }
             }
             catch (FeatureNotSupportedException)
@@ -59,7 +59,7 @@ namespace ProyectoFinal.Mobile.Helpers
                 }
                 using (Stream stream = await result.OpenReadAsync())
                 {
-                    return StreamToImageData(stream);
+                    return new ImageData(StreamToImageSource(stream), StreamToUri(stream));
                 }
             }
             catch (FeatureNotSupportedException)
@@ -80,19 +80,7 @@ namespace ProyectoFinal.Mobile.Helpers
         {
             string imgString = imageUri.Split(',').Last().Trim();
             byte[] bytes = Convert.FromBase64String(imgString);
-            using (Stream stream = new MemoryStream(bytes))
-            {
-                return StreamToImageSource(stream);
-            }
-        }
-
-        private static ImageData StreamToImageData(Stream stream)
-        {
-            string base64Uri = StreamToUri(stream);
-            ImageSource imageSource = StreamToImageSource(stream);
-
-            ImageData imageData = new ImageData(imageSource, base64Uri);
-            return imageData;
+            return ImageSource.FromStream(() => new MemoryStream(bytes));
         }
 
         private static string StreamToUri(Stream stream)
@@ -100,6 +88,7 @@ namespace ProyectoFinal.Mobile.Helpers
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 stream.CopyTo(memoryStream);
+                stream.Seek(0, SeekOrigin.Begin);
                 byte[] bytes = memoryStream.ToArray();
                 return string.Concat("data:image/jpeg;charset=utf-8;base64, ", Convert.ToBase64String(bytes));
             }
@@ -107,13 +96,11 @@ namespace ProyectoFinal.Mobile.Helpers
 
         private static ImageSource StreamToImageSource(Stream stream)
         {
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                stream.CopyTo(memoryStream);
-                stream.Seek(0, SeekOrigin.Begin);
-                memoryStream.Seek(0, SeekOrigin.Begin);
-                return ImageSource.FromStream(() => new MemoryStream(memoryStream.ToArray()));
-            }
+            MemoryStream memoryStream = new MemoryStream();
+            stream.CopyTo(memoryStream);
+            stream.Seek(0, SeekOrigin.Begin);
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            return ImageSource.FromStream(() => memoryStream);
         }
     }
 }
