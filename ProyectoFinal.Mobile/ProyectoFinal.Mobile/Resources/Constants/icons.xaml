@@ -6,6 +6,15 @@
     <x:String x:Key="IconDashboard">&#xe871;</x:String>
     <x:String x:Key="IconList">&#xe8ef;</x:String>
     <x:String x:Key="IconUser">&#xe7fd;</x:String>
+    <x:String x:Key="IconUserCircle">&#xe853;</x:String>
     <x:String x:Key="IconSearch">&#xe8b6;</x:String>
+    <x:String x:Key="IconAdd">&#xe145;</x:String>
+    <x:String x:Key="IconEdit">&#xe3c9;</x:String>
+    <x:String x:Key="IconDelete">&#xe872;</x:String>
+    <x:String x:Key="IconCheck">&#xe876;</x:String>
+    <x:String x:Key="IconFilter">&#xef4f;</x:String>
+    <x:String x:Key="IconComment">&#xe266;</x:String>
+    <x:String x:Key="IconCamera">&#xe412;</x:String>
+    <x:String x:Key="IconImage">&#xe3f4;</x:String>
     
 </ResourceDictionary>

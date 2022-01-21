@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Mobile.Models;
+using ProyectoFinal.Mobile.Views;
 using ProyectoFinal.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public SubastasViewModel()
         {
+            Title = "Subastas";
             ShowSubastaCommand = new Command<int>(OnSubastaClicked);
         }
 
@@ -38,7 +40,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnSubastaClicked(int subastaID)
         {
-            await Application.Current.MainPage.DisplayAlert("Subasta seleccionada", $"{subastaID}", "Aceptar");
+            await Shell.Current.GoToAsync($"{nameof(SubastaDetailPage)}?id={subastaID}");
         }
 
         private async void ObtenerSubastas()

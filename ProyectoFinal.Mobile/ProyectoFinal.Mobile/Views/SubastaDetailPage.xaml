@@ -68,7 +68,7 @@
                                             <StackLayout HorizontalOptions="FillAndExpand">
                                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                                        <Label Text="{StaticResource IconUser}" HorizontalTextAlignment="Center" FontFamily="MaterialIcons" FontSize="20" TextColor="Black" />
+                                                        <Label Text="{StaticResource IconUserCircle}" HorizontalTextAlignment="Center" FontFamily="MaterialIcons" FontSize="20" TextColor="Black" />
                                                         <Label Text="{Binding NombreUsuario}" FontAttributes="Bold" FontSize="16" ></Label>
                                                     </StackLayout>
                                                     <Label HorizontalOptions="End" Text="{Binding FechaCreacion, StringFormat='{0:dd MMM yyyy}'}" HorizontalTextAlignment="End" MaxLines="1"></Label>

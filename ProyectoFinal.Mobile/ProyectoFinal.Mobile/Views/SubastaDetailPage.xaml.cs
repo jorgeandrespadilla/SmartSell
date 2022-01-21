@@ -11,8 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace ProyectoFinal.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    [QueryProperty(nameof(SubastaID), "id")]
     public partial class SubastaDetailPage : ContentPage
     {
+
+        public int SubastaID { get; set; }
+
         public SubastaDetailPage()
         {
             InitializeComponent();
@@ -22,7 +26,7 @@ namespace ProyectoFinal.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ((SubastaDetailViewModel)BindingContext).Initialize();
+            ((SubastaDetailViewModel)BindingContext).CargarSubasta(SubastaID);
         }
 
         protected override void OnDisappearing()

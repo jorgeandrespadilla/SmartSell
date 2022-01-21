@@ -23,10 +23,6 @@ namespace ProyectoFinal.Mobile.Views
             base.OnAppearing();
             ((SubastasViewModel)BindingContext).Initialize();
         }
-        protected override void OnSizeAllocated(double width, double height)
-        {
-            base.OnSizeAllocated(width, height);
-            HeightRequest = Width;
-        }
+        
     }
 }

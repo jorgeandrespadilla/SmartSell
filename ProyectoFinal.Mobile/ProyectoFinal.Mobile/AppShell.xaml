@@ -45,11 +45,6 @@
                 <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconUser}"/>
             </ShellContent.Icon>
         </ShellContent>
-        <ShellContent Title="Details" ContentTemplate="{DataTemplate local:SubastaDetailPage}">
-            <ShellContent.Icon>
-                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconUser}"/>
-            </ShellContent.Icon>
-        </ShellContent>
     </TabBar>
 
     <!--

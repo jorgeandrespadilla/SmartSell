@@ -43,9 +43,9 @@ namespace ProyectoFinal.Mobile.ViewModels
             ShowPerfilCommand = new Command<int>(OnPerfilClicked);
         }
 
-        public override async void Initialize()
+        public async void CargarSubasta(int subastaID)
         {
-            Subasta = await SmartSell.GetSubasta(5);
+            Subasta = await SmartSell.GetSubasta(subastaID);
             Imagen = MediaHelper.UriToImageSource(Subasta.UriImagen);
             Ofertas = subasta.Ofertas;
             Comentarios = subasta.Comentarios;
