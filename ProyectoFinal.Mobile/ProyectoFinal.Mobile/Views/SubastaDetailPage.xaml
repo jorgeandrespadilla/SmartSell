@@ -2,14 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.SubastaDetailPage"
-             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels" xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
+             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels" 
+             xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Name="root"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             Shell.NavBarIsVisible="{Binding CanEdit}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <conveters:BoolToStringConverter x:Key="BoolToStringConverter" />
             <conveters:EndDateConverter x:Key="EndDateConverter" />
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -33,6 +37,15 @@
             <ScrollView Padding="0,20">
                 <StackLayout Orientation="Vertical" >
                     <Image x:Name="imagen" Source="{Binding Imagen, Mode=OneWay}" HorizontalOptions="Center"/>
+                    <StackLayout Orientation ="Horizontal" Padding="30,10" HorizontalOptions="Center" IsVisible="{Binding CanOffer}">
+                        <Button Command="{Binding CreateOfertaCommand}" CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Crear Oferta">
+                        </Button>
+                        <Button BackgroundColor="#dc3545" CornerRadius="80" WidthRequest="50" Command="{Binding DeleteOfertaCommand}" IsVisible="{Binding CanDeleteOferta}">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconDelete}"/>
+                            </Button.ImageSource>
+                        </Button>
+                    </StackLayout>
                     <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding Subasta.NombreProducto, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Vendedor" TextColor="Black" FontSize="Medium" Padding="20,0"/>

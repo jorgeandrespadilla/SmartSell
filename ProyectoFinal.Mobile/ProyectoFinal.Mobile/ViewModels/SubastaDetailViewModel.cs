@@ -3,6 +3,7 @@ using ProyectoFinal.Mobile.Views;
 using ProyectoFinal.Shared.Dto;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace ProyectoFinal.Mobile.ViewModels
@@ -10,7 +11,31 @@ namespace ProyectoFinal.Mobile.ViewModels
     public class SubastaDetailViewModel : BaseViewModel
     {
         public Command EditCommand { get; }
+        public Command CreateOfertaCommand { get; }
+        public Command DeleteOfertaCommand { get; }
         public Command<int> ShowPerfilCommand { get; }
+
+
+        private bool canOffer;
+        public bool CanOffer
+        {
+            get => canOffer;
+            set => SetProperty(ref canOffer, value);
+        }
+
+        private bool canEdit;
+        public bool CanEdit
+        {
+            get => canEdit;
+            set => SetProperty(ref canEdit, value);
+        }
+
+        private bool canDeleteOferta;
+        public bool CanDeleteOferta
+        {
+            get => canDeleteOferta;
+            set => SetProperty(ref canDeleteOferta, value);
+        }
 
         private SubastaDto subasta;
         public SubastaDto Subasta
@@ -52,6 +77,46 @@ namespace ProyectoFinal.Mobile.ViewModels
             Imagen = MediaHelper.UriToImageSource(Subasta.UriImagen);
             Ofertas = subasta.Ofertas;
             Comentarios = subasta.Comentarios;
+            if (Subasta.Vigente)
+            {
+                CanOffer = false;
+                if (Subasta.UsuarioID == SmartSell.CurrentUser.ID)
+                {
+                    if (DateTime.Compare(Subasta.Fecha.AddDays(-1), DateTime.Now) >= 0)
+                    {
+                        CanEdit = true;
+                    }
+                    else
+                    {
+                        CanEdit = false;
+                    }
+                }
+                else
+                {
+                    CanEdit = false;
+                    CanOffer = true;
+                    if (subasta.Ofertas.Count != 0)
+                    {
+                        if (subasta.Ofertas.FirstOrDefault().UsuarioID == SmartSell.CurrentUser.ID)
+                        {
+                            CanDeleteOferta = true;
+                        }
+                        else
+                        {
+                            CanDeleteOferta = false;
+                        }
+                    }
+                    else
+                    {
+                        CanDeleteOferta = false;
+                    }
+                }
+            }
+            else
+            {
+                CanOffer = false;
+                CanEdit = false;
+            }
         }
 
         private async void OnPerfilClicked(int usuarioID)

@@ -13,17 +13,31 @@
         <StackLayout>
             <ScrollView Padding="0,20">
                 <StackLayout Orientation="Vertical" >
-                    <Image x:Name="imagen" Source="{Binding Imagen.ImageSource}" WidthRequest="400" HeightRequest="400"/>
+                    <Image x:Name="imagen" Source="{Binding Imagen.ImageSource}" WidthRequest="400" HeightRequest="400" HorizontalOptions="CenterAndExpand"/>
+                    <StackLayout Orientation ="Horizontal" Padding="30,10" HorizontalOptions="Center">
+                        <Button Command="{Binding OpenGalleryCommand}" CornerRadius="30" HorizontalOptions="FillAndExpand">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconDashboard}"/>
+                            </Button.ImageSource>
+                        </Button>
+                        <Button Command="{Binding OpenCameraCommand}" CornerRadius="30" HorizontalOptions="FillAndExpand">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconCamera}"/>
+                            </Button.ImageSource>
+                        </Button>
+                    </StackLayout>
                     <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
                     <Entry Text="{Binding Nombre, Mode=TwoWay}" FontSize="Medium" Margin="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Descripción" TextColor="Black" FontSize="Medium" Padding="20,0"/>
                     <Editor HorizontalOptions="FillAndExpand" Text="{Binding Descripcion, Mode=TwoWay}" FontSize="Medium" Margin ="20,0,20,20" />
-                    <StackLayout Orientation ="Horizontal" Padding="30,10" HorizontalOptions="FillAndExpand">
-                        <Button x:Name="btnSeleccionarFoto" CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Galeria"></Button>
-                        <Button x:Name="btnTomarFoto" CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Tomar foto"></Button>
+                    <StackLayout Orientation ="Horizontal" Padding="30,0" HorizontalOptions="FillAndExpand">
+                        <Button CornerRadius="30" Command="{Binding GuardarInformacionCommand}" HorizontalOptions="FillAndExpand" Text="Guardar información"></Button>
+                        <Button BackgroundColor="#dc3545" CornerRadius="80" WidthRequest="50" Command="{Binding DeleteInformacionCommand}">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconDelete}"/>
+                            </Button.ImageSource>
+                        </Button>
                     </StackLayout>
-                    <Button CornerRadius="30" Command="{Binding GuardarInformacionCommand}" HorizontalOptions="Center" Text="Guardar información"></Button>
-                    
                 </StackLayout>
             </ScrollView>
         </StackLayout>

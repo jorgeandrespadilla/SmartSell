@@ -20,42 +20,7 @@ namespace ProyectoFinal.Mobile.Views
         public EditSubastaPage()
         {
             InitializeComponent();
-            BindingContext = new EditSubastaViewModel();
-            btnTomarFoto.Clicked += async (sender, args) =>
-            {
-                try
-                {
-                    var imageData = await MediaHelper.CameraInvoker();
-                    if (imageData == null)
-                    {
-                        return;
-                    }
-                    imagen.Source = imageData.ImageSource;
-                    ((EditSubastaViewModel)BindingContext).Imagen = imageData;
-                }
-                catch (Exception ex)
-                {
-                    await DisplayAlert("Error", ex.Message, "Aceptar");
-                }
-            };
-
-            btnSeleccionarFoto.Clicked += async (sender, args) =>
-            {
-                try
-                {
-                    var imageData = await MediaHelper.StorageInvoker();
-                    if (imageData == null)
-                    {
-                        return;
-                    }
-                    imagen.Source = imageData.ImageSource;
-                    ((EditSubastaViewModel)BindingContext).Imagen = imageData;
-                }
-                catch (Exception ex)
-                {
-                    await DisplayAlert("Error", ex.Message, "Aceptar");
-                }
-            };
+            BindingContext = new EditSubastaViewModel();           
         }
 
         protected async override void OnAppearing()

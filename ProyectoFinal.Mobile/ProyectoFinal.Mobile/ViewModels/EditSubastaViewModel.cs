@@ -12,6 +12,7 @@ namespace ProyectoFinal.Mobile.ViewModels
     public class EditSubastaViewModel : BaseViewModel
     {
         public Command GuardarInformacionCommand { get; }
+        public Command DeleteInformacionCommand { get; }
         public Command OpenGalleryCommand { get; }
         public Command OpenCameraCommand { get; }
 
@@ -47,6 +48,7 @@ namespace ProyectoFinal.Mobile.ViewModels
         {
             Title = "Editar subasta";
             GuardarInformacionCommand = new Command(OnGuardarInformacionClicked);
+            DeleteInformacionCommand = new Command(OnDeleteInformacionClicked);
             OpenGalleryCommand = new Command(OnOpenGalleryClicked);
             OpenCameraCommand = new Command(OnOpenCameraClicked);
 
@@ -63,8 +65,32 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnGuardarInformacionClicked()
         {
-            //await SmartSell.EditSubasta(Subasta.SubastaID, Nombre, Descripcion, Imagen.Base64Uri);
-            await Application.Current.MainPage.Navigation.PopAsync();
+            try
+            {
+                await SmartSell.EditSubasta(Subasta.SubastaID, Nombre, Descripcion, Imagen.Base64Uri);
+                await Shell.Current.GoToAsync($"..");
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Acceso fallido", ex.Message, "Aceptar");
+            }
+        }
+
+        private async void OnDeleteInformacionClicked()
+        {
+            var eliminar = await Application.Current.MainPage.DisplayAlert("Acceso fallido", "¿Seguro que desea eliminar la subasta?", "Aceptar", "Cancelar");
+            if (eliminar)
+            {
+                try
+                {
+                    await SmartSell.DeleteSubasta(Subasta.SubastaID);
+                    await Shell.Current.GoToAsync($"../..");
+                }
+                catch (Exception ex)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Acceso fallido", ex.Message, "Aceptar");
+                }
+            }
         }
 
         private async void OnOpenCameraClicked()
