@@ -4,8 +4,10 @@
     xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels" 
     xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters" 
     xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="root"
-    x:Class="ProyectoFinal.Mobile.Views.SubastasPage">
+    x:Class="ProyectoFinal.Mobile.Views.SubastasPage"
+    Title="{Binding Title}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -17,41 +19,96 @@
         <vm:SubastasViewModel />
     </ContentPage.BindingContext>
 
-    <ContentPage.Content>
-        <StackLayout Padding="20,0">
-            <RefreshView  Command="{Binding RefreshItemsCommand }" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Crear subasta"
+            Order="Primary"
+            Priority="0"
+            Command="{Binding NewSubastaCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconAdd}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
 
-                <CollectionView
-                    ItemsSource="{Binding Subastas}"
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <StackLayout Margin="0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <StackLayout Orientation="Vertical" Padding="20,5">
+                    <SearchBar Placeholder="Buscar subastas..." 
+                    SearchCommand="{Binding SearchCommand}"
+                    Text="{Binding SearchString, Mode=TwoWay}" />
+                    <xct:Expander Padding="0,5,0,0">
+                        <xct:Expander.Header>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                <Label Text="{Binding SelectedFilter.Name, StringFormat='Filtro: {0}', Mode=OneWay}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                                <Label Text="{StaticResource IconArrowDown}" FontSize="32" FontFamily="MaterialIcons">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}" Value="True">
+                                            <Setter Property="Text" Value="{StaticResource IconArrowUp}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </StackLayout>
+                        </xct:Expander.Header>
+                        <xct:Expander.ContentTemplate>
+                            <DataTemplate>
+                                <StackLayout Margin="0,0,0,10">
+                                    <Picker Title="Seleccione un filtro"
+                                    ItemsSource="{Binding FilterOptions, Mode=OneWay}"
+                                    SelectedItem="{Binding SelectedFilter, Mode=TwoWay}"
+                                    ItemDisplayBinding="{Binding Name}"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <CheckBox IsChecked="{Binding Path=HideEnded, Mode=TwoWay}" />
+                                        <Label Text="Ocultar subastas finalizadas" VerticalOptions="Center" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <CheckBox IsChecked="{Binding Path=HideOwn, Mode=TwoWay}" IsVisible="{Binding VisibleOwnFilter, Mode=TwoWay}" />
+                                        <Label Text="Ocultar mis subastas" VerticalOptions="Center" IsVisible="{Binding VisibleOwnFilter, Mode=TwoWay}"/>
+                                        <Label Text="|" VerticalOptions="Center" TextColor="Transparent"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </DataTemplate>
+                        </xct:Expander.ContentTemplate>
+                    </xct:Expander>
+                    <Button Text="Buscar" Command="{Binding SearchCommand}"/>
+                    <Label Text="{Binding TotalResults, StringFormat='{0} resultados encontrados', Mode=OneWay}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                </StackLayout>
+                <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+                    <CollectionView
+                    ItemsSource="{Binding Subastas, Mode=TwoWay}"
                     HorizontalOptions="FillAndExpand"
-                    VerticalOptions="CenterAndExpand"
+                    VerticalOptions="FillAndExpand"
                     RemainingItemsThreshold="1"
                     RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Padding="20,15">
-                                <Frame HorizontalOptions="FillAndExpand" Padding="0">
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ShowSubastaCommand}" CommandParameter="{Binding ID}"/>
-                                    </Frame.GestureRecognizers>
-                                    <StackLayout HorizontalOptions="FillAndExpand">
-                                        <Image Source="{Binding Imagen}" Aspect="AspectFill" VerticalOptions="FillAndExpand" HeightRequest="360"/>
-                                        <StackLayout Orientation="Vertical" Padding="10,0,10,15">
-                                            <Label Text="{Binding NombreProducto}" FontSize="20" FontAttributes="Bold"/>
-                                            <Label Text="{Binding Fecha, Converter={StaticResource EndDateConverter}}"/>
-                                            <yummy:PancakeView HorizontalOptions="End" CornerRadius="20">
-                                                <StackLayout Background="#0D6EFD">
-                                                    <Label HorizontalOptions="Center" Text="{Binding MontoActual, StringFormat='{0:C}'}" FontAttributes="Bold" TextColor="White" FontSize="16" Padding="10,5" />
-                                                </StackLayout>
-                                            </yummy:PancakeView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout HorizontalOptions="FillAndExpand" Padding="25,5,25,15">
+                                    <Frame HorizontalOptions="FillAndExpand" Padding="0">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ShowSubastaCommand}" CommandParameter="{Binding ID}"/>
+                                        </Frame.GestureRecognizers>
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+                                            <Image Source="{Binding Imagen}" Aspect="AspectFill" VerticalOptions="FillAndExpand" HeightRequest="280"/>
+                                            <StackLayout Orientation="Vertical" Padding="10,0,10,15">
+                                                <Label Text="{Binding NombreProducto}" FontSize="20" TextColor="Black" FontAttributes="Bold"/>
+                                                <Label Text="{Binding Fecha, Converter={StaticResource EndDateConverter}}"/>
+                                                <yummy:PancakeView HorizontalOptions="End" CornerRadius="20">
+                                                    <StackLayout Background="#0D6EFD">
+                                                        <Label HorizontalOptions="Center" Text="{Binding MontoActual, StringFormat='{0:C}'}" FontAttributes="Bold" TextColor="White" FontSize="16" Padding="10,5" />
+                                                    </StackLayout>
+                                                </yummy:PancakeView>
+                                            </StackLayout>
                                         </StackLayout>
-                                    </StackLayout>
-                                </Frame>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </RefreshView>
-        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </StackLayout>
+            <yummy:PancakeView CornerRadius="30" Shadow="{yummy:ShadowMarkup Color=#FF0000, Offset='10,20'}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".94,.97,AutoSize,AutoSize">
+                <Button Text="{Binding SubastasModeName}" CornerRadius="30" Padding="20,10" BackgroundColor="#f59b51" Command="{Binding ChangeModeCommand}"/>
+            </yummy:PancakeView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

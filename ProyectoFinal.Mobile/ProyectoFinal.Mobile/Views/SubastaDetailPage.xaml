@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.SubastaDetailPage"
-             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels" xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
+             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels" 
+             xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Name="root"
              Title="{Binding Title}">
 
@@ -10,22 +12,46 @@
         <ResourceDictionary>
             <conveters:BoolToStringConverter x:Key="BoolToStringConverter" />
             <conveters:EndDateConverter x:Key="EndDateConverter" />
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Editar subasta"
+            Order="Primary"
+            Priority="0"
+            Command="{Binding EditCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconEdit}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>    
+    
     <ContentPage.BindingContext>
         <vm:SubastaDetailViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
         <StackLayout>
-            <ScrollView Padding="0,20">
-                <StackLayout Orientation="Vertical" >
-                    <Image x:Name="imagen" Source="{Binding Imagen, Mode=OneWay}" HorizontalOptions="Center"/>
+            <ScrollView Padding="0,0,0,20">
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Image
+                       HorizontalOptions="FillAndExpand"
+                       HeightRequest="{Binding Width, Source={RelativeSource Self}}"
+                       Aspect="AspectFill"
+                       Source="{Binding Imagen, Mode=OneWay}"/>     
+                    <StackLayout Orientation ="Vertical" Padding="20,10" HorizontalOptions="Center">
+                        <Button IsVisible="{Binding CanOffer}" Command="{Binding CreateOfertaCommand}" CornerRadius="30" Text="Crear Oferta" Padding="20,10" TextColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}" BorderWidth="2" BackgroundColor="White" Margin="0,0,0,5"/>
+                        <Button IsVisible="{Binding CanDeleteOferta}" Command="{Binding DeleteOfertaCommand}" Text="Eliminar Oferta" CornerRadius="30" Padding="20,10" TextColor="#dc3545" BorderColor="#dc3545" BorderWidth="2" BackgroundColor="White" />
+                    </StackLayout>
                     <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding Subasta.NombreProducto, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Vendedor" TextColor="Black" FontSize="Medium" Padding="20,0"/>
-                    <Label HorizontalOptions="Start" Text="{Binding Subasta.NombreVendedor, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="{Binding Subasta.NombreVendedor, Mode=OneWay}" TextColor="{StaticResource Primary}" FontSize="Medium" Padding ="20,0,20,20">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ShowPerfilCommand}" CommandParameter="{Binding Subasta.UsuarioID}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                     <Label HorizontalOptions="Start" Text="Precio Actual" TextColor="Black" FontSize="Medium" Padding="20,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding Subasta.MontoActual, StringFormat='{0:C}', Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Descripción" TextColor="Black" FontSize="Medium" Padding="20,0"/>
@@ -34,7 +60,7 @@
                     <Label HorizontalOptions="Start" Text="{Binding Subasta.Vigente, Converter={StaticResource BoolToStringConverter}, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Fecha de finalización" TextColor="Black" FontSize="Medium" Padding="20,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding Subasta.Fecha, Converter={StaticResource EndDateConverter}, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
-                    <Label HorizontalTextAlignment="Center" FontSize="32" Margin="0,30,0,0" TextColor="Black" FontAttributes="Bold" Text="Ofertas"/>
+                    <Label HorizontalTextAlignment="Center" FontSize="24" Margin="0,30,0,0" TextColor="Black" FontAttributes="Bold" Text="Ofertas"/>
                     <StackLayout BindableLayout.ItemsSource="{Binding Ofertas}" BindableLayout.EmptyView="No se encontraron resultados">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
@@ -55,15 +81,19 @@
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
-                    <Label HorizontalTextAlignment="Center" FontSize="32" Margin="0,30,0,0" TextColor="Black" FontAttributes="Bold" Text="Comentarios"/>
-                    <StackLayout BindableLayout.ItemsSource="{Binding Comentarios}" BindableLayout.EmptyView="No se encontraron resultados">
+                    <StackLayout Margin="20,30,20,0">
+                        <Label HorizontalTextAlignment="Center" FontSize="24" TextColor="Black" FontAttributes="Bold" Text="Comentarios"/>
+                        <Label HorizontalOptions="End" Text="Nuevo comentario" TextColor="{StaticResource Primary}" FontSize="16" Padding ="5">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddCommentCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <StackLayout Margin="0,5" BindableLayout.ItemsSource="{Binding Comentarios}" BindableLayout.EmptyView="No se encontraron resultados">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Padding="20,0">
                                     <Frame HorizontalOptions="FillAndExpand">
-                                        <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer/>
-                                        </Frame.GestureRecognizers>
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                             <StackLayout HorizontalOptions="FillAndExpand">
                                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
@@ -73,7 +103,10 @@
                                                     </StackLayout>
                                                     <Label HorizontalOptions="End" Text="{Binding FechaCreacion, StringFormat='{0:dd MMM yyyy}'}" HorizontalTextAlignment="End" MaxLines="1"></Label>
                                                 </StackLayout>
-                                                <Label Text="{Binding Descripcion}" TextColor="#a1a1a1" FontSize="16"></Label>
+                                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                                    <Label Text="{Binding Descripcion}" TextColor="#a1a1a1" FontSize="16" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                                                    <Button IsVisible="{Binding IsAuthor}" Text="{StaticResource IconEdit}" Command="{Binding Source={x:Reference root}, Path=BindingContext.EditCommentCommand}" CommandParameter="{Binding ComentarioID}" FontFamily="MaterialIcons" FontSize="20" TextColor="{StaticResource Primary}" BorderWidth="0" BackgroundColor="White" VerticalOptions="Center" WidthRequest="48" CornerRadius="30" HeightRequest="40" Padding="0" Margin="0"/>
+                                                </StackLayout>
                                             </StackLayout>
                                         </StackLayout>
                                     </Frame>
