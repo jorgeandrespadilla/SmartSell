@@ -14,7 +14,6 @@ namespace ProyectoFinal.Mobile.Views
     [QueryProperty(nameof(SubastaID), "id")]
     public partial class SubastaDetailPage : ContentPage
     {
-
         public int SubastaID { get; set; }
 
         public SubastaDetailPage()
@@ -23,10 +22,15 @@ namespace ProyectoFinal.Mobile.Views
             BindingContext = new SubastaDetailViewModel();
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
-            ((SubastaDetailViewModel)BindingContext).CargarSubasta(SubastaID);
+
+            bool canEdit = await ((SubastaDetailViewModel)BindingContext).CargarSubasta(SubastaID);
+            if (!canEdit)
+            {
+                ToolbarItems.Clear();
+            }
         }
 
         protected override void OnDisappearing()

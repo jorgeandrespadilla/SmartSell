@@ -6,8 +6,7 @@
              xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Name="root"
-             Title="{Binding Title}"
-             Shell.NavBarIsVisible="{Binding CanEdit}">
+             Title="{Binding Title}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -34,12 +33,15 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <ScrollView Padding="0,20">
-                <StackLayout Orientation="Vertical" >
-                    <Image x:Name="imagen" Source="{Binding Imagen, Mode=OneWay}" HorizontalOptions="Center"/>
+            <ScrollView Padding="0,0,0,20">
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Image
+                       HorizontalOptions="FillAndExpand"
+                       HeightRequest="{Binding Width, Source={RelativeSource Self}}"
+                       Aspect="AspectFill"
+                       Source="{Binding Imagen, Mode=OneWay}"/>     
                     <StackLayout Orientation ="Horizontal" Padding="30,10" HorizontalOptions="Center" IsVisible="{Binding CanOffer}">
-                        <Button Command="{Binding CreateOfertaCommand}" CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Crear Oferta">
-                        </Button>
+                        <Button Command="{Binding CreateOfertaCommand}" CornerRadius="30" HorizontalOptions="FillAndExpand" Text="Crear Oferta" Padding="20,10" TextColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}" BorderWidth="2" BackgroundColor="White"/>
                         <Button BackgroundColor="#dc3545" CornerRadius="80" WidthRequest="50" Command="{Binding DeleteOfertaCommand}" IsVisible="{Binding CanDeleteOferta}">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconDelete}"/>
@@ -49,7 +51,11 @@
                     <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding Subasta.NombreProducto, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Vendedor" TextColor="Black" FontSize="Medium" Padding="20,0"/>
-                    <Label HorizontalOptions="Start" Text="{Binding Subasta.NombreVendedor, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="{Binding Subasta.NombreVendedor, Mode=OneWay}" TextColor="{StaticResource Primary}" FontSize="Medium" Padding ="20,0,20,20">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ShowPerfilCommand}" CommandParameter="{Binding Subasta.UsuarioID}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                     <Label HorizontalOptions="Start" Text="Precio Actual" TextColor="Black" FontSize="Medium" Padding="20,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding Subasta.MontoActual, StringFormat='{0:C}', Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Descripción" TextColor="Black" FontSize="Medium" Padding="20,0"/>
@@ -58,7 +64,7 @@
                     <Label HorizontalOptions="Start" Text="{Binding Subasta.Vigente, Converter={StaticResource BoolToStringConverter}, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Fecha de finalización" TextColor="Black" FontSize="Medium" Padding="20,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding Subasta.Fecha, Converter={StaticResource EndDateConverter}, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding ="20,0,20,20"/>
-                    <Label HorizontalTextAlignment="Center" FontSize="32" Margin="0,30,0,0" TextColor="Black" FontAttributes="Bold" Text="Ofertas"/>
+                    <Label HorizontalTextAlignment="Center" FontSize="24" Margin="0,30,0,0" TextColor="Black" FontAttributes="Bold" Text="Ofertas"/>
                     <StackLayout BindableLayout.ItemsSource="{Binding Ofertas}" BindableLayout.EmptyView="No se encontraron resultados">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
@@ -79,7 +85,7 @@
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
-                    <Label HorizontalTextAlignment="Center" FontSize="32" Margin="0,30,0,0" TextColor="Black" FontAttributes="Bold" Text="Comentarios"/>
+                    <Label HorizontalTextAlignment="Center" FontSize="24" Margin="0,30,0,0" TextColor="Black" FontAttributes="Bold" Text="Comentarios"/>
                     <StackLayout BindableLayout.ItemsSource="{Binding Comentarios}" BindableLayout.EmptyView="No se encontraron resultados">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>

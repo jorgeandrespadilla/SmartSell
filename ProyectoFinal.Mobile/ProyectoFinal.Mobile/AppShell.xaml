@@ -39,8 +39,11 @@
                 <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconDashboard}"/>
             </ShellContent.Icon>
         </ShellContent>
-        <ShellContent Title="Media test" Icon="icon_feed.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-        <ShellContent Title="Browse" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <ShellContent Title="Ofertas" Route="OfertasPage" ContentTemplate="{DataTemplate local:OfertasPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconList}"/>
+            </ShellContent.Icon>
+        </ShellContent>
         <ShellContent Title="Perfil" Route="PerfilPage" ContentTemplate="{DataTemplate local:PerfilPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconUser}"/>

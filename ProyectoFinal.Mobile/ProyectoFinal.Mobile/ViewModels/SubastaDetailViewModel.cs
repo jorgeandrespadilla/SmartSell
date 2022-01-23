@@ -4,6 +4,7 @@ using ProyectoFinal.Shared.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ProyectoFinal.Mobile.ViewModels
@@ -71,7 +72,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             EditCommand = new Command(OnEditClicked);
         }
 
-        public async void CargarSubasta(int subastaID)
+        public async Task<bool> CargarSubasta(int subastaID)
         {
             Subasta = await SmartSell.GetSubasta(subastaID);
             Imagen = MediaHelper.UriToImageSource(Subasta.UriImagen);
@@ -117,6 +118,7 @@ namespace ProyectoFinal.Mobile.ViewModels
                 CanOffer = false;
                 CanEdit = false;
             }
+            return CanEdit;
         }
 
         private async void OnPerfilClicked(int usuarioID)

@@ -97,7 +97,7 @@ namespace ProyectoFinal.Mobile.ViewModels
         {
             try
             {
-                var imageData = await MediaHelper.CameraInvoker();
+                ImageData imageData = await MediaHelper.CameraInvoker();
                 if (imageData == null)
                 {
                     return;
@@ -106,7 +106,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
             }
         }
 
@@ -114,7 +114,7 @@ namespace ProyectoFinal.Mobile.ViewModels
         {
             try
             {
-                var imageData = await MediaHelper.StorageInvoker();
+                ImageData imageData = await MediaHelper.StorageInvoker();
                 if (imageData == null)
                 {
                     return;
@@ -124,7 +124,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
             }
         }
     }

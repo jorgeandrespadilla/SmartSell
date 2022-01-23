@@ -61,9 +61,10 @@
                                         <CheckBox IsChecked="{Binding Path=HideEnded, Mode=TwoWay}" />
                                         <Label Text="Ocultar subastas finalizadas" VerticalOptions="Center" />
                                     </StackLayout>
-                                    <StackLayout Orientation="Horizontal" IsVisible="{Binding VisibleOwnFilter, Mode=TwoWay}">
-                                        <CheckBox IsChecked="{Binding Path=HideOwn, Mode=TwoWay}" />
-                                        <Label Text="Ocultar mis subastas" VerticalOptions="Center"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <CheckBox IsChecked="{Binding Path=HideOwn, Mode=TwoWay}" IsVisible="{Binding VisibleOwnFilter, Mode=TwoWay}" />
+                                        <Label Text="Ocultar mis subastas" VerticalOptions="Center" IsVisible="{Binding VisibleOwnFilter, Mode=TwoWay}"/>
+                                        <Label Text="|" VerticalOptions="Center" TextColor="Transparent"/>
                                     </StackLayout>
                                 </StackLayout>
                             </DataTemplate>
@@ -89,7 +90,7 @@
                                         <StackLayout HorizontalOptions="FillAndExpand">
                                             <Image Source="{Binding Imagen}" Aspect="AspectFill" VerticalOptions="FillAndExpand" HeightRequest="280"/>
                                             <StackLayout Orientation="Vertical" Padding="10,0,10,15">
-                                                <Label Text="{Binding NombreProducto}" FontSize="20" FontAttributes="Bold"/>
+                                                <Label Text="{Binding NombreProducto}" FontSize="20" TextColor="Black" FontAttributes="Bold"/>
                                                 <Label Text="{Binding Fecha, Converter={StaticResource EndDateConverter}}"/>
                                                 <yummy:PancakeView HorizontalOptions="End" CornerRadius="20">
                                                     <StackLayout Background="#0D6EFD">
