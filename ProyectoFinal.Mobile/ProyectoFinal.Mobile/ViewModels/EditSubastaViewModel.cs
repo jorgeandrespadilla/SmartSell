@@ -72,14 +72,14 @@ namespace ProyectoFinal.Mobile.ViewModels
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Acceso fallido", ex.Message, "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
             }
         }
 
         private async void OnDeleteInformacionClicked()
         {
-            var eliminar = await Application.Current.MainPage.DisplayAlert("Acceso fallido", "¿Seguro que desea eliminar la subasta?", "Aceptar", "Cancelar");
-            if (eliminar)
+            bool response = await Application.Current.MainPage.DisplayAlert("Eliminar subasta", "¿Seguro que desea eliminar la subasta?", "Si", "No");
+            if (response)
             {
                 try
                 {
@@ -88,7 +88,7 @@ namespace ProyectoFinal.Mobile.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Acceso fallido", ex.Message, "Aceptar");
+                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
                 }
             }
         }

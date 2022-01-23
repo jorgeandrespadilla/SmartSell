@@ -20,18 +20,26 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Editar información"
-                 Order="Secondary"
-                 Priority="0" />
+                 Order="Primary"
+                 Priority="0" >
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconEdit}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
         <ToolbarItem Text="Cerrar sesión"
-                 Order="Secondary"
+                 Order="Primary"
                  Priority="0"
-                 Command="{Binding LogoutCommand}"/>
+                 Command="{Binding LogoutCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconLogout}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <StackLayout>
             <ScrollView VerticalOptions="FillAndExpand">
-                <StackLayout Orientation="Vertical" Padding="0,0,0,20">
+                <StackLayout Orientation="Vertical" Padding="0,0,0,25">
                     <yummy:PancakeView CornerRadius="0,0,60,60">
                         <StackLayout Orientation="Vertical" Padding="20">
                             <Label Text="{StaticResource IconUser}" HorizontalTextAlignment="Center" FontFamily="MaterialIcons" FontSize="80" TextColor="AliceBlue" />

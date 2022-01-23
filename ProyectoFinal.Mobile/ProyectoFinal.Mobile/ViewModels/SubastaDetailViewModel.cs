@@ -1,4 +1,5 @@
 ﻿using ProyectoFinal.Mobile.Helpers;
+using ProyectoFinal.Mobile.Models;
 using ProyectoFinal.Mobile.Views;
 using ProyectoFinal.Shared.Dto;
 using System;
@@ -15,7 +16,8 @@ namespace ProyectoFinal.Mobile.ViewModels
         public Command CreateOfertaCommand { get; }
         public Command DeleteOfertaCommand { get; }
         public Command<int> ShowPerfilCommand { get; }
-
+        public Command AddCommentCommand { get; }
+        public Command<int> EditCommentCommand { get; }
 
         private bool canOffer;
         public bool CanOffer
@@ -58,8 +60,8 @@ namespace ProyectoFinal.Mobile.ViewModels
             set => SetProperty(ref ofertas, value);
         }
 
-        private ICollection<ComentarioDto> comentarios;
-        public ICollection<ComentarioDto> Comentarios
+        private ICollection<Comentario> comentarios;
+        public ICollection<Comentario> Comentarios
         {
             get => comentarios;
             set => SetProperty(ref comentarios, value);
@@ -68,8 +70,12 @@ namespace ProyectoFinal.Mobile.ViewModels
         public SubastaDetailViewModel()
         {
             Title = "Información de subasta";
-            ShowPerfilCommand = new Command<int>(OnPerfilClicked);
             EditCommand = new Command(OnEditClicked);
+            CreateOfertaCommand = new Command(OnAddOfertaClicked);
+            DeleteOfertaCommand = new Command(OnDeleteOfertaClicked);
+            ShowPerfilCommand = new Command<int>(OnPerfilClicked);
+            AddCommentCommand = new Command(OnAddCommentClicked);
+            EditCommentCommand = new Command<int>(OnEditCommentClicked);
         }
 
         public async Task<bool> CargarSubasta(int subastaID)
@@ -77,20 +83,13 @@ namespace ProyectoFinal.Mobile.ViewModels
             Subasta = await SmartSell.GetSubasta(subastaID);
             Imagen = MediaHelper.UriToImageSource(Subasta.UriImagen);
             Ofertas = subasta.Ofertas;
-            Comentarios = subasta.Comentarios;
+            Comentarios = SmartSell.ComentariosDtoToComentarios(subasta.Comentarios);
             if (Subasta.Vigente)
             {
                 CanOffer = false;
                 if (Subasta.UsuarioID == SmartSell.CurrentUser.ID)
                 {
-                    if (DateTime.Compare(Subasta.Fecha.AddDays(-1), DateTime.Now) >= 0)
-                    {
-                        CanEdit = true;
-                    }
-                    else
-                    {
-                        CanEdit = false;
-                    }
+                    CanEdit = DateTime.Compare(Subasta.Fecha.AddDays(-1), DateTime.Now) >= 0;
                 }
                 else
                 {
@@ -98,14 +97,7 @@ namespace ProyectoFinal.Mobile.ViewModels
                     CanOffer = true;
                     if (subasta.Ofertas.Count != 0)
                     {
-                        if (subasta.Ofertas.FirstOrDefault().UsuarioID == SmartSell.CurrentUser.ID)
-                        {
-                            CanDeleteOferta = true;
-                        }
-                        else
-                        {
-                            CanDeleteOferta = false;
-                        }
+                        CanDeleteOferta = subasta.Ofertas.FirstOrDefault().UsuarioID == SmartSell.CurrentUser.ID;
                     }
                     else
                     {
@@ -131,10 +123,62 @@ namespace ProyectoFinal.Mobile.ViewModels
             //Imagen = null;
         }
 
+        private async void OnAddOfertaClicked()
+        {
+            await Application.Current.MainPage.DisplayAlert("Agregar oferta", $"Ha seleccionado añadir una oferta para la subasta {Subasta.SubastaID}", "Aceptar");
+        }
+
+        private async void OnDeleteOfertaClicked()
+        {
+            try
+            {
+                bool response = await Application.Current.MainPage.DisplayAlert("Eliminar oferta", "¿Seguro que desea eliminar su oferta?", "Si", "No");
+                if (response)
+                {
+                    await SmartSell.DeleteOferta(Subasta.Ofertas.FirstOrDefault().OfertaID);
+                    await CargarSubasta(Subasta.SubastaID);
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
+            }
+        }
+
         private async void OnEditClicked()
         {
             await Shell.Current.GoToAsync($"{nameof(EditSubastaPage)}?id={Subasta.SubastaID}");
         }
+
+        private async void OnAddCommentClicked()
+        {
+            await Application.Current.MainPage.DisplayAlert("Agregar comentario", "Ha seleccionado añadir un comentario", "Aceptar");
+            // await Shell.Current.GoToAsync($"{nameof(EditSubastaPage)}?id={Subasta.SubastaID}");
+        }
+
+        private async void OnEditCommentClicked(int id)
+        {
+            await Application.Current.MainPage.DisplayAlert("Editar comentario", $"{id}", "Aceptar");
+            // await Shell.Current.GoToAsync($"{nameof(EditSubastaPage)}?id={Subasta.SubastaID}");
+        }
+
+        // Mover a la pantalla de edición del comentario
+        //private async void OnDeleteCommentClicked(int id)
+        //{
+        //    bool response = await Application.Current.MainPage.DisplayAlert("Eliminar comentario", "¿Seguro que desea eliminar el comentario?", "Si", "No");
+        //    if (response)
+        //    {
+        //        try
+        //        {
+        //            await SmartSell.DeleteComentario(id);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
+        //        }
+        //    }
+        //}
+
 
     }
 }

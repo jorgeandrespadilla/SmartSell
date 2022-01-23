@@ -18,5 +18,7 @@
     <x:String x:Key="IconImage">&#xe3f4;</x:String>
     <x:String x:Key="IconArrowDown">&#xe5cf;</x:String>
     <x:String x:Key="IconArrowUp">&#xe5ce;</x:String>
+    <x:String x:Key="IconPower">&#xe8ac;</x:String>
+    <x:String x:Key="IconLogout">&#xe9ba;</x:String>
     
 </ResourceDictionary>

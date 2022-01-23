@@ -32,7 +32,7 @@
                     RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout HorizontalOptions="FillAndExpand" Padding="20,0" Margin="5">
+                                <StackLayout HorizontalOptions="FillAndExpand" Padding="20,0" Margin="5,5,5,10">
                                     <Frame HorizontalOptions="FillAndExpand">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ShowSubastaCommand}" CommandParameter="{Binding SubastaID}"/>

@@ -78,8 +78,19 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnLogoutClicked()
         {
-            SmartSell.Logout();
-            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+            bool response = await Application.Current.MainPage.DisplayAlert("Cerrar sesión", "¿Seguro que desea cerrar la sesión actual?", "Si", "No");
+            if (response)
+            {
+                try
+                {
+                    SmartSell.Logout();
+                    await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                }
+                catch (Exception ex)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
+                }
+            }
         }
     }
 }
