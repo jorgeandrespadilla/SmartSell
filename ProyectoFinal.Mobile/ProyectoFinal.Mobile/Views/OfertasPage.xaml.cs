@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoFinal.Mobile.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,13 @@ namespace ProyectoFinal.Mobile.Views
         public OfertasPage()
         {
             InitializeComponent();
+            BindingContext = new OfertasViewModel();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ((OfertasViewModel)BindingContext).Initialize();
         }
     }
 }
