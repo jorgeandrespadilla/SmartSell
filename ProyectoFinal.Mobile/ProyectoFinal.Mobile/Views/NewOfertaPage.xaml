@@ -2,12 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.NewOfertaPage"
-             Shell.PresentationMode="ModalAnimated"
-             Title="{Binding Title}"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
-             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
-             ios:Page.UseSafeArea="true">
-    
+             Title="{Binding Title}" 
+             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels">
+
     <ContentPage.BindingContext>
         <vm:NewOfertaViewModel />
     </ContentPage.BindingContext>

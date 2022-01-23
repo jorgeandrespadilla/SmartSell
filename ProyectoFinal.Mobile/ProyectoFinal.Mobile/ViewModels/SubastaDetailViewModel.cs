@@ -17,6 +17,7 @@ namespace ProyectoFinal.Mobile.ViewModels
         public Command DeleteOfertaCommand { get; }
         public Command<int> ShowPerfilCommand { get; }
         public Command AddCommentCommand { get; }
+        public Command AddOfertaCommand { get; }
         public Command<int> EditCommentCommand { get; }
 
         private bool canOffer;
@@ -76,6 +77,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             ShowPerfilCommand = new Command<int>(OnPerfilClicked);
             AddCommentCommand = new Command(OnAddCommentClicked);
             EditCommentCommand = new Command<int>(OnEditCommentClicked);
+            AddOfertaCommand  = new Command(OnAddOfertaClicked);
         }
 
         public async Task<bool> CargarSubasta(int subastaID)
@@ -125,7 +127,8 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnAddOfertaClicked()
         {
-            await Application.Current.MainPage.DisplayAlert("Agregar oferta", $"Ha seleccionado añadir una oferta para la subasta {Subasta.SubastaID}", "Aceptar");
+            //await Application.Current.MainPage.DisplayAlert("Agregar oferta", $"Ha seleccionado añadir una oferta para la subasta {Subasta.SubastaID}", "Aceptar");
+            await Shell.Current.GoToAsync($"{nameof(NewOfertaPage)}?id={Subasta.SubastaID}");
         }
 
         private async void OnDeleteOfertaClicked()
@@ -152,14 +155,14 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnAddCommentClicked()
         {
-            await Application.Current.MainPage.DisplayAlert("Agregar comentario", "Ha seleccionado añadir un comentario", "Aceptar");
-            // await Shell.Current.GoToAsync($"{nameof(EditSubastaPage)}?id={Subasta.SubastaID}");
+            //await Application.Current.MainPage.DisplayAlert("Agregar comentario", "Ha seleccionado añadir un comentario", "Aceptar");
+            await Shell.Current.GoToAsync($"{nameof(NewComentarioPage)}?id={Subasta.SubastaID}");
         }
 
         private async void OnEditCommentClicked(int id)
         {
             await Application.Current.MainPage.DisplayAlert("Editar comentario", $"{id}", "Aceptar");
-            // await Shell.Current.GoToAsync($"{nameof(EditSubastaPage)}?id={Subasta.SubastaID}");
+            //await Shell.Current.GoToAsync($"{nameof(EditSubastaPage)}?id={Subasta.SubastaID}");
         }
 
         // Mover a la pantalla de edición del comentario

@@ -16,7 +16,7 @@ namespace ProyectoFinal.Mobile.ViewModels
         private float monto;
         public float Monto
         {
-            get => Monto;
+            get => monto;
             set => SetProperty(ref monto, value);
         }
 
