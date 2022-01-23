@@ -16,6 +16,9 @@ namespace ProyectoFinal.Mobile
 
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+
+            Routing.RegisterRoute(nameof(NewComentarioPage), typeof(NewComentarioPage));
+            Routing.RegisterRoute(nameof(NewOfertaPage), typeof(NewOfertaPage));
         }
 
     }
