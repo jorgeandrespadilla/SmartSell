@@ -25,7 +25,7 @@
                     <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
                     <Entry Text="{Binding Nombre, Mode=TwoWay}" FontSize="Medium" Margin="20,0,20,20"/>
                     <Label HorizontalOptions="Start" Text="Descripción" TextColor="Black" FontSize="Medium" Padding="20,0"/>
-                    <Editor HorizontalOptions="FillAndExpand" Text="{Binding Descripcion, Mode=TwoWay}" FontSize="Medium" Margin ="20,0,20,20" />
+                    <Editor HorizontalOptions="FillAndExpand" Text="{Binding Descripcion, Mode=TwoWay}" FontSize="Medium" Margin ="20,0,20,20" AutoSize="TextChanges"/>
                     <StackLayout Orientation ="Horizontal" Padding="30,0" Margin="1" HorizontalOptions="FillAndExpand">
                         <Button CornerRadius="30" Command="{Binding GuardarInformacionCommand}" HorizontalOptions="FillAndExpand" Text="Guardar información" Margin="0,0,10,0"/>
                         <Button CornerRadius="80" WidthRequest="50" Command="{Binding DeleteInformacionCommand}" Text="{StaticResource IconDelete}" FontFamily="MaterialIcons" FontSize="28" TextColor="#dc3545" BorderColor="#dc3545" BorderWidth="2" BackgroundColor="White" IsEnabled="{Binding CanDelete}"/>

@@ -37,7 +37,8 @@ namespace ProyectoFinal.Mobile.ViewModels
         {
             try
             {
-                await SmartSell.CreateOferta(SubastaID, (float)Monto);
+                float MontoRedondeado = (float)(Math.Round(Monto, 2));
+                await SmartSell.CreateOferta(SubastaID, MontoRedondeado);
                 await Shell.Current.GoToAsync("..");
             }
             catch (Exception ex)
