@@ -16,6 +16,13 @@ namespace ProyectoFinal.Mobile.ViewModels
         public Command OpenGalleryCommand { get; }
         public Command OpenCameraCommand { get; }
 
+        private bool canDelete;
+        public bool CanDelete
+        {
+            get => canDelete;
+            set => SetProperty(ref canDelete, value);
+        }
+
         private string nombre;
         public string Nombre
         {
@@ -60,6 +67,15 @@ namespace ProyectoFinal.Mobile.ViewModels
             Nombre = Subasta.NombreProducto;
             Descripcion = Subasta.DescripcionProducto;
             Imagen = new ImageData(MediaHelper.UriToImageSource(Subasta.UriImagen), Subasta.UriImagen);
+
+            if (DateTime.Compare(Subasta.Fecha.AddDays(-1), DateTime.Now) >= 0)
+            {
+                CanDelete = true;
+            }
+            else
+            {
+                CanDelete = false;
+            }
         }
 
 

@@ -91,7 +91,7 @@ namespace ProyectoFinal.Mobile.ViewModels
                 CanOffer = false;
                 if (Subasta.UsuarioID == SmartSell.CurrentUser.ID)
                 {
-                    CanEdit = DateTime.Compare(Subasta.Fecha.AddDays(-1), DateTime.Now) >= 0;
+                    CanEdit = true;
                 }
                 else
                 {
@@ -127,7 +127,6 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnAddOfertaClicked()
         {
-            //await Application.Current.MainPage.DisplayAlert("Agregar oferta", $"Ha seleccionado añadir una oferta para la subasta {Subasta.SubastaID}", "Aceptar");
             await Shell.Current.GoToAsync($"{nameof(NewOfertaPage)}?id={Subasta.SubastaID}");
         }
 
@@ -155,7 +154,6 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnAddCommentClicked()
         {
-            //await Application.Current.MainPage.DisplayAlert("Agregar comentario", "Ha seleccionado añadir un comentario", "Aceptar");
             await Shell.Current.GoToAsync($"{nameof(NewComentarioPage)}?id={Subasta.SubastaID}");
         }
 
