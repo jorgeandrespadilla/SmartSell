@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoFinal.Mobile.Views.NewSubastaPage"
+             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:NewSubastaViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <ScrollView Padding="0,0,0,20">
+                <StackLayout Orientation="Vertical" >
+                    <Image
+                           HorizontalOptions="FillAndExpand"
+                           HeightRequest="{Binding Width, Source={RelativeSource Self}}"
+                           Aspect="AspectFill"
+                           Source="{Binding Imagen.ImageSource, Mode=OneWay}"/>
+                    <StackLayout Orientation ="Horizontal" Padding="30,10" HorizontalOptions="Center">
+                        <Button Command="{Binding OpenGalleryCommand}" Text="{StaticResource IconImage}" FontFamily="MaterialIcons" FontSize="28" CornerRadius="30" HorizontalOptions="FillAndExpand" TextColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}" BorderWidth="2" BackgroundColor="White"/>
+                        <Button Command="{Binding OpenCameraCommand}" Text="{StaticResource IconCamera}" FontFamily="MaterialIcons" FontSize="28" CornerRadius="30" HorizontalOptions="FillAndExpand" TextColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}" BorderWidth="2" BackgroundColor="White"/>
+                    </StackLayout>
+                    <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
+                    <Entry Text="{Binding Nombre, Mode=TwoWay}" FontSize="Medium" Margin="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="Descripción" TextColor="Black" FontSize="Medium" Padding="20,0"/>
+                    <Editor HorizontalOptions="FillAndExpand" Text="{Binding Descripcion, Mode=TwoWay}" FontSize="Medium" Margin ="20,0,20,20" AutoSize="TextChanges"/>
+                    <Label HorizontalOptions="Start" Text="Precio inicial" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
+                    <Entry Text="{Binding Precio, Mode=TwoWay}" FontSize="Medium" Margin="20,0,20,20" Keyboard="Numeric"/>
+                    <Label HorizontalOptions="Start" Text="Fecha límite" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
+                    <DatePicker x:Name="DateSubasta" Date="{Binding Fecha, Mode=TwoWay}" FontSize="Medium" Margin="20,0,20,20" />
+                    <StackLayout Orientation ="Horizontal" Padding="30,0" Margin="1" HorizontalOptions="FillAndExpand">
+                        <Button CornerRadius="30" Command="{Binding GuardarInformacionCommand}" HorizontalOptions="FillAndExpand" Text="Guardar información" Margin="0,0,10,0" />
+                        <Button CornerRadius="30"  Command="{Binding CancelCommand}" Text="Cancelar" TextColor="#dc3545" BorderColor="#dc3545" BorderWidth="2" BackgroundColor="White"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

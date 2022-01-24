@@ -110,7 +110,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             RefreshCommand = new Command(SearchSubastas);
             LoadMoreCommand = new Command(LoadMore);
             ChangeModeCommand = new Command(ChangeMode);
-            NewSubastaCommand = null;
+            NewSubastaCommand = new Command(OnNewSubastaClicked); ;
             ShowSubastaCommand = new Command<int>(OnSubastaClicked);
         }
 
@@ -134,6 +134,11 @@ namespace ProyectoFinal.Mobile.ViewModels
         private async void OnSubastaClicked(int subastaID)
         {
             await Shell.Current.GoToAsync($"{nameof(SubastaDetailPage)}?id={subastaID}");
+        }
+
+        private async void OnNewSubastaClicked()
+        {
+            await Shell.Current.GoToAsync($"{nameof(NewSubastaPage)}");
         }
 
         private void SearchSubastas()
