@@ -15,11 +15,10 @@ namespace ProyectoFinal.Mobile.ViewModels
         public virtual void Initialize()
         {
         }
-            
-            
+
         public virtual void Dispose()
         {
-        
+        }
 
         bool isBusy = false;
         public bool IsBusy
