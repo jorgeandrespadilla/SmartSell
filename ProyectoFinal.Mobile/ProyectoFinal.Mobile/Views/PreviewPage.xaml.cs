@@ -14,12 +14,15 @@ namespace ProyectoFinal.Mobile.Views
     [QueryProperty(nameof(SubastaID), "id")]
     public partial class PreviewPage : ContentPage
     {
+        
         public int SubastaID { get; set; }
+
         public PreviewPage()
         {
             InitializeComponent();
             BindingContext = new PreviewViewModel();
         }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();

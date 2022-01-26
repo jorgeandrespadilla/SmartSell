@@ -15,7 +15,6 @@ namespace ProyectoFinal.Mobile.ViewModels
             set => SetProperty(ref previewData, value);
         }
 
-
         public PreviewViewModel()
         {
             Title = "Previsualización";
@@ -24,12 +23,13 @@ namespace ProyectoFinal.Mobile.ViewModels
         public async void Initialize(int subastaID)
         {
             var data = await SmartSell.GetSubastaPreview(subastaID);
-            var PreviewData = new SubastaPreview(
+            PreviewData = new SubastaPreview(
                 data.SubastaID,
                 data.UsuarioID,
                 data.NombreProducto,
-                MediaHelper.UriToImageSource(data.UriImagen) 
+                MediaHelper.UriToImageSource(data.UriImagen)
             );
+            Title = PreviewData.NombreProducto;
         }
     }
 }
