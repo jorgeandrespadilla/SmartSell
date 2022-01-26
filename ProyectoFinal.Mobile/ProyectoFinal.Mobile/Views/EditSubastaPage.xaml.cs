@@ -23,10 +23,10 @@ namespace ProyectoFinal.Mobile.Views
             BindingContext = new EditSubastaViewModel();           
         }
 
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            await ((EditSubastaViewModel)BindingContext).CargarSubasta(SubastaID);
+            ((EditSubastaViewModel)BindingContext).Initialize(SubastaID);
         }
 
 

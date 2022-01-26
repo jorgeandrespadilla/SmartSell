@@ -33,7 +33,7 @@ namespace ProyectoFinal.Mobile.ViewModels
         }
 
 
-        public async void CargarComentario(int ComentarioID)
+        public async void Initialize(int ComentarioID)
         {
             Comentario = await SmartSell.GetComentario(ComentarioID);
             Description = Comentario.Descripcion;

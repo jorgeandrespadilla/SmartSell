@@ -25,7 +25,6 @@ namespace ProyectoFinal.Mobile.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-
             bool canEdit = await ((SubastaDetailViewModel)BindingContext).CargarSubasta(SubastaID);
             if (!canEdit)
             {

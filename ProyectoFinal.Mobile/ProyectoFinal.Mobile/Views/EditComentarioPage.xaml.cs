@@ -27,7 +27,7 @@ namespace ProyectoFinal.Mobile.Views
         {
             base.OnAppearing();
 
-            ((EditComentarioViewModel)BindingContext).CargarComentario(ComentarioID);
+            ((EditComentarioViewModel)BindingContext).Initialize(ComentarioID);
         }
         
     }

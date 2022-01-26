@@ -51,12 +51,12 @@ namespace ProyectoFinal.Mobile.ViewModels
         {
             Title = "Mis ofertas";
 
-            Reset();
-
             SearchCommand = new Command(SearchOfertas);
             RefreshCommand = new Command(SearchOfertas);
             LoadMoreCommand = new Command(LoadMore);
             ShowSubastaCommand = new Command<int>(OnOfertaClicked);
+
+            Initialize();
         }
 
         public override void Initialize()

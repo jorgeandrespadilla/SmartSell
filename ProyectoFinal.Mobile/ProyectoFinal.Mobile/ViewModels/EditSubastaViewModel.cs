@@ -61,21 +61,14 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         }
 
-        public async Task CargarSubasta(int subastaID)
+        public async void Initialize(int subastaID)
         {
             Subasta = await SmartSell.GetSubasta(subastaID);
             Nombre = Subasta.NombreProducto;
             Descripcion = Subasta.DescripcionProducto;
             Imagen = new ImageData(MediaHelper.UriToImageSource(Subasta.UriImagen), Subasta.UriImagen);
 
-            if (DateTime.Compare(Subasta.Fecha.AddDays(-1), DateTime.Now) >= 0)
-            {
-                CanDelete = true;
-            }
-            else
-            {
-                CanDelete = false;
-            }
+            CanDelete = DateTime.Compare(Subasta.Fecha.AddDays(-1), DateTime.Now) >= 0;
         }
 
 

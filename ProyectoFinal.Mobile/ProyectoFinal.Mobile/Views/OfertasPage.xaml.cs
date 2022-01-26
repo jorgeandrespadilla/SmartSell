@@ -22,7 +22,7 @@ namespace ProyectoFinal.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ((OfertasViewModel)BindingContext).Initialize();
+            // ((OfertasViewModel)BindingContext).Initialize();
         }
     }
 }

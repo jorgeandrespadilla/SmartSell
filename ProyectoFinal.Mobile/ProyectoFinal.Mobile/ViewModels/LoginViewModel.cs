@@ -38,12 +38,13 @@ namespace ProyectoFinal.Mobile.ViewModels
                 IsBusy = true;
                 await SmartSell.Login(CorreoTxt.Trim(), ClaveTxt);
                 await Shell.Current.GoToAsync($"//{nameof(SubastasPage)}", true);
+                IsBusy = false;
             }
             catch (Exception ex)
             {
+                IsBusy = false;
                 await Application.Current.MainPage.DisplayAlert("Acceso fallido", ex.Message, "Aceptar");
             }
-            IsBusy = false;
         }
 
         private async void OnGoRegisterClicked()

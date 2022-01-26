@@ -21,7 +21,7 @@ namespace ProyectoFinal.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ((SubastasViewModel)BindingContext).Initialize();
+            // ((SubastasViewModel)BindingContext).Initialize();
         }
         
     }
