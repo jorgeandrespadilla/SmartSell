@@ -6,6 +6,7 @@
              xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Name="root"
+             Shell.PresentationMode="Animated"
              Title="{Binding Title}">
 
     <ContentPage.Resources>

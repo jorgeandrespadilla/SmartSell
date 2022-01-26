@@ -1,4 +1,5 @@
-﻿using ProyectoFinal.Shared.Dto;
+﻿using ProyectoFinal.Mobile.Views;
+using ProyectoFinal.Shared.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,10 +32,18 @@ namespace ProyectoFinal.Mobile.ViewModels
             SetRatingCommand = new Command(SetRating);
         }
 
-        public override async void Initialize()
+        public async void Initialize(int usuarioID)
         {
-            Perfil = await SmartSell.GetPerfilVendedor(UsuarioID);
-            NombreCompletoTxt = $"{Perfil.Nombres} {Perfil.Apellidos}";
+            if (SmartSell.CurrentUser.ID == usuarioID)
+            {
+                await Shell.Current.GoToAsync($"//{nameof(PerfilPage)}");
+            }
+            else
+            {
+                UsuarioID = usuarioID;
+                Perfil = await SmartSell.GetPerfilVendedor(UsuarioID);
+                NombreCompletoTxt = $"{Perfil.Nombres} {Perfil.Apellidos}";
+            }
         }
 
         private async void SetRating()
