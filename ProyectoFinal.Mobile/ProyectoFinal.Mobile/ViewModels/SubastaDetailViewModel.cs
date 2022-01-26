@@ -117,7 +117,15 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnPerfilClicked(int usuarioID)
         {
-            await Application.Current.MainPage.DisplayAlert("Perfil seleccionado", $"{usuarioID}", "Aceptar");
+            if (SmartSell.CurrentUser.ID == usuarioID)
+            {
+                await Shell.Current.GoToAsync($"//{nameof(PerfilPage)}");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"{nameof(PerfilVendedorPage)}?id={Subasta.UsuarioID}");
+            }
+            
         }
 
         public override void Dispose()

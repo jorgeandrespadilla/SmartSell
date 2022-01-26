@@ -34,16 +34,9 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public async void Initialize(int usuarioID)
         {
-            if (SmartSell.CurrentUser.ID == usuarioID)
-            {
-                await Shell.Current.GoToAsync($"//{nameof(PerfilPage)}");
-            }
-            else
-            {
-                UsuarioID = usuarioID;
-                Perfil = await SmartSell.GetPerfilVendedor(UsuarioID);
-                NombreCompletoTxt = $"{Perfil.Nombres} {Perfil.Apellidos}";
-            }
+            UsuarioID = usuarioID;
+            Perfil = await SmartSell.GetPerfilVendedor(UsuarioID);
+            NombreCompletoTxt = $"{Perfil.Nombres} {Perfil.Apellidos}";
         }
 
         private async void SetRating()
