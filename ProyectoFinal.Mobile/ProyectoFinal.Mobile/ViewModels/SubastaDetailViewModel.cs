@@ -159,8 +159,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnEditCommentClicked(int id)
         {
-            await Application.Current.MainPage.DisplayAlert("Editar comentario", $"{id}", "Aceptar");
-            //await Shell.Current.GoToAsync($"{nameof(EditSubastaPage)}?id={Subasta.SubastaID}");
+            await Shell.Current.GoToAsync($"{nameof(EditComentarioPage)}?id={id}");
         }
 
         // Mover a la pantalla de edición del comentario
