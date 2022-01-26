@@ -11,10 +11,9 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-
-            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                <Image Source="{Binding PreviewData.Imagen, Mode=OneWay}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-            </StackLayout>
-
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Image Source="{Binding PreviewData.Imagen, Mode=OneWay}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </StackLayout>
     </ContentPage.Content>
+    
 </ContentPage>

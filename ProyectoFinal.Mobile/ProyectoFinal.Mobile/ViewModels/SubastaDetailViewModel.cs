@@ -13,6 +13,7 @@ namespace ProyectoFinal.Mobile.ViewModels
     public class SubastaDetailViewModel : BaseViewModel
     {
         public Command EditCommand { get; }
+        public Command ShowPreviewCommand { get; }
         public Command CreateOfertaCommand { get; }
         public Command DeleteOfertaCommand { get; }
         public Command<int> ShowPerfilCommand { get; }
@@ -72,6 +73,7 @@ namespace ProyectoFinal.Mobile.ViewModels
         {
             Title = "Información de subasta";
             EditCommand = new Command(OnEditClicked);
+            ShowPreviewCommand = new Command(OnPreviewClicked);
             CreateOfertaCommand = new Command(OnAddOfertaClicked);
             DeleteOfertaCommand = new Command(OnDeleteOfertaClicked);
             ShowPerfilCommand = new Command<int>(OnPerfilClicked);
@@ -113,6 +115,11 @@ namespace ProyectoFinal.Mobile.ViewModels
                 CanEdit = false;
             }
             return CanEdit;
+        }
+
+        private async void OnPreviewClicked()
+        {
+            await Shell.Current.GoToAsync($"{nameof(PreviewPage)}?id={Subasta.SubastaID}");
         }
 
         private async void OnPerfilClicked(int usuarioID)

@@ -10,7 +10,13 @@ namespace ProyectoFinal.Mobile.ViewModels
     public class PerfilVendedorViewModel : BaseViewModel
     {
         public Command SetRatingCommand { get; }
-        public Command LogoutCommand { get; }
+
+        private int ratingUser;
+        public int RatingUser
+        {
+            get => ratingUser;
+            set => SetProperty(ref ratingUser, value);
+        }
 
         private PerfilVendedorDto perfil;
         public PerfilVendedorDto Perfil
@@ -37,14 +43,15 @@ namespace ProyectoFinal.Mobile.ViewModels
             UsuarioID = usuarioID;
             Perfil = await SmartSell.GetPerfilVendedor(UsuarioID);
             NombreCompletoTxt = $"{Perfil.Nombres} {Perfil.Apellidos}";
+            RatingUser = Perfil.Rating;
         }
 
         private async void SetRating()
         {
-            int rating = 1;
             try
             {
-                await SmartSell.SetRatingUsuario(UsuarioID, rating);
+                await SmartSell.SetRatingUsuario(UsuarioID, RatingUser);
+                Perfil = await SmartSell.GetPerfilVendedor(UsuarioID);
             }
             catch (Exception ex)
             {
