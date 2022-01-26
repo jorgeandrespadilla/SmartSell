@@ -12,14 +12,15 @@ namespace ProyectoFinal.Mobile
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
-            Routing.RegisterRoute(nameof(NewSubastaPage), typeof(NewSubastaPage));
-            Routing.RegisterRoute(nameof(EditComentarioPage), typeof(EditComentarioPage));
-            Routing.RegisterRoute(nameof(EditSubastaPage), typeof(EditSubastaPage));
+            Routing.RegisterRoute(nameof(PerfilVendedorPage), typeof(PerfilVendedorPage));
             Routing.RegisterRoute(nameof(SubastaDetailPage), typeof(SubastaDetailPage));
             Routing.RegisterRoute(nameof(PreviewPage), typeof(PreviewPage));
-            Routing.RegisterRoute(nameof(NewComentarioPage), typeof(NewComentarioPage));
+            Routing.RegisterRoute(nameof(NewSubastaPage), typeof(NewSubastaPage));
             Routing.RegisterRoute(nameof(NewOfertaPage), typeof(NewOfertaPage));
-            Routing.RegisterRoute(nameof(PerfilVendedorPage), typeof(PerfilVendedorPage));
+            Routing.RegisterRoute(nameof(NewComentarioPage), typeof(NewComentarioPage));
+            Routing.RegisterRoute(nameof(EditPerfilPage), typeof(EditPerfilPage));
+            Routing.RegisterRoute(nameof(EditSubastaPage), typeof(EditSubastaPage));
+            Routing.RegisterRoute(nameof(EditComentarioPage), typeof(EditComentarioPage));
         }
 
     }
