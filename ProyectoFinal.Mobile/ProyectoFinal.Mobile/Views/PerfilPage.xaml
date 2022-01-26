@@ -22,7 +22,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Editar información"
                  Order="Primary"
-                 Priority="0" >
+                 Priority="0" Command="{Binding EditCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconEdit}"/>
             </ToolbarItem.IconImageSource>

@@ -1,12 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProyectoFinal.Mobile.Views.EditPerfilPage">
+             x:Class="ProyectoFinal.Mobile.Views.EditPerfilPage"
+             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels" 
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:EditPerfilViewModel/>
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <ScrollView Padding="0,0,0,20">
+                <StackLayout Orientation="Vertical" >
+                    <Label HorizontalOptions="Start" Text="Nombres" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
+                    <Entry Text="{Binding Nombres, Mode=TwoWay}" FontSize="Medium" Margin="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="Apellidos" TextColor="Black" FontSize="Medium" Padding="20,0"/>
+                    <Entry HorizontalOptions="FillAndExpand" Text="{Binding Apellidos, Mode=TwoWay}" FontSize="Medium" Margin ="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="Correo" TextColor="Black" FontSize="Medium" Padding="20,0"/>
+                    <Entry HorizontalOptions="FillAndExpand" Text="{Binding Correo, Mode=TwoWay}" FontSize="Medium" Margin ="20,0,20,20"/>
+                    <Label HorizontalOptions="Start" Text="Clave" TextColor="Black" FontSize="Medium" Padding="20,0"/>
+                    <Entry HorizontalOptions="FillAndExpand" Text="{Binding Clave, Mode=TwoWay}" FontSize="Medium" Margin ="20,0,20,20" IsPassword="True"/>
+                    <StackLayout Orientation ="Horizontal" Padding="30,0" Margin="1" HorizontalOptions="FillAndExpand">
+                        <Button CornerRadius="30" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand" Text="Guardar" Margin="0,0,10,0"/>
+                        <Button CornerRadius="80" WidthRequest="50" Command="{Binding DeleteCommand}" Text="{StaticResource IconDelete}" FontFamily="MaterialIcons" FontSize="28" TextColor="#dc3545" BorderColor="#dc3545" BorderWidth="2" BackgroundColor="White" IsEnabled="{Binding CanDelete}"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
