@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
              xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
+             xmlns:fRating="clr-namespace:Rating;assembly=Rating"
              x:Name="root"
              Title="{Binding Title}"
              Shell.PresentationMode="Animated">
@@ -46,6 +47,7 @@
                             </StackLayout.Background>
                         </StackLayout>
                     </yummy:PancakeView>
+                    <fRating:RatingBar x:Name="rating" HorizontalOptions="Center" ImageWidth="35" ImageHeight="35" FlowDirection="LeftToRight" EmptyStarImage="emptystar" FillStarImage="filledstar" SelectedStarValue="{Binding RatingUser, Mode=TwoWay}" Background="white" Command="{Binding SetRatingCommand}"></fRating:RatingBar>
                     <Label HorizontalOptions="Start" Text="Nombres" TextColor="Black" FontSize="Medium" Padding="20,10,0,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding Perfil.Nombres, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,0,20"/>
                     <Label HorizontalOptions="Start" Text="Apellidos" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>
