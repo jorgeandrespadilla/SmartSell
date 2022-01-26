@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.PerfilPage"
              xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
-             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
              x:Name="root"
              Title="{Binding Title}"
              Shell.PresentationMode="Animated">
