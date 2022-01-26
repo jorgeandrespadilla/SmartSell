@@ -117,7 +117,15 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnPerfilClicked(int usuarioID)
         {
-            await Application.Current.MainPage.DisplayAlert("Perfil seleccionado", $"{usuarioID}", "Aceptar");
+            if (SmartSell.CurrentUser.ID == usuarioID)
+            {
+                await Shell.Current.GoToAsync($"//{nameof(PerfilPage)}");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"{nameof(PerfilVendedorPage)}?id={Subasta.UsuarioID}");
+            }
+            
         }
 
         public override void Dispose()
@@ -161,24 +169,6 @@ namespace ProyectoFinal.Mobile.ViewModels
         {
             await Shell.Current.GoToAsync($"{nameof(EditComentarioPage)}?id={id}");
         }
-
-        // Mover a la pantalla de edición del comentario
-        //private async void OnDeleteCommentClicked(int id)
-        //{
-        //    bool response = await Application.Current.MainPage.DisplayAlert("Eliminar comentario", "¿Seguro que desea eliminar el comentario?", "Si", "No");
-        //    if (response)
-        //    {
-        //        try
-        //        {
-        //            await SmartSell.DeleteComentario(id);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
-        //        }
-        //    }
-        //}
-
 
     }
 }
