@@ -66,7 +66,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public async void OnDeleteClicked()
         {
-            bool response = await Application.Current.MainPage.DisplayAlert("Eliminar subasta", "¿Seguro que desea eliminar la subasta?", "Si", "No");
+            bool response = await Application.Current.MainPage.DisplayAlert("Eliminar comentario", "¿Seguro que desea eliminar el comentario?", "Si", "No");
             if (response)
             {
                 try
