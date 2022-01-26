@@ -5,6 +5,14 @@
              x:Class="ProyectoFinal.Mobile.Views.EditSubastaPage"
              Title="{Binding Title}">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Eliminar comentario" Priority="0" Command="{Binding DeleteCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconDelete}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.BindingContext>
         <vm:EditSubastaViewModel />
     </ContentPage.BindingContext>
@@ -23,12 +31,11 @@
                         <Button Command="{Binding OpenCameraCommand}" Text="{StaticResource IconCamera}" FontFamily="MaterialIcons" FontSize="28" CornerRadius="30" HorizontalOptions="FillAndExpand" TextColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}" BorderWidth="2" BackgroundColor="White"/>
                     </StackLayout>
                     <Label HorizontalOptions="Start" Text="Nombre del producto" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
-                    <Entry Text="{Binding Nombre, Mode=TwoWay}" FontSize="Medium" Margin="20,0,20,20"/>
+                    <Entry Text="{Binding Nombre, Mode=TwoWay}" FontSize="Medium" Margin="20,0,20,20" ReturnType="Next"/>
                     <Label HorizontalOptions="Start" Text="Descripción" TextColor="Black" FontSize="Medium" Padding="20,0"/>
                     <Editor HorizontalOptions="FillAndExpand" Text="{Binding Descripcion, Mode=TwoWay}" FontSize="Medium" Margin ="20,0,20,20" AutoSize="TextChanges"/>
                     <StackLayout Orientation ="Horizontal" Padding="30,0" Margin="1" HorizontalOptions="FillAndExpand">
-                        <Button CornerRadius="30" Command="{Binding GuardarInformacionCommand}" HorizontalOptions="FillAndExpand" Text="Guardar información" Margin="0,0,10,0"/>
-                        <Button CornerRadius="80" WidthRequest="50" Command="{Binding DeleteInformacionCommand}" Text="{StaticResource IconDelete}" FontFamily="MaterialIcons" FontSize="28" TextColor="#dc3545" BorderColor="#dc3545" BorderWidth="2" BackgroundColor="White" IsEnabled="{Binding CanDelete}"/>
+                        <Button CornerRadius="30" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand" Text="Guardar" />
                     </StackLayout>
                 </StackLayout>
             </ScrollView>

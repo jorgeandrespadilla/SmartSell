@@ -11,8 +11,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 {
     public class NewSubastaViewModel : BaseViewModel
     {
-        public Command GuardarInformacionCommand { get; }
-
+        public Command SaveCommand { get; }
         public Command OpenGalleryCommand { get; }
         public Command OpenCameraCommand { get; }
 
@@ -68,13 +67,13 @@ namespace ProyectoFinal.Mobile.ViewModels
         public NewSubastaViewModel()
         {
             Title = "Crear subasta";
-            GuardarInformacionCommand = new Command(OnGuardarInformacionClicked);
+            SaveCommand = new Command(OnSaveClicked);
             OpenGalleryCommand = new Command(OnOpenGalleryClicked);
             OpenCameraCommand = new Command(OnOpenCameraClicked);
 
         }
 
-        private async void OnGuardarInformacionClicked()
+        private async void OnSaveClicked()
         {
             try
             {

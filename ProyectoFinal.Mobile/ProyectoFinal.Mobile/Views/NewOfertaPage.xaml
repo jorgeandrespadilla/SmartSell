@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.NewOfertaPage"
-             Title="{Binding Title}" 
-             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels">
+             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
+             Title="{Binding Title}">
 
     <ContentPage.BindingContext>
         <vm:NewOfertaViewModel />
@@ -12,9 +12,9 @@
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="20,15">
             <Label Text="Monto" FontSize="Medium" />
-            <Entry Text="{Binding Monto, Mode=TwoWay}" IsSpellCheckEnabled="False" Keyboard="Numeric" HorizontalOptions="FillAndExpand" FontSize="Medium" Margin="0" />
+            <Entry Text="{Binding Monto, Mode=TwoWay}" IsSpellCheckEnabled="False" Keyboard="Numeric" HorizontalOptions="FillAndExpand" FontSize="Medium" Margin="0" ReturnType="Next" />
             <StackLayout Orientation="Horizontal">
-                <Button Text="Guardar" CornerRadius="30" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand" Margin="0,20,0,0"></Button>
+                <Button Text="Guardar" CornerRadius="30" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand" Margin="0,20,0,0"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

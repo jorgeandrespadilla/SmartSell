@@ -19,7 +19,7 @@
     
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
-            <Label Text="Comentario: " FontSize="Medium" />
+            <Label Text="Comentario:" FontSize="Medium" />
             <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
             <StackLayout Orientation="Horizontal">
                 <Button Text="Guardar" CornerRadius="30" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand" Margin="0,20,0,0"></Button>

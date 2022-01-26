@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.NewComentarioPage"
-             Title="{Binding Title}"
-             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels">
+             xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
+             Title="{Binding Title}">
 
     <ContentPage.BindingContext>
         <vm:NewComentarioViewModel />
@@ -11,7 +11,7 @@
 
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
-            <Label Text="Comentario: " FontSize="Medium" />
+            <Label Text="Comentario:" FontSize="Medium" />
             <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
             <StackLayout Orientation="Horizontal">
                 <Button CornerRadius="30" Margin="0,20,0,0" Text="Guardar" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

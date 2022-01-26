@@ -11,8 +11,8 @@ namespace ProyectoFinal.Mobile.ViewModels
 {
     public class EditSubastaViewModel : BaseViewModel
     {
-        public Command GuardarInformacionCommand { get; }
-        public Command DeleteInformacionCommand { get; }
+        public Command SaveCommand { get; }
+        public Command DeleteCommand { get; }
         public Command OpenGalleryCommand { get; }
         public Command OpenCameraCommand { get; }
 
@@ -54,8 +54,8 @@ namespace ProyectoFinal.Mobile.ViewModels
         public EditSubastaViewModel()
         {
             Title = "Editar subasta";
-            GuardarInformacionCommand = new Command(OnGuardarInformacionClicked);
-            DeleteInformacionCommand = new Command(OnDeleteInformacionClicked);
+            SaveCommand = new Command(OnSaveClicked);
+            DeleteCommand = new Command(OnDeleteClicked);
             OpenGalleryCommand = new Command(OnOpenGalleryClicked);
             OpenCameraCommand = new Command(OnOpenCameraClicked);
 
@@ -72,7 +72,7 @@ namespace ProyectoFinal.Mobile.ViewModels
         }
 
 
-        private async void OnGuardarInformacionClicked()
+        private async void OnSaveClicked()
         {
             try
             {
@@ -85,7 +85,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             }
         }
 
-        private async void OnDeleteInformacionClicked()
+        private async void OnDeleteClicked()
         {
             bool response = await Application.Current.MainPage.DisplayAlert("Eliminar subasta", "¿Seguro que desea eliminar la subasta?", "Si", "No");
             if (response)
