@@ -20,7 +20,7 @@ namespace ProyectoFinal.Mobile.Views
         public EditSubastaPage()
         {
             InitializeComponent();
-            BindingContext = new EditSubastaViewModel();           
+            BindingContext = new EditSubastaViewModel();
         }
 
         protected override void OnAppearing()

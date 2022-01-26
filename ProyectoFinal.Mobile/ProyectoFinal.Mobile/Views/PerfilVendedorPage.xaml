@@ -47,7 +47,7 @@
                             </StackLayout.Background>
                         </StackLayout>
                     </yummy:PancakeView>
-                    <fRating:RatingBar x:Name="rating" HorizontalOptions="Center" ImageWidth="35" ImageHeight="35" FlowDirection="LeftToRight" EmptyStarImage="emptystar" FillStarImage="filledstar" SelectedStarValue="{Binding RatingUser, Mode=TwoWay}" Background="white" Command="{Binding SetRatingCommand}"></fRating:RatingBar>
+                    <fRating:RatingBar x:Name="rating" HorizontalOptions="Center" ImageWidth="35" ImageHeight="35" FlowDirection="LeftToRight" EmptyStarImage="empty_star" FillStarImage="filled_star" SelectedStarValue="{Binding RatingUser, Mode=TwoWay}" Background="white" Command="{Binding SetRatingCommand}"></fRating:RatingBar>
                     <Label HorizontalOptions="Start" Text="Nombres" TextColor="Black" FontSize="Medium" Padding="20,10,0,0"/>
                     <Label HorizontalOptions="Start" Text="{Binding Perfil.Nombres, Mode=OneWay}" TextColor="#a1a1a1" FontSize="Medium" Padding="20,0,0,20"/>
                     <Label HorizontalOptions="Start" Text="Apellidos" TextColor="Black" FontSize="Medium" Padding="20,0,0,0"/>

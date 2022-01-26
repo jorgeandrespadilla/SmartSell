@@ -85,7 +85,7 @@ namespace ProyectoFinal.Mobile.ViewModels
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Seleccione una imágen", "Aceptar");
+                    await Application.Current.MainPage.DisplayAlert("Error", "Seleccione una imagen", "Aceptar");
                 }
                 
             }

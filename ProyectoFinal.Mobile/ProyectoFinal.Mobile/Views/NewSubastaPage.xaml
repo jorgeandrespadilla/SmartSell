@@ -3,7 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Mobile.Views.NewSubastaPage"
              xmlns:vm="clr-namespace:ProyectoFinal.Mobile.ViewModels"
+             xmlns:conveters="clr-namespace:ProyectoFinal.Mobile.Converters"
              Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conveters:ObjectToBackgroundConverter x:Key="ObjectToBackgroundConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.BindingContext>
         <vm:NewSubastaViewModel />
@@ -12,12 +19,18 @@
     <ContentPage.Content>
         <StackLayout>
             <ScrollView Padding="0,0,0,20">
-                <StackLayout Orientation="Vertical" >
-                    <Image
-                           HorizontalOptions="FillAndExpand"
-                           HeightRequest="{Binding Width, Source={RelativeSource Self}}"
-                           Aspect="AspectFill"
-                           Source="{Binding Imagen.ImageSource, Mode=OneWay}"/>
+                <StackLayout Orientation="Vertical">
+                    <Grid>
+                        <Image HorizontalOptions="FillAndExpand"
+                               HeightRequest="{Binding Width, Source={RelativeSource Self}}"
+                               Aspect="AspectFill"
+                               Source="missing_img"/>
+                        <Image HorizontalOptions="FillAndExpand"
+                               HeightRequest="{Binding Width, Source={RelativeSource Self}}"
+                               Aspect="AspectFill"
+                               Source="{Binding Imagen.ImageSource, Mode=OneWay}"
+                               BackgroundColor="{Binding Imagen.ImageSource, Converter={StaticResource ObjectToBackgroundConverter}, Mode=OneWay}"/>
+                    </Grid>
                     <StackLayout Orientation ="Horizontal" Padding="30,10" HorizontalOptions="Center">
                         <Button Command="{Binding OpenGalleryCommand}" Text="{StaticResource IconImage}" FontFamily="MaterialIcons" FontSize="28" CornerRadius="30" HorizontalOptions="FillAndExpand" TextColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}" BorderWidth="2" BackgroundColor="White"/>
                         <Button Command="{Binding OpenCameraCommand}" Text="{StaticResource IconCamera}" FontFamily="MaterialIcons" FontSize="28" CornerRadius="30" HorizontalOptions="FillAndExpand" TextColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}" BorderWidth="2" BackgroundColor="White"/>

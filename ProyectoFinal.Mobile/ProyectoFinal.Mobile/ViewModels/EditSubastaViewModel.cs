@@ -71,7 +71,6 @@ namespace ProyectoFinal.Mobile.ViewModels
             CanDelete = DateTime.Compare(Subasta.Fecha.AddDays(-1), DateTime.Now) >= 0;
         }
 
-
         private async void OnSaveClicked()
         {
             try
