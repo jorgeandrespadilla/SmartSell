@@ -42,7 +42,7 @@
                     <Label HorizontalOptions="Start" Text="Precio inicial" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
                     <Entry Text="{Binding Precio, Mode=TwoWay}" FontSize="Medium" Margin="20,0,20,20" Keyboard="Numeric" ReturnType="Next"/>
                     <Label HorizontalOptions="Start" Text="Fecha límite" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
-                    <DatePicker x:Name="DateSubasta" Date="{Binding Fecha, Mode=TwoWay}" FontSize="Medium" Margin="20,0,20,20" />
+                    <DatePicker x:Name="DateSubasta" Date="{Binding Fecha, Mode=TwoWay}" Format="dd/MM/yyyy" FontSize="Medium" Margin="20,0,20,20" />
                     <StackLayout Orientation ="Horizontal" Padding="30,0" Margin="1" HorizontalOptions="FillAndExpand">
                         <Button CornerRadius="30" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand" Text="Guardar" />
                     </StackLayout>
