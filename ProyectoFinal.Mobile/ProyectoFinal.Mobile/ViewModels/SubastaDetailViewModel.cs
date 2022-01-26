@@ -130,7 +130,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             }
             else
             {
-                await Shell.Current.GoToAsync($"{nameof(PerfilVendedorPage)}?id={Subasta.UsuarioID}");
+                await Shell.Current.GoToAsync($"{nameof(PerfilVendedorPage)}?id={usuarioID}");
             }
             
         }
