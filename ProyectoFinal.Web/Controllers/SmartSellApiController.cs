@@ -434,6 +434,25 @@ namespace ProyectoFinal.Web.Controllers
         //
         // ofertaActual and viewMode should be check at UWP & Xamarin app 
 
+        // GET SubastaPreview/{id}
+        [HttpGet]
+        public IHttpActionResult SubastaPreview(int id)
+        {
+            Subasta subasta = db.Subasta.Find(id);
+            if (subasta == null || !subasta.Usuario.Activo)
+            {
+                return BadRequest("No se encontró la previsualización de la subasta.");
+            }
+
+            return Ok(new SubastaPreviewDto(
+                subasta.SubastaID,
+                (int)subasta.UsuarioID,
+                subasta.NombreProducto,
+                subasta.FotoUrlProducto 
+            ));
+        }
+        // SubastaPreviewDto
+
         // POST CreateSubasta
         [HttpPost]
         public IHttpActionResult CreateSubasta([FromBody] CreateSubastaDto dto)
