@@ -15,6 +15,7 @@ namespace ProyectoFinal.Mobile.ViewModels
         public Command<int> ShowOfertaCommand { get; }
         public Command<string> UpdateOfertasCommand { get; }
         public Command LogoutCommand { get; }
+        public Command EditCommand { get; }
 
         private PerfilDto perfil;
         public PerfilDto Perfil
@@ -49,6 +50,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             UpdateOfertasCommand = new Command<string>(UpdateOfertas);
             ShowOfertaCommand = new Command<int>(OnOfertaClicked);
             LogoutCommand = new Command(OnLogoutClicked);
+            EditCommand = new Command(OnEditClicked);
         }
 
         public override async void Initialize()
@@ -99,6 +101,19 @@ namespace ProyectoFinal.Mobile.ViewModels
                     await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
                 }
             }
+        }
+
+        private async void OnEditClicked()
+        {
+            try
+            {
+                await Shell.Current.GoToAsync($"{nameof(EditPerfilPage)}");
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+            }
+
         }
     }
 }

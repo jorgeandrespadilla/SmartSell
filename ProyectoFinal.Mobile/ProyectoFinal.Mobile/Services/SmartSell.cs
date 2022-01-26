@@ -98,6 +98,7 @@ namespace ProyectoFinal.Mobile.Services
         {
             CurrentUser = null;
             UserName = "";
+            Application.Current.MainPage = new AppShell(); //Reset all pages
         }
 
         public bool IsAuthorized()

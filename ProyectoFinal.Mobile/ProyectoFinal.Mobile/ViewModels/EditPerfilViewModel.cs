@@ -41,7 +41,7 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public EditPerfilViewModel()
         {
-            Title = "Editar subasta";
+            Title = "Editar perfil";
             SaveCommand = new Command(OnSaveClicked);
             DeleteCommand = new Command(OnDeleteClicked);
         }
