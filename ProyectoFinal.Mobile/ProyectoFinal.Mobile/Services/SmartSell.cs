@@ -415,6 +415,32 @@ namespace ProyectoFinal.Mobile.Services
                 return data;
             }
         }
+        
+        
+        public async Task<SubastaPreviewDto> GetSubastaPreview(int id)
+        {
+            string url = $"SubastaPreview/{id}";
+            HttpResponseMessage response = await client.GetAsync(url);
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var error = JsonConvert.DeserializeObject<MessageDto>(content);
+                    throw new Exception(error.Message);
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+            else
+            {
+                var data = JsonConvert.DeserializeObject<SubastaPreviewDto>(content);
+                return data;
+            }
+        }
 
         public ICollection<Comentario> ComentariosDtoToComentarios(ICollection<ComentarioDto> comentariosDto)
         {

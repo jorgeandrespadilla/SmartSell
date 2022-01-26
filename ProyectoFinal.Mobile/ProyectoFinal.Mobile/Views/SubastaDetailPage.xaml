@@ -40,7 +40,11 @@
                        HorizontalOptions="FillAndExpand"
                        HeightRequest="{Binding Width, Source={RelativeSource Self}}"
                        Aspect="AspectFill"
-                       Source="{Binding Imagen, Mode=OneWay}"/>     
+                       Source="{Binding Imagen, Mode=OneWay}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowPreviewCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
                     <StackLayout Orientation ="Vertical" Padding="20,10" HorizontalOptions="Center">
                         <Button IsVisible="{Binding CanOffer}" Command="{Binding CreateOfertaCommand}" CornerRadius="30" Text="Crear Oferta" Padding="20,10" TextColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}" BorderWidth="2" BackgroundColor="White" Margin="0,0,0,5"/>
                         <Button IsVisible="{Binding CanDeleteOferta}" Command="{Binding DeleteOfertaCommand}" Text="Eliminar Oferta" CornerRadius="30" Padding="20,10" TextColor="#dc3545" BorderColor="#dc3545" BorderWidth="2" BackgroundColor="White" />
