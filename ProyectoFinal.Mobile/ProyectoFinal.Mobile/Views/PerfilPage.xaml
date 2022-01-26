@@ -81,7 +81,7 @@
                                 <StackLayout Padding="20,0">
                                     <Frame HorizontalOptions="FillAndExpand">
                                         <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ShowOfertaCommand}" CommandParameter="{Binding OfertaID}"/>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ShowOfertaCommand}" CommandParameter="{Binding SubastaID}"/>
                                         </Frame.GestureRecognizers>
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                             <StackLayout HorizontalOptions="FillAndExpand">

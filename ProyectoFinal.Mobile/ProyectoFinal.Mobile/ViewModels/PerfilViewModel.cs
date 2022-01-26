@@ -71,9 +71,17 @@ namespace ProyectoFinal.Mobile.ViewModels
             }
         }
 
-        private async void OnOfertaClicked(int ofertaID)
+        private async void OnOfertaClicked(int subastaID)
         {
-            await Application.Current.MainPage.DisplayAlert("Oferta seleccionada", $"{ofertaID}", "Aceptar");
+            try
+            {
+                await Shell.Current.GoToAsync($"{nameof(SubastaDetailPage)}?id={subastaID}");
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+            }
+            
         }
 
         private async void OnLogoutClicked()
