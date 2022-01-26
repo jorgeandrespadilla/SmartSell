@@ -16,22 +16,14 @@ namespace ProyectoFinal.Mobile.ViewModels
             set => SetProperty(ref description, value);
         }
         public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
 
 
         public NewComentarioViewModel()
         {
             Title = "Agregar comentario";
             SaveCommand = new Command(OnSave);
-            CancelCommand = new Command(OnCancel);
         }
-
-        private async void OnCancel()
-        {
-            // This will pop the current page off the navigation stack
-            await Shell.Current.GoToAsync("..");
-        }
-        //aqui igual para hacer
+      
         private async void OnSave()
         {
             try
