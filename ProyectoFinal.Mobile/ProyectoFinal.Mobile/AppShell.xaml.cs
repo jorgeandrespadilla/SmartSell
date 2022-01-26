@@ -17,6 +17,7 @@ namespace ProyectoFinal.Mobile
             Routing.RegisterRoute(nameof(SubastaDetailPage), typeof(SubastaDetailPage));
             Routing.RegisterRoute(nameof(NewComentarioPage), typeof(NewComentarioPage));
             Routing.RegisterRoute(nameof(NewOfertaPage), typeof(NewOfertaPage));
+            Routing.RegisterRoute(nameof(PerfilVendedorPage), typeof(PerfilVendedorPage));
         }
 
     }
