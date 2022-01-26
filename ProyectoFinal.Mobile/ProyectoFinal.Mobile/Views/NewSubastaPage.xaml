@@ -31,8 +31,7 @@
                     <Label HorizontalOptions="Start" Text="Fecha límite" TextColor="Black" FontSize="Medium" Padding="20,20,0,0"/>
                     <DatePicker x:Name="DateSubasta" Date="{Binding Fecha, Mode=TwoWay}" FontSize="Medium" Margin="20,0,20,20" />
                     <StackLayout Orientation ="Horizontal" Padding="30,0" Margin="1" HorizontalOptions="FillAndExpand">
-                        <Button CornerRadius="30" Command="{Binding GuardarInformacionCommand}" HorizontalOptions="FillAndExpand" Text="Guardar información" Margin="0,0,10,0" />
-                        <Button CornerRadius="30"  Command="{Binding CancelCommand}" Text="Cancelar" TextColor="#dc3545" BorderColor="#dc3545" BorderWidth="2" BackgroundColor="White"/>
+                        <Button CornerRadius="30" Command="{Binding GuardarInformacionCommand}" HorizontalOptions="FillAndExpand" Text="Guardar" />
                     </StackLayout>
                 </StackLayout>
             </ScrollView>

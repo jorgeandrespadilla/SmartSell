@@ -21,14 +21,12 @@ namespace ProyectoFinal.Mobile.ViewModels
             set => SetProperty(ref description, value);
         }
         public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
         public Command DeleteCommand { get; }
 
         public EditComentarioViewModel()
         {
             Title = "Editar comentario";
             SaveCommand = new Command(OnSaveClicked);
-            CancelCommand = new Command(OnCancelClicked);
             DeleteCommand = new Command(OnDeleteClicked);
         }
 
@@ -52,18 +50,7 @@ namespace ProyectoFinal.Mobile.ViewModels
             }
         }
 
-        public async void OnCancelClicked()
-        {
-            try
-            {
-                await Shell.Current.GoToAsync("..");
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
-            }
-        }
-
+       
         public async void OnDeleteClicked()
         {
             bool response = await Application.Current.MainPage.DisplayAlert("Eliminar comentario", "¿Seguro que desea eliminar el comentario?", "Si", "No");

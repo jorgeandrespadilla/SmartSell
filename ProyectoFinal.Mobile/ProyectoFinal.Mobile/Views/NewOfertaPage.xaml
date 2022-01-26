@@ -14,8 +14,7 @@
             <Label Text="Monto" FontSize="Medium" />
             <Entry Text="{Binding Monto, Mode=TwoWay}" IsSpellCheckEnabled="False" Keyboard="Numeric" HorizontalOptions="FillAndExpand" FontSize="Medium" Margin="0" />
             <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Guardar" CornerRadius="30" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand" Margin="0,20,0,0"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
