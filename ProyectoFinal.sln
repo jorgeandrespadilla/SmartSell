@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		ApiTest.http = ApiTest.http
 		DataBackup.sql = DataBackup.sql
-		Informe P2.pdf = Informe P2.pdf
+		Proyecto Final - Informe.pdf = Proyecto Final - Informe.pdf
 		README.md = README.md
 	EndProjectSection
 EndProject
