@@ -19,6 +19,7 @@ La solución creada para nuestro proyecto final tiene las siguientes caracterís
 - Aplicación web desarrollada en ASP.NET (ASP.NET MVC Framework 4.7)
 - API REST
 - Aplicación de escritorio desarrollada en UWP
+- Aplicación móvil desarrollada en Xamarin
 - Biblioteca de clases para .NET Standard 2.0
 
 ## ¿Cómo restaurar la base de datos?
