@@ -77,11 +77,13 @@ namespace ProyectoFinal.Mobile.ViewModels
         {
             try
             {
+                await SmartSell.GetSubasta(subastaID);
                 await Shell.Current.GoToAsync($"{nameof(SubastaDetailPage)}?id={subastaID}");
+
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
             }
             
         }

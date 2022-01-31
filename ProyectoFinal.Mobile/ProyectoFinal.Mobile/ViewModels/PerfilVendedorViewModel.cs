@@ -40,10 +40,18 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         public async void Initialize(int usuarioID)
         {
-            UsuarioID = usuarioID;
-            Perfil = await SmartSell.GetPerfilVendedor(UsuarioID);
-            NombreCompletoTxt = $"{Perfil.Nombres} {Perfil.Apellidos}";
-            RatingUser = Perfil.Rating;
+            try
+            {
+                UsuarioID = usuarioID;
+                Perfil = await SmartSell.GetPerfilVendedor(UsuarioID);
+                NombreCompletoTxt = $"{Perfil.Nombres} {Perfil.Apellidos}";
+                RatingUser = Perfil.Rating;
+            }
+            catch(Exception ex)
+            {
+                await Shell.Current.GoToAsync($"..");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
+            }
         }
 
         private async void SetRating()

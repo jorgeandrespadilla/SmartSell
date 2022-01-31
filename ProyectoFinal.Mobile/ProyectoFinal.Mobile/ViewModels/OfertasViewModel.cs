@@ -73,7 +73,16 @@ namespace ProyectoFinal.Mobile.ViewModels
 
         private async void OnOfertaClicked(int subastaID)
         {
-            await Shell.Current.GoToAsync($"{nameof(SubastaDetailPage)}?id={subastaID}");
+            try
+            {
+                await SmartSell.GetSubasta(subastaID);
+                await Shell.Current.GoToAsync($"{nameof(SubastaDetailPage)}?id={subastaID}");
+
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
+            }
         }
 
         private void SearchOfertas()

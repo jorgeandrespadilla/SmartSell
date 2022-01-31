@@ -130,9 +130,18 @@ namespace ProyectoFinal.Mobile.ViewModels
             }
             else
             {
-                await Shell.Current.GoToAsync($"{nameof(PerfilVendedorPage)}?id={usuarioID}");
+                try
+                {
+                    await SmartSell.GetPerfilVendedor(usuarioID);
+                    await Shell.Current.GoToAsync($"{nameof(PerfilVendedorPage)}?id={usuarioID}");
+
+                }
+                catch (Exception ex)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Aceptar");
+                }
             }
-            
+
         }
 
         public override void Dispose()
