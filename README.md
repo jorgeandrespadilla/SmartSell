@@ -1,11 +1,10 @@
-# Proyecto Final Programación IV - SmartSell
+# SmartSell
 
 ![image](https://user-images.githubusercontent.com/58148764/140632035-c247d70a-5a3a-456a-8a46-a17b6d91b466.png)
 
-**Integrantes:**
-- Nestor Lozada
-- Jorge Padilla
-- Alain Ruales
+SmartSell es una plataforma digital que facilita la venta de productos entre usuarios mediante un sistema de subastas. Esta plataforma permite a los vendedores listar sus productos, mientras que los compradores pueden participar en subastas para adquirir estos artículos, promoviendo un proceso de venta basado en el mejor postor.
+
+## Contribuir a la solución
 
 Al clonar por primera vez el repositorio, es necesario compilar la solución para que se instalen de manera automática las dependencias NuGet.
   
